@@ -336,13 +336,13 @@
       }
 
       _displayTone(code, attr) {
-        var notes = ["C","Db/C#","D","Eb/D#","E","F","Gb/F#","G","Ab/G#","A","Bb/A#","B"];
-        this[attr] = "";
-          code.forEach(function(each){
-            var nBase = (each+9)%12;
-            var oBase = Math.floor((each+9)/12);
-            this[attr] += notes[nBase]+oBase;
-          }.bind(this))
+        var notes = ["C", "Db/C#", "D", "Eb/D#", "E", "F", "Gb/F#", "G", "Ab/G#", "A", "Bb/A#", "B"];
+        var names = code.map(function (each) {
+          var nBase = (each + 9) % 12;
+          var oBase = Math.floor((each + 9) / 12);
+          return notes[nBase] + oBase;
+        });
+        this[attr] = names.join("|");
       }
     }
     customElements.define(AudioContainer.is, AudioContainer);
