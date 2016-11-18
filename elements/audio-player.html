@@ -1,0 +1,42 @@
+<dom-module id="audio-player">
+  <template>
+    <style>
+      :host {
+        display: none;
+      }
+    </style>
+	</template>
+
+  <script>
+    class AudioPlayer extends Polymer.Element {
+      static get is() {
+        return "audio-player";
+      }
+      static get config() {
+        return {}
+      }
+
+			connectedCallback() {
+				this.audioCtx = new AudioContext();
+        this.gainNode = this.audioCtx.createGain();
+        this.gainNode.gain.value = 0.5;
+			}
+
+			playTone(file) {
+        this.audioCtx.decodeAudioData(file, 
+          function(decodedArrayBuffer) {
+            this.source = this.audioCtx.createBufferSource();
+            this.source.buffer = decodedArrayBuffer;
+            this.source.connect(this.gainNode);
+            this.gainNode.connect(this.audioCtx.destination);
+            this.source.start(0);
+          }.bind(this),
+          function(e) {
+            console.log("Error with decoding audio data" + e.err);
+          }
+        )
+			}
+    }
+    customElements.define(AudioPlayer.is, AudioPlayer);
+  </script>
+</dom-module>

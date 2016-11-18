@@ -1,0 +1,23 @@
+<link rel="import" href="key-visual.html">
+
+<dom-module id="keyboard-visual">
+  <template>
+    <style>
+    </style>
+
+		<slot></slot>
+
+  </template>
+	
+  <script>
+    class KeyboardVisual extends Polymer.Element {
+      static get is() {
+        return "keyboard-visual";
+      }
+      static get config() {
+        return {}
+      }
+    }
+    customElements.define(KeyboardVisual.is, KeyboardVisual);
+  </script>
+</dom-module>

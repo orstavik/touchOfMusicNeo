@@ -1,0 +1,14 @@
+{
+  "name": "touch of music",
+  "authors": [
+    "Tom"
+  ],
+  "private": true,
+  "dependencies": {
+    "polymer": "Polymer/polymer#2.0-preview",
+    "iron-ajax": "PolymerElements/iron-ajax#^1.4.3"
+  },
+  "devDependencies": {
+    "web-component-tester": "^4.0.0"
+  }
+}

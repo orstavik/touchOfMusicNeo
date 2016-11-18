@@ -1,0 +1,62 @@
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+
+<dom-module id="audio-data">
+  <template>
+    <style>
+      :host {
+        display: none;
+      }
+    </style>
+
+    <template is="dom-repeat" items="[[_generateList(amount)]]">
+      <iron-ajax
+        id$="request[[item]]"
+        data-index$="[[index]]"
+        auto
+        url="[[_generateUrl(item)]]"
+        handle-as="arraybuffer"
+        on-response="_fileLoaded"></iron-ajax>
+    </template>
+
+  </template>
+
+  <script>
+    class AudioData extends Polymer.Element {
+      static get is() {
+        return "audio-data";
+      }
+      static get config() {
+        return {
+          properties: {
+            path: String,
+            amount: Number,
+            type: String,
+            files: {
+              type: Array,
+              value: function() {
+                return []
+              }
+            }
+          }
+        }
+      }
+
+      _generateList(amount) {
+        var array = [];
+        for(var i = 0; i < amount; i++) {
+          array.push(i+1);
+        }
+        return array;
+      }
+
+      _generateUrl(index) {
+        return this.path+index+'.'+this.type;
+      }
+
+      _fileLoaded(e) {
+        this.files[e.target.dataset.index] = e.target.lastResponse;
+      }
+    }
+    customElements.define(AudioData.is, AudioData);
+  </script>
+</dom-module>

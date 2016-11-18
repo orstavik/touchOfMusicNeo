@@ -1,0 +1,68 @@
+<link rel="import" href="keyevents-listener.html">
+
+<dom-module id="keyboard-listener">
+  <template>
+	<style>
+		:host {
+			display: none;
+		}
+	</style>
+
+    <keyevents-listener on-key-down="_keyWasDown" on-key-up="_keyWasUp"></keyevents-listener>
+
+  </template>
+
+  <script>
+    class KeyboardListener extends Polymer.Element {
+      static get is() {
+        return "keyboard-listener";
+      }
+      static get config() {
+        return {
+          properties: {
+            pressedKeys: {
+              type: Array,
+              value: function() {
+                return [];
+              }
+            }
+          }
+        }
+      }
+
+      connectedCallback() {
+        setInterval(function(){
+          if (this.pressedKeys.length !== 0) {
+            this._fireEvent("pressed-keys", this.pressedKeys);
+          }
+        }.bind(this), 1000/20);
+      }
+
+      _keyWasDown(e) {
+        var key = e.code;
+        this._fireEvent("key-pressed", key);
+
+        if (this.pressedKeys.indexOf(key) === -1) {
+          this.pressedKeys.push(key);
+        }
+      }
+
+      _keyWasUp(e) {
+        var key = e.code;
+        this._fireEvent("key-unpressed", key);
+
+        var index = this.pressedKeys.indexOf(key);
+        if (index !== -1) {
+          this.pressedKeys.splice(index,1);
+        }
+        this._fireEvent("pressed-keys", this.pressedKeys);
+      }
+      
+      _fireEvent(name, keys) {
+        var _event = new CustomEvent(name, {"detail": {pressed: keys}, "bubbles": true, "composed": true});
+        this.dispatchEvent(_event);
+      }
+    }
+    customElements.define(KeyboardListener.is, KeyboardListener);
+  </script>
+</dom-module>

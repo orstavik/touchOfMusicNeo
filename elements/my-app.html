@@ -1,0 +1,88 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="running-text.html">
+<link rel="import" href="keyboard-container.html">
+<link rel="import" href="tempo-timer.html">
+
+<dom-module id="my-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+        height: 100vh;
+        background-image: url("../images/background/2016-11-01.png");
+        background-size: auto 100%;
+        background-repeat: no-repeat;
+        background-position: bottom;
+      }
+    </style>
+
+    <running-text id="runner" pressed="[[pressedArray]]" text="[[futures]]" tempo="[[tempo]]"></running-text>
+
+    <keyboard-container id="keyboard" on-pressed-keys="_pressedAction" futures="[[futures]]"></keyboard-container>
+    
+    <tempo-timer on-tick="_makeScenario" tempo="[[tempo]]" id="timer"></tempo-timer>
+
+  </template>
+
+  <script>
+    class MyApp extends Polymer.Element {
+      static get is() {
+        return "my-app";
+      }
+      static get config() {
+        return {
+          properties: {
+            pressedArray: {
+              type: Array,
+              value: function() {
+                return []
+              }
+            },
+            scenario: {
+              type: String,
+              value: "UOKUOKJLKJLKYIUYIUTIUTIU",
+              reflectToAttribute: true,
+              observer: "_scenarioReset"
+            },
+            futures: {
+              type: String,
+              value: ""
+            },
+            tempo: {
+              type: Number,
+              value: 1000
+            }
+          }
+        }
+      }
+
+      _pressedAction(e) {
+        this.pressedArray = e.detail.pressed;
+      }
+
+      _scenarioReset() {
+        this.futures = "";
+        this.$.timer.time = 0;
+        this.$.runner.resetRotation();
+      }
+
+      _makeScenario(e) {
+        var i = e.detail.time;
+        var alphabet = "1234567890-=ABCDEFGHIJKLMNOPQRSTUVWXYZ[];',./";
+        // if (i < this.scenario.length && i >= 0) {
+        //   this.futures += this.scenario[i];
+        //   this.$.keyboard.readFutures(i-7);
+        // } else if (i < this.scenario.length+3+7) {
+        //   this.$.keyboard.readFutures(i-7);
+        // }
+        if (i >= 0) {
+          this.futures += alphabet[Math.floor(Math.random()*alphabet.length)];
+          this.$.keyboard.readFutures(i-7);
+        } else {
+          this.$.keyboard.readFutures(i-7);
+        }
+      }
+    }
+    customElements.define(MyApp.is, MyApp);
+  </script>
+</dom-module>

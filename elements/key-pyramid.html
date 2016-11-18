@@ -1,0 +1,178 @@
+<dom-module id="key-pyramid">
+  <template>
+    <style>
+      :host {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+				box-sizing: border-box;
+				height: 100%;
+				width: 100%;
+      }
+
+      :host(.circle) {
+        border-radius: 50%;
+        background: #480e4f;
+      }
+
+      :host(.circle) #shapeDiv {
+        border-radius: 50%;
+      }
+
+      :host(.rounded) {
+        border-radius: 25%;
+        background: #480e4f;
+      }
+
+      :host(.rounded) #shapeDiv {
+        border-radius: 25%;
+      }
+
+      :host([pressed]) #shapeDiv[top] {
+        border-radius: 50%;
+      }
+
+      #shapeDiv:not([active]) {
+        background: #480e4f;
+        opacity: 1 !important;
+      }
+
+      #shapeDiv[bottom] {
+        box-shadow: 0 0 3px 1px rgba(0,0,0,0.5);
+      }
+
+      #shapeDiv {
+        display: inline-block;
+        width: 90%;
+        height: 90%;
+        position: absolute;
+				box-sizing: border-box;
+        box-shadow: 0 0 4px 0px rgba(0,0,0,0.75);
+        transition-duration: 0.6s;
+      }
+
+      :host([pressed]) #shapeDiv {
+        transition-duration: 0.2s;
+      }
+
+      .container {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5vh;
+        font-weight: bold;
+        color: rgba(0,0,0,0.75);
+        cursor: default;
+        z-index: 1;
+      }
+
+      /*:host(.RightThumb:not([pressed])) #shapeDiv[active] {}*/
+			:host(.RightIndex:not([pressed])) #shapeDiv[active] {background: #cdd404}
+			:host(.RightLongfinger:not([pressed])) #shapeDiv[active] {background: #31c1bf}
+			:host(.RightRingfinger:not([pressed])) #shapeDiv[active] {background: #44a9e3}
+			:host(.RightPinky:not([pressed])) #shapeDiv[active] {background: #2443d0}
+			/*:host(.LeftThumb:not([pressed])) #shapeDiv[active] {}*/
+			:host(.LeftIndex:not([pressed])) #shapeDiv[active] {background: #fcdf54}
+			:host(.LeftLongfinger:not([pressed])) #shapeDiv[active] {background: #fe9d05}
+			:host(.LeftRingfinger:not([pressed])) #shapeDiv[active] {background: #e753ad}
+			:host(.LeftPinky:not([pressed])) #shapeDiv[active] {background: #b70b74}
+    </style>
+    
+    <template is="dom-repeat" items="[[_numberToArray(levels)]]" id="repeater">
+      <div id="shapeDiv" style="[[_setStyle(index)]]" top$="[[_checkIfTop(index)]]" bottom$="[[_checkIfBottom(index)]]" active$="[[_checkIfActive(countdown, index)]]"></div>
+    </template>
+    <div class="container">[[char]]</div>
+    <!--active$="[[_checkIfActive(countdown, index)]]"-->
+
+  </template>
+	
+  <script>
+    class KeyPyramid extends Polymer.Element {
+      static get is() {
+        return "key-pyramid";
+      }
+      static get config() {
+        return {
+					properties: {
+            levels: {
+              type: Number,
+              value: 3
+            },
+						char: String,
+            shape: String,
+            color: String,
+            active: {
+              type: Number,
+              // observer: "_makeActive"
+            },
+            countdown: {
+              type: Array,
+              value: function() {
+                return [0]
+              }
+            }
+					}
+        }
+      }
+
+      getRect() {
+        var shape = this.shadowRoot.querySelector("#shapeDiv[active][top]");
+        if (!shape) return null;
+        return shape.getBoundingClientRect();
+      }
+      
+      _makeActive() {
+        if (!this.shadowRoot) return;
+        var actives = this.shadowRoot.querySelectorAll("[active]");
+        actives.forEach(function(elem) {
+          elem.removeAttribute("active");
+        }.bind(this))
+        
+        if (this.active < this.levels) {
+          var active = this.shadowRoot.querySelectorAll("#shapeDiv")[this.active];
+          active.setAttribute("active", true);
+        }
+      }
+
+      _numberToArray(levels) {
+        var array = [];
+        for (var i = 0; i < levels; i++) {
+          array.push(i);
+        }
+        return array;
+      }
+
+      _setStyle(index) {
+        var x = 94 - 16*index;
+        var i = this.levels - index - 1;
+        var o = 1 - i/2.8;
+        var css = 
+          "width: "+x+"%;"+
+          "height: "+x+"%;"+
+          "opacity: "+o+";";
+        return css;
+      }
+
+      _checkIfActive(countdown, index) {
+        var indexB = index - (this.levels - 1);
+        for (var i = 0; i < countdown.length; i++) {
+          if (countdown[i] === indexB) 
+            return countdown[i] === indexB;
+          else continue;
+        }
+      }
+
+      _checkIfTop(index) {
+        return (index === this.levels-1);
+      }
+
+      _checkIfBottom(index) {
+        return (index === 0);
+      }
+    }
+    customElements.define(KeyPyramid.is, KeyPyramid);
+  </script>
+</dom-module>

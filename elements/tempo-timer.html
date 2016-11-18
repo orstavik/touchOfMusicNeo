@@ -1,0 +1,37 @@
+<dom-module id="tempo-timer">
+  <template>
+    <style>
+      :host {
+        display: none;
+      }
+    </style>
+  </template>
+	
+  <script>
+    class TempoTimer extends Polymer.Element {
+      static get is() {
+        return "tempo-timer";
+      }
+      static get config() {
+        return {
+          properties: {
+            timer: Object,
+            tempo: Number,
+            time: {
+              type: Number,
+              value: 0
+            }
+          }
+        }
+      }
+
+      connectedCallback() {
+        this.timer = setInterval(function() {
+          this.dispatchEvent(new CustomEvent("tick", {"detail": {time: this.time}}));
+          this.time++;
+        }.bind(this), this.tempo);
+      }
+    }
+    customElements.define(TempoTimer.is, TempoTimer);
+  </script>
+</dom-module>

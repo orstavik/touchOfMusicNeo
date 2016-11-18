@@ -1,0 +1,38 @@
+<link rel="import" href="monster-stage.html">
+
+<dom-module id="monster-container">
+  <template>
+    <style>
+      :host {
+				display: flex;
+        width: 100vw;
+        justify-content: center;
+        position: absolute;
+        bottom: 0;
+      }
+    </style>
+
+    <monster-stage id="stage"></monster-stage>
+
+  </template>
+	
+  <script>
+    class MonsterContainer extends Polymer.Element {
+      static get is() {
+        return "monster-container";
+      }
+      static get config() {
+        return {
+          properties: {
+            rect: Object
+          }
+        }
+      }
+
+      getRect() {
+        return this.$.stage.getBoundingClientRect();
+      }
+    }
+    customElements.define(MonsterContainer.is, MonsterContainer);
+  </script>
+</dom-module>

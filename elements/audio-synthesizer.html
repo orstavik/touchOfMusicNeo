@@ -1,0 +1,70 @@
+<dom-module id="audio-synthesizer">
+  <template>
+    <style>
+      :host {
+        display: none;
+      }
+    </style>
+		
+  </template>
+
+  <script>
+    class AudioSynthesizer extends Polymer.Element {
+      static get is() {
+        return "audio-synthesizer";
+      }
+      static get config() {
+        return {
+          properties: {
+            instrument: {
+							type: String,
+							reflectToAttribute: true
+						},
+            keys: {
+              type: Array,
+              observer: "_keysChange"
+            },
+            keyArray: {
+              type: Array,
+              value: function() {
+                return [
+									"Digit1", "Digit2", "Digit3", "Digit4", "Digit5", "Digit6", "Digit7", "Digit8", "Digit9", "Digit0", "Minus", "Equal",
+                  "KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "BracketLeft", "BracketRight",
+                  "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "Semicolon", "Quote",
+                  "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Comma", "Period", "Slash"
+                ]
+              }
+            },
+						tone: {
+							type: String,
+							reflectToAttribute: true
+						}
+          }
+        }
+      }
+
+      _keysChange() {
+				this.keys.forEach(function(key) {
+					var index = this.keyArray.indexOf(key);
+					if (index !== -1)
+						this._createTone(index);
+				}.bind(this));
+      }
+
+			_createTone(index) {
+				var notes = ["C","D","E","F","G","A","B"];
+				var tone = {};
+				tone.note = notes[index%7];
+				tone.octave = Math.floor(index/7)+2;
+				this._playTone(tone);
+			}
+
+			_playTone(tone) {
+				this.tone = tone.note + tone.octave;
+				Synth.setVolume(0.1);
+				Synth.play(this.instrument, tone.note, tone.octave, 0.5);
+			}
+    }
+    customElements.define(AudioSynthesizer.is, AudioSynthesizer);
+  </script>
+</dom-module>
