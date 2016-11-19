@@ -1,5 +1,6 @@
 <link rel="import" href="audio-data.html">
 <link rel="import" href="audio-player.html">
+<link rel="import" href="music-scale.html">
 
 <dom-module id="audio-container">
     <template>
@@ -21,6 +22,8 @@
 
         <slot></slot>
 
+        <music-scale id="scale" base="[[base]]" mode="{{modeName}}"></music-scale>
+
         <audio-data id="loader" path="../audio/tones/piano/" amount=88 type="mp3"></audio-data>
         <audio-player id="player"></audio-player>
 
@@ -32,106 +35,6 @@
     </template>
 
     <script>
-
-      class MusicScale {
-
-        constructor(base) {
-          this.staticNotes = ["C", "Db/C#", "D", "Eb/D#", "E", "F", "Gb/F#", "G", "Ab/G#", "A", "Bb/A#", "B"];
-          this.staticScales = [
-            [[0, 1, 3, 5, 6, 8, 10], "locrian"],
-            [[0, 2, 3, 5, 7, 8, 10], "minor"], // aeolian VI
-            [[0, 2, 4, 5, 7, 9, 10], "mixolydian"],
-            [[0, 2, 4, 6, 7, 9, 11], "lydian"],
-            [[0, 1, 3, 5, 7, 8, 10], "phrygian"],
-            [[0, 2, 3, 5, 7, 9, 10], "dorian"],
-            [[0, 2, 4, 5, 7, 9, 11], "major"] //ionian I
-          ];
-          this.baseIndex = this.noteNameToNumber(base);
-          this.keyModulate = 0;
-          this.modePosition = 6;        //start with major, first to be flattened is B, first to sharpen is F
-          this.modularScale = this.staticScales[this.modePosition][0];
-          this.updateNotesAndChords();
-        }
-
-        noteNameToNumber(base) {
-          let note = this.staticNotes.indexOf(base.slice(0, -1));
-          let octave = base.slice(-1);
-          return (note - 9) + octave * 12;
-        }
-
-        numbersToNoteNames(notes) {
-          let notes = this.staticNotes;
-          let names = notes.map(function (noteNumber) {
-            let num = noteNumber + 9;
-            return notes[(num % 12)] + Math.floor(num / 12);
-          });
-          return names.join("|");
-        }
-
-        turnModusRight() {
-          this.modePosition += 4;
-          if (this.modePosition > 6)
-            this.modePosition -= 7;
-          this.modularScale[this.modePosition] = this.modularScale[this.modePosition] + 1;
-          this.updateNotesAndChords();
-        }
-
-        turnModusLeft() {
-          this.modularScale[this.modePosition] = this.modularScale[this.modePosition] - 1;
-          this.modePosition -= 4;
-          if (this.modePosition < 0)
-            this.modePosition += 7;
-          this.updateNotesAndChords();
-        }
-
-        turnKeyRight() {
-          this.keyModulate += 7;
-          if (this.keyModulate > 11)
-            this.keyModulate -= 12;
-        }
-
-        turnKeyLeft() {
-          this.keyModulate += 5;
-          if (this.keyModulate > 11)
-            this.keyModulate -= 12;
-        }
-
-        updateNotesAndChords() {
-          this.tones = {
-            I: this.baseIndex + this.modularScale[0],
-            II: this.baseIndex + this.modularScale[1],
-            III: this.baseIndex + this.modularScale[2],
-            IV: this.baseIndex + this.modularScale[3],
-            V: this.baseIndex + this.modularScale[4],
-            VI: this.baseIndex + this.modularScale[5],
-            VII: this.baseIndex + this.modularScale[6]
-          };
-          this.chords = {
-            I: [this.tones.I, this.tones.III, this.tones.V],
-            ii: [this.tones.II, this.tones.IV, this.tones.VI],
-            iii: [this.tones.III, this.tones.V, this.tones.VII],
-            IV: [this.tones.IV, this.tones.VI, this.tones.I],
-            V: [this.tones.V, this.tones.VII, this.tones.II],
-            vi: [this.tones.VI, this.tones.I, this.tones.III],
-            viiDim: [this.tones.VII, this.tones.II, this.tones.IV],
-            //from statistical analysis of chords in hooktheory
-            II: [this.tones.II, this.tones.IV + 1, this.tones.VI],
-            III: [this.tones.III, this.tones.V + 1, this.tones.VII],
-          };
-        }
-
-        getTone(roman) {
-          return this.tones[roman] + this.keyModulate;
-        }
-
-        getChord(roman) {
-          return this.chords[roman];
-        }
-
-        getName() {
-          return this.staticScales[this.modePosition][1];
-        }
-      }
 
       class AudioContainer extends Polymer.Element {
         static get is() {
@@ -158,42 +61,33 @@
               },
               modeName: {
                 type: String,
-                computed: "_getModularScaleName(papaScale)",
                 reflectToAttribute: true
               },
               shift: {
                 type: Number,
                 value: 0
-              },
-              scale: {
-                type: MusicScale,
-                computed: "createScale(base)"
               }
             }
           }
         }
 
-        createScale(base) {
-          return new MusicScale(base);
-        }
 
         _keysPress() {
-          if (!this.press || !this.scale)
+          if (!this.press)
             return;
           let key = this.press;
           if (key === "Tab")
-            this.scale.turnKeyLeft() ;
+            this.$.scale.turnKeyLeft() ;
           else if (key === "Enter")
-            this.scale.turnKeyRight();
+            this.$.scale.turnKeyRight();
           else if (key === "Backquote")
-            this.scale.turnModusLeft();
+            this.$.scale.turnModusLeft();
           else if (key === "Backspace")
-            this.scale.turnModusRight();
+            this.$.scale.turnModusRight();
           else if (key === "ShiftLeft")
             this.shift = 1;
           else
             return this._playTone(key);
-          this.notifyPath("scale");
         }
 
         _keysUnpress() {
@@ -210,18 +104,14 @@
           codes.forEach(function (code) {
             this.$.player.playTone(this.$.loader.files[code]);
           }.bind(this));
-          this.tone = this.scale.numbersToNoteNames(codes);
+          this.tone = this.$.scale.numbersToNoteNames(codes);
         }
 
         _getTonesForKey(toneRoman, chord, octave) {
           var mode = this.$.mapChoise.querySelector("[checked]").checked;
           if (!mode && chord)
-              return this.scale.getChord(chord);
-          return [this.scale.getTone(toneRoman) + 12 * octave + this.shift];
-        }
-
-        _getModularScaleName(scale) {
-          return scale.getName();
+              return this.$.scale.getChord(chord);
+          return [this.$.scale.getTone(toneRoman) + 12 * octave + this.shift];
         }
       }
       customElements.define(AudioContainer.is, AudioContainer);

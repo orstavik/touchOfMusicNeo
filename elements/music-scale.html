@@ -1,0 +1,136 @@
+<link rel="import" href="audio-data.html">
+<link rel="import" href="audio-player.html">
+
+<dom-module id="audio-container">
+    <template>
+        <style>
+            :host {
+              display: none;
+            }
+        </style>
+    </template>
+    <script>
+
+      class MusicScale extends Polymer.Element {
+        static get is() {
+          return "music-scale";
+        }
+
+        static get config() {
+          return {
+            properties: {
+              base : {
+                type: String,
+                observer: "setup"
+              },
+              mode: {
+                type:String,
+                notify: true,
+                reflectToAttribute: true
+              }
+            }
+          }
+        }
+
+        setup() {
+          this.staticNotes = ["C", "Db/C#", "D", "Eb/D#", "E", "F", "Gb/F#", "G", "Ab/G#", "A", "Bb/A#", "B"];
+          this.staticScales = [
+            [[0, 1, 3, 5, 6, 8, 10], "locrian"],
+            [[0, 2, 3, 5, 7, 8, 10], "minor"], // aeolian VI
+            [[0, 2, 4, 5, 7, 9, 10], "mixolydian"],
+            [[0, 2, 4, 6, 7, 9, 11], "lydian"],
+            [[0, 1, 3, 5, 7, 8, 10], "phrygian"],
+            [[0, 2, 3, 5, 7, 9, 10], "dorian"],
+            [[0, 2, 4, 5, 7, 9, 11], "major"] //ionian I
+          ];
+          this.baseIndex = this.noteNameToNumber(this.base);
+          this.keyModulate = 0;
+          this.modePosition = 6;        //start with major, first to be flattened is B, first to sharpen is F
+          this.modularScale = this.staticScales[this.modePosition][0];
+          this.updateNotesAndChords();
+        }
+
+        noteNameToNumber(base) {
+          let note = this.staticNotes.indexOf(base.slice(0, -1));
+          let octave = base.slice(-1);
+          return (note - 9) + octave * 12;
+        }
+
+        numbersToNoteNames(notes) {
+          let noteNames = this.staticNotes;
+          let names = notes.map(function (noteNumber) {
+            let num = noteNumber + 9;
+            return noteNames[(num % 12)] + Math.floor(num / 12);
+          });
+          return names.join("|");
+        }
+
+        turnModusRight() {
+          this.modePosition += 4;
+          if (this.modePosition > 6)
+            this.modePosition -= 7;
+          this.modularScale[this.modePosition] = this.modularScale[this.modePosition] + 1;
+          this.updateNotesAndChords();
+        }
+
+        turnModusLeft() {
+          this.modularScale[this.modePosition] = this.modularScale[this.modePosition] - 1;
+          this.modePosition -= 4;
+          if (this.modePosition < 0)
+            this.modePosition += 7;
+          this.updateNotesAndChords();
+        }
+
+        turnKeyRight() {
+          this.keyModulate += 7;
+          if (this.keyModulate > 11)
+            this.keyModulate -= 12;
+        }
+
+        turnKeyLeft() {
+          this.keyModulate += 5;
+          if (this.keyModulate > 11)
+            this.keyModulate -= 12;
+        }
+
+        updateNotesAndChords() {
+          this.tones = {
+            I: this.baseIndex + this.modularScale[0],
+            II: this.baseIndex + this.modularScale[1],
+            III: this.baseIndex + this.modularScale[2],
+            IV: this.baseIndex + this.modularScale[3],
+            V: this.baseIndex + this.modularScale[4],
+            VI: this.baseIndex + this.modularScale[5],
+            VII: this.baseIndex + this.modularScale[6]
+          };
+          this.chords = {
+            I: [this.tones.I, this.tones.III, this.tones.V],
+            ii: [this.tones.II, this.tones.IV, this.tones.VI],
+            iii: [this.tones.III, this.tones.V, this.tones.VII],
+            IV: [this.tones.IV, this.tones.VI, this.tones.I],
+            V: [this.tones.V, this.tones.VII, this.tones.II],
+            vi: [this.tones.VI, this.tones.I, this.tones.III],
+            viiDim: [this.tones.VII, this.tones.II, this.tones.IV],
+            //from statistical analysis of chords in hooktheory
+            II: [this.tones.II, this.tones.IV + 1, this.tones.VI],
+            III: [this.tones.III, this.tones.V + 1, this.tones.VII],
+          };
+          this.mode = this.getName();
+          this.notifyPath("mode");
+        }
+
+        getTone(roman) {
+          return this.tones[roman] + this.keyModulate;
+        }
+
+        getChord(roman) {
+          return this.chords[roman];
+        }
+
+        getName() {
+          return this.staticScales[this.modePosition][1];
+        }
+      }
+      customElements.define(MusicScale.is, MusicScale);
+    </script>
+</dom-module>
