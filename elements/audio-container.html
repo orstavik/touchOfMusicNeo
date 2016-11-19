@@ -224,57 +224,46 @@
                 reflectToAttribute: true
               },
               base: {
-                type: String,
-                reflectToAttribute: true
-              },
-              baseIndex: {
-                type: Number,
-                computed: "_baseToIndex(base)"
-              },
-              modePosition: {
-                type: Number,
-                value: 6             //VII (B)
+                type: String
               },
               modeName: {
                 type: String,
-                computed: "_getModularScaleName(modularScale)",
+                computed: "_getModularScaleName(papaScale)",
                 reflectToAttribute: true
-              },
-              modularScale: {
-                type: Array,
-                value: function () {
-                  return [0, 2, 4, 5, 7, 9, 11]; //major
-                }
               },
               shift: {
                 type: Number,
                 value: 0
+              },
+              scale: {
+                type: MusicScale,
+                computed: "createScale(base)"
               }
             }
           }
         }
 
-        connectedCallback() {
-          this.papaScale = new MusicScale(this.baseIndex);
+        createScale(base) {
+          return new MusicScale(this._toneAsTextToNumbers(base));
         }
 
         _keysPress() {
-          if (!this.press)
+          if (!this.press || !this.scale)
             return;
           let key = this.press;
           if (key === "Tab")
-            this.papaScale.turnKeyLeft() ;
+            this.scale.turnKeyLeft() ;
           else if (key === "Enter")
-            this.papaScale.turnKeyRight();
+            this.scale.turnKeyRight();
           else if (key === "Backquote")
-            this.papaScale.turnModusLeft();
+            this.scale.turnModusLeft();
           else if (key === "Backspace")
-            this.papaScale.turnModusRight();
+            this.scale.turnModusRight();
           else if (key === "ShiftLeft")
             this.shift = 1;
           else
             return this._playTone(key);
-          this.notifyPath("papaScale");
+          this.notifyPath("scale");
         }
 
         _keysUnpress() {
@@ -295,19 +284,19 @@
           var mode = this.$.mapChoise.querySelector("[checked]").checked;
           var option = this.keyArray.indexOf(key) >= 35 && this.keyArray.indexOf(key) < 44;
           if (!mode && option)
-            return this.papaScale.getChord(this.chordsMap[key][0]);
-          return [this.papaScale.getTone(this.tonesMap[key][0]) + 12 * this.tonesMap[key][1] + this.shift];
+            return this.scale.getChord(this.chordsMap[key][0]);
+          return [this.scale.getTone(this.tonesMap[key][0]) + 12 * this.tonesMap[key][1] + this.shift];
         }
 
-        _baseToIndex(base) {
+        _getModularScaleName(scale) {
+          return scale.getName();
+        }
+
+        _toneAsTextToNumbers(base) {
           var notes = ["C", "Db/C#", "D", "Eb/D#", "E", "F", "Gb/F#", "G", "Ab/G#", "A", "Bb/A#", "B"];
           var nBase = notes.indexOf(base.slice(0, -1));
           var oBase = base.slice(-1);
           return (nBase - 9) + oBase * 12;
-        }
-
-        _getModularScaleName(scale) {
-          return !this.papaScale ? "notReady" : this.papaScale.getName();
         }
 
         _toneNumbersToText(code) {
