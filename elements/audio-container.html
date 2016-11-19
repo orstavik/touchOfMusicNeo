@@ -14,7 +14,12 @@
                 color: #ddd;
                 font-weight: bold;
             }
+            ::slotted(*) {
+                display: none
+            }
         </style>
+
+        <slot></slot>
 
         <audio-data id="loader" path="../audio/tones/piano/" amount=88 type="mp3"></audio-data>
         <audio-player id="player"></audio-player>
@@ -30,9 +35,8 @@
 
       class MusicScale {
 
-        constructor(baseIndex) {
-          this.baseIndex = baseIndex;
-          this.keyModulate = 0;
+        constructor(base) {
+          this.staticNotes = ["C", "Db/C#", "D", "Eb/D#", "E", "F", "Gb/F#", "G", "Ab/G#", "A", "Bb/A#", "B"];
           this.staticScales = [
             [[0, 1, 3, 5, 6, 8, 10], "locrian"],
             [[0, 2, 3, 5, 7, 8, 10], "minor"], // aeolian VI
@@ -42,9 +46,26 @@
             [[0, 2, 3, 5, 7, 9, 10], "dorian"],
             [[0, 2, 4, 5, 7, 9, 11], "major"] //ionian I
           ];
+          this.baseIndex = this.noteNameToNumber(base);
+          this.keyModulate = 0;
           this.modePosition = 6;        //start with major, first to be flattened is B, first to sharpen is F
           this.modularScale = this.staticScales[this.modePosition][0];
           this.updateNotesAndChords();
+        }
+
+        noteNameToNumber(base) {
+          var nBase = this.staticNotes.indexOf(base.slice(0, -1));
+          var oBase = base.slice(-1);
+          return (nBase - 9) + oBase * 12;
+        }
+
+        numbersToNoteNames(code) {
+          let notes = this.staticNotes;
+          let names = code.map(function (each) {
+            let num = (each + 9);
+            return notes[(num % 12)] + Math.floor(num / 12);
+          });
+          return names.join("|");
         }
 
         turnModusRight() {
@@ -128,97 +149,6 @@
                 type: String,
                 observer: "_keysUnpress"
               },
-              keyArray: {
-                type: Array,
-                value: function () {
-                  return [
-                      /*0*/"Digit1", "Digit2", "Digit3", "Digit4", "Digit5", "Digit6", "Digit7", "Digit8", "Digit9", "Digit0", "Minus", "Equal",
-                      /*12*/"KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "BracketLeft", "BracketRight",
-                      /*24*/"KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "Semicolon", "Quote",
-                      /*35*/"KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Comma", "Period", "Slash"
-                  ]
-                }
-              },
-              tonesMap: {
-                type: Object,
-                value: function () {
-                  return {
-                    KeyA: ["IV", 0 - 1],
-                    KeyB: ["VI", 0],
-                    KeyC: ["II", 0],
-                    KeyD: ["I", 0],
-                    KeyE: ["VII", 0 - 1],
-                    KeyF: ["III", 0],
-                    KeyG: ["V", 0],
-                    KeyH: ["VII", 1 - 1],
-                    KeyI: ["III", 1],
-                    KeyJ: ["II", 1],
-                    KeyK: ["IV", 1],
-                    KeyL: ["VI", 1],
-                    KeyM: ["III", 1],
-                    KeyN: ["I", 1],
-                    KeyO: ["V", 1],
-                    KeyP: ["VII", 1],
-                    KeyQ: ["III", 0 - 1],
-                    KeyR: ["II", 0],
-                    KeyS: ["VI", 0 - 1],
-                    KeyT: ["IV", 0],
-                    KeyU: ["I", 1],
-                    KeyV: ["IV", 0],
-                    KeyW: ["V", 0 - 1],
-                    KeyX: ["VII", 0 - 1],
-                    KeyY: ["VI", 1 - 1],
-                    KeyZ: ["V", 0 - 1],
-                    Semicolon: ["I", 1 + 1],
-                    Comma: ["V", 1],
-                    Period: ["VII", 1],
-                    Slash: ["II", 1 + 1],
-                    BracketLeft: ["II", 1 + 1],
-                    BracketRight: ["IV", 1 + 1],
-                    Quote: ["III", 1 + 1]
-                  }
-                }
-              },
-              chordsMap: {
-                type: Object,
-                value: function () {
-                  return {
-                    KeyA: ["IV", 0 - 1],
-                    KeyB: ["vi", 0],
-                    KeyC: ["ii", 0],
-                    KeyD: ["I", 0],
-                    KeyE: ["VII", 0 - 1],
-                    KeyF: ["III", 0],
-                    KeyG: ["V", 0],
-                    KeyH: ["VII", 1 - 1],
-                    KeyI: ["III", 1],
-                    KeyJ: ["II", 1],
-                    KeyK: ["IV", 1],
-                    KeyL: ["VI", 1],
-                    KeyM: ["iii", 0],
-                    KeyN: ["I", 0],
-                    KeyO: ["V", 1],
-                    KeyP: ["VII", 1],
-                    KeyQ: ["III", 0 - 1],
-                    KeyR: ["II", 0],
-                    KeyS: ["VI", 0 - 1],
-                    KeyT: ["IV", 0],
-                    KeyU: ["I", 1],
-                    KeyV: ["IV", 0],
-                    KeyW: ["V", 0 - 1],
-                    KeyX: ["viiDim", 0],
-                    KeyY: ["VI", 1 - 1],
-                    KeyZ: ["V", 0],
-                    Semicolon: ["I", 1 + 1],
-                    Comma: ["V", 0],
-                    Period: ["III", 1],
-                    Slash: ["II", 1 + 1],
-                    BracketLeft: ["II", 1 + 1],
-                    BracketRight: ["IV", 1 + 1],
-                    Quote: ["III", 1 + 1]
-                  }
-                }
-              },
               tone: {
                 type: String,
                 reflectToAttribute: true
@@ -244,7 +174,7 @@
         }
 
         createScale(base) {
-          return new MusicScale(this._toneAsTextToNumbers(base));
+          return new MusicScale(base);
         }
 
         _keysPress() {
@@ -273,39 +203,25 @@
         }
 
         _playTone(key) {
-          var codes = this._getTonesForKey(key);
+          var div = this.querySelector("[data-key=" + key + "]");
+          if (!div)
+            return;
+          var codes = this._getTonesForKey(div.dataset.tone, div.dataset.chord, div.dataset.octave);
           codes.forEach(function (code) {
             this.$.player.playTone(this.$.loader.files[code]);
           }.bind(this));
-          this.tone = this._toneNumbersToText(codes);
+          this.tone = this.scale.numbersToNoteNames(codes);
         }
 
-        _getTonesForKey(key) {
+        _getTonesForKey(toneRoman, chord, octave) {
           var mode = this.$.mapChoise.querySelector("[checked]").checked;
-          var option = this.keyArray.indexOf(key) >= 35 && this.keyArray.indexOf(key) < 44;
-          if (!mode && option)
-            return this.scale.getChord(this.chordsMap[key][0]);
-          return [this.scale.getTone(this.tonesMap[key][0]) + 12 * this.tonesMap[key][1] + this.shift];
+          if (!mode && chord)
+              return this.scale.getChord(chord);
+          return [this.scale.getTone(toneRoman) + 12 * octave + this.shift];
         }
 
         _getModularScaleName(scale) {
           return scale.getName();
-        }
-
-        _toneAsTextToNumbers(base) {
-          var notes = ["C", "Db/C#", "D", "Eb/D#", "E", "F", "Gb/F#", "G", "Ab/G#", "A", "Bb/A#", "B"];
-          var nBase = notes.indexOf(base.slice(0, -1));
-          var oBase = base.slice(-1);
-          return (nBase - 9) + oBase * 12;
-        }
-
-        _toneNumbersToText(code) {
-          let notes = ["C", "Db/C#", "D", "Eb/D#", "E", "F", "Gb/F#", "G", "Ab/G#", "A", "Bb/A#", "B"];
-          let names = code.map(function (each) {
-            let num = (each + 9);
-            return notes[(num % 12)] + Math.floor(num / 12);
-          });
-          return names.join("|");
         }
       }
       customElements.define(AudioContainer.is, AudioContainer);
