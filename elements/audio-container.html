@@ -3,120 +3,114 @@
 <link rel="import" href="music-scale.html">
 
 <dom-module id="audio-container">
-    <template>
-        <style>
-            /*:host {
-              display: none;
-            }*/
-            #mapChoise {
-                position: fixed;
-                bottom: 20px;
-                left: 20px;
-                color: #ddd;
-                font-weight: bold;
-            }
-            ::slotted(*) {
-                display: none
-            }
-        </style>
+  <template>
+    <style>
+      /*:host {
+        display: none;
+      }*/
+      #mapChoise {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        color: #ddd;
+        font-weight: bold;
+      }
 
-        <slot></slot>
+      ::slotted(*) {
+        display: none
+      }
+    </style>
 
-        <music-scale id="scale" base="[[base]]" mode="{{modeName}}" key="{{keyName}}"></music-scale>
+    <slot></slot>
 
-        <audio-data id="loader" path="../audio/tones/piano/" amount=88 type="mp3"></audio-data>
-        <audio-player id="player"></audio-player>
+    <music-scale id="scale" base="[[base]]" mode="{{modeName}}" key="{{keyName}}"></music-scale>
+    <audio-data id="loader" path="../audio/tones/piano/" amount=88 type="mp3"></audio-data>
+    <audio-player id="player"></audio-player>
 
-        <form id="mapChoise">
-            <input type="radio" name="set" value="tones" checked> Tones </br>
-            <input type="radio" name="set" value="chords"> Chords
-        </form>
+    <form id="mapChoise">
+      <input type="radio" name="set" value="tones" checked> Tones </br>
+      <input type="radio" name="set" value="chords"> Chords
+    </form>
 
-    </template>
+  </template>
 
-    <script>
+  <script>
 
-      class AudioContainer extends Polymer.Element {
-        static get is() {
-          return "audio-container";
-        }
+    class AudioContainer extends Polymer.Element {
+      static get is() {
+        return "audio-container";
+      }
 
-        static get config() {
-          return {
-            properties: {
-              press: {
-                type: String,
-                observer: "_keysPress"
-              },
-              unpress: {
-                type: String,
-                observer: "_keysUnpress"
-              },
-              tone: {
-                type: String,
-                reflectToAttribute: true
-              },
-              base: {
-                type: String
-              },
-              modeName: {
-                type: String,
-                reflectToAttribute: true
-              },
-              keyName: {
-                type: String,
-                reflectToAttribute: true
-              },
-              shift: {
-                type: Number,
-                value: 0
-              }
+      static get config() {
+        return {
+          properties: {
+            press: {
+              type: String,
+              observer: "_keysPress"
+            },
+            unpress: {
+              type: String,
+              observer: "_keysUnpress"
+            },
+            tone: {
+              type: String,
+              reflectToAttribute: true
+            },
+            base: {
+              type: String
+            },
+            modeName: {
+              type: String,
+              reflectToAttribute: true
+            },
+            keyName: {
+              type: String,
+              reflectToAttribute: true
+            },
+            shift: {
+              type: Number,
+              value: 0
             }
           }
         }
-
-        _keysPress() {
-          if (!this.press)
-            return;
-          let key = this.press;
-          if (key === "Tab")
-            this.$.scale.turnKeyLeft() ;
-          else if (key === "Enter")
-            this.$.scale.turnKeyRight();
-          else if (key === "Backquote")
-            this.$.scale.turnModusLeft();
-          else if (key === "Backspace")
-            this.$.scale.turnModusRight();
-          else if (key === "ShiftLeft")
-            this.shift = 1;
-          else
-            return this._playTone(key);
-        }
-
-        _keysUnpress() {
-          if (this.unpress === "ShiftLeft")
-            this.shift = 0;
-          // TODO: here would be the end of the long sound
-        }
-
-        _playTone(key) {
-          var div = this.querySelector("[data-key=" + key + "]");
-          if (!div)
-            return;
-          var codes = this._getTonesForKey(div.dataset.tone, div.dataset.chord, div.dataset.octave);
-          codes.forEach(function (code) {
-            this.$.player.playTone(this.$.loader.files[code]);
-          }.bind(this));
-          this.tone = this.$.scale.numbersToNoteNames(codes);
-        }
-
-        _getTonesForKey(toneRoman, chord, octave) {
-          var mode = this.$.mapChoise.querySelector("[checked]").checked;
-          if (!mode && chord)
-              return this.$.scale.getChord(chord);
-          return [this.$.scale.getTone(toneRoman) + 12 * octave + this.shift];
-        }
       }
-      customElements.define(AudioContainer.is, AudioContainer);
-    </script>
+
+      _keysPress() {
+        if (!this.press)
+          return;
+        switch (this.press) {
+          case "Tab":
+            return this.$.scale.turnKeyLeft();
+          case "Enter":
+            return this.$.scale.turnKeyRight();
+          case "Backquote":
+            return this.$.scale.turnModusLeft();
+          case "Backspace":
+            return this.$.scale.turnModusRight();
+          case "ShiftLeft":
+            return this.shift = 1;
+        }
+
+        let div = this.querySelector("[data-key=" + this.press + "]");
+        if (!div)
+          return;
+
+        let codes = div.dataset.chord && !this.$.mapChoise.querySelector("[checked]").checked ?
+          this.$.scale.getChord(div.dataset.chord) :
+          [this.$.scale.getTone(div.dataset.tone) + (12 * div.dataset.octave) + this.shift];
+        this.tone = this.$.scale.numbersToNoteNames(codes);
+
+        codes.forEach(function (code) {
+          this.$.player.playTone(this.$.loader.getSound(code));
+        }.bind(this));
+      }
+
+      _keysUnpress() {
+        if (this.unpress === "ShiftLeft")
+          this.shift = 0;
+        // TODO: here would be the end of the long sound
+      }
+    }
+    customElements.define(AudioContainer.is, AudioContainer);
+  </script>
 </dom-module>

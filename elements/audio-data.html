@@ -7,17 +7,10 @@
         display: none;
       }
     </style>
-
     <template is="dom-repeat" items="[[_generateList(amount)]]">
-      <iron-ajax
-        id$="request[[item]]"
-        data-index$="[[index]]"
-        auto
-        url="[[_generateUrl(item)]]"
-        handle-as="arraybuffer"
-        on-response="_fileLoaded"></iron-ajax>
+      <iron-ajax data-index$="[[index]]" url="[[_getUrl(index)]]" handle-as="arraybuffer" on-response="_fileLoaded"
+                 auto></iron-ajax>
     </template>
-
   </template>
 
   <script>
@@ -25,6 +18,7 @@
       static get is() {
         return "audio-data";
       }
+
       static get config() {
         return {
           properties: {
@@ -33,24 +27,26 @@
             type: String,
             files: {
               type: Array,
-              value: function() {
-                return []
+              value: function () {
+                return [];
               }
             }
           }
         }
       }
 
-      _generateList(amount) {
-        var array = [];
-        for(var i = 0; i < amount; i++) {
-          array.push(i+1);
-        }
-        return array;
+      getSound(i) {
+        return this.files[i];
       }
 
-      _generateUrl(index) {
-        return this.path+index+'.'+this.type;
+      _generateList(count) {
+        for (var res = [], i = 0; i < count; i++)
+          res.push(i + 1);
+        return res;
+      }
+
+      _getUrl(index) {
+        return this.path + index + '.' + this.type;
       }
 
       _fileLoaded(e) {
