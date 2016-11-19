@@ -303,7 +303,7 @@
           var option = this.keyArray.indexOf(key) >= 35 && this.keyArray.indexOf(key) < 44;
           if (!mode && option)
             return this.papaScale.getChord(this.chordsMap[key][0]);
-          return [this.papaScale.getTone(this.tonesMap[key][0]) + 12 * this.tonesMap[key][1] + this.shift + this.keyModulate];
+          return [this.papaScale.getTone(this.tonesMap[key][0]) + 12 * this.tonesMap[key][1] + this.shift];
         }
 
         _baseToIndex(base) {
