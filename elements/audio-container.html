@@ -262,49 +262,36 @@
           if (!this.press)
             return;
           let key = this.press;
-          if (key === "Tab" || key === "Enter") {
-            this._funcTabEnter(key);
-          } else if (key === "Backquote" || key === "Backspace") {
-            this._funcBackBack(key);
-          } else if (key === "ShiftLeft") {
-            this._funcShiftLeft(1);
-          } else {
-            this._playTone(key);
-          }
-        }
-
-        _keysUnpress() {
-          if (this.unpress === "ShiftLeft") {
-            this._funcShiftLeft(0);
-          }
-          // TODO: here would be the end of the long sound
-        }
-
-        _funcTabEnter(key) {
-          (key === "Tab" ? this.papaScale.turnKeyLeft() : this.papaScale.turnKeyRight());
-        }
-
-        _funcShiftLeft(num) {
-          this.shift = num;
-        }
-
-        _funcBackBack(key) {
-          if (key === "Backquote")
+          if (key === "Tab")
+            this.papaScale.turnKeyLeft() ;
+          else if (key === "Enter")
+            this.papaScale.turnKeyRight();
+          else if (key === "Backquote")
             this.papaScale.turnModusLeft();
           else if (key === "Backspace")
             this.papaScale.turnModusRight();
+          else if (key === "ShiftLeft")
+            this.shift = 1;
+          else
+            return this._playTone(key);
           this.notifyPath("papaScale");
         }
 
+        _keysUnpress() {
+          if (this.unpress === "ShiftLeft")
+            this.shift = 0;
+          // TODO: here would be the end of the long sound
+        }
+
         _playTone(key) {
-          var codes = this._chordsOrTones(key);
+          var codes = this._getTonesForKey(key);
           codes.forEach(function (code) {
             this.$.player.playTone(this.$.loader.files[code]);
           }.bind(this));
           this.tone = this._toneNumbersToText(codes);
         }
 
-        _chordsOrTones(key) {
+        _getTonesForKey(key) {
           var mode = this.$.mapChoise.querySelector("[checked]").checked;
           var option = this.keyArray.indexOf(key) >= 35 && this.keyArray.indexOf(key) < 44;
           if (!mode && option)
