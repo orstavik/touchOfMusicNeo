@@ -27,6 +27,11 @@
                 type:String,
                 notify: true,
                 reflectToAttribute: true
+              },
+              key: {
+                type:String,
+                notify: true,
+                reflectToAttribute: true
               }
             }
           }
@@ -85,12 +90,14 @@
           this.keyModulate += 7;
           if (this.keyModulate > 11)
             this.keyModulate -= 12;
+          this.key = this.staticNotes[this.keyModulate];
         }
 
         turnKeyLeft() {
           this.keyModulate += 5;
           if (this.keyModulate > 11)
             this.keyModulate -= 12;
+          this.key = this.staticNotes[this.keyModulate];
         }
 
         updateNotesAndChords() {
@@ -115,7 +122,7 @@
             II: [this.tones.II, this.tones.IV + 1, this.tones.VI],
             III: [this.tones.III, this.tones.V + 1, this.tones.VII],
           };
-          this.mode = this.getName();
+          this.mode = this.staticScales[this.modePosition][1];
           this.notifyPath("mode");
         }
 
@@ -125,10 +132,6 @@
 
         getChord(roman) {
           return this.chords[roman];
-        }
-
-        getName() {
-          return this.staticScales[this.modePosition][1];
         }
       }
       customElements.define(MusicScale.is, MusicScale);
