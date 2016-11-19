@@ -32,6 +32,7 @@
 
         constructor(baseIndex) {
           this.baseIndex = baseIndex;
+          this.keyModulate = 0;
           this.staticScales = [
             [[0, 1, 3, 5, 6, 8, 10], "locrian"],
             [[0, 2, 3, 5, 7, 8, 10], "minor"], // aeolian VI
@@ -46,7 +47,7 @@
           this.updateNotesAndChords();
         }
 
-        turnRight() {
+        turnModusRight() {
           this.modePosition += 4;
           if (this.modePosition > 6)
             this.modePosition -= 7;
@@ -54,12 +55,24 @@
           this.updateNotesAndChords();
         }
 
-        turnLeft() {
+        turnModusLeft() {
           this.modularScale[this.modePosition] = this.modularScale[this.modePosition] - 1;
           this.modePosition -= 4;
           if (this.modePosition < 0)
             this.modePosition += 7;
           this.updateNotesAndChords();
+        }
+
+        turnKeyRight() {
+          this.keyModulate += 7;
+          if (this.keyModulate > 11)
+            this.keyModulate -= 12;
+        }
+
+        turnKeyLeft() {
+          this.keyModulate += 5;
+          if (this.keyModulate > 11)
+            this.keyModulate -= 12;
         }
 
         updateNotesAndChords() {
@@ -87,7 +100,7 @@
         }
 
         getTone(roman) {
-          return this.tones[roman];
+          return this.tones[roman] + this.keyModulate;
         }
 
         getChord(roman) {
@@ -236,11 +249,6 @@
               shift: {
                 type: Number,
                 value: 0
-              },
-              keyModulate: {
-                type: Number,
-                value: 0,
-                reflectToAttribute: true
               }
             }
           }
@@ -273,9 +281,7 @@
         }
 
         _funcTabEnter(key) {
-          this.keyModulate += (key === "Tab" ? 5 : 7);
-          if (this.keyModulate > 11)
-            this.keyModulate -= 12;
+          (key === "Tab" ? this.papaScale.turnKeyLeft() : this.papaScale.turnKeyRight());
         }
 
         _funcShiftLeft(num) {
@@ -284,16 +290,16 @@
 
         _funcBackBack(key) {
           if (key === "Backquote")
-            this.papaScale.turnLeft();
+            this.papaScale.turnModusLeft();
           else if (key === "Backspace")
-            this.papaScale.turnRight();
+            this.papaScale.turnModusRight();
           this.notifyPath("papaScale");
         }
 
         _playTone(key) {
           var codes = this._chordsOrTones(key);
           codes.forEach(function (code) {
-            this.$.player.playTone(this.$.loader.files[code + this.keyModulate]);
+            this.$.player.playTone(this.$.loader.files[code]);
           }.bind(this));
           this.tone = this._toneNumbersToText(codes);
         }
