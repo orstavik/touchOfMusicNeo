@@ -54,15 +54,15 @@
         }
 
         noteNameToNumber(base) {
-          var nBase = this.staticNotes.indexOf(base.slice(0, -1));
-          var oBase = base.slice(-1);
-          return (nBase - 9) + oBase * 12;
+          let note = this.staticNotes.indexOf(base.slice(0, -1));
+          let octave = base.slice(-1);
+          return (note - 9) + octave * 12;
         }
 
-        numbersToNoteNames(code) {
+        numbersToNoteNames(notes) {
           let notes = this.staticNotes;
-          let names = code.map(function (each) {
-            let num = (each + 9);
+          let names = notes.map(function (noteNumber) {
+            let num = noteNumber + 9;
             return notes[(num % 12)] + Math.floor(num / 12);
           });
           return names.join("|");
