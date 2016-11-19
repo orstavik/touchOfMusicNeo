@@ -27,6 +27,71 @@
     </template>
 
     <script>
+
+      class MusicScale {
+
+        constructor(baseIndex) {
+          this.baseIndex = baseIndex;
+          this.staticScales = [
+            [[0, 1, 3, 5, 6, 8, 10], "locrian"],
+            [[0, 2, 3, 5, 7, 8, 10], "minor"], // aeolian VI
+            [[0, 2, 4, 5, 7, 9, 10], "mixolydian"],
+            [[0, 2, 4, 6, 7, 9, 11], "lydian"],
+            [[0, 1, 3, 5, 7, 8, 10], "phrygian"],
+            [[0, 2, 3, 5, 7, 9, 10], "dorian"],
+            [[0, 2, 4, 5, 7, 9, 11], "major"] //ionian I
+          ];
+          this.modePosition = 6;
+//          this.modularScale = [0, 2, 4, 5, 7, 9, 11];
+          this.modularScale = this.staticScales[this.modePosition][0];
+        }
+
+        turnRight() {
+          this.modePosition += 4;
+          if (this.modePosition > 6)
+            this.modePosition -= 7;
+          this.modularScale[this.modePosition] = this.modularScale[this.modePosition] + 1;
+        }
+
+        turnLeft() {
+          this.modularScale[this.modePosition] = this.modularScale[this.modePosition] - 1;
+          this.modePosition -= 4;
+          if (this.modePosition < 0)
+            this.modePosition += 7;
+        }
+
+        get7Tones() {
+          return this.tones = {
+            I: this.baseIndex + this.modularScale[0],
+            II: this.baseIndex + this.modularScale[1],
+            III: this.baseIndex + this.modularScale[2],
+            IV: this.baseIndex + this.modularScale[3],
+            V: this.baseIndex + this.modularScale[4],
+            VI: this.baseIndex + this.modularScale[5],
+            VII: this.baseIndex + this.modularScale[6]
+          };
+        }
+
+        getCommonChords() {
+          return this.chords = {
+            I: [this.tones.I, this.tones.III, this.tones.V],
+            ii: [this.tones.II, this.tones.IV, this.tones.VI],
+            iii: [this.tones.III, this.tones.V, this.tones.VII],
+            IV: [this.tones.IV, this.tones.VI, this.tones.I],
+            V: [this.tones.V, this.tones.VII, this.tones.II],
+            vi: [this.tones.VI, this.tones.I, this.tones.III],
+            viiDim: [this.tones.VII, this.tones.II, this.tones.IV],
+            //from statistical analysis of chords in hooktheory
+            II: [this.tones.II, this.tones.IV + 1, this.tones.VI],
+            III: [this.tones.III, this.tones.V + 1, this.tones.VII],
+          };
+        }
+
+        getName() {
+          return this.staticScales[this.modePosition][1];
+        }
+      }
+
       class AudioContainer extends Polymer.Element {
         static get is() {
           return "audio-container";
@@ -175,6 +240,7 @@
         }
 
         connectedCallback() {
+          this.papaScale = new MusicScale(this.baseIndex);
           this._createKeyscale();
         }
 
@@ -212,43 +278,46 @@
 
         _funcBackBack(key) {
           if (key === "Backquote") {
-            this.modularScale[this.modePosition] = this.modularScale[this.modePosition] - 1;
-            this.modePosition -= 4;
-            if (this.modePosition < 0)
-              this.modePosition += 7;
+            this.papaScale.turnLeft();
+//            this.modularScale[this.modePosition] = this.modularScale[this.modePosition] - 1;
+//            this.modePosition -= 4;
+//            if (this.modePosition < 0)
+//              this.modePosition += 7;
           } else if (key === "Backspace") {
-            this.modePosition += 4;
-            if (this.modePosition > 6)
-              this.modePosition -= 7;
-            this.modularScale[this.modePosition] = this.modularScale[this.modePosition] + 1;
+            this.papaScale.turnRight();
+//            this.modePosition += 4;
+//            if (this.modePosition > 6)
+//              this.modePosition -= 7;
+//            this.modularScale[this.modePosition] = this.modularScale[this.modePosition] + 1;
           }
           this._createKeyscale();
           this.notifyPath("modularScale");
         }
 
         _createKeyscale() {
-          this.modeArray = this.modularScale;
-          this.tones = {
-            I: this.baseIndex + this.modeArray[0],
-            II: this.baseIndex + this.modeArray[1],
-            III: this.baseIndex + this.modeArray[2],
-            IV: this.baseIndex + this.modeArray[3],
-            V: this.baseIndex + this.modeArray[4],
-            VI: this.baseIndex + this.modeArray[5],
-            VII: this.baseIndex + this.modeArray[6]
-          };
-          this.chords = {
-            I: [this.tones.I, this.tones.III, this.tones.V],
-            ii: [this.tones.II, this.tones.IV, this.tones.VI],
-            iii: [this.tones.III, this.tones.V, this.tones.VII],
-            IV: [this.tones.IV, this.tones.VI, this.tones.I],
-            V: [this.tones.V, this.tones.VII, this.tones.II],
-            vi: [this.tones.VI, this.tones.I, this.tones.III],
-            viiDim: [this.tones.VII, this.tones.II, this.tones.IV],
-            //from statistical analysis of chords in hooktheory
-            II: [this.tones.II, this.tones.IV + 1, this.tones.VI],
-            III: [this.tones.III, this.tones.V + 1, this.tones.VII],
-          }
+          this.tones = this.papaScale.get7Tones();
+//            {
+//            I: this.baseIndex + this.modularScale[0],
+//            II: this.baseIndex + this.modularScale[1],
+//            III: this.baseIndex + this.modularScale[2],
+//            IV: this.baseIndex + this.modularScale[3],
+//            V: this.baseIndex + this.modularScale[4],
+//            VI: this.baseIndex + this.modularScale[5],
+//            VII: this.baseIndex + this.modularScale[6]
+//          };
+          this.chords = this.papaScale.getCommonChords();
+//          {
+//            I: [this.tones.I, this.tones.III, this.tones.V],
+//            ii: [this.tones.II, this.tones.IV, this.tones.VI],
+//            iii: [this.tones.III, this.tones.V, this.tones.VII],
+//            IV: [this.tones.IV, this.tones.VI, this.tones.I],
+//            V: [this.tones.V, this.tones.VII, this.tones.II],
+//            vi: [this.tones.VI, this.tones.I, this.tones.III],
+//            viiDim: [this.tones.VII, this.tones.II, this.tones.IV],
+//            from statistical analysis of chords in hooktheory
+//            II: [this.tones.II, this.tones.IV + 1, this.tones.VI],
+//            III: [this.tones.III, this.tones.V + 1, this.tones.VII],
+//          }
         }
 
         _playTone(key) {
@@ -271,21 +340,23 @@
           var notes = ["C", "Db/C#", "D", "Eb/D#", "E", "F", "Gb/F#", "G", "Ab/G#", "A", "Bb/A#", "B"];
           var nBase = notes.indexOf(base.slice(0, -1));
           var oBase = base.slice(-1);
-          var base = (nBase - 9) + oBase * 12;
-          return base;
+          return (nBase - 9) + oBase * 12;
         }
 
         _getModularScaleName(scale) {
-          let statScales = [
-            [[0, 1, 3, 5, 6, 8, 10], "locrian"],
-            [[0, 2, 3, 5, 7, 8, 10], "minor"], // aeolian VI
-            [[0, 2, 4, 5, 7, 9, 10], "mixolydian"],
-            [[0, 2, 4, 6, 7, 9, 11], "lydian"],
-            [[0, 1, 3, 5, 7, 8, 10], "phrygian"],
-            [[0, 2, 3, 5, 7, 9, 10], "dorian"],
-            [[0, 2, 4, 5, 7, 9, 11], "major"] //ionian I
-          ];
-          return statScales[this.modePosition][1];
+          if (!this.papaScale)
+            return "notReady";
+          return this.papaScale.getName();
+//          let statScales = [
+//            [[0, 1, 3, 5, 6, 8, 10], "locrian"],
+//            [[0, 2, 3, 5, 7, 8, 10], "minor"], // aeolian VI
+//            [[0, 2, 4, 5, 7, 9, 10], "mixolydian"],
+//            [[0, 2, 4, 6, 7, 9, 11], "lydian"],
+//            [[0, 1, 3, 5, 7, 8, 10], "phrygian"],
+//            [[0, 2, 3, 5, 7, 9, 10], "dorian"],
+//            [[0, 2, 4, 5, 7, 9, 11], "major"] //ionian I
+//          ];
+//          return statScales[this.modePosition][1];
         }
 
         _toneNumbersToText(code) {
