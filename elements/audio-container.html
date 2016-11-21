@@ -117,6 +117,9 @@
             return this.$.scale.turnModusLeft();
           case "turnModusRight":
             return this.$.scale.turnModusRight();
+          case "sharpen":
+            this.shift = 1;
+            return;
         }
 
         let codes = div.dataset.chord && !this.$.mapChoise.querySelector("[checked]").checked ?
@@ -130,8 +133,14 @@
       }
 
       _keysUnpress(key) {
-        if (key === "ShiftLeft")
-          this.shift = 0;
+        let div = this.querySelector("[data-key=" + key + "]");
+        if (!div)
+          return;
+        switch (div.dataset.command) {
+          case "sharpen":
+            this.shift = 0;
+            break;
+        }
         // TODO: here would be the end of the long sound
       }
     }
