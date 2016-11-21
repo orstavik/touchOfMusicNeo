@@ -2,21 +2,101 @@
 
 <dom-module id="keyboard-visual">
   <template>
-    <style>
-    </style>
-
-		<slot></slot>
-
+    <style></style>
+    <slot></slot>
   </template>
-	
+
   <script>
     class KeyboardVisual extends Polymer.Element {
       static get is() {
         return "keyboard-visual";
       }
+
       static get config() {
-        return {}
+        return {
+          properties: {
+            fingerInfo: {
+              type: Object,
+              value: function () {
+                return {
+                  KeyA: new Finger({row: 0, finger: 9, alt: 0}),
+                  KeyB: new Finger({row: -1, finger: 1, alt: 2}),
+                  KeyC: new Finger({row: -1, finger: 6, alt: 0}),
+                  KeyD: new Finger({row: 0, finger: 7, alt: 0}),
+                  KeyE: new Finger({row: 1, finger: 7, alt: 0}),
+                  KeyF: new Finger({row: 0, finger: 6, alt: 0}),
+                  KeyG: new Finger({row: 0, finger: 6, alt: 1}),
+                  KeyH: new Finger({row: 0, finger: 1, alt: 1}),
+                  KeyI: new Finger({row: 1, finger: 2, alt: 0}),
+                  KeyJ: new Finger({row: 0, finger: 1, alt: 0}),
+                  KeyK: new Finger({row: 0, finger: 2, alt: 0}),
+                  KeyL: new Finger({row: 0, finger: 3, alt: 0}),
+                  KeyM: new Finger({row: -1, finger: 1, alt: 0}),
+                  KeyN: new Finger({row: -1, finger: 1, alt: 1}),
+                  KeyO: new Finger({row: 1, finger: 3, alt: 0}),
+                  KeyP: new Finger({row: 1, finger: 4, alt: 0}),
+                  KeyQ: new Finger({row: 1, finger: 9, alt: 0}),
+                  KeyR: new Finger({row: 1, finger: 6, alt: 0}),
+                  KeyS: new Finger({row: 0, finger: 8, alt: 0}),
+                  KeyT: new Finger({row: 1, finger: 6, alt: 1}),
+                  KeyU: new Finger({row: 1, finger: 1, alt: 0}),
+                  KeyV: new Finger({row: -1, finger: 6, alt: 1}),
+                  KeyW: new Finger({row: 1, finger: 8, alt: 0}),
+                  KeyX: new Finger({row: -1, finger: 7, alt: 0}),
+                  KeyY: new Finger({row: 1, finger: 1, alt: 1}),
+                  KeyZ: new Finger({row: -1, finger: 8, alt: 0}),
+                  Digit0: new Finger({row: 2, finger: 4, alt: 0}),
+                  Digit1: new Finger({row: 2, finger: 9, alt: 1}),
+                  Digit2: new Finger({row: 2, finger: 9, alt: 0}),
+                  Digit3: new Finger({row: 2, finger: 8, alt: 0}),
+                  Digit4: new Finger({row: 2, finger: 7, alt: 0}),
+                  Digit5: new Finger({row: 2, finger: 6, alt: 0}),
+                  Digit6: new Finger({row: 2, finger: 6, alt: 1}),
+                  Digit7: new Finger({row: 2, finger: 1, alt: 0}),
+                  Digit8: new Finger({row: 2, finger: 2, alt: 0}),
+                  Digit9: new Finger({row: 2, finger: 3, alt: 0}),
+                  Equal: new Finger({row: 2, finger: 4, alt: 2}),
+                  Minus: new Finger({row: 2, finger: 4, alt: 1}),
+                  Semicolon: new Finger({row: 0, finger: 4, alt: 0}),
+                  Comma: new Finger({row: -1, finger: 2, alt: 0}),
+                  Period: new Finger({row: -1, finger: 3, alt: 0}),
+                  Slash: new Finger({row: -1, finger: 4, alt: 0}),
+                  BracketLeft: new Finger({row: 1, finger: 4, alt: 1}),
+                  BracketRight: new Finger({row: 1, finger: 4, alt: 2}),
+                  Quote: new Finger({row: 0, finger: 4, alt: 1}),
+                }
+              }
+            }
+          }
+        }
       }
+
+      getFingerPositionPerHand(finger){
+        let fingerNum = finger.finger%5;
+        let fingerPos = fingerNum + 1;
+        let alt = finger.alt || 0;
+        return fingerPos + (fingerNum == 1 ? -alt : alt);
+      }
+
+      getStyleForKey(key) {
+          var finger = this.fingerInfo[key];
+          var distance = (finger.row) * 7 + 100;
+          var fingerPos = this.getFingerPositionPerHand(finger);
+          if (finger.finger > 4)
+            fingerPos = -1 * fingerPos;
+          fingerPos -= 0.5;
+          var angle = (fingerPos) * (4.2 - (0.15 * finger.row));
+          return "translateX(-50%) rotate(" + angle + "deg) translateY(-" + distance + "vh)";
+      }
+
+      giveMeMyPostion(key) {
+        return this.getStyleForKey(key);
+      }
+      getShape(key) {
+        let shapeMap = ["circle", "rounded", "circle", "rounded"];
+        return shapeMap[this.fingerInfo[key].row+1];
+      }
+
     }
     customElements.define(KeyboardVisual.is, KeyboardVisual);
   </script>

@@ -5,33 +5,14 @@
 <dom-module id="audio-container">
   <template>
     <style>
-      /*:host {
+      :host {
         display: none;
-      }*/
-      #mapChoise {
-        position: fixed;
-        bottom: 20px;
-        left: 20px;
-        color: #ddd;
-        font-weight: bold;
-      }
-
-      ::slotted(*) {
-        display: none
       }
     </style>
-
     <slot></slot>
-
     <music-scale id="scale" base="[[base]]" mode="{{modeName}}" key="{{keyName}}"></music-scale>
     <audio-data id="loader" path="../audio/tones/piano/" amount=88 type="mp3"></audio-data>
     <audio-player id="player"></audio-player>
-
-    <form id="mapChoise">
-      <input type="radio" name="set" value="tones" checked> Tones </br>
-      <input type="radio" name="set" value="chords"> Chords
-    </form>
-
   </template>
 
   <script>
@@ -67,9 +48,13 @@
               type: String,
               reflectToAttribute: true
             },
-            shift: {
+            sharp: {
               type: Number,
               value: 0
+            },
+            chordMode: {
+              type: Boolean,
+              value: false
             }
           }
         }
@@ -88,16 +73,16 @@
           case "Backspace":
             return this.$.scale.turnModusRight();
           case "ShiftLeft":
-            return this.shift = 1;
+            return this.sharp = 1;
         }
 
         let div = this.querySelector("[data-key=" + this.press + "]");
         if (!div)
           return;
 
-        let codes = div.dataset.chord && !this.$.mapChoise.querySelector("[checked]").checked ?
+        let codes = this.chordMode && div.dataset.chord ?
           this.$.scale.getChord(div.dataset.chord) :
-          [this.$.scale.getTone(div.dataset.tone) + (12 * div.dataset.octave) + this.shift];
+          [this.$.scale.getTone(div.dataset.tone, div.dataset.octave, this.sharp)];
         this.tone = this.$.scale.numbersToNoteNames(codes);
 
         codes.forEach(function (code) {
@@ -107,7 +92,7 @@
 
       _keysUnpress() {
         if (this.unpress === "ShiftLeft")
-          this.shift = 0;
+          this.sharp = 0;
         // TODO: here would be the end of the long sound
       }
     }

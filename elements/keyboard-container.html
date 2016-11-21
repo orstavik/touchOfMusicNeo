@@ -13,11 +13,18 @@
       :host {
         display: block;
       }
+      #mapChoice {
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          color: #ddd;
+          font-weight: bold;
+      }
     </style>
 
 		<keyboard-visual id="keyboard">
 			<template is="dom-repeat" items="[[keyArray]]">
-				<key-visual code$="[[item]]" row="[[_getRow(item)]]" index="[[index]]">
+				<key-visual code$="[[item]]" row="[[_getRow(item)]]">
 					<key-pyramid id="pyramid" char$="[[_codeToChar(item)]]" pressed$="[[pressed]]" active="[[futures]]"	class$="[[_getFingerName(item)]]"></key-pyramid>
 				</key-visual>
 			</template>
@@ -25,6 +32,9 @@
 		</keyboard-visual>
 
 
+      <div id="mapChoice">
+          Play chords:<input type="checkbox" checked="{{chordMode::change}}"><br />
+      </div>
 
 		<monster-container id="monster"></monster-container>
 
@@ -32,7 +42,14 @@
 
     <!--<audio-synthesizer instrument="piano" keys="[[pressedArray]]"></audio-synthesizer>-->
 
-    <audio-container id="audioPlayer" press="[[pressedKey]]" unpress="[[unpressedKey]]" base="C4" mode="major">
+    <audio-container id="audioPlayer" press="[[pressedKey]]" chord-mode="[[chordMode]]" unpress="[[unpressedKey]]" base="C4" mode="major">
+        <!-- Add special keys here? -->
+        <!--<div data-key="Tab" data-click-action="keyLeft"></div>-->
+        <!--<div data-key="Enter" data-click-action="keyRight"></div>-->
+        <!--<div data-key="`" data-click-action="scaleLeft"></div>-->
+        <!--<div data-key="Backspace" data-click-action="scaleRight"></div>-->
+        <!--<div data-key="ShiftLeft" data-hold-action="sharpen"></div>-->
+
         <!--Row 3 Left Hand-->
         <div data-key="KeyQ" data-tone="III" data-chord="" data-octave="-1"></div>
         <div data-key="KeyW" data-tone="V" data-chord="" data-octave="-1"></div>
@@ -89,6 +106,7 @@
         return {
           properties: {
             futures: String,
+            chordMode: Boolean,
             keyArray: {
               type: Array,
               value: function () {
@@ -213,7 +231,11 @@
                 }
               }
             },
-            monsterRect: Object
+            monsterRect: Object,
+            history: {
+              type: String,
+              value: ""
+            }
           }
         }
       }
@@ -226,7 +248,6 @@
 
 			_press(e) {
 				this.pressedKey = e.detail.pressed;
-				this.history = !this.history ? "" : this.history;
 				var char = this.keyValues[e.detail.pressed];
 				if (char)
 					this.history += char.key.toUpperCase()+" ";
@@ -239,19 +260,20 @@
 				if (this.unpressedKey == this.pressedKey) {
           this.pressedKey = undefined;
         }
+        if (this.unpressedKey === "ShiftLeft")
+          this.sharp = 0;
       }
 
 			_prepareBeam() {
-				var keyNode, keyParent, finger, origin, target;
-				var keys = this.pressedArray;
-				for(var i = 0; i < keys.length; i++) {
-					keyNode = this.$.keyboard.querySelector("[code="+keys[i]+"]");
+//				var keyNode, keyParent, finger, origin, target;
+        for(var i = 0; i < this.pressedArray.length; i++) {
+          let key = this.pressedArray[i];
+          let keyNode = this.$.keyboard.querySelector("[code="+ key+"]");
 					if (keyNode) {
-						finger = this._getFingerName(keys[i]);
-						origin = keyNode.children[0].getRect();
-						target = this.$.monster.getRect();
+            let origin = keyNode.children[0].getRect();
+						let target = this.$.monster.getRect();
 						if (origin && target)
-							this.$.beams.constructBeam(origin,target,finger);
+							this.$.beams.constructBeam(origin,target,this._getFingerName(key));
 					}
 				}
 			}
@@ -270,9 +292,8 @@
 
 			_highlightKeys() {
 				var pressedKeys = this.$.keyboard.querySelectorAll("[pressed]");
-				for(var i = 0; i < pressedKeys.length; i++) {
+				for(var i = 0; i < pressedKeys.length; i++)
 					pressedKeys[i].removeAttribute("pressed");
-				}
 
 				for(i = 0; i < this.pressedArray.length; i++) {
 					var index = this.keyArray.indexOf(this.pressedArray[i]);

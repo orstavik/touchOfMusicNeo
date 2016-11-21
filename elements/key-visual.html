@@ -1,12 +1,10 @@
-<link rel="import" href="key-pyramid.html">
-
 <dom-module id="key-visual">
   <template>
     <style>
       :host {
         display: inline-block;
-				box-sizing: border-box;
-				position: absolute;
+        box-sizing: border-box;
+        position: absolute;
         left: 50vw;
         top: 134vh;
         height: 7.2vh;
@@ -15,7 +13,7 @@
       }
     </style>
 
-    <slot id="pyramid"></slot>
+    <slot></slot>
 
   </template>
 
@@ -24,41 +22,24 @@
       static get is() {
         return "key-visual";
       }
+
       static get config() {
         return {
-					properties: {
-            index: Number,
-            row: {
+          properties: {
+          row: {
               type: Number,
               observer: "_useRow"
             },
-            shapeMap: {
-              type: Array,
-              value: function() {
-                return ["circle", "rounded", "circle", "rounded"]
-              }
-            }
-					}
+          }
         }
       }
 
-      _useRow() {
-        this.children[0].classList.add(this.shapeMap[this.row+1]);
-        this._calcPosition();
-      }
-
-      _calcPosition() {
-        var distance = this.row*7 + 100;
-        if (this.index < 12) {
-          var angle = (this.index - 6)*3.75;
-        } else if (this.index < 24) {
-          var angle = (this.index-12-5.5)*3.9;
-        } else if (this.index < 35) {
-          var angle = (this.index-24-5)*4.05;
-        } else {
-          var angle = (this.index-35-4.5)*4.2;
-        }
-        this.style.transform = "translateX(-50%) rotate("+angle+"deg) translateY(-"+distance+"vh)";
+      connectedCallback() {
+        this.style.transform = this.parentNode.giveMeMyPostion(this.getAttribute("code"));
+        this.children[0].classList.add(this.parentNode.getShape(this.getAttribute("code")));
+        //if (noLuckChuck) {
+        //so i guess then i go with querty.. ??
+        //}
       }
     }
     customElements.define(KeyVisual.is, KeyVisual);
