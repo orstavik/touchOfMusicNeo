@@ -23,7 +23,7 @@
 
     <slot></slot>
 
-    <music-scale id="scale" base="[[base]]" mode="{{modeName}}" key="{{keyName}}"></music-scale>
+    <music-scale id="scale" base="[[base]]" mode="{{mode}}" key="{{key}}"></music-scale>
     <audio-data id="loader" path="../audio/tones/piano/" amount=88 type="mp3"></audio-data>
     <audio-player id="player"></audio-player>
 
@@ -59,11 +59,11 @@
             base: {
               type: String
             },
-            modeName: {
+            mode: {
               type: String,
               reflectToAttribute: true
             },
-            keyName: {
+            key: {
               type: String,
               reflectToAttribute: true
             },
