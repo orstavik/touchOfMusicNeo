@@ -21,9 +21,12 @@
         return {
           properties: {
             pressedKeys: {
-              type: Array,
+              type: Object,
               value: function() {
-                return [];
+                return {
+                  keys: [],
+                  conditionals: []
+                };
               }
             }
           }
@@ -42,19 +45,28 @@
         var key = e.code;
         this._fireEvent("key-pressed", key);
 
-        if (this.pressedKeys.indexOf(key) === -1) {
-          this.pressedKeys.push(key);
-        }
+        if (key == "ShiftLeft") {
+          if (this.pressedKeys.conditionals.indexOf(key) == -1)
+            this.pressedKeys.conditionals.push(key);
+        } else if (this.pressedKeys.keys.indexOf(key) === -1) 
+          this.pressedKeys.keys.push(key);
+
+        // this._fireEvent("pressed-keys", this.pressedKeys);
       }
 
       _keyWasUp(e) {
         var key = e.code;
         this._fireEvent("key-unpressed", key);
 
-        var index = this.pressedKeys.indexOf(key);
-        if (index !== -1) {
-          this.pressedKeys.splice(index,1);
+        if (key == "ShiftLeft") {
+          var index = this.pressedKeys.conditionals.indexOf(key);
+          if (index !== -1)
+            this.pressedKeys.conditionals.splice(index,1);
         }
+        var index = this.pressedKeys.keys.indexOf(key);
+        if (index !== -1)
+          this.pressedKeys.keys.splice(index,1);
+        
         this._fireEvent("pressed-keys", this.pressedKeys);
       }
       

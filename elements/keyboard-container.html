@@ -30,7 +30,7 @@
 
 		<keyboard-listener on-pressed-keys="_pressedAction" on-key-pressed="_press" on-key-unpressed="_unpress"></keyboard-listener>
 
-    <!--<audio-synthesizer instrument="piano" keys="[[pressedArray]]"></audio-synthesizer>-->
+    <!--<audio-synthesizer instrument="piano" keys="[[pressedObj]]"></audio-synthesizer>-->
 
     <audio-container id="audioPlayer" press="[[pressedKey]]" unpress="[[unpressedKey]]" base="C4" mode="major">
         <!--Row 3 Left Hand-->
@@ -100,10 +100,13 @@
                 ]
               }
             },
-            pressedArray: {
-              type: Array,
+            pressedObj: {
+              type: Object,
               value: function () {
-                return []
+                return {
+                  keys: [],
+                  conditionals: []
+                };
               },
               observer: "_highlightKeys"
             },
@@ -222,7 +225,8 @@
         this.$.audioPlayer.addNotes();
       }
       _pressedAction(e) {
-        this.pressedArray = e.detail.pressed;
+        this.pressedObj = e.detail.pressed;
+        console.log(this.pressedObj.keys, this.pressedObj.conditionals);
 
 				this._prepareBeam();
       }
@@ -246,7 +250,7 @@
 
 			_prepareBeam() {
 				var keyNode, keyParent, finger, origin, target;
-				var keys = this.pressedArray;
+				var keys = this.pressedObj.keys;
 				for(var i = 0; i < keys.length; i++) {
 					keyNode = this.$.keyboard.querySelector("[code="+keys[i]+"]");
 					if (keyNode) {
@@ -277,8 +281,8 @@
 					pressedKeys[i].removeAttribute("pressed");
 				}
 
-				for(i = 0; i < this.pressedArray.length; i++) {
-					var index = this.keyArray.indexOf(this.pressedArray[i]);
+				for(i = 0; i < this.pressedObj.keys.length; i++) {
+					var index = this.keyArray.indexOf(this.pressedObj.keys[i]);
 					var keyElem = this.$.keyboard.children[index];
 					if (keyElem)
 						keyElem.setAttribute("pressed", true);

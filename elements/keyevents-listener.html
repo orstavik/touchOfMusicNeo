@@ -22,7 +22,9 @@
       _fireEvent(e) {
         if (e.code == "Tab" ||
             e.code == "Enter" ||
-            e.code == "ShiftLeft")
+            e.code == "ShiftLeft" ||
+            e.code == "Backquote" ||
+            e.code == "Backspace")
           e.preventDefault();
         e.stopPropagation();
         var name = e.type.substr(0,3)+"-"+e.type.slice(3);
