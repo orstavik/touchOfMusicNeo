@@ -30,9 +30,9 @@
 
 		<keyboard-listener on-pressed-keys="_pressedAction" on-key-pressed="_press" on-key-unpressed="_unpress"></keyboard-listener>
 
-    <!--<audio-synthesizer instrument="piano" keys="[[pressedObj]]"></audio-synthesizer>-->
+    <!--<audio-synthesizer instrument="piano" keys="[[pressedArray]]"></audio-synthesizer>-->
 
-    <audio-container id="audioPlayer" press="[[pressedKey]]" unpress="[[unpressedKey]]" base="C4" mode="major">
+    <audio-container id="audioPlayer" pressed="[[pressedArray]]" base="C4" mode="major">
         <!--Row 3 Left Hand-->
         <div data-key="KeyQ" data-tone="III" data-chord="" data-octave="-1"></div>
         <div data-key="KeyW" data-tone="V" data-chord="" data-octave="-1"></div>
@@ -75,6 +75,11 @@
         <div data-key="Period" data-tone="VII" data-chord="III" data-octave="1"></div>
         <div data-key="Slash" data-tone="II" data-chord="II" data-octave="1"></div>
 
+        <div data-key="Tab" data-command="turnKeyLeft"></div>
+        <div data-key="Enter" data-command="turnKeyRight"></div>
+        <div data-key="Backquote" data-command="turnModusLeft"></div>
+        <div data-key="Backspace" data-command="turnModusRight"></div>
+
     </audio-container>
 
   </template>
@@ -100,18 +105,13 @@
                 ]
               }
             },
-            pressedObj: {
-              type: Object,
+            pressedArray: {
+              type: Array,
               value: function () {
-                return {
-                  keys: [],
-                  conditionals: []
-                };
+                return []
               },
               observer: "_highlightKeys"
             },
-            pressedKey: String,
-            unpressedKey: String,
             keyValues: {
               type: Object,
               value: function () {
@@ -225,32 +225,15 @@
         this.$.audioPlayer.addNotes();
       }
       _pressedAction(e) {
-        this.pressedObj = e.detail.pressed;
-        console.log(this.pressedObj.keys, this.pressedObj.conditionals);
+        this.pressedArray = JSON.parse(JSON.stringify(e.detail.pressed));
+
 
 				this._prepareBeam();
       }
 
-			_press(e) {
-				this.pressedKey = e.detail.pressed;
-				this.history = !this.history ? "" : this.history;
-				var char = this.keyValues[e.detail.pressed];
-				if (char)
-					this.history += char.key.toUpperCase()+" ";
-				// console.log(this.history);
-			}
-
-      _unpress(e) {
-				this.unpressedKey = "";
-				this.unpressedKey = e.detail.pressed;
-				if (this.unpressedKey == this.pressedKey) {
-          this.pressedKey = undefined;
-        }
-      }
-
 			_prepareBeam() {
 				var keyNode, keyParent, finger, origin, target;
-				var keys = this.pressedObj.keys;
+				var keys = this.pressedArray;
 				for(var i = 0; i < keys.length; i++) {
 					keyNode = this.$.keyboard.querySelector("[code="+keys[i]+"]");
 					if (keyNode) {
@@ -281,8 +264,8 @@
 					pressedKeys[i].removeAttribute("pressed");
 				}
 
-				for(i = 0; i < this.pressedObj.keys.length; i++) {
-					var index = this.keyArray.indexOf(this.pressedObj.keys[i]);
+				for(i = 0; i < this.pressedArray.length; i++) {
+					var index = this.keyArray.indexOf(this.pressedArray[i]);
 					var keyElem = this.$.keyboard.children[index];
 					if (keyElem)
 						keyElem.setAttribute("pressed", true);

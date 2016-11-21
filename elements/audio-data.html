@@ -8,7 +8,7 @@
       }
     </style>
     <template is="dom-repeat" items="[[_generateList(amount)]]">
-      <iron-ajax data-index$="[[index]]" url="[[_getUrl(index)]]" handle-as="arraybuffer" on-response="_fileLoaded"
+      <iron-ajax data-index$="[[index]]" url="[[_getUrl(item)]]" handle-as="arraybuffer" on-response="_fileLoaded"
                  auto></iron-ajax>
     </template>
   </template>

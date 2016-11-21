@@ -23,7 +23,7 @@
 
     <slot></slot>
 
-    <music-scale id="scale" base="[[base]]" mode="{{mode}}" key="{{key}}"></music-scale>
+    <music-scale id="scale" base="[[base]]" mode="{{mode}}" key="{{key}}" root-tone="{{rootTone}}"></music-scale>
     <audio-data id="loader" path="../audio/tones/piano/" amount=88 type="mp3"></audio-data>
     <audio-player id="player"></audio-player>
 
@@ -44,13 +44,18 @@
       static get config() {
         return {
           properties: {
-            press: {
-              type: String,
-              observer: "_keysPress"
+            pressed: {
+              type: Array,
+              value: function() {
+                return []
+              },
+              observer: "_pressedHaveChanged"
             },
-            unpress: {
-              type: String,
-              observer: "_keysUnpress"
+            bufferPressed: {
+              type: Array,
+              value: function() {
+                return []
+              }
             },
             tone: {
               type: String,
@@ -67,6 +72,10 @@
               type: String,
               reflectToAttribute: true
             },
+            rootTone: {
+              type: String,
+              reflectToAttribute: true
+            },
             shift: {
               type: Number,
               value: 0
@@ -75,25 +84,40 @@
         }
       }
 
-      _keysPress() {
-        if (!this.press)
-          return;
-        switch (this.press) {
-          case "Tab":
-            return this.$.scale.turnKeyLeft();
-          case "Enter":
-            return this.$.scale.turnKeyRight();
-          case "Backquote":
-            return this.$.scale.turnModusLeft();
-          case "Backspace":
-            return this.$.scale.turnModusRight();
-          case "ShiftLeft":
-            return this.shift = 1;
+      _pressedHaveChanged() {
+        var nev = this.pressed;
+        var old = this.bufferPressed;
+        if (nev.length > old.length) {
+          this._keysPress(nev[nev.length-1]);
         }
+        else if (nev.length < old.length) {
+          for (let i = 0; i < old.length; i++) {
+            if (nev.indexOf(old[i]) == -1) {
+              this._keysUnpress(old[i]);
+            }
+          }
+        }
+        this.bufferPressed = this.pressed;
+      }
 
-        let div = this.querySelector("[data-key=" + this.press + "]");
+      _keysPress(key) {
+        if (!key)
+          return;
+
+        let div = this.querySelector("[data-key=" + key + "]");
         if (!div)
           return;
+          
+        switch (div.dataset.command) {
+          case "turnKeyLeft":
+            return this.$.scale.turnKeyLeft();
+          case "turnKeyRight":
+            return this.$.scale.turnKeyRight();
+          case "turnModusLeft":
+            return this.$.scale.turnModusLeft();
+          case "turnModusRight":
+            return this.$.scale.turnModusRight();
+        }
 
         let codes = div.dataset.chord && !this.$.mapChoise.querySelector("[checked]").checked ?
           this.$.scale.getChord(div.dataset.chord) :
@@ -105,8 +129,8 @@
         }.bind(this));
       }
 
-      _keysUnpress() {
-        if (this.unpress === "ShiftLeft")
+      _keysUnpress(key) {
+        if (key === "ShiftLeft")
           this.shift = 0;
         // TODO: here would be the end of the long sound
       }
