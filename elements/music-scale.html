@@ -129,8 +129,9 @@
           this.notifyPath("mode");
         }
 
-        getTone(roman) {
-          return this.tones[roman] + this.keyModulate;
+        /*neutralSharpOrFlat: flat=-1, neutral=0, sharp=1*/
+        getTone(roman, octave, neutralSharpOrFlat) {
+          return this.tones[roman] + octave *12 + this.keyModulate + neutralSharpOrFlat;
         }
 
         getChord(roman) {
