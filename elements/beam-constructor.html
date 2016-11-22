@@ -33,10 +33,6 @@
       }
     </style>
 
-    <!--<template is="dom-repeat" items="[[beams]]" id="templater">
-      <light-beam data="[[item]]"></light-beam>
-    </template>-->
-
   </template>
 
   <script>
@@ -68,7 +64,6 @@
       }
 
       constructBeam(origin,target,finger) {
-        // var index = this.index;
         var colorMap = {
           RightIndex: "205,212,4",
           RightLongfinger: "49,193,191",
@@ -91,75 +86,12 @@
           angle: Math.atan2((origin.top+origin.height/2)-(target.top+target.height/2), (origin.left+origin.width/2)-(target.left+target.width/2))*180/Math.PI+180
         }
 
-        // this.beams.push({
-        //   id: "beam"+(this.index++),
-        //   style: 
-        //     "width: "+beam.longitude+"px; "+
-        //     "height: "+beam.width+"vh; "+
-        //     "top: "+beam.origin.y+"px; "+
-        //     "left: "+beam.origin.x+"px; "+
-        //     "transform: translateY(-50%) rotate("+beam.angle+"deg);",
-        //   color:
-        //     "background: linear-gradient(to right, rgba("+color+", 0) 0%, rgba("+color+", 0.25) 50%, rgba("+color+", 0.375) 75%, rgba("+color+", 0.5) 100%)"
-        // });
-
-        // this.notifyPath("beams");
-        // this.$.templater.render();
-
         var LightBeam = customElements.get("light-beam");
         var lightBeam = new LightBeam();
         lightBeam.id = "beam"+(this.index++);
         lightBeam.data = beam;
         lightBeam.color = color;
         this.shadowRoot.appendChild(lightBeam);
-        
-        // var beamDiv = document.createElement("div");
-        // beamDiv.classList.add("beam");
-        // beamDiv.id = "beam"+index;
-        // beamDiv.style.cssText = 
-        //   "width: "+beam.longitude+"px;"+
-        //   "height: "+beam.width+"vh;"+
-        //   "top: "+beam.origin.y+"px;"+
-        //   "left: "+beam.origin.x+"px;"+
-        //   "transform: translateY(-50%) rotate("+beam.angle+"deg);";
-        // this.shadowRoot.appendChild(beamDiv);
-
-        // var innerBeam = document.createElement("div");
-        // innerBeam.classList.add("innerBeam");
-        // innerBeam.id = "innerBeam"+index;
-        // innerBeam.style.background = "linear-gradient(to right, rgba("+color+", 0) 0%, rgba("+color+", 0.25) 50%, rgba("+color+", 0.375) 75%, rgba("+color+", 0.5) 100%)";
-        // beamDiv.appendChild(innerBeam);
-
-        // this._removeBeam(index);
-
-        // this.index++;
-      }
-
-      _removeBeam(e) {
-        debugger;
-        var index = e.target.parentNode.id.substr(4);
-        this.beams = this.beams.filter(function(elem){
-          var indexE = elem.id.substr(4);
-          return indexE > index;
-        });
-        // this.beams.splice(index);
-        // this.notifyPath("beams");
-        // this.$.templater.render();
-
-        // var outer = this.shadowRoot.querySelector("#beam"+index);
-        // var inner = this.shadowRoot.querySelector("#innerBeam"+index);
-
-        // inner.addEventListener("animationend", function() {
-        //   for (var i = 0; i >= 0; i++) {
-        //     var prev = outer.previousElementSibling;
-        //     if (prev && prev.tagName === "DIV") {
-        //       prev.remove();
-        //     } else {
-        //       break;
-        //     }
-        //   }
-        //   outer.remove();
-        // }.bind(this));
       }
     }
     customElements.define(BeamConstructor.is, BeamConstructor);

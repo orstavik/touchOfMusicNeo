@@ -57,9 +57,6 @@
       }
 
       connectedCallback() {
-        var outer = this.shadowRoot.querySelector("#outer");
-        var inner = this.shadowRoot.querySelector("#inner");
-
         this.$.outer.style.cssText = 
           "width: "+this.data.longitude+"px;"+
           "height: "+this.data.width+"vh;"+
@@ -71,7 +68,7 @@
       }
 
       _removeMe() {
-        this.dispatchEvent(new CustomEvent("remove-me", null));
+        this.remove();
       }
     }
     customElements.define(LightBeam.is, LightBeam);
