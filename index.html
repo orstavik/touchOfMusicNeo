@@ -101,45 +101,6 @@
     </style>
   </head>
   <body>
-    
-    <template id="light-beam">
-      <style>
-        #outer {
-            display: inline-block;
-            position: absolute;
-            border-radius: 70px;
-            transform-origin: left;
-            overflow: hidden;
-            z-index: 10;
-          }
-          
-          #inner {
-            height: 100%;
-            width: 50%;
-            border-radius: 70px;
-            transform-origin: left;
-            transition-timing-function: linear;
-            animation-fill-mode: forwards;
-            animation: Transfer 1s linear;
-            z-index: 1;
-          }
-
-          @keyframes Transfer {
-            0% {
-              transform: translateX(-100%)
-            }
-            100% {
-              transform: translateX(200%)
-            }
-          }
-      </style>
-
-      <div id="outer">
-        <div id="inner" on-animationend="_removeMe"></div>
-      </div>
-
-    </template>
-
     <my-app></my-app>
     <!-- Built with love using Polymer Starter Kit -->
   </body>

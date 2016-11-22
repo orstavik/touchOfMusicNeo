@@ -1,4 +1,4 @@
-<!--<dom-module id="light-beam">
+<dom-module id="light-beam">
   <template>
     <style>
       #outer {
@@ -51,9 +51,14 @@
         }
       }
 
+      constructor() {
+        super();
+        super.ready();
+      }
+
       connectedCallback() {
-        // var outer = this.shadowRoot.querySelector("#outer");
-        // var inner = this.shadowRoot.querySelector("#inner");
+        var outer = this.shadowRoot.querySelector("#outer");
+        var inner = this.shadowRoot.querySelector("#inner");
 
         this.$.outer.style.cssText = 
           "width: "+this.data.longitude+"px;"+
@@ -71,34 +76,4 @@
     }
     customElements.define(LightBeam.is, LightBeam);
   </script>
-</dom-module>-->
-
-<script>
-  customElements.define('light-beam', class extends HTMLElement {
-    constructor() {
-      super();
-      let shadowRoot = this.attachShadow({mode: 'open'});
-      const t = document.querySelector('#light-beam');
-      const instance = t.content.cloneNode(true);
-      shadowRoot.appendChild(instance);
-    }
-
-    connectedCallback() {
-      var outer = this.shadowRoot.querySelector("#outer");
-      var inner = this.shadowRoot.querySelector("#inner");
-
-      outer.style.cssText = 
-        "width: "+this.data.longitude+"px;"+
-        "height: "+this.data.width+"vh;"+
-        "top: "+this.data.origin.y+"px;"+
-        "left: "+this.data.origin.x+"px;"+
-        "transform: translateY(-50%) rotate("+this.data.angle+"deg);";
-
-      inner.style.background = "linear-gradient(to right, rgba("+this.color+", 0) 0%, rgba("+this.color+", 0.25) 50%, rgba("+this.color+", 0.375) 75%, rgba("+this.color+", 0.5) 100%)"
-    }
-
-    _removeMe() {
-      this.dispatchEvent(new CustomEvent("remove-me", null));
-    }
-  });
-</script>
+</dom-module>
