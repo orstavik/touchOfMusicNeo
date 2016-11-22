@@ -33,6 +33,8 @@
       }
     </style>
 
+    <slot></slot>
+
   </template>
 
   <script>
@@ -47,52 +49,45 @@
               type: Number,
               value: 0
             },
-            beams: {
-              type: Array,
+            colorMap: {
+              type: Object,
               value: function() {
-                return []
+                return {
+                  RightIndex: "205,212,4",
+                  RightLongfinger: "49,193,191",
+                  RightRingfinger: "68,169,227",
+                  RightPinky: "36,67,208",
+                  LeftIndex: "252,223,84",
+                  LeftLongfinger: "254,157,5",
+                  LeftRingfinger: "231,83,173",
+                  LeftPinky: "183,11,116"
+                }
               }
-            },
-
+            }
           }
         }
       }
 
       constructor() {
         super();
-        this.addEventListener("remove-me", this._removeBeam.bind(this));
       }
 
-      constructBeam(origin,target,finger) {
-        var colorMap = {
-          RightIndex: "205,212,4",
-          RightLongfinger: "49,193,191",
-          RightRingfinger: "68,169,227",
-          RightPinky: "36,67,208",
-          LeftIndex: "252,223,84",
-          LeftLongfinger: "254,157,5",
-          LeftRingfinger: "231,83,173",
-          LeftPinky: "183,11,116"
-        };
-        var color = colorMap[finger];
+			prepareBeam(pressed) {
+        for (var i = 0; i < pressed.length; i++) {
+          let key = pressed[i];
+          let keyNode = this.querySelector("[code="+ key+"] key-pyramid");
+					if (keyNode) {
+            let origin = keyNode.getRect();
+						let target = this.querySelector("#monster").getRect();
+            let color = this.colorMap[keyNode.classList[0]];
 
-        var beam = {
-          longitude: Math.sqrt(Math.pow(((origin.top+origin.height/2)-(target.top+target.height/2)), 2) + Math.pow(((origin.left+origin.width/2)-(target.left+target.width/2)), 2)),
-          width: 2,
-          origin: {
-            x: origin.left+origin.width/2,
-            y: origin.top+origin.height/2
-          },
-          angle: Math.atan2((origin.top+origin.height/2)-(target.top+target.height/2), (origin.left+origin.width/2)-(target.left+target.width/2))*180/Math.PI+180
-        }
-
-        var LightBeam = customElements.get("light-beam");
-        var lightBeam = new LightBeam();
-        lightBeam.id = "beam"+(this.index++);
-        lightBeam.data = beam;
-        lightBeam.color = color;
-        this.shadowRoot.appendChild(lightBeam);
-      }
+						if (origin && target) {
+              var lightBeam = new LightBeam("beam"+(this.index++), origin, target, color);
+              this.shadowRoot.appendChild(lightBeam);
+            }
+					}
+				}
+			}
     }
     customElements.define(BeamConstructor.is, BeamConstructor);
   </script>

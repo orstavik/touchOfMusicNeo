@@ -22,20 +22,21 @@
       }
     </style>
 
-		<keyboard-visual id="keyboard">
-			<template is="dom-repeat" items="[[keyArray]]">
-				<key-visual code$="[[item]]" row="[[_getRow(item)]]">
-					<key-pyramid id="pyramid" char$="[[_codeToChar(item)]]" pressed$="[[pressed]]" active="[[futures]]"	class$="[[_getFingerName(item)]]"></key-pyramid>
-				</key-visual>
-			</template>
-			<beam-constructor id="beams"></beam-constructor>
-		</keyboard-visual>
+		<beam-constructor id="beams">
+      <keyboard-visual id="keyboard">
+        <template is="dom-repeat" items="[[keyArray]]">
+          <key-visual code$="[[item]]" row="[[_getRow(item)]]">
+            <key-pyramid id="pyramid" char$="[[_codeToChar(item)]]" pressed$="[[pressed]]" active="[[futures]]"	class$="[[_getFingerName(item)]]"></key-pyramid>
+          </key-visual>
+        </template>
+      </keyboard-visual>
+
+		  <monster-container id="monster"></monster-container>
+    </beam-constructor>
 
       <div id="mapChoice">
           Play chords:<input type="checkbox" checked="{{chordMode::change}}"><br />
       </div>
-
-		<monster-container id="monster"></monster-container>
 
 		<keyboard-listener on-pressed-keys="_pressedAction"></keyboard-listener>
 
@@ -246,22 +247,8 @@
       _pressedAction(e) {
         this.pressedArray = JSON.parse(JSON.stringify(e.detail.pressed));
 
-				this._prepareBeam();
+				this.$.beams.prepareBeam(this.pressedArray);
       }
-
-			_prepareBeam() {
-//				var keyNode, keyParent, finger, origin, target;
-        for(var i = 0; i < this.pressedArray.length; i++) {
-          let key = this.pressedArray[i];
-          let keyNode = this.$.keyboard.querySelector("[code="+ key+"]");
-					if (keyNode) {
-            let origin = keyNode.children[0].getRect();
-						let target = this.$.monster.getRect();
-						if (origin && target)
-							this.$.beams.constructBeam(origin,target,this._getFingerName(key));
-					}
-				}
-			}
 
 			_getFingerName(item) {
 				return this.fingerInfo[item].fingerName();

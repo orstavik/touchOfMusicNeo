@@ -42,18 +42,22 @@
       static get is() {
         return "light-beam";
       }
-      static get config() {
-        return {
-          properties: {
-            data: Object,
-            color: String
-          }
-        }
-      }
 
-      constructor() {
+      constructor(id,origin,target,color) {
         super();
         super.ready();
+        
+        this.id = id;
+        this.data = {
+          longitude: Math.sqrt(Math.pow(((origin.top+origin.height/2)-(target.top+target.height/2)), 2) + Math.pow(((origin.left+origin.width/2)-(target.left+target.width/2)), 2)),
+          width: 2,
+          origin: {
+            x: origin.left+origin.width/2,
+            y: origin.top+origin.height/2
+          },
+          angle: Math.atan2((origin.top+origin.height/2)-(target.top+target.height/2), (origin.left+origin.width/2)-(target.left+target.width/2))*180/Math.PI+180,
+          color: color
+        };
       }
 
       connectedCallback() {
@@ -64,7 +68,7 @@
           "left: "+this.data.origin.x+"px;"+
           "transform: translateY(-50%) rotate("+this.data.angle+"deg);";
 
-        this.$.inner.style.background = "linear-gradient(to right, rgba("+this.color+", 0) 0%, rgba("+this.color+", 0.25) 50%, rgba("+this.color+", 0.375) 75%, rgba("+this.color+", 0.5) 100%)"
+        this.$.inner.style.background = "linear-gradient(to right, rgba("+this.data.color+", 0) 0%, rgba("+this.data.color+", 0.25) 50%, rgba("+this.data.color+", 0.375) 75%, rgba("+this.data.color+", 0.5) 100%)"
       }
 
       _removeMe() {
