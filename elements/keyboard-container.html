@@ -5,6 +5,7 @@
 <link rel="import" href="audio-synthesizer.html">
 <link rel="import" href="audio-container.html">
 <link rel="import" href="monster-container.html">
+<link rel="import" href="html-loader.html">
 <script src="../scripts/Finger.js"></script>
 
 <dom-module id="keyboard-container">
@@ -43,61 +44,7 @@
     <!--<audio-synthesizer instrument="piano" keys="[[pressedArray]]"></audio-synthesizer>-->
 
     <audio-container id="audioPlayer" pressed="[[pressedArray]]" chord-mode="[[chordMode]]" base="C4" mode="major">
-        <!-- Add special keys here? -->
-        <!--<div data-key="Tab" data-click-action="keyLeft"></div>-->
-        <!--<div data-key="Enter" data-click-action="keyRight"></div>-->
-        <!--<div data-key="`" data-click-action="scaleLeft"></div>-->
-        <!--<div data-key="Backspace" data-click-action="scaleRight"></div>-->
-        <!--<div data-key="ShiftLeft" data-hold-action="sharpen"></div>-->
-
-        <!--Row 3 Left Hand-->
-        <div data-key="KeyQ" data-tone="III" data-chord="" data-octave="-1"></div>
-        <div data-key="KeyW" data-tone="V" data-chord="" data-octave="-1"></div>
-        <div data-key="KeyE" data-tone="VII" data-chord="" data-octave="-1"></div>
-        <div data-key="KeyR" data-tone="II" data-chord="" data-octave="0"></div>
-        <div data-key="KeyT" data-tone="IV" data-chord="" data-octave="0"></div>
-        <!--Row 2 Left Hand-->
-        <div data-key="KeyA" data-tone="IV" data-chord="" data-octave="-1"></div>
-        <div data-key="KeyS" data-tone="VI" data-chord="" data-octave="-1"></div>
-        <div data-key="KeyD" data-tone="I" data-chord="" data-octave="0"></div>
-        <div data-key="KeyF" data-tone="III" data-chord="" data-octave="0"></div>
-        <div data-key="KeyG" data-tone="V" data-chord="" data-octave="0"></div>
-
-        <!--Row 3 Right Hand-->
-        <div data-key="KeyY" data-tone="V" data-chord="" data-octave="0"></div>
-        <div data-key="KeyU" data-tone="VII" data-chord="" data-octave="0"></div>
-        <div data-key="KeyI" data-tone="II" data-chord="" data-octave="1"></div>
-        <div data-key="KeyO" data-tone="IV" data-chord="" data-octave="1"></div>
-        <div data-key="KeyP" data-tone="VI" data-chord="" data-octave="1"></div>
-        <div data-key="BracketLeft" data-tone="I" data-chord="" data-octave="2"></div>
-        <div data-key="BracketRight" data-tone="III" data-chord="" data-octave="2"></div>
-        <!--Row 2 Right Hand-->
-        <div data-key="KeyH" data-tone="VI" data-chord="" data-octave="0"></div>
-        <div data-key="KeyJ" data-tone="I" data-chord="" data-octave="1"></div>
-        <div data-key="KeyK" data-tone="III" data-chord="" data-octave="1"></div>
-        <div data-key="KeyL" data-tone="V" data-chord="" data-octave="1"></div>
-        <div data-key="Semicolon" data-tone="VII" data-chord="" data-octave="1"></div>
-        <div data-key="Quote" data-tone="II" data-chord="" data-octave="2"></div>
-
-        <!--Row 3 Left Hand-->
-        <div data-key="KeyZ" data-tone="V" data-chord="V" data-octave="-1"></div>
-        <div data-key="KeyX" data-tone="VII" data-chord="viiDim" data-octave="-1"></div>
-        <div data-key="KeyC" data-tone="II" data-chord="ii" data-octave="0"></div>
-        <div data-key="KeyV" data-tone="IV" data-chord="IV" data-octave="0"></div>
-        <div data-key="KeyB" data-tone="VI" data-chord="vi" data-octave="0"></div>
-        <!--Row 3 Right Hand-->
-        <div data-key="KeyN" data-tone="I" data-chord="I" data-octave="1"></div>
-        <div data-key="KeyM" data-tone="III" data-chord="iii" data-octave="1"></div>
-        <div data-key="Comma" data-tone="V" data-chord="V" data-octave="1"></div>
-        <div data-key="Period" data-tone="VII" data-chord="III" data-octave="1"></div>
-        <div data-key="Slash" data-tone="II" data-chord="II" data-octave="1"></div>
-
-        <div data-key="Tab" data-command="turnKeyLeft"></div>
-        <div data-key="Enter" data-command="turnKeyRight"></div>
-        <div data-key="Backquote" data-command="turnModusLeft"></div>
-        <div data-key="Backspace" data-command="turnModusRight"></div>
-        <div data-key="ShiftLeft" data-command="sharpen"></div>
-
+      <html-loader href="../maps/audio-set1.html"></html-loader>
     </audio-container>
 
   </template>
@@ -183,7 +130,7 @@
                 }
               }
             },
-            fingerInfo: {
+            fingerInfoOld: {
               type: Object,
               value: function () {
                 return {
@@ -235,6 +182,58 @@
                 }
               }
             },
+            fingerInfo: {
+              type: Object,
+              value: function () {
+                return {
+                  KeyA: new Finger({row: 0, finger: 9, alt: 0}),
+                  KeyB: new Finger({row: -1, finger: 6, alt: 1}),
+                  KeyC: new Finger({row: -1, finger: 7, alt: 0}),
+                  KeyD: new Finger({row: 0, finger: 7, alt: 0}),
+                  KeyE: new Finger({row: 1, finger: 7, alt: 0}),
+                  KeyF: new Finger({row: 0, finger: 6, alt: 0}),
+                  KeyG: new Finger({row: 0, finger: 6, alt: 1}),
+                  KeyH: new Finger({row: 0, finger: 1, alt: 1}),
+                  KeyI: new Finger({row: 1, finger: 2, alt: 0}),
+                  KeyJ: new Finger({row: 0, finger: 1, alt: 0}),
+                  KeyK: new Finger({row: 0, finger: 2, alt: 0}),
+                  KeyL: new Finger({row: 0, finger: 3, alt: 0}),
+                  KeyM: new Finger({row: -1, finger: 1, alt: 0}),
+                  KeyN: new Finger({row: -1, finger: 1, alt: 1}),
+                  KeyO: new Finger({row: 1, finger: 3, alt: 0}),
+                  KeyP: new Finger({row: 1, finger: 4, alt: 0}),
+                  KeyQ: new Finger({row: 1, finger: 9, alt: 0}),
+                  KeyR: new Finger({row: 1, finger: 6, alt: 0}),
+                  KeyS: new Finger({row: 0, finger: 8, alt: 0}),
+                  KeyT: new Finger({row: 1, finger: 6, alt: 1}),
+                  KeyU: new Finger({row: 1, finger: 1, alt: 0}),
+                  KeyV: new Finger({row: -1, finger: 6, alt: 0}),
+                  KeyW: new Finger({row: 1, finger: 8, alt: 0}),
+                  KeyX: new Finger({row: -1, finger: 8, alt: 0}),
+                  KeyY: new Finger({row: 1, finger: 1, alt: 1}),
+                  KeyZ: new Finger({row: -1, finger: 9, alt: 0}),
+                  Digit0: new Finger({row: 2, finger: 4, alt: 0}),
+                  Digit1: new Finger({row: 2, finger: 9, alt: 1}),
+                  Digit2: new Finger({row: 2, finger: 9, alt: 0}),
+                  Digit3: new Finger({row: 2, finger: 8, alt: 0}),
+                  Digit4: new Finger({row: 2, finger: 7, alt: 0}),
+                  Digit5: new Finger({row: 2, finger: 6, alt: 0}),
+                  Digit6: new Finger({row: 2, finger: 6, alt: 1}),
+                  Digit7: new Finger({row: 2, finger: 1, alt: 0}),
+                  Digit8: new Finger({row: 2, finger: 2, alt: 0}),
+                  Digit9: new Finger({row: 2, finger: 3, alt: 0}),
+                  Equal: new Finger({row: 2, finger: 4, alt: 2}),
+                  Minus: new Finger({row: 2, finger: 4, alt: 1}),
+                  Semicolon: new Finger({row: 0, finger: 4, alt: 0}),
+                  Comma: new Finger({row: -1, finger: 2, alt: 0}),
+                  Period: new Finger({row: -1, finger: 3, alt: 0}),
+                  Slash: new Finger({row: -1, finger: 4, alt: 0}),
+                  BracketLeft: new Finger({row: 1, finger: 4, alt: 1}),
+                  BracketRight: new Finger({row: 1, finger: 4, alt: 2}),
+                  Quote: new Finger({row: 0, finger: 4, alt: 1}),
+                }
+              }
+            },
             monsterRect: Object,
             history: {
               type: String,
@@ -242,6 +241,10 @@
             }
           }
         }
+      }
+
+      debug(e) {
+        debugger;
       }
 
       _pressedAction(e) {

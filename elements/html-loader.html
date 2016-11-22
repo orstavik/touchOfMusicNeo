@@ -1,0 +1,31 @@
+<dom-module id="html-loader">
+  <script>
+    class HtmlLoader extends Polymer.Element {
+      static get is() {
+        return "html-loader";
+      }
+
+      static get config() {
+        return {
+          properties: {
+            href: String
+          }
+        }
+      }
+
+      connectedCallback() {
+        var link = document.createElement('link');
+        link.rel = 'import';
+        link.href = this.href;
+        link.onload = function(e) {
+          var content = link.import.querySelector("template").content;
+          var clone = document.importNode(content, true);
+          this.parentNode.insertBefore(clone, this);
+          link.remove();
+        }.bind(this);
+        document.head.appendChild(link);
+      }
+    }
+    customElements.define(HtmlLoader.is, HtmlLoader);
+  </script>
+</dom-module>

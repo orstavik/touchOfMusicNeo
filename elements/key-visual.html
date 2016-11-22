@@ -23,15 +23,9 @@
         return "key-visual";
       }
 
-      static get config() {
-        return {
-          properties: {
-          row: {
-              type: Number,
-              observer: "_useRow"
-            },
-          }
-        }
+      constructor() {
+        super();
+        super.ready();
       }
 
       connectedCallback() {
