@@ -31,21 +31,17 @@
 			<beam-constructor id="beams"></beam-constructor>
 		</keyboard-visual>
 
-
       <div id="mapChoice">
           Play chords:<input type="checkbox" checked="{{chordMode::change}}"><br />
       </div>
 
 		<monster-container id="monster"></monster-container>
 
-		<keyboard-listener on-pressed-keys="_pressedAction" on-key-pressed="_press" on-key-unpressed="_unpress"></keyboard-listener>
+		<keyboard-listener on-pressed-keys="_pressedAction"></keyboard-listener>
 
     <!--<audio-synthesizer instrument="piano" keys="[[pressedArray]]"></audio-synthesizer>-->
 
-<<<<<<< HEAD
-    <audio-container id="audioPlayer" pressed="[[pressedArray]]" base="C4" mode="major">
-=======
-    <audio-container id="audioPlayer" press="[[pressedKey]]" chord-mode="[[chordMode]]" unpress="[[unpressedKey]]" base="C4" mode="major">
+    <audio-container id="audioPlayer" pressed="[[pressedArray]]" chord-mode="[[chordMode]]" base="C4" mode="major">
         <!-- Add special keys here? -->
         <!--<div data-key="Tab" data-click-action="keyLeft"></div>-->
         <!--<div data-key="Enter" data-click-action="keyRight"></div>-->
@@ -53,7 +49,6 @@
         <!--<div data-key="Backspace" data-click-action="scaleRight"></div>-->
         <!--<div data-key="ShiftLeft" data-hold-action="sharpen"></div>-->
 
->>>>>>> 0e8d020e9d2cf6de61d29329b1a2e3d428389246
         <!--Row 3 Left Hand-->
         <div data-key="KeyQ" data-tone="III" data-chord="" data-octave="-1"></div>
         <div data-key="KeyW" data-tone="V" data-chord="" data-octave="-1"></div>
@@ -251,27 +246,7 @@
       _pressedAction(e) {
         this.pressedArray = JSON.parse(JSON.stringify(e.detail.pressed));
 
-
-<<<<<<< HEAD
 				this._prepareBeam();
-=======
-			_press(e) {
-				this.pressedKey = e.detail.pressed;
-				var char = this.keyValues[e.detail.pressed];
-				if (char)
-					this.history += char.key.toUpperCase()+" ";
-				// console.log(this.history);
-			}
-
-      _unpress(e) {
-				this.unpressedKey = "";
-				this.unpressedKey = e.detail.pressed;
-				if (this.unpressedKey == this.pressedKey) {
-          this.pressedKey = undefined;
-        }
-        if (this.unpressedKey === "ShiftLeft")
-          this.sharp = 0;
->>>>>>> 0e8d020e9d2cf6de61d29329b1a2e3d428389246
       }
 
 			_prepareBeam() {
