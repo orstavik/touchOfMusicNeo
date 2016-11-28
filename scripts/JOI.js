@@ -259,7 +259,10 @@ class JOIParser {
   static parseArgument(args, i, text, argsWithoutPropIsOk) {
     if (text.nextTokenIs(","))    //empty argument
       return argsWithoutPropIsOk;
-    args[i] = JOIParser.parseProperty(text);
+    let value = JOIParser.parseProperty(text);
+    if (value == null)
+      return false;
+    args[i] = value;
     args[i].propertyNumber = i;       //todo add number to properties
     if (!args[i].propertyName) {
       if (!argsWithoutPropIsOk)
@@ -280,7 +283,10 @@ class JOIParser {
       argument.propertyName = prop.value;
       text.nextToken(); //pop ':'
     }
-    argument.value = JOIParser.parseValue(text);
+    let value = JOIParser.parseValue(text);
+    if (value == null && !argument.propertyName)
+      return null;
+    argument.value = value;
     return argument;
   }
 
@@ -348,7 +354,7 @@ class JOI {
       let resolvedObj = this.resolveRefsInObject(ASTnode);
       for (let pName in resolvedObj) {
         let prop = resolvedObj[pName];
-        resolvedObj[pName] = prop.value.primitive;
+        resolvedObj[pName] = prop;//.value.primitive;
       }
       return resolvedObj;
     }
@@ -378,10 +384,10 @@ class JOI {
 
     let body = this.declarations[refName];
 
-    if (body.reference.length == 0) {
+    // if (body.reference.length == 0) {
       delete this.declarations[refName];
-      return this.flattenedDeclarations[refName] = body.value;
-    }
+      // return this.flattenedDeclarations[refName] = JOI.resolveObject({}, body);
+    // }
 
     //now we have an object, it has not been resolved yet, we
     return this.resolveRefsInObject(body);
@@ -390,42 +396,44 @@ class JOI {
   resolveRefsInObject(body) {
     body.flatReferences = [];
     for (var i = 0; i < body.reference.length; i++)
-      body.flatReferences[i] = this.resolveReference(body.reference[i]);
+      body.flatReferences[i] = JSON.parse(JSON.stringify(this.resolveReference(body.reference[i])));
 
     let parent = body.flatReferences.shift(); //check if its the first
     while (body.flatReferences.length > 0) {
       let child = body.flatReferences.shift();
       parent = JOI.resolveObject(parent, child);
     }
-    return parent;
+    return JOI.resolveObject(parent, body.value);
   }
 
   static resolveObject(parent, child) {
-    var clone = JSON.parse(JSON.stringify(parent));
+    if (!parent)
+      parent = {};
     for (let prop in child)
-      JOI.resolveProperty(clone, child[prop]);
-    return clone;
+      JOI.resolveProperty(parent, child[prop]);
+    return parent;
   }
 
   static  resolveProperty(host, childsProperty) {
     //use propName first if you can.
+    let propName = childsProperty.propertyName;
     if (childsProperty.propertyName)
-      return host[propName].value.primitive = JOI.mergeProps(host[propName], childsProperty);
+      return host[propName] = JOI.mergeProps(host[propName], childsProperty);
     if (host[childsProperty.propertyNumber])
-      return host[childsProperty.propertyNumber].value.primitive = JOI.mergeProps(host[childsProperty.propertyNumber], childsProperty);
+      return host[childsProperty.propertyNumber] = JOI.mergeProps(host[childsProperty.propertyNumber], childsProperty);
 
     for (let prop in host) {
       if (host[prop].propertyNumber == childsProperty.propertyNumber) {
         let propName = host[prop].propertyName;
-        return host[propName].value.primitive = JOI.mergeProps(host[propName], childsProperty);
+        return host[propName] = JOI.mergeProps(host[propName], childsProperty);
       }
     }
-    return host[propName].value.primitive = JOI.mergeProps(null, childsProperty);
+    return host[propName] = JOI.mergeProps(null, childsProperty);
   }
 
   static  mergeProps(hostProp, childProp) {
     if (!hostProp)
-      return childProp;
+      return childProp.value.primitive;
     delete hostProp.operator;
     return JOI.resolveOperator(childProp.value.operator, hostProp.value.primitive, childProp.value.primitive);
   }
