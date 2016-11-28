@@ -1,0 +1,63 @@
+<dom-module id="game-judge">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    
+    <slot on-joi-event="_holdEvent" on-tick="_countTick" on-pressed-keys="_registerKeys"></slot>
+
+  </template>
+
+  <script>
+    class GameJudge extends Polymer.Element {
+      static get is() {
+        return "game-judge";
+      }
+      static get config() {
+        return {
+          properties: {
+            ticksPerTurn: {
+              type: Number,
+              value: 20
+            },
+            heldEvents: {
+              type: Array,
+              value: function() {
+                return []
+              }
+            }
+          }
+        }
+      }
+
+      _holdEvent(e) {
+        if (!e.1) {
+          e.1 = 1;
+        };
+        if (e.1 != 0) {
+          e.stopPropagation();
+          // e.ticksLeft = e.duration*this.ticksPerTurn;
+          e.ticksLeft = e.1*this.ticksPerTurn;
+          this.heldEvents.push(e);
+        }
+      }
+
+      _countTick(e) {
+        for(let i = 0; i < this.heldEvents.length; i++) {
+          let event = this.heldEvents[i];
+          event.ticksLeft--;
+          if (event.ticksLeft <= 0) {
+            this.dispatchEvent(event);
+          }
+        }
+      }
+
+      _registerKeys(e) {
+        
+      }
+    }
+    customElements.define(GameJudge.is, GameJudge);
+  </script>
+</dom-module>

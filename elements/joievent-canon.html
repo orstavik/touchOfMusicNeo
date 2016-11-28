@@ -1,0 +1,28 @@
+<dom-module id="joievent-canon">
+  <template>
+    <style>
+      :host {
+        display: none;
+      }
+    </style>
+
+  </template>
+
+  <script>
+    class JoieventCanon extends Polymer.Element {
+      static get is() {
+        return "joievent-canon";
+      }
+      static get config() {
+        return {
+          properties: {}
+        }
+      }
+
+      fireEvent(name, detail) {
+        this.dispatchEvent(new CustomEvent(name, {"bubbles": true, "composed": true, "detail": detail}));
+      }
+    }
+    customElements.define(JoieventCanon.is, JoieventCanon);
+  </script>
+</dom-module>

@@ -1,0 +1,57 @@
+<dom-module id="joievent-player">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <slot on-joi-event="_fireNextEvent"></slot>
+
+  </template>
+
+  <script>
+    class JoieventPlayer extends Polymer.Element {
+      static get is() {
+        return "joievent-player";
+      }
+      static get config() {
+        return {
+          properties: {
+            input: {
+              type: String,
+              observer: "_inputChange"
+            },
+            // eventName: {
+            //   type: String
+            // },
+            _joi: {
+              type: Array,
+              value: function() {
+                return []
+              }
+            }
+          }
+        }
+      }
+
+      _inputChange() {
+        debugger;
+        this._joi = JOI.parse(this.input);
+        this._fireNextEvent();
+      }
+
+      _fireNextEvent(e) {
+        let canons = this.querySelectorAll("joievent-canon");
+        let nextEvents = this._joi.pop();
+        for (let event of nextEvents) {
+          canons.forEach(function(canon) {
+            canon.fireEvent("joi-event" ,event);
+          }.bind(this));
+        };
+        console.log(nextEvents);
+      }
+    }
+    customElements.define(JoieventPlayer.is, JoieventPlayer);
+  </script>
+</dom-module>

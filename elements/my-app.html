@@ -2,6 +2,8 @@
 <link rel="import" href="running-text.html">
 <link rel="import" href="keyboard-container.html">
 <link rel="import" href="tempo-timer.html">
+<link rel="import" href="joievent-player.html">
+<link rel="import" href="joievent-canon.html">
 
 <dom-module id="my-app">
   <template>
@@ -16,11 +18,19 @@
       }
     </style>
 
-    <running-text id="runner" pressed="[[pressedArray]]" text="[[futures]]" tempo="[[tempo]]"></running-text>
+    <joievent-player input="[[scenario]]">
 
-    <keyboard-container id="keyboard" on-pressed-keys="_pressedAction" futures="[[futures]]"></keyboard-container>
-    
-    <tempo-timer on-tick="_makeScenario" tempo="[[tempo]]" id="timer"></tempo-timer>
+      <game-judge>
+        <!--<running-text id="runner" pressed="[[pressedArray]]" text="[[futures]]" tempo="[[tempo]]"></running-text>-->
+
+        <keyboard-container id="keyboard" on-pressed-keys="_pressedAction" futures="[[futures]]">
+          <joievent-canon></joievent-canon>
+        </keyboard-container>
+        
+        <tempo-timer on-tick="_makeScenario" tempo="[[tempo]]" id="timer"></tempo-timer>
+      </game-judge>
+
+    </joievent-player>
 
   </template>
 
@@ -40,9 +50,11 @@
             },
             scenario: {
               type: String,
-              value: "UOKUOKJLKJLKYIUYIUTIUTIU",
+              value: 
+                    "A@letter:A,duration:1 K@letter:K,duration:10 A! A! A! K! K! K! A! A! A!",
+                    // "O K U O K,10 J L K J L K Y I U Y I U T I U T I U",
               reflectToAttribute: true,
-              observer: "_scenarioReset"
+              // observer: "_scenarioReset"
             },
             futures: {
               type: String,
@@ -50,7 +62,7 @@
             },
             tempo: {
               type: Number,
-              value: 1000
+              value: 100
             }
           }
         }
