@@ -1,4 +1,4 @@
-<link rel="import" href="monster-stage.html">
+<link rel="import" href="monster-part.html">
 
 <dom-module id="monster-container">
   <template>
@@ -8,11 +8,21 @@
         width: 100vw;
         justify-content: center;
         position: absolute;
-        bottom: 0;
+        bottom: 12vh;
+      }
+      #stage {
+        display: inline-block;
+        position: relative;
+        width: 30vh;
+        height: 30vh;
       }
     </style>
 
-    <monster-stage id="stage"></monster-stage>
+    <div id="stage">
+      <template is="dom-repeat" items="[[description]]">
+        <monster-part letter$="[[item.letter]]" info="[[item]]"></monster-part>
+      </template>
+    </div>
 
   </template>
 	
@@ -24,13 +34,28 @@
       static get config() {
         return {
           properties: {
-            rect: Object
+            json: {
+              type: String,
+              value: '[{"letter":"k (1)","position":{"x":0,"y":-108},"scale":1},{"letter":"ey","position":{"x":0,"y":-108},"scale":0.6699999999999997},{"letter":"l","position":{"x":-35,"y":50},"scale":0.18999999999999936},{"letter":"l","position":{"x":35,"y":50},"scale":0.18999999999999936},{"letter":"j (1)","position":{"x":-32,"y":34},"scale":0.12999999999999937},{"letter":"j (1)","position":{"x":32,"y":34},"scale":0.09999999999999937},{"letter":"f (1)","position":{"x":-29,"y":23},"scale":0.12999999999999937},{"letter":"f (1)","position":{"x":29,"y":23},"scale":0.12999999999999937},{"letter":"d (1)","position":{"x":-18,"y":16},"scale":0.12999999999999937},{"letter":"d (1)","position":{"x":18,"y":16},"scale":0.12999999999999937,"rotation":1},{"letter":"j (1)","position":{"x":1,"y":-13},"scale":0.6399999999999997},{"letter":"spring","position":{"x":-52,"y":-123},"scale":0.21999999999999936},{"letter":"d (1)","position":{"x":-42,"y":-32},"scale":0.21999999999999936},{"letter":"d (1)","position":{"x":42,"y":-32},"scale":0.21999999999999936},{"letter":"f (1)","position":{"x":0,"y":0},"scale":0.36999999999999944},{"letter":"k (1)","position":{"x":-57,"y":-17},"scale":0.12999999999999937},{"letter":"k (1)","position":{"x":57,"y":-17},"scale":0.12999999999999937}]'
+            },
+            description: {
+              type: Array,
+              computed: "_parseJSON(json)"
+            }
           }
         }
       }
 
-      getRect() {
-        return this.$.stage.getBoundingClientRect();
+      getPart() {
+        var node = this.shadowRoot.querySelector("monster-part[empty]");
+        if (node) {
+          node.empty = false;
+          return node;
+        }
+      }
+
+      _parseJSON(json) {
+        return JSON.parse(json);
       }
     }
     customElements.define(MonsterContainer.is, MonsterContainer);

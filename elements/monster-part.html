@@ -1,0 +1,102 @@
+<dom-module id="monster-part">
+  <template>
+    <style>
+      :host {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        pointer-events: none;
+      }
+      .innerOne {
+        display: flex;
+        position: absolute;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        background-color: transparent;
+        border-radius: 25%;
+        /*border: 2px solid transparent;*/
+        transition: border 0.2s cubic-bezier(1,0,1,0);
+        pointer-events: auto;
+        overflow: hidden;
+      }
+      .ripple {
+        display: flex;
+        position: absolute;
+        align-items: center;
+        justify-content: center;
+        width: 121%;
+        height: 121%;
+        color: rgba(0,0,0,0.75);
+        font-weight: bold;
+        border-radius: 50%;
+        transition-duration: 0.2s;
+        transform: scale(0);
+        pointer-events: none;
+      }
+    </style>
+
+    <div class="innerOne">
+      <div class="ripple"></div>
+    </div>
+
+  </template>
+
+  <script>
+    class MonsterPart extends Polymer.Element {
+      static get is() {
+        return "monster-part";
+      }
+
+      static get config() {
+        return {
+          properties: {
+            size: {
+              type: Number,
+              value: 16
+            },
+            info: {
+              type: Object,
+              observer: "_applyStyle"
+            },
+            empty: {
+              type: Boolean,
+              value: true,
+              reflectToAttribute: true
+            }
+          }
+        }
+      }
+
+      constructor() {
+        super();
+        super.ready();
+      }
+
+      _applyStyle() {
+        this.style.cssText = 
+          "margin-left: -"+this.size/2+"vh;"+
+          "width: "+this.size+"vh;"+
+          "height: "+this.size+"vh;"+
+          "transform: translate("+this.size*(this.info.position.x/100)+"vh, "+this.size*(this.info.position.y/100)+"vh);";
+
+        this.shadowRoot.querySelector(".innerOne").style.cssText = 
+          "width: "+this.info.scale*100+"%;"+
+          "height: "+this.info.scale*100+"%;";
+      }
+
+      fillIt(color, char) {
+        // this.shadowRoot.querySelector(".innerOne").style.borderColor = "rgba(0,0,0,0.5)";
+        var ripple = this.shadowRoot.querySelector(".ripple");
+        ripple.style.backgroundColor = "rgb("+color+")";
+        ripple.style.transform = "scale(1)";
+        ripple.style.fontSize = 8*this.info.scale+"vh";
+        ripple.innerText = char;
+      }
+    }
+    customElements.define(MonsterPart.is, MonsterPart);
+  </script>
+</dom-module>

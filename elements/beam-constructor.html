@@ -2,39 +2,7 @@
 
 <dom-module id="beam-constructor">
   <template>
-    <style>
-      .beam {
-        display: inline-block;
-        position: absolute;
-        border-radius: 70px;
-        transform-origin: left;
-        overflow: hidden;
-        z-index: 10;
-      }
-      
-      .innerBeam {
-        height: 100%;
-        width: 50%;
-        border-radius: 70px;
-        transform-origin: left;
-        transition-timing-function: linear;
-        animation-fill-mode: forwards;
-        animation: Transfer 1s linear;
-        z-index: 1;
-      }
-
-      @keyframes Transfer {
-        0% {
-          transform: translateX(-100%)
-        }
-        100% {
-          transform: translateX(200%)
-        }
-      }
-    </style>
-
     <slot></slot>
-
   </template>
 
   <script>
@@ -45,6 +13,16 @@
       static get config() {
         return {
           properties: {
+            pressed: {
+              type: Array,
+              observer: "_pressedHaveChanged"
+            },
+            bufferPressed: {
+              type: Array,
+              value: function() {
+                return []
+              }
+            },
             index: {
               type: Number,
               value: 0
@@ -70,24 +48,41 @@
 
       constructor() {
         super();
+        this.addEventListener("light-reach", this._finishBeam.bind(this));
       }
 
-			prepareBeam(pressed) {
+      _pressedHaveChanged() {
+        var nev = this.pressed;
+        var old = this.bufferPressed;
+        if (nev.length > old.length) {
+          this._prepareBeam([nev[nev.length-1]]);
+        }
+        this.bufferPressed = this.pressed;
+      }
+
+			_prepareBeam(pressed) {
         for (var i = 0; i < pressed.length; i++) {
           let key = pressed[i];
           let keyNode = this.querySelector("[code="+ key+"] key-pyramid");
 					if (keyNode) {
             let origin = keyNode.getRect();
-						let target = this.querySelector("#monster").getRect();
-            let color = this.colorMap[keyNode.classList[0]];
-
+            let char = keyNode.char;
+						let targetNode = this.querySelector("#monster").getPart();
+            if (targetNode) {
+              var target = targetNode.getBoundingClientRect();
+            }
+            let color = this.colorMap[keyNode.finger];
 						if (origin && target) {
-              var lightBeam = new LightBeam("beam"+(this.index++), origin, target, color);
+              var lightBeam = new LightBeam("beam"+(this.index++), origin, target, targetNode, color, char);
               this.shadowRoot.appendChild(lightBeam);
             }
 					}
 				}
 			}
+
+      _finishBeam(e) {
+        e.detail.target.fillIt(e.detail.color, e.detail.char);
+      }
     }
     customElements.define(BeamConstructor.is, BeamConstructor);
   </script>

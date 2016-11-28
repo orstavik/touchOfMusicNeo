@@ -2,6 +2,11 @@
 
 <dom-module id="keyboard-visual">
   <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
     <slot></slot>
   </template>
 
@@ -14,6 +19,62 @@
       static get config() {
         return {
           properties: {
+            pressed: {
+              type: Array,
+              observer: "_highlightKeys"
+            },
+            keyValues: {
+              type: Object,
+              value: function () {
+                return {
+                  KeyA: {key: 'a', shiftKey: 'A'},
+                  KeyB: {key: 'b', shiftKey: 'B'},
+                  KeyC: {key: 'c', shiftKey: 'C'},
+                  KeyD: {key: 'd', shiftKey: 'D'},
+                  KeyE: {key: 'e', shiftKey: 'E'},
+                  KeyF: {key: 'f', shiftKey: 'F'},
+                  KeyG: {key: 'g', shiftKey: 'G'},
+                  KeyH: {key: 'h', shiftKey: 'H'},
+                  KeyI: {key: 'i', shiftKey: 'I'},
+                  KeyJ: {key: 'j', shiftKey: 'J'},
+                  KeyK: {key: 'k', shiftKey: 'K'},
+                  KeyL: {key: 'l', shiftKey: 'L'},
+                  KeyM: {key: 'm', shiftKey: 'M'},
+                  KeyN: {key: 'n', shiftKey: 'N'},
+                  KeyO: {key: 'o', shiftKey: 'O'},
+                  KeyP: {key: 'p', shiftKey: 'P'},
+                  KeyQ: {key: 'q', shiftKey: 'Q'},
+                  KeyR: {key: 'r', shiftKey: 'R'},
+                  KeyS: {key: 's', shiftKey: 'S'},
+                  KeyT: {key: 't', shiftKey: 'T'},
+                  KeyU: {key: 'u', shiftKey: 'U'},
+                  KeyV: {key: 'v', shiftKey: 'V'},
+                  KeyW: {key: 'w', shiftKey: 'W'},
+                  KeyX: {key: 'x', shiftKey: 'X'},
+                  KeyY: {key: 'y', shiftKey: 'Y'},
+                  KeyZ: {key: 'z', shiftKey: 'Z'},
+                  Digit0: {key: '0', shiftKey: ')'},
+                  Digit1: {key: '1', shiftKey: '!'},
+                  Digit2: {key: '2', shiftKey: '@'},
+                  Digit3: {key: '3', shiftKey: '#'},
+                  Digit4: {key: '4', shiftKey: '$'},
+                  Digit5: {key: '5', shiftKey: '%'},
+                  Digit6: {key: '6', shiftKey: '^'},
+                  Digit7: {key: '7', shiftKey: '&'},
+                  Digit8: {key: '8', shiftKey: '*'},
+                  Digit9: {key: '9', shiftKey: '('},
+                  Equal: {key: '=', shiftKey: '+'},
+                  Minus: {key: '-', shiftKey: '_'},
+                  Semicolon: {key: ';', shiftKey: ':'},
+                  Comma: {key: ',', shiftKey: '<'},
+                  Period: {key: '.', shiftKey: '>'},
+                  Slash: {key: '/', shiftKey: '?'},
+                  BracketLeft: {key: '[', shiftKey: '{'},
+                  BracketRight: {key: ']', shiftKey: '}'},
+                  Quote: {key: '\'', shiftKey: '"'}
+                }
+              }
+            },
             fingerInfoOld: {
               type: Object,
               value: function () {
@@ -121,6 +182,18 @@
           }
         }
       }
+
+			_highlightKeys() {
+				var pressedKeys = this.querySelectorAll("[pressed]");
+				for(let i = 0; i < pressedKeys.length; i++)
+					pressedKeys[i].removeAttribute("pressed");
+
+				for(let i = 0; i < this.pressed.length; i++) {
+					var keyElem = this.querySelector("[code="+this.pressed[i]+"] > key-pyramid");
+					if (keyElem)
+						keyElem.setAttribute("pressed", "");
+				}
+			}
 
       getFingerPositionPerHand(finger){
         let fingerNum = finger.finger%5;

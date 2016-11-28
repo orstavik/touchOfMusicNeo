@@ -32,7 +32,7 @@
     </style>
 
     <div id="outer">
-      <div id="inner" on-animationend="_removeMe"></div>
+      <div id="inner" on-animationend="_removeMe" on-animationstart="_setTimeout"></div>
     </div>
 
   </template>
@@ -43,14 +43,16 @@
         return "light-beam";
       }
 
-      constructor(id,origin,target,color) {
+      constructor(id,origin,target,targetNode,color,char) {
         super();
         super.ready();
         
         this.id = id;
+        this.targetNode = targetNode;
+        this.char = char;
         this.data = {
           longitude: Math.sqrt(Math.pow(((origin.top+origin.height/2)-(target.top+target.height/2)), 2) + Math.pow(((origin.left+origin.width/2)-(target.left+target.width/2)), 2)),
-          width: 2,
+          width: 1.5,
           origin: {
             x: origin.left+origin.width/2,
             y: origin.top+origin.height/2
@@ -73,6 +75,12 @@
 
       _removeMe() {
         this.remove();
+      }
+
+      _setTimeout(e) {
+        setTimeout(function(e) {
+          this.dispatchEvent(new CustomEvent("light-reach", {detail: {target: this.targetNode, color: this.data.color, char: this.char}, composed: true, bubbles: true}));
+        }.bind(this), 650);
       }
     }
     customElements.define(LightBeam.is, LightBeam);

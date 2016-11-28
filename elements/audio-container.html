@@ -105,7 +105,7 @@
           case "turnModusRight":
             return this.$.scale.turnModusRight();
           case "sharpen":
-            this.shift = 1;
+            this.sharp = 1;
             return;
         }
 
@@ -126,7 +126,7 @@
           return;
         switch (div.dataset.command) {
           case "sharpen":
-            this.shift = 0;
+            this.sharp = 0;
             break;
         }
       }

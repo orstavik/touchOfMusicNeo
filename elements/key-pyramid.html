@@ -29,7 +29,7 @@
         border-radius: 25%;
       }
 
-      :host([pressed]) #shapeDiv[top] {
+      :host([finger=pressed]) #shapeDiv[top] {
         border-radius: 50%;
       }
 
@@ -67,18 +67,19 @@
         color: rgba(0,0,0,0.75);
         cursor: default;
         z-index: 1;
+        pointer-events: none;
       }
 
-      /*:host(.RightThumb:not([pressed])) #shapeDiv[active] {}*/
-			:host(.RightIndex:not([pressed])) #shapeDiv[active] {background: #cdd404}
-			:host(.RightLongfinger:not([pressed])) #shapeDiv[active] {background: #31c1bf}
-			:host(.RightRingfinger:not([pressed])) #shapeDiv[active] {background: #44a9e3}
-			:host(.RightPinky:not([pressed])) #shapeDiv[active] {background: #2443d0}
-			/*:host(.LeftThumb:not([pressed])) #shapeDiv[active] {}*/
-			:host(.LeftIndex:not([pressed])) #shapeDiv[active] {background: #fcdf54}
-			:host(.LeftLongfinger:not([pressed])) #shapeDiv[active] {background: #fe9d05}
-			:host(.LeftRingfinger:not([pressed])) #shapeDiv[active] {background: #e753ad}
-			:host(.LeftPinky:not([pressed])) #shapeDiv[active] {background: #b70b74}
+      /*:host([RightThumb]:not([pressed])) #shapeDiv[active] {}*/
+			:host([finger=RightIndex]:not([pressed])) #shapeDiv[active] {background: #cdd404}
+			:host([finger=RightLongfinger]:not([pressed])) #shapeDiv[active] {background: #31c1bf}
+			:host([finger=RightRingfinger]:not([pressed])) #shapeDiv[active] {background: #44a9e3}
+			:host([finger=RightPinky]:not([pressed])) #shapeDiv[active] {background: #2443d0}
+			/*:host([LeftThumb]:not([pressed])) #shapeDiv[active] {}*/
+			:host([finger=LeftIndex]:not([pressed])) #shapeDiv[active] {background: #fcdf54}
+			:host([finger=LeftLongfinger]:not([pressed])) #shapeDiv[active] {background: #fe9d05}
+			:host([finger=LeftRingfinger]:not([pressed])) #shapeDiv[active] {background: #e753ad}
+			:host([finger=LeftPinky]:not([pressed])) #shapeDiv[active] {background: #b70b74}
     </style>
     
     <template is="dom-repeat" items="[[_numberToArray(levels)]]" id="repeater">
@@ -103,7 +104,7 @@
             },
 						char: String,
             shape: String,
-            color: String,
+            finger: String,
             active: {
               type: Number,
               // observer: "_makeActive"
