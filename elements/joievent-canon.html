@@ -20,7 +20,9 @@
       }
 
       fireEvent(name, detail) {
-        this.dispatchEvent(new CustomEvent(name, {"bubbles": true, "composed": true, "detail": detail}));
+        this.timer = setTimeout(function() {
+          this.dispatchEvent(new CustomEvent(name, {"bubbles": true, "composed": true, "detail": {time: 30}}));
+        }.bind(this), 1000);
       }
     }
     customElements.define(JoieventCanon.is, JoieventCanon);
