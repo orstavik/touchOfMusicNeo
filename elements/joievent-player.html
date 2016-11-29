@@ -15,6 +15,7 @@
       static get is() {
         return "joievent-player";
       }
+
       static get config() {
         return {
           properties: {
@@ -27,47 +28,37 @@
             // },
             _joi: {
               type: Array,
-              value: function() {
+              value: function () {
                 return []
               }
+            },
+            eventIDS: {
+              type: Number,
+              value: 0
             }
           }
         }
       }
 
-      // constructor() {
-      //   super();
-      //   this.addEventListener("")
-      // }
-
       _inputChange() {
-        // debugger;
         this._joi = JOI.parse(this.input);
-        this._fireNextEvent();
+        setTimeout(function () {
+          this._fireNextEvent();
+        }.bind(this), 0);
       }
 
       _fireNextEvent(e) {
-        debugger;
         let canons = this.querySelectorAll("joievent-canon");
         let nextEvents = this._joi.pop();
+        if (!nextEvents)
+          return;
         for (let event of nextEvents) {
-          canons.forEach(function(canon) {
+          event.id = this.eventIDS += 2;
+          console.log(event);
+          canons.forEach(function (canon) {
             canon.fireEvent("joievent", event);
           }.bind(this));
-        };
-        console.log(nextEvents);
-      }
-
-      fireNextEvent(e) {
-        debugger;
-        let canons = this.querySelectorAll("joievent-canon");
-        let nextEvents = this._joi.pop();
-        for (let event of nextEvents) {
-          canons.forEach(function(canon) {
-            canon.fireEvent("joievent", event);
-          }.bind(this));
-        };
-        console.log(nextEvents);
+        }
       }
     }
     customElements.define(JoieventPlayer.is, JoieventPlayer);

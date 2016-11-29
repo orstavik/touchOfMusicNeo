@@ -5,7 +5,7 @@
         display: block;
       }
     </style>
-    
+
     <slot on-tick="_countTick" on-pressed-keys="_registerKeys" on-joievent="_holdEvents"></slot>
 
   </template>
@@ -15,6 +15,7 @@
       static get is() {
         return "game-judge";
       }
+
       static get config() {
         return {
           properties: {
@@ -24,8 +25,8 @@
             },
             heldEvents: {
               type: Array,
-              value: function() {
-                return []
+              value: function () {
+                return [];
               }
             }
           }
@@ -33,40 +34,29 @@
       }
 
       _holdEvents(e) {
-        debugger;
-        if (!e.detail.duration) {
-          e.detail.duration = 1;
-        };
-        if (e.detail.duration != 0) {
-          // e.stopPropagation();
-          e.detail.ticksLeft = e.detail.duration*this.ticksPerTurn;
-          this.heldEvents.push(e);
-        }
-      }
-
-      holdEvents(e) {
-        if (!e.detail.duration) {
-          e.detail.duration = 1;
-        };
-        if (e.detail.duration != 0) {
+        if (e.detail.duration) { //duration exists and is not 0
           e.stopPropagation();
-          e.detail.ticksLeft = e.detail.duration*this.ticksPerTurn;
+          e.preventDefault();
+          e.detail.ticksLeft = e.detail.duration * this.ticksPerTurn;
           this.heldEvents.push(e);
         }
       }
 
       _countTick(e) {
-        for(let i = 0; i < this.heldEvents.length; i++) {
-          let event = this.heldEvents[i];
-          event.detail.ticksLeft--;
-          if (event.detail.ticksLeft <= 0) {
-            this.dispatchEvent(new CustomEvent(event.type, event));
-          }
-        }
+        for (let hostage of this.heldEvents)
+          hostage.detail.ticksLeft--;
+        let doDonaldTrumpOnTheseGuys = this.heldEvents.filter(function (toDonald) {
+          return toDonald.detail.ticksLeft <= 0;
+        });
+        this.heldEvents = this.heldEvents.filter(function (el) {
+          return doDonaldTrumpOnTheseGuys.indexOf(el) < 0;
+        });
+        for (let donald of doDonaldTrumpOnTheseGuys)
+          this.dispatchEvent(new CustomEvent(donald.type, donald));
       }
 
       _registerKeys(e) {
-        debugger;
+//        debugger;
       }
     }
     customElements.define(GameJudge.is, GameJudge);

@@ -25,10 +25,9 @@
         <!--<running-text id="runner" pressed="[[pressedArray]]" text="[[futures]]" tempo="[[tempo]]"></running-text>-->
 
         <keyboard-container id="keyboard" on-pressed-keys="_pressedAction" futures="[[futures]]">
-          <!--<joievent-canon></joievent-canon>-->
-        </keyboard-container>
           <joievent-canon></joievent-canon>
-        
+        </keyboard-container>
+
         <tempo-timer on-tick="_makeScenario" tempo="[[tempo]]" id="timer"></tempo-timer>
       </game-judge>
 
