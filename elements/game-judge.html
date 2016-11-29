@@ -6,7 +6,7 @@
       }
     </style>
     
-    <slot on-joi-event="_holdEvent" on-tick="_countTick" on-pressed-keys="_registerKeys"></slot>
+    <slot on-tick="_countTick" on-pressed-keys="_registerKeys" on-joievent="_holdEvents"></slot>
 
   </template>
 
@@ -32,14 +32,25 @@
         }
       }
 
-      _holdEvent(e) {
-        if (!e.1) {
-          e.1 = 1;
+      _holdEvents(e) {
+        debugger;
+        if (!e.detail.duration) {
+          e.detail.duration = 1;
         };
-        if (e.1 != 0) {
+        if (e.detail.duration != 0) {
+          // e.stopPropagation();
+          e.detail.ticksLeft = e.detail.duration*this.ticksPerTurn;
+          this.heldEvents.push(e);
+        }
+      }
+
+      holdEvents(e) {
+        if (!e.detail.duration) {
+          e.detail.duration = 1;
+        };
+        if (e.detail.duration != 0) {
           e.stopPropagation();
-          // e.ticksLeft = e.duration*this.ticksPerTurn;
-          e.ticksLeft = e.1*this.ticksPerTurn;
+          e.detail.ticksLeft = e.detail.duration*this.ticksPerTurn;
           this.heldEvents.push(e);
         }
       }
@@ -47,15 +58,15 @@
       _countTick(e) {
         for(let i = 0; i < this.heldEvents.length; i++) {
           let event = this.heldEvents[i];
-          event.ticksLeft--;
-          if (event.ticksLeft <= 0) {
-            this.dispatchEvent(event);
+          event.detail.ticksLeft--;
+          if (event.detail.ticksLeft <= 0) {
+            this.dispatchEvent(new CustomEvent(event.type, event));
           }
         }
       }
 
       _registerKeys(e) {
-        
+        debugger;
       }
     }
     customElements.define(GameJudge.is, GameJudge);

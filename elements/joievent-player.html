@@ -6,7 +6,7 @@
       }
     </style>
 
-    <slot on-joi-event="_fireNextEvent"></slot>
+    <slot on-joievent="_fireNextEvent"></slot>
 
   </template>
 
@@ -35,18 +35,36 @@
         }
       }
 
+      // constructor() {
+      //   super();
+      //   this.addEventListener("")
+      // }
+
       _inputChange() {
-        debugger;
+        // debugger;
         this._joi = JOI.parse(this.input);
         this._fireNextEvent();
       }
 
       _fireNextEvent(e) {
+        debugger;
         let canons = this.querySelectorAll("joievent-canon");
         let nextEvents = this._joi.pop();
         for (let event of nextEvents) {
           canons.forEach(function(canon) {
-            canon.fireEvent("joi-event" ,event);
+            canon.fireEvent("joievent", event);
+          }.bind(this));
+        };
+        console.log(nextEvents);
+      }
+
+      fireNextEvent(e) {
+        debugger;
+        let canons = this.querySelectorAll("joievent-canon");
+        let nextEvents = this._joi.pop();
+        for (let event of nextEvents) {
+          canons.forEach(function(canon) {
+            canon.fireEvent("joievent", event);
           }.bind(this));
         };
         console.log(nextEvents);

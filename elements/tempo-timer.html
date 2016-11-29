@@ -27,7 +27,7 @@
 
       connectedCallback() {
         this.timer = setInterval(function() {
-          this.dispatchEvent(new CustomEvent("tick", {"detail": {time: this.time}}));
+          this.dispatchEvent(new CustomEvent("tick", {"bubbles": true, "composed": true, "detail": {time: this.time}}));
           this.time++;
         }.bind(this), this.tempo);
       }

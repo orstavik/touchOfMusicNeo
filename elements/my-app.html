@@ -3,6 +3,7 @@
 <link rel="import" href="keyboard-container.html">
 <link rel="import" href="tempo-timer.html">
 <link rel="import" href="joievent-player.html">
+<link rel="import" href="game-judge.html">
 <link rel="import" href="joievent-canon.html">
 
 <dom-module id="my-app">
@@ -18,14 +19,15 @@
       }
     </style>
 
-    <joievent-player input="[[scenario]]">
+    <joievent-player input="[[scenario]]" id="joiplayer">
 
-      <game-judge>
+      <game-judge id="judge">
         <!--<running-text id="runner" pressed="[[pressedArray]]" text="[[futures]]" tempo="[[tempo]]"></running-text>-->
 
         <keyboard-container id="keyboard" on-pressed-keys="_pressedAction" futures="[[futures]]">
-          <joievent-canon></joievent-canon>
+          <!--<joievent-canon></joievent-canon>-->
         </keyboard-container>
+          <joievent-canon></joievent-canon>
         
         <tempo-timer on-tick="_makeScenario" tempo="[[tempo]]" id="timer"></tempo-timer>
       </game-judge>
@@ -66,6 +68,14 @@
             }
           }
         }
+      }
+
+      _fireNextEvent(e) {
+        this.$.joiplayer.fireNextEvent(e);
+      }
+
+      _holdEvents(e) {
+        this.$.judge.holdEvents(e);
       }
 
       _pressedAction(e) {
