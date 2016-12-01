@@ -1,0 +1,33 @@
+<dom-module id="notes-catcher">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <span id="scenario" style="background: white; padding: 10px"></span>
+
+    <slot on-joievent="_readEvent"></slot>
+
+  </template>
+
+  <script>
+    class NotesCatcher extends Polymer.Element {
+      static get is() {
+        return "notes-catcher";
+      }
+
+      static get config() {
+        return {
+          properties: {}
+        }
+      }
+
+      _readEvent(e) {
+        this.$.scenario.innerText += " "+e.detail.letter; 
+      }
+    }
+    customElements.define(NotesCatcher.is, NotesCatcher);
+  </script>
+</dom-module>

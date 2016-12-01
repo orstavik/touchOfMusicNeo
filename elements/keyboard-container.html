@@ -39,7 +39,7 @@
           Play chords:<input type="checkbox" checked="{{chordMode::change}}"><br />
       </div>
 
-		<keyboard-listener on-pressed-keys="_pressedAction"></keyboard-listener>
+		<keyboard-listener></keyboard-listener>
 
     <audio-container id="audioPlayer" pressed="[[pressedArray]]" chord-mode="[[chordMode]]" base="C4" mode="major">
       <html-loader href="../maps/audio-set1.html"></html-loader>
@@ -81,7 +81,7 @@
         }
       }
 
-      _pressedAction(e) {
+      pressedAction(e) {
         this.pressedArray = JSON.parse(JSON.stringify(e.detail.pressed));
       }
 

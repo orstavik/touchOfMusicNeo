@@ -1,5 +1,6 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="running-text.html">
+<link rel="import" href="notes-catcher.html">
 <link rel="import" href="keyboard-container.html">
 <link rel="import" href="tempo-timer.html">
 <link rel="import" href="joievent-player.html">
@@ -23,6 +24,10 @@
 
       <game-judge id="judge">
         <!--<running-text id="runner" pressed="[[pressedArray]]" text="[[futures]]" tempo="[[tempo]]"></running-text>-->
+
+        <notes-catcher>
+          <joievent-canon></joievent-canon>
+        </notes-catcher>
 
         <keyboard-container id="keyboard" on-pressed-keys="_pressedAction" futures="[[futures]]">
           <joievent-canon></joievent-canon>

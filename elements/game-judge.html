@@ -24,12 +24,24 @@
               value: 10
             },
             heldEvents: {
-              type: Array,
+              type: Object,
               value: function () {
-                return [];
+                return {};
               }
             },
+            registerEvents: {
+              type: Array,
+              value: function() {
+                return []
+              }
+             },
             keys: {
+              type: Array,
+              value: function() {
+                return []
+              }
+            },
+            keysBuffer: {
               type: Array,
               value: function() {
                 return []
@@ -40,30 +52,49 @@
       }
 
       _holdEvents(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        let eid = e.detail.id;
+        if (this.registerEvents[eid])
+          return
+        else
+          this.registerEvents[eid] = true;
         if (e.detail.duration) { //duration exists and is not 0
-          e.stopPropagation();
-          e.preventDefault();
-          e.detail.ticksLeft = e.detail.duration * this.ticksPerTurn;
-          this.heldEvents.push(e);
+          this.heldEvents[eid] = {
+            ticksLeft: e.detail.duration * this.ticksPerTurn,
+            event: e  
+          };
         }
       }
 
       _countTick(e) {
-        for (let hostage of this.heldEvents)
-          hostage.detail.ticksLeft--;
-        let eventsPending = this.heldEvents.filter(function (evt) {
-          return evt.detail.ticksLeft <= 0;
-        });
-        this.heldEvents = this.heldEvents.filter(function (el) {
-          return eventsPending.indexOf(el) < 0;
-        });
-        for (let evt of eventsPending)
-          this.dispatchEvent(new CustomEvent(evt.type, evt));
+        for (let hostage in this.heldEvents) {
+          let evt = this.heldEvents[hostage];
+          evt.ticksLeft--;
+          if (evt.ticksLeft <= 0) {
+            this.dispatchEvent(new CustomEvent(evt.event.type, evt.event));
+            delete this.heldEvents[hostage];
+          }
+        }
       }
 
       _registerKeys(e) {
-        this.keys = e.detail.pressed;
-        console.log(this.keys);
+        let canons = this.querySelectorAll("joievent-canon");
+        this.keys = JSON.parse(JSON.stringify(e.detail.pressed));
+        var nev = this.keys;
+        var old = this.keysBuffer;
+        if (nev.length > old.length) {
+          for (let id in this.heldEvents) {
+            if ("Key"+this.heldEvents[id].event.detail.letter === nev[nev.length-1]) {
+              console.log("true")
+              this.querySelector("#keyboard").pressedAction(e);
+            }
+            else console.log("false")
+          }
+        } else if (nev.length < old.length) {
+          this.querySelector("#keyboard").pressedAction(e);
+        }
+        this.keysBuffer = this.keys;
       }
     }
     customElements.define(GameJudge.is, GameJudge);
