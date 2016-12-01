@@ -52,7 +52,7 @@
             scenario: {
               type: String,
               value: 
-                    "A@letter:A,duration:1 K@letter:K,duration:10 A! A! A! K! K! K! A! A! A!",
+                    "A@letter:A,duration:1 K@letter:K,duration:2 A! A! A! K! K! K! A! A! A!",
                     // "O K U O K,10 J L K J L K Y I U Y I U T I U T I U",
               reflectToAttribute: true,
               // observer: "_scenarioReset"
@@ -67,14 +67,6 @@
             }
           }
         }
-      }
-
-      _fireNextEvent(e) {
-        this.$.joiplayer.fireNextEvent(e);
-      }
-
-      _holdEvents(e) {
-        this.$.judge.holdEvents(e);
       }
 
       _pressedAction(e) {

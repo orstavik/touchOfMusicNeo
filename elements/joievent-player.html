@@ -27,9 +27,9 @@
             //   type: String
             // },
             _joi: {
-              type: Array,
+              type: Object,
               value: function () {
-                return []
+                return {}
               }
             },
             eventIDS: {
@@ -41,19 +41,33 @@
       }
 
       _inputChange() {
-        this._joi = JOI.parse(this.input);
+        // this._joi = JOI.parse(this.input);
+        this._joi = {};
+        this._joi["id0"] = JOI.parse(this.input);
+        this.eventIDS = 0;
         setTimeout(function () {
-          this._fireNextEvent();
+          this._fireEventNumber("id0");
         }.bind(this), 0);
       }
 
       _fireNextEvent(e) {
+        this._fireEventNumber(e.detail.id);
+      }
+
+      _fireEventNumber(idnumber) {
         let canons = this.querySelectorAll("joievent-canon");
-        let nextEvents = this._joi.pop();
+        if (!this._joi[idnumber])
+          return;
+        let nextEvents = this._joi[idnumber][0];
         if (!nextEvents)
           return;
+        let first = true;
         for (let event of nextEvents) {
-          event.id = this.eventIDS += 2;
+          event.id = "id"+(++this.eventIDS);
+          if (first) {
+            first = false;
+            this._joi[event.id] = this._joi[idnumber].slice(1);
+          }
           console.log(event);
           canons.forEach(function (canon) {
             canon.fireEvent("joievent", event);
