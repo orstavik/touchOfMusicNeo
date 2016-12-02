@@ -9,6 +9,7 @@
         display: none;
       }
     </style>
+    
     <slot></slot>
 
     <music-scale id="scale" base="[[base]]" mode="{{mode}}" key="{{key}}" root-tone="{{rootTone}}"></music-scale>
@@ -66,6 +67,11 @@
             chordMode: {
               type: Boolean,
               value: false
+            },
+            bool: Boolean,
+            tempo: {
+              type: Number,
+              observer: "_runMetronome"
             }
           }
         }
@@ -109,6 +115,11 @@
             return;
         }
 
+        if (!this.bool) {
+          this.$.player.playTone(this.$.loader.getOther("failure"));
+          return;
+        }
+
         let codes = this.chordMode && div.dataset.chord ?
           this.$.scale.getChord(div.dataset.chord) :
           [this.$.scale.getTone(div.dataset.tone, div.dataset.octave, this.sharp)];
@@ -119,6 +130,11 @@
         }.bind(this));
       }
 
+      _runMetronome() {
+        setInterval(function() {
+          this.$.player.playTone(this.$.loader.getOther("beat"));
+        }.bind(this), this.tempo*10);
+      }
 
       _keysUnpress(key) {
         let div = this.querySelector("[data-key=" + key + "]");

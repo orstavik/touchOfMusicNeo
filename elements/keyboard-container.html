@@ -41,7 +41,7 @@
 
 		<keyboard-listener></keyboard-listener>
 
-    <audio-container id="audioPlayer" pressed="[[pressedArray]]" chord-mode="[[chordMode]]" base="C4" mode="major">
+    <audio-container id="audioPlayer" pressed="[[pressedArray]]" chord-mode="[[chordMode]]" base="C4" mode="major" tempo="[[tempo]]">
       <html-loader href="../maps/audio-set1.html"></html-loader>
     </audio-container>
 
@@ -76,12 +76,17 @@
               value: function () {
                 return []
               }
-            }
+            },
+            tempo: Number,
           }
         }
       }
 
-      pressedAction(e) {
+      pressedAction(e, bool) {
+        if (bool !== undefined) {
+          this.$.audioPlayer.bool = bool;
+          this.$.beams.bool = bool;
+        }
         this.pressedArray = JSON.parse(JSON.stringify(e.detail.pressed));
       }
 

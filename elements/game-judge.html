@@ -86,10 +86,13 @@
         if (nev.length > old.length) {
           for (let id in this.heldEvents) {
             if ("Key"+this.heldEvents[id].event.detail.letter === nev[nev.length-1]) {
-              console.log("true")
-              this.querySelector("#keyboard").pressedAction(e);
+              console.log("true");
+              this.querySelector("#keyboard").pressedAction(e, true);
             }
-            else console.log("false")
+            else {
+              console.log("false");
+              this.querySelector("#keyboard").pressedAction(e, false);
+            }
           }
         } else if (nev.length < old.length) {
           this.querySelector("#keyboard").pressedAction(e);

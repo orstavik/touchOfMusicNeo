@@ -44,6 +44,7 @@
         // this._joi = JOI.parse(this.input);
         this._joi = {};
         this._joi["id0"] = JOI.parse(this.input);
+        this.querySelector("#scenario").scenario = this._joi["id0"];
         this.eventIDS = 0;
         setTimeout(function () {
           this._fireEventNumber("id0");

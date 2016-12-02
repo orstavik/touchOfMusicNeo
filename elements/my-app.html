@@ -1,6 +1,5 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="running-text.html">
-<link rel="import" href="notes-catcher.html">
+<link rel="import" href="letter-catcher.html">
 <link rel="import" href="keyboard-container.html">
 <link rel="import" href="tempo-timer.html">
 <link rel="import" href="joievent-player.html">
@@ -23,13 +22,11 @@
     <joievent-player input="[[scenario]]" id="joiplayer">
 
       <game-judge id="judge">
-        <!--<running-text id="runner" pressed="[[pressedArray]]" text="[[futures]]" tempo="[[tempo]]"></running-text>-->
-
-        <notes-catcher>
+        <letter-catcher id="scenario">
           <joievent-canon></joievent-canon>
-        </notes-catcher>
+        </letter-catcher>
 
-        <keyboard-container id="keyboard" on-pressed-keys="_pressedAction" futures="[[futures]]">
+        <keyboard-container id="keyboard" on-pressed-keys="_pressedAction" futures="[[futures]]" tempo="[[tempo]]">
           <joievent-canon></joievent-canon>
         </keyboard-container>
 
@@ -57,7 +54,7 @@
             scenario: {
               type: String,
               value: 
-                    "A@letter:A,duration:1 K@letter:K,duration:2 A! A! A! K! K! K! A! A! A!",
+                    "A@letter:A,duration:1 K@letter:K,duration:2 A! A!|A! K!|K!|K! A! A! A! K! K! K! A! A! A! K! K! K! A! A! A! K! K! K! A! A! A! K! K! K! A! A! A! K! K! K! A! A! A! K! K! K! A! A! A! K! K! K! A! A! A! K! K! K! A! A! A! K! K! K! A! A! A! K! K! K! A! A! A! K! K! K! A! A! A! K! K! K! A! A! A!",
                     // "O K U O K,10 J L K J L K Y I U Y I U T I U T I U",
               reflectToAttribute: true,
               // observer: "_scenarioReset"
@@ -68,7 +65,7 @@
             },
             tempo: {
               type: Number,
-              value: 100
+              value: 50
             }
           }
         }

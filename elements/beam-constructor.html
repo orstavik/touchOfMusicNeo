@@ -41,7 +41,8 @@
                   LeftPinky: "183,11,116"
                 }
               }
-            }
+            },
+            bool: Boolean
           }
         }
       }
@@ -54,7 +55,7 @@
       _pressedHaveChanged() {
         var nev = this.pressed;
         var old = this.bufferPressed;
-        if (nev.length > old.length) {
+        if (nev.length > old.length && this.bool) {
           this._prepareBeam([nev[nev.length-1]]);
         }
         this.bufferPressed = this.pressed;

@@ -1,0 +1,78 @@
+<link rel="import" href="single-letter.html">
+
+<dom-module id="letter-catcher">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      #letterWrapper {
+        display: block;
+        position: absolute;
+        top: 10vh;
+        left: 50vw;
+        transform: translate(-50%, -50%);
+        width: 280px;
+        height: 80px;
+        background: white;
+        overflow: hidden;
+        border: 10px solid white;
+      }
+      #letter {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        position: absolute;
+      }
+    </style>
+
+    <div id="letterWrapper">
+      <div id="letter">
+        <template is="dom-repeat" items="[[scenario]]">
+          <single-letter info="[[item]]" waiting></single-letter>
+        </template>
+      </div>
+    </div>
+
+    <slot on-joievent="_readEvent"></slot>
+
+  </template>
+
+  <script>
+    class LetterCatcher extends Polymer.Element {
+      static get is() {
+        return "letter-catcher";
+      }
+
+      static get config() {
+        return {
+          properties: {
+            scenario: {
+              type: Array
+            }
+          },
+          timeStamp: {
+            type: Number,
+            value: 0
+          }
+        }
+      }
+
+      _readEvent(e) {
+        if (e.timeStamp - this.timeStamp < 50)
+          return;
+        let letter = this.$.letter.querySelector("[letter^="+e.detail.letter+"][waiting]");
+        if (letter.offsetTop > 60-24) {
+          letter.parentNode.style.top = (60-24)-letter.offsetTop+"px";
+        }
+        letter.removeAttribute("waiting");
+        let current = this.$.letter.querySelector("[current]");
+        if (current)
+          current.removeAttribute("current");
+        letter.setAttribute("current", "");
+        this.timeStamp = e.timeStamp;
+      }
+    }
+    customElements.define(LetterCatcher.is, LetterCatcher);
+  </script>
+</dom-module>

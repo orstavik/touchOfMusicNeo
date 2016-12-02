@@ -1,0 +1,95 @@
+<dom-module id="single-letter">
+  <template>
+    <style>
+      :host {
+        display: flex;
+        position: relative;
+        align-items: center;
+        box-sizing: border-box;
+        background: white;
+        line-height: 1;
+      }
+      :host([current]) #container {
+        border: 1px solid red;
+      }
+      #container {
+        display: block;
+        position: relative;
+        box-sizing: border-box;
+        padding: 4px 0;
+        width: 100%;
+      }
+      #container span {
+        display: block;
+        position: relative;
+        text-align: center;
+        z-index: 1;
+      }
+      :host([current]) span {
+        font-weight: bold;
+      }
+      :host([waiting]) #filler {
+        transform: scaleX(0);
+      }
+      #filler {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transform-origin: left;
+        transform: scaleX(1);
+        transition-timing-function: linear;
+        background: lime;
+      }
+    </style>
+
+    <div id="container">
+      <template is="dom-repeat" items="[[_makeLetters(info)]]">
+        <span>[[item]]</span>
+      </template>
+      <div id="filler"></div>
+    </div>
+
+  </template>
+
+  <script>
+    class SingleLetter extends Polymer.Element {
+      static get is() {
+        return "single-letter";
+      }
+      static get config() {
+        return {
+          properties: {
+            info: {
+              type: Array,
+              observer: "_useInfo"
+            },
+            letter: {
+              type: String,
+              value: "",
+              reflectToAttribute: true
+            }
+          }
+        }
+      }
+
+      _useInfo() {
+        this.info.forEach(function(each) {
+          this.letter += each.letter;
+        }.bind(this));
+
+        this.style.width = this.info[0].duration * 16 + "px";
+        this.$.filler.style.transitionDuration = this.info[0].duration * 0.5 +"s";
+      }
+
+      _makeLetters(info) {
+        return info.map(function(each) {
+          return each.letter;
+        });
+      }
+    }
+    customElements.define(SingleLetter.is, SingleLetter);
+  </script>
+</dom-module>
