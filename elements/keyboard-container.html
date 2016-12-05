@@ -1,6 +1,5 @@
 <link rel="import" href="keyboard-visual.html">
 <link rel="import" href="key-pyramid.html">
-<link rel="import" href="keyboard-listener.html">
 <link rel="import" href="beam-constructor.html">
 <link rel="import" href="audio-synthesizer.html">
 <link rel="import" href="audio-container.html">
@@ -38,8 +37,6 @@
       <div id="mapChoice">
           Play chords:<input type="checkbox" checked="{{chordMode::change}}"><br />
       </div>
-
-		<keyboard-listener></keyboard-listener>
 
     <audio-container id="audioPlayer" pressed="[[pressedArray]]" chord-mode="[[chordMode]]" base="C4" mode="major" tempo="[[tempo]]">
       <html-loader href="../maps/audio-set1.html"></html-loader>

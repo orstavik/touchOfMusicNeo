@@ -5,6 +5,7 @@
 <link rel="import" href="joievent-player.html">
 <link rel="import" href="game-judge.html">
 <link rel="import" href="joievent-canon.html">
+<link rel="import" href="keyboard-listener.html">
 
 <dom-module id="my-app">
   <template>
@@ -31,6 +32,9 @@
         </keyboard-container>
 
         <tempo-timer on-tick="_makeScenario" tempo="[[tempo]]" id="timer"></tempo-timer>
+
+        <keyboard-listener></keyboard-listener>
+
       </game-judge>
 
     </joievent-player>
