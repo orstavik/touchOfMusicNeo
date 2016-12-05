@@ -90,7 +90,7 @@
           return;
         let bool = press.sort().toString() == heldArray.sort().toString();
         if (bool) {
-          this.querySelector("#keyboard").$.beams.prepareBeam(press);
+          this.querySelector("#beams").prepareBeam(press);
           this.querySelector("#audioPlayer").playKeys(e.detail.pressedKey, JSON.parse(JSON.stringify(e.detail.heldKeys)));
         } else {
           this.querySelector("#audioPlayer").playFailure();

@@ -37,7 +37,7 @@
       }
 
       connectedCallback() {
-        var keyboard = this.parentNode.host;
+        var keyboard = this.parentNode;
         this.style.transform = keyboard.giveMeMyPostion(this.getAttribute("code"));
         this.children[0].classList.add(keyboard.getShape(this.getAttribute("code")));
 

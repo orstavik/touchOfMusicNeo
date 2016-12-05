@@ -1,12 +1,18 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="letter-catcher.html">
-<link rel="import" href="keyboard-container.html">
 <link rel="import" href="tempo-timer.html">
 <link rel="import" href="joievent-player.html">
 <link rel="import" href="game-judge.html">
 <link rel="import" href="joievent-canon.html">
 <link rel="import" href="keyboard-listener.html">
 <link rel="import" href="audio-container.html">
+<link rel="import" href="key-visual.html">
+<link rel="import" href="key-pyramid.html">
+
+<link rel="import" href="keyboard-visual.html">
+<link rel="import" href="beam-constructor.html">
+<link rel="import" href="monster-container.html">
+<link rel="import" href="html-loader.html">
 
 <dom-module id="my-app">
   <template>
@@ -39,9 +45,18 @@
           <joievent-canon></joievent-canon>
         </letter-catcher>
 
-        <keyboard-container id="keyboard" futures="[[futures]]">
-          <joievent-canon></joievent-canon>
-        </keyboard-container>
+        <beam-constructor id="beams">
+          <keyboard-visual id="keyboard">
+            <template is="dom-repeat" items="[[keyArray]]">
+              <key-visual code$="[[item]]">
+                <key-pyramid></key-pyramid>
+              </key-visual>
+            </template>
+            <joievent-canon></joievent-canon>
+          </keyboard-visual>
+
+          <monster-container id="monster"></monster-container>
+        </beam-constructor>
 
         <tempo-timer tempo="[[tempo]]" id="timer"></tempo-timer>
 
@@ -74,6 +89,16 @@
             tempo: {
               type: Number,
               value: 100
+            },
+            keyArray: {
+              type: Array,
+              value: function () {
+                return [
+                  "KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "BracketLeft", "BracketRight",
+                  "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "Semicolon", "Quote",
+                  "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Comma", "Period", "Slash"
+                ]
+              }
             },
             chordMode: Boolean
           }
