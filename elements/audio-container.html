@@ -51,7 +51,6 @@
               type: Boolean,
               value: false
             },
-            bool: Boolean
           }
         }
       }
@@ -88,6 +87,10 @@
         this._keysPress(press, sharpen);
       }
 
+      playFailure(){
+        this.$.player.playTone(this.$.loader.getOther('failure'));
+      }
+
       _keysPress(key, sharpen) {
         if (!key)
           return;
@@ -95,11 +98,6 @@
         let div = this.querySelector("[data-key=" + key + "]");
         if (!div)
           return;
-
-        if (!this.bool) {
-          this.$.player.playTone(this.$.loader.getOther('failure'));
-          return;
-        }
 
         let codes = this.chordMode && div.dataset.chord ?
           this.$.scale.getChord(div.dataset.chord) :
