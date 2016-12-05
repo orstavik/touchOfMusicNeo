@@ -37,12 +37,12 @@
       }
 
       connectedCallback() {
-        var keyboard = this.parentNode;
-        this.style.transform = this.parentNode.giveMeMyPostion(this.getAttribute("code"));
-        this.children[0].classList.add(this.parentNode.getShape(this.getAttribute("code")));
+        var keyboard = this.parentNode.host;
+        this.style.transform = keyboard.giveMeMyPostion(this.getAttribute("code"));
+        this.children[0].classList.add(keyboard.getShape(this.getAttribute("code")));
 
-        var char = this.parentNode.keyValues[this.code].key.toUpperCase();
-        var finger = this.parentNode.fingerInfo[this.code].fingerName();
+        var char = keyboard.keyValues[this.code].key.toUpperCase();
+        var finger = keyboard.fingerInfo[this.code].fingerName();
         this.children[0].setAttribute("char", char);
         this.children[0].setAttribute("finger", finger);
 

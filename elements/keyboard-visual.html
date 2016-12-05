@@ -1,4 +1,6 @@
+<script src="../scripts/Finger.js"></script>
 <link rel="import" href="key-visual.html">
+<link rel="import" href="key-pyramid.html">
 
 <dom-module id="keyboard-visual">
   <template>
@@ -7,7 +9,11 @@
         display: block;
       }
     </style>
-    <slot></slot>
+    <template is="dom-repeat" items="[[keyArray]]">
+      <key-visual code$="[[item]]">
+        <key-pyramid></key-pyramid>
+      </key-visual>
+    </template>
   </template>
 
   <script>
@@ -22,6 +28,16 @@
             pressed: {
               type: Array,
               observer: "_highlightKeys"
+            },
+            keyArray: {
+              type: Array,
+              value: function () {
+                return [
+                  "KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "BracketLeft", "BracketRight",
+                  "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "Semicolon", "Quote",
+                  "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Comma", "Period", "Slash"
+                ]
+              }
             },
             keyValues: {
               type: Object,

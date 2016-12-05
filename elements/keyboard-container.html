@@ -1,9 +1,7 @@
 <link rel="import" href="keyboard-visual.html">
-<link rel="import" href="key-pyramid.html">
 <link rel="import" href="beam-constructor.html">
 <link rel="import" href="monster-container.html">
 <link rel="import" href="html-loader.html">
-<script src="../scripts/Finger.js"></script>
 
 <dom-module id="keyboard-container">
   <template>
@@ -14,13 +12,7 @@
     </style>
 
 		<beam-constructor id="beams" pressed="[[pressedArray]]">
-      <keyboard-visual id="keyboard" pressed="[[pressedArray]]">
-        <template is="dom-repeat" items="[[keyArray]]">
-          <key-visual code$="[[item]]">
-            <key-pyramid></key-pyramid>
-          </key-visual>
-        </template>
-      </keyboard-visual>
+      <keyboard-visual id="keyboard" pressed="[[pressedArray]]"></keyboard-visual>
 
 		  <monster-container id="monster"></monster-container>
     </beam-constructor>
@@ -39,16 +31,6 @@
       static get config() {
         return {
           properties: {
-            keyArray: {
-              type: Array,
-              value: function () {
-                return [
-                  "KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "BracketLeft", "BracketRight",
-                  "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "Semicolon", "Quote",
-                  "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Comma", "Period", "Slash"
-                ]
-              }
-            },
           }
         }
       }
