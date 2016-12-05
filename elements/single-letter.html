@@ -70,7 +70,8 @@
               type: String,
               value: "",
               reflectToAttribute: true
-            }
+            },
+            tempo: String
           }
         }
       }
@@ -81,7 +82,7 @@
         }.bind(this));
 
         this.style.width = this.info[0].duration * 16 + "px";
-        this.$.filler.style.transitionDuration = this.info[0].duration * 0.5 +"s";
+        this.$.filler.style.transitionDuration = this.info[0].duration * this.tempo/100 +"s";
       }
 
       _makeLetters(info) {

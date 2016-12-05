@@ -70,7 +70,7 @@
             this._joi[event.id] = this._joi[idnumber].slice(1);
             delete this._joi[idnumber];
           }
-          console.log(event);
+          // console.log(event);
           canons.forEach(function (canon) {
             canon.fireEvent("joievent", event);
           }.bind(this));

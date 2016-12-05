@@ -11,9 +11,6 @@
       <iron-ajax data-index$="[[index]]" url="[[_getUrl(item)]]" handle-as="arraybuffer" on-response="_fileLoaded"
                  auto></iron-ajax>
     </template>
-    <iron-ajax url="../audio/other/beat.mp3"
-               handle-as="arraybuffer"
-               on-response="_beatLoaded" auto></iron-ajax>
     <iron-ajax url="../audio/other/failure.mp3"
                handle-as="arraybuffer"
                on-response="_failureLoaded" auto></iron-ajax>
@@ -67,10 +64,6 @@
 
       _fileLoaded(e) {
         this.files[e.target.dataset.index] = e.target.lastResponse;
-      }
-
-      _beatLoaded(e) {
-        this.other.beat = e.target.lastResponse;
       }
 
       _failureLoaded(e) {

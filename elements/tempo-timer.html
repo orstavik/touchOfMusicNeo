@@ -1,3 +1,6 @@
+<link rel="import" href="audio-data.html">
+<link rel="import" href="audio-player.html">
+
 <dom-module id="tempo-timer">
   <template>
     <style>
@@ -5,6 +8,13 @@
         display: none;
       }
     </style>
+
+  <iron-ajax url="../audio/other/beat.mp3"
+             handle-as="arraybuffer"
+             on-response="_beatLoaded" auto></iron-ajax>
+
+  <audio-player id="player"></audio-player>
+
   </template>
 	
   <script>
@@ -20,15 +30,27 @@
             time: {
               type: Number,
               value: 0
-            }
+            },
+            beat: AudioBuffer
           }
         }
+      }
+
+      constructor() {
+        super();
+      }
+
+      _beatLoaded(e) {
+        this.beat = e.target.lastResponse;
       }
 
       connectedCallback() {
         this.timer = setInterval(function() {
           this.dispatchEvent(new CustomEvent("tick", {"bubbles": true, "composed": true, "detail": {time: this.time}}));
           this.time++;
+          if (this.time%10 === 0) {
+            this.$.player.playTone(this.beat);
+          }
         }.bind(this), this.tempo);
       }
     }

@@ -29,7 +29,7 @@
     <div id="letterWrapper">
       <div id="letter">
         <template is="dom-repeat" items="[[scenario]]">
-          <single-letter info="[[item]]" waiting></single-letter>
+          <single-letter info="[[item]]" tempo="[[tempo]]" waiting></single-letter>
         </template>
       </div>
     </div>
@@ -54,7 +54,8 @@
           timeStamp: {
             type: Number,
             value: 0
-          }
+          },
+          tempo: Number
         }
       }
 

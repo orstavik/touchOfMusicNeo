@@ -80,24 +80,30 @@
 
       _registerKeys(e) {
         let canons = this.querySelectorAll("joievent-canon");
-        this.keys = JSON.parse(JSON.stringify(e.detail.pressed));
-        var nev = this.keys;
-        var old = this.keysBuffer;
-        if (nev.length > old.length) {
+        let press = this._checkDown(e);
+        if (press) {
           for (let id in this.heldEvents) {
-            if ("Key"+this.heldEvents[id].event.detail.letter === nev[nev.length-1]) {
-              console.log("true");
+            let key = "Key"+this.heldEvents[id].event.detail.letter;
+            if (key === press)
               this.querySelector("#keyboard").pressedAction(e, true);
-            }
-            else {
-              console.log("false");
+            else
               this.querySelector("#keyboard").pressedAction(e, false);
-            }
           }
-        } else if (nev.length < old.length) {
+        } else {
           this.querySelector("#keyboard").pressedAction(e);
         }
         this.keysBuffer = this.keys;
+      }
+
+      _checkDown(e) {
+        this.keys = JSON.parse(JSON.stringify(e.detail.pressed));
+        let nev = this.keys;
+        let old = this.keysBuffer;
+        if (nev.length > old.length) {
+          return nev[nev.length-1];
+        } else if (nev.length < old.length) {
+          return false;
+        }
       }
     }
     customElements.define(GameJudge.is, GameJudge);
