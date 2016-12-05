@@ -9,7 +9,7 @@
         display: none;
       }
     </style>
-    
+
     <slot></slot>
 
     <music-scale id="scale" base="[[base]]" mode="{{mode}}" key="{{key}}" root-tone="{{rootTone}}"></music-scale>
@@ -28,19 +28,6 @@
       static get config() {
         return {
           properties: {
-            pressed: {
-              type: Array,
-              value: function() {
-                return []
-              },
-              observer: "_pressedHaveChanged"
-            },
-            bufferPressed: {
-              type: Array,
-              value: function() {
-                return []
-              }
-            },
             tone: {
               type: String,
               reflectToAttribute: true
@@ -60,10 +47,6 @@
               type: String,
               reflectToAttribute: true
             },
-            sharp: {
-              type: Number,
-              value: 0
-            },
             chordMode: {
               type: Boolean,
               value: false
@@ -73,68 +56,59 @@
         }
       }
 
-      _pressedHaveChanged() {
-        var nev = this.pressed;
-        var old = this.bufferPressed;
-        if (nev.length > old.length) {
-          this._keysPress(nev[nev.length-1]);
+      checkForCommands(key) {
+        let div = this.querySelector("[data-key=" + key + "]");
+        if (!div)
+          return 0;
+
+        switch (div.dataset.command) {
+          case "turnKeyLeft":
+            this.$.scale.turnKeyLeft();
+            return 0;
+          case "turnKeyRight":
+            this.$.scale.turnKeyRight();
+            return 0;
+          case "turnModusLeft":
+            this.$.scale.turnModusLeft();
+            return 0;
+          case "turnModusRight":
+            this.$.scale.turnModusRight();
+            return 0;
+          case "sharpen":
+            return 1;
         }
-        else if (nev.length < old.length) {
-          for (let i = 0; i < old.length; i++) {
-            if (nev.indexOf(old[i]) == -1) {
-              this._keysUnpress(old[i]);
-            }
-          }
-        }
-        this.bufferPressed = this.pressed;
       }
 
-      _keysPress(key) {
+      playKeys(press, arrayOfKeys) {
+        let sharpen = 0;
+        for (let key of arrayOfKeys) {
+          if (this.checkForCommands(key) == 1)
+            sharpen = 1;
+        }
+        this._keysPress(press, sharpen);
+      }
+
+      _keysPress(key, sharpen) {
         if (!key)
           return;
 
         let div = this.querySelector("[data-key=" + key + "]");
         if (!div)
           return;
-          
-        switch (div.dataset.command) {
-          case "turnKeyLeft":
-            return this.$.scale.turnKeyLeft();
-          case "turnKeyRight":
-            return this.$.scale.turnKeyRight();
-          case "turnModusLeft":
-            return this.$.scale.turnModusLeft();
-          case "turnModusRight":
-            return this.$.scale.turnModusRight();
-          case "sharpen":
-            this.sharp = 1;
-            return;
-        }
 
         if (!this.bool) {
-          this.$.player.playTone(this.$.loader.getOther("failure"));
+          this.$.player.playTone(this.$.loader.getOther('failure'));
           return;
         }
 
         let codes = this.chordMode && div.dataset.chord ?
           this.$.scale.getChord(div.dataset.chord) :
-          [this.$.scale.getTone(div.dataset.tone, div.dataset.octave, this.sharp)];
+          [this.$.scale.getTone(div.dataset.tone, div.dataset.octave, sharpen)];
         this.tone = this.$.scale.numbersToNoteNames(codes);
 
         codes.forEach(function (code) {
           this.$.player.playTone(this.$.loader.getSound(code));
         }.bind(this));
-      }
-
-      _keysUnpress(key) {
-        let div = this.querySelector("[data-key=" + key + "]");
-        if (!div)
-          return;
-        switch (div.dataset.command) {
-          case "sharpen":
-            this.sharp = 0;
-            break;
-        }
       }
     }
     customElements.define(AudioContainer.is, AudioContainer);

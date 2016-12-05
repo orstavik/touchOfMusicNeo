@@ -49,7 +49,7 @@
           this.dispatchEvent(new CustomEvent("tick", {"bubbles": true, "composed": true, "detail": {time: this.time}}));
           this.time++;
           if (this.time%10 === 0) {
-            this.$.player.playTone(this.beat);
+//            this.$.player.playTone(this.beat);
           }
         }.bind(this), this.tempo);
       }

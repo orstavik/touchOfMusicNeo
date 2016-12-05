@@ -97,7 +97,7 @@
       }
 
       _checkDown(e, n) {
-        this.keys = JSON.parse(JSON.stringify(e.detail.pressed));
+        this.keys = JSON.parse(JSON.stringify(e.detail.heldKeys));
         let nev = this.keys;
         let old = this.keysBuffer;
         this.keysBuffer = this.keys;

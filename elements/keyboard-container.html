@@ -66,12 +66,6 @@
                 ]
               }
             },
-            pressedArray: {
-              type: Array,
-              value: function () {
-                return []
-              }
-            },
           }
         }
       }
@@ -80,7 +74,7 @@
         if (bool !== undefined) {
           this.$.audioPlayer.bool = bool;
         }
-        this.pressedArray = JSON.parse(JSON.stringify(e.detail.pressed));
+        this.$.audioPlayer.playKeys(e.detail.pressedKey, JSON.parse(JSON.stringify(e.detail.heldKeys)));
       }
 
 			readFutures(i) {

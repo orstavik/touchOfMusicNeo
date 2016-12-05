@@ -37,7 +37,7 @@
           this.pressedKeys.push(key);
         }
 
-        this._fireEvent("pressed-keys", this.pressedKeys);
+        this._fireEvent("pressed-keys", {pressedKey: key, heldKeys: this.pressedKeys});
       }
 
       _keyWasUp(e) {
@@ -47,11 +47,11 @@
         if (index !== -1)
           this.pressedKeys.splice(index,1);
         
-        this._fireEvent("pressed-keys", this.pressedKeys);
+        this._fireEvent("pressed-keys", {unpressedKey: key, heldKeys: this.pressedKeys});
       }
       
       _fireEvent(name, keys) {
-        var _event = new CustomEvent(name, {"detail": {pressed: keys}, "bubbles": true, "composed": true});
+        var _event = new CustomEvent(name, {"detail": keys, "bubbles": true, "composed": true});
         this.dispatchEvent(_event);
       }
     }
