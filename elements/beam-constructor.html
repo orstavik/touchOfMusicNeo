@@ -13,16 +13,6 @@
       static get config() {
         return {
           properties: {
-            pressed: {
-              type: Array,
-              observer: "_pressedHaveChanged"
-            },
-            bufferPressed: {
-              type: Array,
-              value: function() {
-                return []
-              }
-            },
             index: {
               type: Number,
               value: 0
@@ -41,8 +31,7 @@
                   LeftPinky: "183,11,116"
                 }
               }
-            },
-            bool: Boolean
+            }
           }
         }
       }
@@ -52,16 +41,7 @@
         this.addEventListener("light-reach", this._finishBeam.bind(this));
       }
 
-      _pressedHaveChanged() {
-        var nev = this.pressed;
-        var old = this.bufferPressed;
-        if (nev.length > old.length && this.bool) {
-          this._prepareBeam([nev[nev.length-1]]);
-        }
-        this.bufferPressed = this.pressed;
-      }
-
-			_prepareBeam(pressed) {
+			prepareBeam(pressed) {
         for (var i = 0; i < pressed.length; i++) {
           let key = pressed[i];
           let keyNode = this.querySelector("[code="+ key+"] key-pyramid");
