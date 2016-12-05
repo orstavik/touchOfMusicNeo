@@ -1,7 +1,6 @@
 <link rel="import" href="keyboard-visual.html">
 <link rel="import" href="key-pyramid.html">
 <link rel="import" href="beam-constructor.html">
-<link rel="import" href="audio-container.html">
 <link rel="import" href="monster-container.html">
 <link rel="import" href="html-loader.html">
 <script src="../scripts/Finger.js"></script>
@@ -33,13 +32,6 @@
 		  <monster-container id="monster"></monster-container>
     </beam-constructor>
 
-      <div id="mapChoice">
-          Play chords:<input type="checkbox" checked="{{chordMode::change}}"><br />
-      </div>
-
-    <audio-container id="audioPlayer" pressed="[[pressedArray]]" chord-mode="[[chordMode]]" base="C4" mode="major">
-      <html-loader href="../maps/audio-set1.html"></html-loader>
-    </audio-container>
 
     <slot></slot>
 
@@ -54,8 +46,6 @@
       static get config() {
         return {
           properties: {
-            futures: String,
-            chordMode: Boolean,
             keyArray: {
               type: Array,
               value: function () {
@@ -70,27 +60,6 @@
         }
       }
 
-      pressedAction(e, bool) {
-        if (bool !== undefined) {
-          this.$.audioPlayer.bool = bool;
-        }
-        this.$.audioPlayer.playKeys(e.detail.pressedKey, JSON.parse(JSON.stringify(e.detail.heldKeys)));
-      }
-
-			readFutures(i) {
-				// debugger;
-				// var futureNodes = this.$.keyboard.querySelectorAll("[futures]");
-				// futureNodes.forEach(function(elem) {
-				// 	if (elem.active < 3)
-				// 		elem.active++;
-				// }.bind(this));
-				// if (this.futures) {
-				// 	var key = this.futures[i];
-				// 	if (!key) return;
-				// 	var keyNode = this.$.keyboard.querySelector('[char="'+key+'"]');
-				// 	keyNode.active = 0;
-				// }
-			}
     }
     customElements.define(KeyboardContainer.is, KeyboardContainer);
   </script>

@@ -86,14 +86,14 @@
 
         let press = this._checkDown(e, heldArray.length);
         let havePressed = press && press.length == heldArray.length;
-        if (havePressed) {
-          let bool = press.sort().toString() == heldArray.sort().toString();
-          if (bool)
-            this.querySelector("#keyboard").$.beams.prepareBeam(press);
-          this.querySelector("#keyboard").pressedAction(e, bool);
-        } else {
-          this.querySelector("#keyboard").pressedAction(e);
+        if (!havePressed)
+          return;
+        let bool = press.sort().toString() == heldArray.sort().toString();
+        if (bool) {
+          this.querySelector("#keyboard").$.beams.prepareBeam(press);
         }
+        this.querySelector("#audioPlayer").bool = bool;
+        this.querySelector("#audioPlayer").playKeys(e.detail.pressedKey, JSON.parse(JSON.stringify(e.detail.heldKeys)));
       }
 
       _checkDown(e, n) {
