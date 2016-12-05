@@ -80,27 +80,29 @@
 
       _registerKeys(e) {
         let canons = this.querySelectorAll("joievent-canon");
-        let press = this._checkDown(e);
-        if (press) {
-          for (let id in this.heldEvents) {
-            let key = "Key"+this.heldEvents[id].event.detail.letter;
-            if (key === press)
-              this.querySelector("#keyboard").pressedAction(e, true);
-            else
-              this.querySelector("#keyboard").pressedAction(e, false);
-          }
+        let heldArray = [];
+        for (let i in this.heldEvents) {
+          heldArray.push("Key"+this.heldEvents[i].event.detail.letter);
+        };
+        let press = this._checkDown(e, heldArray.length);
+        if (press && press.length == heldArray.length) {
+          this.querySelector("#keyboard").pressedAction(e, press.sort().toString() == heldArray.sort().toString());
         } else {
           this.querySelector("#keyboard").pressedAction(e);
         }
-        this.keysBuffer = this.keys;
       }
 
-      _checkDown(e) {
+      _checkDown(e, n) {
         this.keys = JSON.parse(JSON.stringify(e.detail.pressed));
         let nev = this.keys;
         let old = this.keysBuffer;
+        this.keysBuffer = this.keys;
         if (nev.length > old.length) {
-          return nev[nev.length-1];
+          if (nev.length > n) {
+            return nev.splice(-n);
+          } else {
+            return nev;
+          }
         } else if (nev.length < old.length) {
           return false;
         }
