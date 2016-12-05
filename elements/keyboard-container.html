@@ -79,7 +79,6 @@
       pressedAction(e, bool) {
         if (bool !== undefined) {
           this.$.audioPlayer.bool = bool;
-          this.$.beams.bool = bool;
         }
         this.pressedArray = JSON.parse(JSON.stringify(e.detail.pressed));
       }
