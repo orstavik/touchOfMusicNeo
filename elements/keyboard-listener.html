@@ -31,28 +31,22 @@
       }
 
       _keyWasDown(e) {
-        var key = e.code;
-
-        if (this.pressedKeys.indexOf(key) === -1) {
+        let key = e.code;
+        if (this.pressedKeys.indexOf(key) === -1)
           this.pressedKeys.push(key);
-        }
-
         this._fireEvent("pressed-keys", {pressedKey: key, heldKeys: this.pressedKeys});
       }
 
       _keyWasUp(e) {
-        var key = e.code;
-
-        var index = this.pressedKeys.indexOf(key);
+        let key = e.code;
+        let index = this.pressedKeys.indexOf(key);
         if (index !== -1)
           this.pressedKeys.splice(index,1);
-        
         this._fireEvent("pressed-keys", {unpressedKey: key, heldKeys: this.pressedKeys});
       }
       
       _fireEvent(name, keys) {
-        var _event = new CustomEvent(name, {"detail": keys, "bubbles": true, "composed": true});
-        this.dispatchEvent(_event);
+        this.dispatchEvent(new CustomEvent(name, {"detail": keys, "bubbles": true, "composed": true}));
       }
     }
     customElements.define(KeyboardListener.is, KeyboardListener);
