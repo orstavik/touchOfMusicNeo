@@ -57,8 +57,7 @@
         let eid = e.detail.id;
         if (this.registerEvents[eid])
           return;
-        else
-          this.registerEvents[eid] = true;
+        this.registerEvents[eid] = true;
         if (e.detail.duration) { //duration exists and is not 0
           this.heldEvents[eid] = {
             ticksLeft: e.detail.duration * this.ticksPerTurn,
@@ -78,39 +77,38 @@
         }
       }
 
-      _registerKeys(e) {
-        let canons = this.querySelectorAll("joievent-canon");
+      _checkIfOutsideScope(keyPressed) {
+        for (let hostage in this.heldEvents) {
+          let waitingFor = "Key" + this.heldEvents[hostage].event.detail.letter;
+          if (waitingFor == keyPressed)
+            return false;
+        }
+        return true;
+      }
+
+      _checkIfHeldKeysMatchesWhatYouAreHopingFor(heldKeys) {
         let heldArray = [];
         for (let i in this.heldEvents)
           heldArray.push("Key" + this.heldEvents[i].event.detail.letter);
 
-        let press = this._checkDown(e, heldArray.length);
-        let havePressed = press && press.length == heldArray.length;
-        if (!havePressed)
-          return;
-        let bool = press.sort().toString() == heldArray.sort().toString();
-        if (bool) {
-          this.querySelector("#beams").prepareBeam(press);
-          this.querySelector("#audioPlayer").playKeys(e.detail.pressedKey, JSON.parse(JSON.stringify(e.detail.heldKeys)));
-        } else {
-          this.querySelector("#audioPlayer").playFailure();
-        }
+        return heldKeys.sort().toString() == heldArray.sort().toString();
       }
 
-      _checkDown(e, n) {
-        this.keys = JSON.parse(JSON.stringify(e.detail.heldKeys));
-        let nev = this.keys;
-        let old = this.keysBuffer;
-        this.keysBuffer = this.keys;
-        if (nev.length > old.length) {
-          if (nev.length > n) {
-            return nev.splice(-n);
-          } else {
-            return nev;
-          }
-        } else if (nev.length < old.length) {
-          return false;
-        }
+      _registerKeys(e) {
+        //the audio
+        //all events coming in are played as music. key down and up starts and stops the sound
+        if (e.detail.pressedKey)
+          this.querySelector("#audioPlayer").playKeys(e.detail.pressedKey, e.detail.heldKeys);
+
+        //the error
+        //the outside scope error sound is played in addition to the key which is struck.
+        if(this._checkIfOutsideScope(e.detail.pressedKey))
+          this.querySelector("#audioPlayer").playFailure();
+
+        //the success
+        //and the beam are passed whenever a correct sound is played.
+        if (this._checkIfHeldKeysMatchesWhatYouAreHopingFor(e.detail.heldKeys))
+          this.querySelector("#beams").prepareBeam(e.detail.heldKeys);
       }
     }
     customElements.define(GameJudge.is, GameJudge);
