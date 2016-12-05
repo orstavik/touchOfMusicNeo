@@ -1,7 +1,6 @@
 <link rel="import" href="keyboard-visual.html">
 <link rel="import" href="key-pyramid.html">
 <link rel="import" href="beam-constructor.html">
-<link rel="import" href="audio-synthesizer.html">
 <link rel="import" href="audio-container.html">
 <link rel="import" href="monster-container.html">
 <link rel="import" href="html-loader.html">
@@ -38,7 +37,7 @@
           Play chords:<input type="checkbox" checked="{{chordMode::change}}"><br />
       </div>
 
-    <audio-container id="audioPlayer" pressed="[[pressedArray]]" chord-mode="[[chordMode]]" base="C4" mode="major" tempo="[[tempo]]">
+    <audio-container id="audioPlayer" pressed="[[pressedArray]]" chord-mode="[[chordMode]]" base="C4" mode="major">
       <html-loader href="../maps/audio-set1.html"></html-loader>
     </audio-container>
 
@@ -73,7 +72,6 @@
                 return []
               }
             },
-            tempo: Number,
           }
         }
       }

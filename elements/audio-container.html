@@ -126,12 +126,6 @@
         }.bind(this));
       }
 
-      _runMetronome() {
-        setInterval(function() {
-          this.$.player.playTone(this.$.loader.getOther("beat"));
-        }.bind(this), this.tempo*10);
-      }
-
       _keysUnpress(key) {
         let div = this.querySelector("[data-key=" + key + "]");
         if (!div)
