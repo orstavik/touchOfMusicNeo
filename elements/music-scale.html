@@ -51,6 +51,9 @@
             [[0, 2, 3, 5, 7, 9, 10], "dorian"],
             [[0, 2, 4, 5, 7, 9, 11], "major"] //ionian I
           ];
+          this.staticModeOrderForChords = ["major", "dorian", "phrygian", "lydian", "mixolydian", "minor", "locrian"]; //todo same as above but in reverse order
+          this.staticChords = ["maj", "maj", "min", "min", "maj", "min", "dim"];
+
           this.baseIndex = this.noteNameToNumber(this.base);
           this.keyModulate = 0;
           this.modePosition = 6;        //start with major, first to be flattened is B, first to sharpen is F
@@ -136,6 +139,14 @@
 
         getChord(roman) {
           return this.chords[roman];
+        }
+
+        getChordType(modeName, noteNumberZeroToSix) {
+          let modeNumber = this.staticModeOrderForChords.indexOf(modeName);
+          if (modeNumber == -1)
+            throw new Error("Illegal mode name, use one of: " + this.staticModeOrderForChords.join(", ") +".");
+          let chordNumber = (modeNumber + noteNumberZeroToSix) % 7;
+          return this.staticChords[chordNumber];
         }
 
         _calcRoot(base, mode) {
