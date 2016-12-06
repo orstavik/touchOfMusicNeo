@@ -14,9 +14,17 @@
         left: -52vh;
         transform-origin: bottom;
       }
+      #rocking_flower {
+        height: 10vh;
+        position: absolute;
+        top: -37vh;
+        left: 35vh;
+        transform-origin: bottom;
+      }
     </style>
 
     <img id="cat" src="../images/background/cat.png" alt="cat">
+    <img id="rocking_flower" src="../images/background/rocking_flower.png" alt="rocking_flower">
 
   </template>
 	
@@ -39,6 +47,14 @@
       _makeItMove() {
         this.$.cat.animate({
           transform: ['rotate(-8deg)', 'rotate(8deg)'],
+        }, {
+          duration: this.tempo*10,
+          direction: 'alternate',
+          easing: 'ease-in-out',
+          iterations: Infinity
+        });
+        this.$.rocking_flower.animate({
+          transform: ['rotate(-2deg)', 'rotate(14deg)'],
         }, {
           duration: this.tempo*10,
           direction: 'alternate',
