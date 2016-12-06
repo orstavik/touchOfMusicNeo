@@ -53,6 +53,7 @@
           ];
           this.staticModeOrderForChords = ["major", "dorian", "phrygian", "lydian", "mixolydian", "minor", "locrian"]; //todo same as above but in reverse order
           this.staticChords = ["maj", "maj", "min", "min", "maj", "min", "dim"];
+          this.staticWheelOfFifth = ["C", "G", "D", "A", "E", "B", "F#","C#", "G#", "D#", "A#", "F"];
 
           this.baseIndex = this.noteNameToNumber(this.base);
           this.keyModulate = 0;
@@ -74,6 +75,13 @@
             return noteNames[(num % 12)] + Math.floor(num / 12);
           });
           return names.join("|");
+        }
+
+        //only uses sharp
+        //to calculate the note color, use just HSL colors as below
+        //noteColor = hsl(notePosition/12*360, 100, 67);
+        getNotePositionInWheelOf5ByName(noteName){
+          return this.staticWheelOfFifth.indexOf(noteName);
         }
 
         turnModusRight() {
