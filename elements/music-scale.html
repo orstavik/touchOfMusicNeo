@@ -87,6 +87,10 @@
           return this.staticWheelOfFifth.indexOf(noteName);
         }
 
+        getNotePositionNormal(noteName){
+          return this.staticNotes.indexOf(noteName);
+        }
+
         turnModusRight() {
           this.modePosition += 4;
           if (this.modePosition > 6)
@@ -152,7 +156,13 @@
           return this.chords[roman];
         }
 
-        getChordType(modeName, noteNumberZeroToSix) {
+        getChordType(modeName, noteName) {
+          let twelveNoteNumber = this.staticNotes.indexOf(noteName);
+          let sevenNoteNumber = this.modularScale.indexOf(twelveNoteNumber);
+          return this.getChordTypeByNumber(modeName, sevenNoteNumber);
+        }
+        getChordTypeByNumber(modeName, noteNumberZeroToSix) {
+          debugger;
           let modeNumber = this.staticModeOrderForChords.indexOf(modeName);
           if (modeNumber == -1)
             throw new Error("Illegal mode name, use one of: " + this.staticModeOrderForChords.join(", ") +".");

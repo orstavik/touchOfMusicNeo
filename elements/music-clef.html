@@ -4,18 +4,29 @@
       :host {
         display: block;
       }
+
       .triangle {
         border: 2px solid white;
         font-size: 10px;
         width: 50px;
-        transform-origin: bottom left;
+        transform-origin: 0% -200%;
         position: absolute;
-        top: 100px;
-        left: 100px;
+        top: 200px;
+        left: 200px;
+      }
+      .inner {
+        border: 2px solid white;
+        font-size: 10px;
+        width: 50px;
+        transform: rotate(67deg);
       }
     </style>
     <template is="dom-repeat" items="[[notes]]">
-      <div class="triangle" style$="[[_getStyle(item)]]">[[item]]: [[_getNotePositionInWheelOf5ByName(item)]]</div>
+      <div class="triangle" style$="[[_getStyleOut(item, index)]]">
+        <div class="inner" style$="[[_getStyleIn(item, index)]]">
+          [[item]]: [[_getNotePositionInWheelOf5ByName(item)]]
+        </div>
+      </div>
     </template>
   </template>
   <script>
@@ -29,12 +40,12 @@
         return {
           properties: {
             mode: {
-              type:String,
+              type: String,
               notify: true,
               observer: "setup"
             },
             key: {
-              type:String,
+              type: String,
               notify: true,
               observer: "setup"
             }
@@ -42,9 +53,9 @@
         }
       }
 
-      setup(){
-        console.log("key: "+this.key);
-        console.log("mode: "+this.mode);
+      setup() {
+        console.log("key: " + this.key);
+        console.log("mode: " + this.mode);
         let scale = this.querySelector("music-scale");
         this.notes = scale.staticNotes;//["C", "G", "D", "A", "E", "B", "F#","C#", "G#", "D#", "A#", "F"];
 //        this.notes = scale.getWheelOf5();
@@ -53,16 +64,53 @@
 //        this.chordTypes = scale.getChordTypes(mode);
       }
 
-      _getNotePositionInWheelOf5ByName(noteName){
+      _getNotePositionInWheelOf5ByName(noteName) {
         let scale = this.querySelector("music-scale");
         return scale.getNotePositionInWheelOf5ByName(noteName);
       }
 
-      _getStyle(noteName){
-        let notePos = this._getNotePositionInWheelOf5ByName(noteName);
-        let deg = Math.floor(notePos/12*360);
-        return "background-color: hsl("+ deg +", 100%, 50%);"
-        + " transform: rotate("+deg+"deg);";
+      _getStyleOut(noteName, index) {
+        let scale = this.querySelector("music-scale");
+        let position5 = scale.getNotePositionInWheelOf5ByName(noteName); //= this._getNotePositionInWheelOf5ByName(noteName);
+        let position12 = scale.getNotePositionNormal(noteName); //= this._getNotePositionInWheelOf5ByName(noteName);
+        let deg5 = Math.floor(position5 / 12 * 360);
+        let deg12 = Math.floor(position12 / 12 * 360)-158;
+        let modularScale = scale.modularScale;
+        let size = 0; //by default all keys are invisibly small
+        if (modularScale.indexOf(index) >= 0) {
+          //this key is in the scale
+          size = 1;
+
+          let chordType = scale.getChordType(scale.mode, noteName);
+          if (chordType == "maj")
+            size= 2;
+          else if(chordType == "dim")
+            size= 0.5;
+          console.log(noteName);
+          console.log(chordType);
+
+        }
+        return        " transform: rotate(" + deg12 + "deg) scale(" + size + ");";
+
+//        "background-color: hsl(" + deg5 + ", 100%, 50%);"
+//          +
+      }
+
+      _getStyleIn(noteName, index) {
+        let scale = this.querySelector("music-scale");
+        let position5 = scale.getNotePositionInWheelOf5ByName(noteName); //= this._getNotePositionInWheelOf5ByName(noteName);
+        let position12 = scale.getNotePositionNormal(noteName); //= this._getNotePositionInWheelOf5ByName(noteName);
+        let deg5 = Math.floor(position5 / 12 * 360);
+        let deg12 = Math.floor(position12 / 12 * 360);
+        let modularScale = scale.modularScale;
+        let size = 0; //by default all keys are invisibly small
+        if (modularScale.indexOf(index) >= 0) {
+          //this key is in the scale
+          size = 1;
+        }
+        return "background-color: hsl(" + deg5 + ", 100%, 50%);";
+//          +
+//        " transform: rotate(" + deg12 + "deg) scale(" + size + ");";
       }
 
     }
