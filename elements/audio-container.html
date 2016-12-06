@@ -1,18 +1,21 @@
 <link rel="import" href="audio-data.html">
 <link rel="import" href="audio-player.html">
 <link rel="import" href="music-scale.html">
+<link rel="import" href="music-clef.html">
 
 <dom-module id="audio-container">
   <template>
     <style>
       :host {
-        display: none;
+        display: block;
       }
     </style>
 
     <slot></slot>
 
-    <music-scale id="scale" base="[[base]]" mode="{{mode}}" key="{{key}}" root-tone="{{rootTone}}"></music-scale>
+    <music-clef mode="[[mode]]" key="[[key]]" >
+      <music-scale id="scale" base="[[base]]" mode="{{mode}}" key="{{key}}" root-tone="{{rootTone}}"></music-scale>
+    </music-clef>
     <audio-data id="loader" path="../audio/tones/piano/" amount=88 type="mp3"></audio-data>
     <audio-player id="player"></audio-player>
 

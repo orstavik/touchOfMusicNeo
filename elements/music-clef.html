@@ -1,0 +1,62 @@
+<dom-module id="music-clef">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      .triangle {
+        border: 2px solid white;
+      }
+    </style>
+    <template is="dom-repeat" items="[[notes]]">
+      <div class="triangle" style$="background-color: [[_getToneColor(item)]]">[[item]]: [[_getNotePositionInWheelOf5ByName(item)]]</div>
+    </template>
+  </template>
+  <script>
+
+    class MusicClef extends Polymer.Element {
+      static get is() {
+        return "music-clef";
+      }
+
+      static get config() {
+        return {
+          properties: {
+            mode: {
+              type:String,
+              notify: true,
+              observer: "setup"
+            },
+            key: {
+              type:String,
+              notify: true,
+              observer: "setup"
+            }
+          }
+        }
+      }
+
+      setup(){
+        console.log("key: "+key);
+        console.log("mode: "+mode);
+        let scale = this.querySelector("music-scale");
+        this.notes = scale.staticNotes;//["C", "G", "D", "A", "E", "B", "F#","C#", "G#", "D#", "A#", "F"];
+//        this.notes = scale.getWheelOf5();
+        //iterate through the notes and set to visible
+//        this.active = scale.getActiveNotes();
+//        this.chordTypes = scale.getChordTypes(mode);
+      }
+
+      _getNotePositionInWheelOf5ByName(noteName){
+        let scale = this.querySelector("music-scale");
+        return scale.getNotePositionInWheelOf5ByName(noteName);
+      }
+
+      _getToneColor(noteName){
+        return "hsl("+Math.floor(this._getNotePositionInWheelOf5ByName(noteName)/12*360)+", 100%, 50%)";
+      }
+
+    }
+    customElements.define(MusicClef.is, MusicClef);
+  </script>
+</dom-module>
