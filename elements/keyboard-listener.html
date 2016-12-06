@@ -2,11 +2,11 @@
 
 <dom-module id="keyboard-listener">
   <template>
-	<style>
-		:host {
-			display: none;
-		}
-	</style>
+    <style>
+      :host {
+        display: none;
+      }
+    </style>
 
     <keyevents-listener on-key-down="_keyWasDown" on-key-up="_keyWasUp"></keyevents-listener>
 
@@ -14,33 +14,26 @@
 
   <script>
 
-    class HeldKeysUnit {
-      constructor(){
-        this.held = [];
-        this.action = undefined;
-        this.activeKey = undefined;
+    class FingerMovement {
+      constructor(pressed, unpressed, keys) {
+        this.heldKeys = keys;
+        this.pressedKey = pressed;
+        this.unpressedKey = unpressed;
       }
 
-      addKey(key) {
-        let clone = this.clone();
-        clone.action = true;
-        clone.held.push(key);
-        clone.activeKey = key;
+      add(key) {
+        let clone = new FingerMovement(key.code, undefined, this.heldKeys.slice());
+        if (this.heldKeys.indexOf(key.code) != -1)
+          clone.heldKeys.push(key);
         return clone;
       }
 
-      removeKey(key){
-        let clone = this.clone();
-        clone.action = true;
-        clone.activeKey = key;
-        let index = clone.held.indexOf(key);
+      remove(key) {
+        let clone = new FingerMovement(undefined, key.code, this.heldKeys.slice());
+        let index = clone.heldKeys.indexOf(key.code);
         if (index !== -1)
-          clone.held.splice(index,1);
+          clone.heldKeys.splice(index, 1);
         return clone;
-      }
-
-      getTimeBetweenLastKeyUpAndThisKeyDown(){
-
       }
     }
 
@@ -48,40 +41,28 @@
       static get is() {
         return "keyboard-listener";
       }
+
       static get config() {
         return {
           properties: {
-            pressedKeys: {
-              type: Array,
+            fingerMove: {
+              type: FingerMovement,
               value: function() {
-                return []
+                return new FingerMovement(undefined, undefined, []);
               }
             },
-            pressedTimes: {
-              type: Array,
-              value: function() {
-                return []
-              }
-            }
           }
         }
       }
 
       _keyWasDown(e) {
-        let key = e.code;
-        if (this.pressedKeys.indexOf(key) === -1)
-          this.pressedKeys.push(key);
-        this._fireEvent("pressed-keys", {pressedKey: key, heldKeys: this.pressedKeys});
+        this._fireEvent("pressed-keys", this.fingerMove.add(e));
       }
 
       _keyWasUp(e) {
-        let key = e.code;
-        let index = this.pressedKeys.indexOf(key);
-        if (index !== -1)
-          this.pressedKeys.splice(index,1);
-        this._fireEvent("unpressed-keys", {unpressedKey: key, heldKeys: this.pressedKeys});
+        this._fireEvent("unpressed-keys", this.fingerMove.remove(e));
       }
-      
+
       _fireEvent(name, keys) {
         this.dispatchEvent(new CustomEvent(name, {"detail": keys, "bubbles": true, "composed": true}));
       }
