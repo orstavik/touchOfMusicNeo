@@ -30,9 +30,6 @@
         }
       }
 
-      //todo should we collate these ones so that two keys pressed almost simultaneously are released as one?
-      //todo hm.. maybe not.. It would be better to just allow them to played as they are in sound, and then
-      //todo let the judge add the interpretation of error as an extra sound.
       _keyWasDown(e) {
         let key = e.code;
         if (this.pressedKeys.indexOf(key) === -1)

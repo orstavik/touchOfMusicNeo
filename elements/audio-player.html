@@ -23,13 +23,14 @@
 			}
 
 			playTone(file) {
-        this.audioCtx.decodeAudioData(file, 
+        this.audioCtx.decodeAudioData(file,
           function(decodedArrayBuffer) {
             this.source = this.audioCtx.createBufferSource();
             this.source.buffer = decodedArrayBuffer;
             this.source.connect(this.gainNode);
             this.gainNode.connect(this.audioCtx.destination);
             this.source.start(0);
+            console.log("start music");
           }.bind(this),
           function(e) {
             console.log("Error with decoding audio data" + e.err);
