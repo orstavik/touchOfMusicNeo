@@ -6,10 +6,16 @@
       }
       .triangle {
         border: 2px solid white;
+        font-size: 10px;
+        width: 50px;
+        transform-origin: bottom left;
+        position: absolute;
+        top: 100px;
+        left: 100px;
       }
     </style>
     <template is="dom-repeat" items="[[notes]]">
-      <div class="triangle" style$="background-color: [[_getToneColor(item)]]">[[item]]: [[_getNotePositionInWheelOf5ByName(item)]]</div>
+      <div class="triangle" style$="[[_getStyle(item)]]">[[item]]: [[_getNotePositionInWheelOf5ByName(item)]]</div>
     </template>
   </template>
   <script>
@@ -37,8 +43,8 @@
       }
 
       setup(){
-        console.log("key: "+key);
-        console.log("mode: "+mode);
+        console.log("key: "+this.key);
+        console.log("mode: "+this.mode);
         let scale = this.querySelector("music-scale");
         this.notes = scale.staticNotes;//["C", "G", "D", "A", "E", "B", "F#","C#", "G#", "D#", "A#", "F"];
 //        this.notes = scale.getWheelOf5();
@@ -52,8 +58,11 @@
         return scale.getNotePositionInWheelOf5ByName(noteName);
       }
 
-      _getToneColor(noteName){
-        return "hsl("+Math.floor(this._getNotePositionInWheelOf5ByName(noteName)/12*360)+", 100%, 50%)";
+      _getStyle(noteName){
+        let notePos = this._getNotePositionInWheelOf5ByName(noteName);
+        let deg = Math.floor(notePos/12*360);
+        return "background-color: hsl("+ deg +", 100%, 50%);"
+        + " transform: rotate("+deg+"deg);";
       }
 
     }
