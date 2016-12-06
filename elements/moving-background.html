@@ -45,22 +45,22 @@
       }
 
       _makeItMove() {
-        this.$.cat.animate({
-          transform: ['rotate(-8deg)', 'rotate(8deg)'],
-        }, {
+        var timing = {
           duration: this.tempo*10,
           direction: 'alternate',
           easing: 'ease-in-out',
           iterations: Infinity
-        });
-        this.$.rocking_flower.animate({
-          transform: ['rotate(-2deg)', 'rotate(14deg)'],
-        }, {
-          duration: this.tempo*10,
-          direction: 'alternate',
-          easing: 'ease-in-out',
-          iterations: Infinity
-        });
+        };
+
+        var catAnim = this.$.cat.animate(
+          { transform: ['rotate(-8deg)', 'rotate(8deg)'] },
+          timing
+        );
+
+        var flowerAnim = this.$.rocking_flower.animate(
+          { transform: ['rotate(-2deg)', 'rotate(14deg)'] },
+          timing
+        );
       }
     }
     customElements.define(MovingBackground.is, MovingBackground);
