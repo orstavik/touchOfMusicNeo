@@ -13,6 +13,37 @@
   </template>
 
   <script>
+
+    class HeldKeysUnit {
+      constructor(){
+        this.held = [];
+        this.action = undefined;
+        this.activeKey = undefined;
+      }
+
+      addKey(key) {
+        let clone = this.clone();
+        clone.action = true;
+        clone.held.push(key);
+        clone.activeKey = key;
+        return clone;
+      }
+
+      removeKey(key){
+        let clone = this.clone();
+        clone.action = true;
+        clone.activeKey = key;
+        let index = clone.held.indexOf(key);
+        if (index !== -1)
+          clone.held.splice(index,1);
+        return clone;
+      }
+
+      getTimeBetweenLastKeyUpAndThisKeyDown(){
+
+      }
+    }
+
     class KeyboardListener extends Polymer.Element {
       static get is() {
         return "keyboard-listener";
@@ -21,6 +52,12 @@
         return {
           properties: {
             pressedKeys: {
+              type: Array,
+              value: function() {
+                return []
+              }
+            },
+            pressedTimes: {
               type: Array,
               value: function() {
                 return []
