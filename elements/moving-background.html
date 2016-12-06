@@ -1,0 +1,51 @@
+<dom-module id="moving-background">
+  <template>
+    <style>
+      :host {
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 50vw;
+      }
+      #cat {
+        height: 10vh;
+        position: absolute;
+        top: -25.5vh;
+        left: -52vh;
+        transform-origin: bottom;
+      }
+    </style>
+
+    <img id="cat" src="../images/background/cat.png" alt="cat">
+
+  </template>
+	
+  <script>
+    class MovingBackground extends Polymer.Element {
+      static get is() {
+        return "moving-background";
+      }
+      static get config() {
+        return {
+          properties: {
+            tempo: {
+              type: Number,
+              observer: "_makeItMove"
+            }
+          }
+        }
+      }
+
+      _makeItMove() {
+        this.$.cat.animate({
+          transform: ['rotate(-8deg)', 'rotate(8deg)'],
+        }, {
+          duration: this.tempo*10,
+          direction: 'alternate',
+          iterations: Infinity
+        });
+      }
+    }
+    customElements.define(MovingBackground.is, MovingBackground);
+  </script>
+</dom-module>

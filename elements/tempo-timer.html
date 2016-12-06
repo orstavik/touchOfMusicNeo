@@ -1,19 +1,17 @@
 <link rel="import" href="audio-data.html">
 <link rel="import" href="audio-player.html">
+<link rel="import" href="moving-background.html">
 
 <dom-module id="tempo-timer">
   <template>
-    <style>
-      :host {
-        display: none;
-      }
-    </style>
 
-  <iron-ajax url="../audio/other/beat.mp3"
-             handle-as="arraybuffer"
-             on-response="_beatLoaded" auto></iron-ajax>
+    <iron-ajax url="../audio/other/beat.mp3"
+              handle-as="arraybuffer"
+              on-response="_beatLoaded" auto></iron-ajax>
 
-  <audio-player id="player"></audio-player>
+    <audio-player id="player"></audio-player>
+
+    <moving-background tempo="[[tempo]]"></moving-background>
 
   </template>
 	
