@@ -16,7 +16,7 @@
 
     <music-clef mode="[[mode]]" key="[[key]]">
       <music-chord id="chords">
-        <music-scale id="scale" mode="{{mode}}" key="{{key}}"></music-scale>
+        <music-scale id="scale"></music-scale>
       </music-chord>
     </music-clef>
     <audio-data id="loader" path="../audio/tones/piano/" amount=88 type="mp3"></audio-data>
@@ -66,19 +66,28 @@
         switch (div.dataset.command) {
           case "turnKeyLeft":
             this.$.scale.turnKeyLeft();
+            this.updateKeyAndMode();
             return 0;
           case "turnKeyRight":
             this.$.scale.turnKeyRight();
+            this.updateKeyAndMode();
             return 0;
           case "turnModusLeft":
             this.$.scale.turnModusLeft();
+            this.updateKeyAndMode();
             return 0;
           case "turnModusRight":
             this.$.scale.turnModusRight();
+            this.updateKeyAndMode();
             return 0;
           case "sharpen":
             return 1;
         }
+      }
+
+      updateKeyAndMode(){
+        this.key = this.$.scale.getTwelveNotesName(this.baseNote + this.$.scale.getKey());
+        this.mode = this.$.scale.getMode();
       }
 
       playKeys(press, arrayOfKeys) {
@@ -105,22 +114,32 @@
         let codes = this.chordMode && div.dataset.chord ?
           this.getChord(div.dataset.chord) :
           this.getTone(div.dataset.tone, div.dataset.octave, sharpen);
-        this.tone = this.$.scale.numbersToNoteNames(codes);
+        this.tone = this.getNotesAsText(codes);
+        console.log(this.tone);
 
         codes.forEach(function (code) {
           this.$.player.playTone(this.$.loader.getSound(this.getBase() + code));
         }.bind(this));
       }
 
+      getNotesAsText(notes) {
+        let names = notes.map(function (noteNumber) {
+          let num = this.getBase() + noteNumber;
+          return this.$.scale.getTwelveNotesName(num % 12) + Math.floor(num / 12);
+        }.bind(this));
+        return names.join("|");
+//        return this.$.scale.numbersToNoteNames(notes);
+      }
+
       getTone(tone, octave, sharpen) {
         return [
-          this.$.scale.getSevenToneNumber(Number(tone) - 1) +
+          this.$.scale.getSevenNoteTone(Number(tone) - 1) +
           sharpen +
           Number(octave) * 12
         ];
       }
 
-      //the 88 key piano starts with A, A#, B at the far right
+      //the 88 key piano starts with A, A#, B at the far right, hence -9
       getBase() {
         return this.baseNote - 9 + this.baseOctave * 12;
       }
@@ -128,6 +147,7 @@
       parseBase(base) {
         this.baseNote = this.$.scale.getNotePositionNormal(base.slice(0, -1));
         this.baseOctave = Number(base.slice(-1));
+        this.updateKeyAndMode();
       }
 
       //todo need to integrate the major II chord and major III chord from the hooktheory article

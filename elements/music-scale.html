@@ -13,25 +13,9 @@
           return "music-scale";
         }
 
-        static get config() {
-          return {
-            properties: {
-              mode: {
-                type:String,
-                notify: true
-              },
-              key: {
-                type:String,
-                notify: true,
-              }
-            }
-          }
-        }
-
         constructor(){
           super();
           this.staticNotes = ["C", "Db/C#", "D", "Eb/D#", "E", "F", "Gb/F#", "G", "Ab/G#", "A", "Bb/A#", "B"];
-          this.staticWheelOfFifth = ["C", "G", "D", "A", "E", "B", "Gb/F#","Db/C#", "Ab/G#", "Eb/D#", "Bb/A#", "F"];
           this.staticScales = [
             [[0, 1, 3, 5, 6, 8, 10], "locrian"],
             [[0, 2, 3, 5, 7, 8, 10], "minor"], // aeolian VI
@@ -42,74 +26,76 @@
             [[0, 2, 4, 5, 7, 9, 11], "major"] //ionian I
           ];
           this.modePosition = 6;        //start with major, first to be flattened is B, first to sharpen is F
-          this.modularScale = this.staticScales[this.modePosition][0];
-          this.mode = this.staticScales[this.modePosition][1];
+          this.modularScale = this.staticScales[this.modePosition][0].slice();
+        }
+
+        getTwelveNotesName(number){
+          return this.staticNotes[number];
         }
 
         getSevenNoteNumber(noteName) {
-          return this.modularScale.indexOf(this.staticNotes.indexOf(noteName));
+          return this.modularScale.indexOf(this.getNotePositionNormal(noteName));
         }
 
         getRoot(){
           return this.modularScale ? this.modularScale[0] : 0;
         }
-//
-//        getMode(){
-//          return this.modularScale[0] || 0;
-//        }
-//
-        getSevenToneNumber(zeeroToSix){
+
+        getSevenNoteTone(zeeroToSix){
           return this.modularScale[zeeroToSix];
         }
 
-        numbersToNoteNames(notes) {
-          let noteNames = this.staticNotes;
-          let names = notes.map(function (noteNumber) {
-            let num = noteNumber + 9;
-            return noteNames[(num % 12)] + Math.floor(num / 12);
-          });
-          return names.join("|");
-        }
-
-        //only uses sharp
-        //to calculate the note color, use just HSL colors as below
-        //noteColor = hsl(notePosition/12*360, 100, 67);
-        getNotePositionInWheelOf5ByName(noteName){
-          return this.staticWheelOfFifth.indexOf(noteName);
+        getNotePositionInWheelOf5ByName(noteName){                      //used to calculate note color: hsl(notePosition/12*360, 100, 67);
+          let wheelOfFive = ["C", "G", "D", "A", "E", "B", "Gb/F#","Db/C#", "Ab/G#", "Eb/D#", "Bb/A#", "F"];
+          return wheelOfFive.indexOf(noteName);
         }
 
         getNotePositionNormal(noteName){
           return this.staticNotes.indexOf(noteName);
         }
 
+        getKey(){
+          return this.modularScale[0];
+        }
+
+        getMode(){
+          //todo is this the right mode position??
+          //safer approach would be to match the current setup in this.modularScale and find the one in the this.staticScales that matches
+          return this.staticScales[this.modePosition][1];
+        }
+
         turnModusRight() {
-          this.modePosition += 4;
-          if (this.modePosition > 6)
-            this.modePosition -= 7;
-          this.modularScale[this.modePosition] = this.modularScale[this.modePosition] + 1;
-          this.mode = this.staticScales[this.modePosition][1];  //todo is this the right mode position??
+          this.modePosition = (this.modePosition + 4) % 7;
+          this.modularScale[this.modePosition] += 1;
         }
 
         turnModusLeft() {
-          this.modularScale[this.modePosition] = this.modularScale[this.modePosition] - 1;
-          this.modePosition -= 4;
-          if (this.modePosition < 0)
-            this.modePosition += 7;
-          this.mode = this.staticScales[this.modePosition][1]; //todo is this the right mode position??
+          this.modularScale[this.modePosition] -= 1;
+          this.modePosition = (this.modePosition + 3) % 7;
         }
 
         turnKeyRight() {
-          let value = this.modularScale[0] > 4 ? -5 : 7;
           for(let i = 0;i <this.modularScale.length; i++)
-            this.modularScale[i]+= value;
-          this.key = this.staticNotes[this.modularScale[0]];
+            this.modularScale[i]+= 7;
+          if (this.modularScale[0]>11)
+            this.octaveDown();
         }
 
         turnKeyLeft() {
-          let value = this.modularScale[0] > 6 ? -7 : 5;
           for(let i = 0;i <this.modularScale.length; i++)
-            this.modularScale[i]+= value;
-          this.key = this.staticNotes[this.modularScale[0]];
+            this.modularScale[i]-= 7;
+          if (this.modularScale[0]<0)
+            this.octaveUp();
+        }
+
+        octaveUp(){
+          for(let i = 0;i <this.modularScale.length; i++)
+            this.modularScale[i]+= 12;
+        }
+
+        octaveDown(){
+          for(let i = 0;i <this.modularScale.length; i++)
+            this.modularScale[i]-= 12;
         }
       }
       customElements.define(MusicScale.is, MusicScale);

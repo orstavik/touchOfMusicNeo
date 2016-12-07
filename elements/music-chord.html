@@ -20,9 +20,9 @@
       getChord(root) {
         let scale = this.querySelector("music-scale");
         return [
-          scale.getSevenToneNumber(root),
-          scale.getSevenToneNumber((root + 2) % 7),
-          scale.getSevenToneNumber((root + 4) % 7)
+          scale.getSevenNoteTone(root),
+          scale.getSevenNoteTone((root + 2) % 7),
+          scale.getSevenNoteTone((root + 4) % 7)
         ];
       }
 
