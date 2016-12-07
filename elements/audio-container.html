@@ -2,6 +2,7 @@
 <link rel="import" href="audio-player.html">
 <link rel="import" href="music-scale.html">
 <link rel="import" href="music-clef.html">
+<link rel="import" href="music-chord.html">
 
 <dom-module id="audio-container">
   <template>
@@ -14,7 +15,9 @@
     <slot></slot>
 
     <music-clef mode="[[mode]]" key="[[key]]" >
-      <music-scale id="scale" base="[[base]]" mode="{{mode}}" key="{{key}}" root-tone="{{rootTone}}"></music-scale>
+      <music-chord id="chords">
+        <music-scale id="scale" base="[[base]]" mode="{{mode}}" key="{{key}}" root-tone="{{rootTone}}"></music-scale>
+      </music-chord >
     </music-clef>
     <audio-data id="loader" path="../audio/tones/piano/" amount=88 type="mp3"></audio-data>
     <audio-player id="player"></audio-player>
@@ -130,11 +133,8 @@
       //todo III: [this.tones.III, this.tones.V + 1, this.tones.VII],
       getChord(numberAsText){
         let root = Number(numberAsText)-1;
-        return [
-          this.getScaleBase() + this.$.scale.getSevenToneNumber(root),
-          this.getScaleBase() + this.$.scale.getSevenToneNumber((root + 2) % 7),
-          this.getScaleBase() + this.$.scale.getSevenToneNumber((root + 4) % 7)
-        ];
+        let chord = this.$.chords.getChord(root);
+        return chord.map(function(t){return this.getScaleBase() + t;}.bind(this));
       }
     }
     customElements.define(AudioContainer.is, AudioContainer);

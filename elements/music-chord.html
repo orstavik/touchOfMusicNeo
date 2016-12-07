@@ -1,0 +1,57 @@
+<dom-module id="music-chord">
+  <template>
+    <style>
+      :host {
+        display: none;
+      }
+    </style>
+  </template>
+  <script>
+
+    class MusicChord extends Polymer.Element {
+      static get is() {
+        return "music-chord";
+      }
+
+//  unnecessary, easier and more orderly to calculate this based on the distance.
+//  this.staticModeOrderForChords = ["major", "dorian", "phrygian", "lydian", "mixolydian", "minor", "locrian"];
+//  this.staticChords = ["maj", "maj", "min", "min", "maj", "min", "dim"];
+
+      getChord(root) {
+        let scale = this.querySelector("music-scale");
+        return [
+          scale.getSevenToneNumber(root),
+          scale.getSevenToneNumber((root + 2) % 7),
+          scale.getSevenToneNumber((root + 4) % 7)
+        ];
+      }
+
+      getChordType(chordNumber) {
+        console.log(chordNumber);
+
+        let chord = this.getChord(chordNumber);
+        console.log(chord);
+        let type = this.calculateChordType(chord);
+        console.log(type);
+        return type;
+      }
+
+      calculateChordType(chordAsArrayOfThreeNumbers) {
+        let distanceA = chordAsArrayOfThreeNumbers[1] - chordAsArrayOfThreeNumbers[0];
+        let distanceB = chordAsArrayOfThreeNumbers[2] - chordAsArrayOfThreeNumbers[1];
+        if (distanceB<0)
+          distanceB+=12;
+        if (distanceA<0)
+          distanceA+=12;
+        if (distanceA == 4 && distanceB == 3)
+          return "maj";
+        if (distanceA == 3 && distanceB == 4)
+          return "min";
+        if (distanceA == 3 && distanceB == 3)
+          return "dim";
+        return "unknown";
+      }
+    }
+    customElements.define(MusicChord.is, MusicChord);
+  </script>
+</dom-module>

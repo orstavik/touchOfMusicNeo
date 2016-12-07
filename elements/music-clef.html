@@ -77,13 +77,15 @@
 
       _getStyleOut(noteName, index) {
         let scale = this.querySelector("music-scale");
-        let position12 = scale.getNotePositionNormal(noteName); //= this._getNotePositionInWheelOf5ByName(noteName);
+        let chord = this.querySelector("music-chord");
+        let position12 = scale.getNotePositionNormal(noteName);
+        let position7 = scale.getSevenNoteNumber(noteName);
         let deg12 = position12 * 30;
         let modularScale = scale.modularScale;
         let size = 0; //by default all keys are invisibly small
         if (modularScale.indexOf(index) >= 0) {
           size = 1;
-          let chordType = scale.getChordType(scale.mode, noteName);
+          let chordType = chord.getChordType(position7);
           if (chordType == "maj")
             size = 2;
           else if (chordType == "dim")

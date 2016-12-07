@@ -50,8 +50,6 @@
             [[0, 2, 3, 5, 7, 9, 10], "dorian"],
             [[0, 2, 4, 5, 7, 9, 11], "major"] //ionian I
           ];
-          this.staticModeOrderForChords = ["major", "dorian", "phrygian", "lydian", "mixolydian", "minor", "locrian"]; //todo same as above but in reverse order
-          this.staticChords = ["maj", "maj", "min", "min", "maj", "min", "dim"];
         }
 
         setup() {
@@ -123,18 +121,6 @@
           for(let i = 0;i <this.modularScale.length; i++)
             this.modularScale[i]+= value;
           this.key = this.staticNotes[this.modularScale[0]];
-        }
-
-        getChordType(modeName, noteName) {
-          return this.getChordTypeByNumber(modeName, this.getSevenNoteNumber(noteName));
-        }
-
-        getChordTypeByNumber(modeName, noteNumberZeroToSix) {
-          let modeNumber = this.staticModeOrderForChords.indexOf(modeName);
-          if (modeNumber == -1)
-            throw new Error("Illegal mode name, use one of: " + this.staticModeOrderForChords.join(", ") +".");
-          let chordNumber = (modeNumber + noteNumberZeroToSix) % 7;
-          return this.staticChords[chordNumber];
         }
 
         _calcRoot(base, mode) {
