@@ -84,7 +84,7 @@
       playKeys(press, arrayOfKeys) {
         let sharpen = 0;
         for (let key of arrayOfKeys) {
-          if (this.checkForCommands(key) == 1)
+          if (this.checkForCommands(key.code) == 1)
             sharpen = 1;
         }
         this._keysPress(press, sharpen);
@@ -103,13 +103,38 @@
           return;
 
         let codes = this.chordMode && div.dataset.chord ?
-          this.$.scale.getChord(Number(div.dataset.chord)) :
-          [this.$.scale.getTone(Number(div.dataset.tone), Number(div.dataset.octave), sharpen)];
+          this.getChord(div.dataset.chord) :
+          this.getTone(div.dataset.tone, div.dataset.octave, sharpen);
         this.tone = this.$.scale.numbersToNoteNames(codes);
 
         codes.forEach(function (code) {
           this.$.player.playTone(this.$.loader.getSound(code));
         }.bind(this));
+      }
+
+      getTone(tone, octave, sharpen) {
+        return [
+          this.getScaleBase() +
+          this.$.scale.getSevenToneNumber(Number(tone)-1) +
+          sharpen +
+          Number(octave)*12
+        ];
+      }
+
+      getScaleBase(){
+        return this.$.scale.baseIndex ;
+      }
+
+      //todo need to integrate the major II chord and major III chord from the hooktheory article
+      //todo II: [this.tones.II, this.tones.IV + 1, this.tones.VI],
+      //todo III: [this.tones.III, this.tones.V + 1, this.tones.VII],
+      getChord(numberAsText){
+        let root = Number(numberAsText)-1;
+        return [
+          this.getScaleBase() + this.$.scale.getSevenToneNumber(root),
+          this.getScaleBase() + this.$.scale.getSevenToneNumber((root + 2) % 7),
+          this.getScaleBase() + this.$.scale.getSevenToneNumber((root + 4) % 7)
+        ];
       }
     }
     customElements.define(AudioContainer.is, AudioContainer);

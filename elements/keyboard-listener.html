@@ -23,7 +23,7 @@
 
       add(key) {
         let clone = new FingerMovement(key.code, undefined, this.heldKeys.slice());
-        if (this.heldKeys.indexOf(key.code) != -1)
+        if (clone.heldKeys.indexOf(key.code) == -1)
           clone.heldKeys.push(key);
         return clone;
       }
@@ -34,6 +34,14 @@
         if (index !== -1)
           clone.heldKeys.splice(index, 1);
         return clone;
+      }
+
+      getPauseBefore(){
+
+      }
+
+      getDuration(){
+
       }
     }
 
@@ -56,15 +64,19 @@
       }
 
       _keyWasDown(e) {
-        this._fireEvent("pressed-keys", this.fingerMove.add(e));
+        this.dispatchEvent(new CustomEvent("pressed-keys", {
+          "detail": this.fingerMove.add(e),
+          "bubbles": true,
+          "composed": true
+        }));
       }
 
       _keyWasUp(e) {
-        this._fireEvent("unpressed-keys", this.fingerMove.remove(e));
-      }
-
-      _fireEvent(name, keys) {
-        this.dispatchEvent(new CustomEvent(name, {"detail": keys, "bubbles": true, "composed": true}));
+        this.dispatchEvent(new CustomEvent("unpressed-keys", {
+          "detail": this.fingerMove.remove(e),
+          "bubbles": true,
+          "composed": true
+        }));
       }
     }
     customElements.define(KeyboardListener.is, KeyboardListener);
