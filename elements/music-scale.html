@@ -62,13 +62,25 @@
           this.keyModulate = 0;
           this.modePosition = 6;        //start with major, first to be flattened is B, first to sharpen is F
           this.modularScale = this.staticScales[this.modePosition][0];
-          this.updateNotesAndChords();
+          this.mode = this.staticScales[this.modePosition][1];
         }
 
         noteNameToNumber(base) {
           let note = this.staticNotes.indexOf(base.slice(0, -1));
           let octave = base.slice(-1);
           return (note - 9) + octave * 12;
+        }
+
+        noteNameToNumber12Scale(noteName){
+          return this.staticNotes.indexOf(noteName);
+        }
+
+        noteNameToNumberWheelOf5(noteName){
+          return this.staticWheelOfFifth.indexOf(noteName);
+        }
+
+        noteNameToNumber7(noteName, mode, key) {
+
         }
 
         numbersToNoteNames(notes) {
@@ -96,7 +108,7 @@
           if (this.modePosition > 6)
             this.modePosition -= 7;
           this.modularScale[this.modePosition] = this.modularScale[this.modePosition] + 1;
-          this.updateNotesAndChords();
+          this.mode = this.staticScales[this.modePosition][1];
         }
 
         turnModusLeft() {
@@ -104,7 +116,7 @@
           this.modePosition -= 4;
           if (this.modePosition < 0)
             this.modePosition += 7;
-          this.updateNotesAndChords();
+          this.mode = this.staticScales[this.modePosition][1];
         }
 
         turnKeyRight() {
@@ -121,39 +133,24 @@
           this.key = this.staticNotes[this.keyModulate];
         }
 
-        updateNotesAndChords() {
-          this.tones = {
-            I: this.baseIndex + this.modularScale[0],
-            II: this.baseIndex + this.modularScale[1],
-            III: this.baseIndex + this.modularScale[2],
-            IV: this.baseIndex + this.modularScale[3],
-            V: this.baseIndex + this.modularScale[4],
-            VI: this.baseIndex + this.modularScale[5],
-            VII: this.baseIndex + this.modularScale[6]
-          };
-          this.chords = {
-            I: [this.tones.I, this.tones.III, this.tones.V],
-            ii: [this.tones.II, this.tones.IV, this.tones.VI],
-            iii: [this.tones.III, this.tones.V, this.tones.VII],
-            IV: [this.tones.IV, this.tones.VI, this.tones.I],
-            V: [this.tones.V, this.tones.VII, this.tones.II],
-            vi: [this.tones.VI, this.tones.I, this.tones.III],
-            viiDim: [this.tones.VII, this.tones.II, this.tones.IV],
-            //from statistical analysis of chords in hooktheory
-            II: [this.tones.II, this.tones.IV + 1, this.tones.VI],
-            III: [this.tones.III, this.tones.V + 1, this.tones.VII],
-          };
-          this.mode = this.staticScales[this.modePosition][1];
-          this.notifyPath("mode");
+        getSevenTone(numberOneToSeven){
+          return this.baseIndex + this.modularScale[numberOneToSeven-1];
         }
 
         /*neutralSharpOrFlat: flat=-1, neutral=0, sharp=1*/
-        getTone(roman, octave, neutralSharpOrFlat) {
-          return this.tones[roman] + octave *12 + this.keyModulate + neutralSharpOrFlat;
+        getTone(romanTone, octave, neutralSharpOrFlat) {
+          return this.getSevenTone(romanTone) + octave *12 + this.keyModulate + neutralSharpOrFlat;
         }
 
-        getChord(roman) {
-          return this.chords[roman];
+        //todo need to integrate the major II chord and major III chord from the hooktheory article
+//            II: [this.tones.II, this.tones.IV + 1, this.tones.VI],
+//            III: [this.tones.III, this.tones.V + 1, this.tones.VII],
+        getChord(root) {
+          root--;
+          let third = (root + 2) % 7;
+          let fifth = (root + 4) % 7;
+          let res = [this.baseIndex +this.modularScale[root], this.baseIndex +this.modularScale[third], this.baseIndex +this.modularScale[fifth]];
+          return res;
         }
 
         getChordType(modeName, noteName) {
@@ -162,7 +159,6 @@
           return this.getChordTypeByNumber(modeName, sevenNoteNumber);
         }
         getChordTypeByNumber(modeName, noteNumberZeroToSix) {
-          debugger;
           let modeNumber = this.staticModeOrderForChords.indexOf(modeName);
           if (modeNumber == -1)
             throw new Error("Illegal mode name, use one of: " + this.staticModeOrderForChords.join(", ") +".");

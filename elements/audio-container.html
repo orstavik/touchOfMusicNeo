@@ -98,13 +98,13 @@
         if (!key)
           return;
 
-        let div = this.querySelector("[data-key=" + key + "]");
+        let div = this.querySelector("[data-key=" + key + "]:not([data-command])");
         if (!div)
           return;
 
         let codes = this.chordMode && div.dataset.chord ?
-          this.$.scale.getChord(div.dataset.chord) :
-          [this.$.scale.getTone(div.dataset.tone, div.dataset.octave, sharpen)];
+          this.$.scale.getChord(Number(div.dataset.chord)) :
+          [this.$.scale.getTone(Number(div.dataset.tone), Number(div.dataset.octave), sharpen)];
         this.tone = this.$.scale.numbersToNoteNames(codes);
 
         codes.forEach(function (code) {
