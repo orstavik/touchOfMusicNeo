@@ -97,8 +97,7 @@
       _getStyleIn(noteName, index) {
         let scale = this.querySelector("music-scale");
         let position5 = scale.getNotePositionInWheelOf5ByName(noteName); //= this._getNotePositionInWheelOf5ByName(noteName);
-        let deg5 = position5 * 30;
-        return "background-color: hsl(" + deg5 + ", 100%, 50%);";
+        return "background-color: hsl(" + position5 * 30 + ", 100%, 50%);";
       }
 
     }

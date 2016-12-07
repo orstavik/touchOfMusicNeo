@@ -16,18 +16,9 @@
         static get config() {
           return {
             properties: {
-              base: {
-                type: String,
-                observer: "setup"
-              },
-              rootTone: {
-                type: String,
-                notify: true,
-                computed: "_calcRoot(base, mode)"
-              },
               mode: {
                 type:String,
-                notify: true,
+                notify: true
               },
               key: {
                 type:String,
@@ -50,10 +41,6 @@
             [[0, 2, 3, 5, 7, 9, 10], "dorian"],
             [[0, 2, 4, 5, 7, 9, 11], "major"] //ionian I
           ];
-        }
-
-        setup() {
-          this.baseIndex = this.noteNameToNumber(this.base);
           this.modePosition = 6;        //start with major, first to be flattened is B, first to sharpen is F
           this.modularScale = this.staticScales[this.modePosition][0];
           this.mode = this.staticScales[this.modePosition][1];
@@ -63,14 +50,16 @@
           return this.modularScale.indexOf(this.staticNotes.indexOf(noteName));
         }
 
+        getRoot(){
+          return this.modularScale ? this.modularScale[0] : 0;
+        }
+//
+//        getMode(){
+//          return this.modularScale[0] || 0;
+//        }
+//
         getSevenToneNumber(zeeroToSix){
           return this.modularScale[zeeroToSix];
-        }
-
-        noteNameToNumber(base) {
-          let note = this.staticNotes.indexOf(base.slice(0, -1));
-          let octave = base.slice(-1);
-          return (note - 9) + octave * 12;
         }
 
         numbersToNoteNames(notes) {
@@ -121,12 +110,6 @@
           for(let i = 0;i <this.modularScale.length; i++)
             this.modularScale[i]+= value;
           this.key = this.staticNotes[this.modularScale[0]];
-        }
-
-        _calcRoot(base, mode) {
-          return this.modularScale ?
-            this.numbersToNoteNames([this.baseIndex + this.modularScale[0]]) :
-            this.base;
         }
       }
       customElements.define(MusicScale.is, MusicScale);

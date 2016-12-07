@@ -14,10 +14,10 @@
 
     <slot></slot>
 
-    <music-clef mode="[[mode]]" key="[[key]]" >
+    <music-clef mode="[[mode]]" key="[[key]]">
       <music-chord id="chords">
-        <music-scale id="scale" base="[[base]]" mode="{{mode}}" key="{{key}}" root-tone="{{rootTone}}"></music-scale>
-      </music-chord >
+        <music-scale id="scale" mode="{{mode}}" key="{{key}}"></music-scale>
+      </music-chord>
     </music-clef>
     <audio-data id="loader" path="../audio/tones/piano/" amount=88 type="mp3"></audio-data>
     <audio-player id="player"></audio-player>
@@ -39,17 +39,14 @@
               reflectToAttribute: true
             },
             base: {
-              type: String
+              type: String,
+              observer: "parseBase"
             },
             mode: {
               type: String,
               reflectToAttribute: true
             },
             key: {
-              type: String,
-              reflectToAttribute: true
-            },
-            rootTone: {
               type: String,
               reflectToAttribute: true
             },
@@ -93,7 +90,7 @@
         this._keysPress(press, sharpen);
       }
 
-      playFailure(){
+      playFailure() {
         this.$.player.playTone(this.$.loader.getOther('failure'));
       }
 
@@ -111,30 +108,33 @@
         this.tone = this.$.scale.numbersToNoteNames(codes);
 
         codes.forEach(function (code) {
-          this.$.player.playTone(this.$.loader.getSound(code));
+          this.$.player.playTone(this.$.loader.getSound(this.getBase() + code));
         }.bind(this));
       }
 
       getTone(tone, octave, sharpen) {
         return [
-          this.getScaleBase() +
-          this.$.scale.getSevenToneNumber(Number(tone)-1) +
+          this.$.scale.getSevenToneNumber(Number(tone) - 1) +
           sharpen +
-          Number(octave)*12
+          Number(octave) * 12
         ];
       }
 
-      getScaleBase(){
-        return this.$.scale.baseIndex ;
+      //the 88 key piano starts with A, A#, B at the far right
+      getBase() {
+        return this.baseNote - 9 + this.baseOctave * 12;
+      }
+
+      parseBase(base) {
+        this.baseNote = this.$.scale.getNotePositionNormal(base.slice(0, -1));
+        this.baseOctave = Number(base.slice(-1));
       }
 
       //todo need to integrate the major II chord and major III chord from the hooktheory article
       //todo II: [this.tones.II, this.tones.IV + 1, this.tones.VI],
       //todo III: [this.tones.III, this.tones.V + 1, this.tones.VII],
-      getChord(numberAsText){
-        let root = Number(numberAsText)-1;
-        let chord = this.$.chords.getChord(root);
-        return chord.map(function(t){return this.getScaleBase() + t;}.bind(this));
+      getChord(numberAsText) {
+        return this.$.chords.getChord(Number(numberAsText) - 1);
       }
     }
     customElements.define(AudioContainer.is, AudioContainer);
