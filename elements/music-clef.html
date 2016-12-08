@@ -29,25 +29,33 @@
             key: {
               type: String,
               reflectToAttribute: true,
-              notify: true
+              notify: true,
+            },
+            baseNote: {
+              type: Number,
+              computed: "keyToneToNumber(key)"
             }
           }
         }
       }
 
-      getTone(oneToSeven) {
-        return this.baseNote + this.$.scale.getSevenNoteTone(oneToSeven - 1);
+      keyToneToNumber(key) {
+        return MusicScale.getNotePositionNormal(key);
+      }
+
+      getTone(oneToSeven, oct) {
+        return (this.baseOctave + oct) * 12 + this.baseNote + this.$.scale.getSevenNoteTone(oneToSeven - 1);
       }
 
       //todo need to integrate the major II chord and major III chord from the hooktheory article
       //todo II: [this.tones.II, this.tones.IV + 1, this.tones.VI],
       //todo III: [this.tones.III, this.tones.V + 1, this.tones.VII],
-      getChord(oneToSeven) {
+      getChord(oneToSeven, oct) {
         let root = oneToSeven - 1;
         return [
-          this.$.scale.getSevenNoteTone(root),
-          this.$.scale.getSevenNoteTone((root + 2) % 7),
-          this.$.scale.getSevenNoteTone((root + 4) % 7)
+          this.getTone(root, oct),
+          this.getTone((root + 2) % 7, oct),
+          this.getTone((root + 4) % 7, oct)
         ];
       }
 
@@ -95,8 +103,8 @@
       }
 
       normalize() {
-        this.baseNote += this.$.scale.normalize();
-        this.key = MusicScale.getTwelveNotesName((this.baseNote + 2400) % 12);
+        let basis = this.baseNote + this.$.scale.normalize() + 2400;
+        this.key = MusicScale.getTwelveNotesName(basis % 12);
       }
     }
     customElements.define(MusicClef.is, MusicClef);

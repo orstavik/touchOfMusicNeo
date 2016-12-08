@@ -14,7 +14,7 @@
     <slot></slot>
 
     <!--<music-clef mode="[[mode]]" key="[[key]]">-->
-      <music-clef id="chords" base-note="{{baseNote}}" base-octave="{{baseOctave}}" mode="{{mode}}" key="{{key}}"></music-clef>
+      <music-clef id="chords" base-octave="{{baseOctave}}" mode="{{mode}}" key="{{key}}"></music-clef>
     <!--</music-clef>-->
     <audio-data id="piano88" path="../audio/tones/piano/" amount=88 type="mp3"></audio-data>
     <audio-player id="player"></audio-player>
@@ -36,7 +36,6 @@
               reflectToAttribute: true
             },
             baseOctave: Number,
-            baseNote: Number,
             mode: {
               type: String,
               reflectToAttribute: true,
@@ -103,11 +102,11 @@
         if (!div)
           return;
 
+        let oct =  Number(div.dataset.octave);
         let codes = this.chordMode && div.dataset.chord ?
-          this.$.chords.getChord(Number(div.dataset.chord)) :
-          [this.$.chords.getTone(Number(div.dataset.tone)) + sharpen];
+          this.$.chords.getChord(Number(div.dataset.chord), oct) :
+          [this.$.chords.getTone(Number(div.dataset.tone), oct) + sharpen];
 
-        let oct = this.baseOctave + Number(div.dataset.octave);
 
         codes.forEach(function (code) {
           this.logNote(code, oct);
@@ -115,16 +114,16 @@
         }.bind(this));
       }
 
-      logNote(code, oct) {
+      logNote(code) {
         console.log(
           MusicScale.getTwelveNotesName(code % 12) + ": " +
-          (oct + Math.floor(code / 12))
+          (Math.floor(code / 12))
         );
       }
 
       //the 88 key piano starts with A, A#, B at the far right, hence -9
       getPianoSound(toneNumber, oct) {
-        return this.$.piano88.getSound((this.baseNote + toneNumber - 9) + oct * 12);
+        return this.$.piano88.getSound((toneNumber - 9) + oct * 12);
       }
     }
     customElements.define(AudioContainer.is, AudioContainer);
