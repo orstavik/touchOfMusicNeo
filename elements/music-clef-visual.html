@@ -79,10 +79,7 @@
       }
 
       changeNotes(){
-        if (this.scale && this.key ){
-          this.notes = MusicScale.getTwelveNotesFromKey(this.key);
-        } else
-          this.notes = [];
+        this.notes = this.scale && this.key ? MusicScale.getTwelveNotesFromKey(this.key) : [];
       }
 
       _getStyleOut(index, noteName) {

@@ -13,8 +13,6 @@
   </template>
   <script>
 
-    //todo need to update so that if key or mode is changed from the outside, the change is transfered to the inside.
-    //todo is this a good task for Tom?
     class MusicClef extends Polymer.Element {
       static get is() {
         return "music-clef";
@@ -32,6 +30,7 @@
               type: String,
               reflectToAttribute: true,
               notify: true,
+              observer: "updateScale"
             },
             baseNote: {
               type: Number,
@@ -45,6 +44,11 @@
             baseOctave:Number
           }
         }
+      }
+
+      //todo need to update so that if key or mode is changed from the outside, the change is transfered to the inside.
+      updateScale(key){
+        this.normalize();
       }
 
       keyToneToNumber(key) {
