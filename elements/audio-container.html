@@ -14,7 +14,7 @@
     <slot></slot>
 
     <!--<music-clef mode="[[mode]]" key="[[key]]">-->
-      <music-chord id="chords" base-note="{{baseNote}}" base-octave="{{baseOctave}}" mode="{{mode}}" key="{{key}}"></music-chord>
+      <music-clef id="chords" base-note="{{baseNote}}" base-octave="{{baseOctave}}" mode="{{mode}}" key="{{key}}"></music-clef>
     <!--</music-clef>-->
     <audio-data id="piano88" path="../audio/tones/piano/" amount=88 type="mp3"></audio-data>
     <audio-player id="player"></audio-player>
@@ -39,11 +39,13 @@
             baseNote: Number,
             mode: {
               type: String,
-              reflectToAttribute: true
+              reflectToAttribute: true,
+              observer: "debug"
             },
             key: {
               type: String,
-              reflectToAttribute: true
+              reflectToAttribute: true,
+              observer: "debug"
             },
             chordMode: {
               type: Boolean,
@@ -51,6 +53,10 @@
             },
           }
         }
+      }
+
+      debug(deb){
+        console.log("deb: " + deb);
       }
 
       checkForCommands(key) {
@@ -98,8 +104,8 @@
           return;
 
         let codes = this.chordMode && div.dataset.chord ?
-          this.$.chords.getChord(div.dataset.chord) :
-          [this.$.chords.getTone(div.dataset.tone) + sharpen];
+          this.$.chords.getChord(Number(div.dataset.chord)) :
+          [this.$.chords.getTone(Number(div.dataset.tone)) + sharpen];
 //        this.tone = this.getNotesAsText(codes);
 //        console.log(this.tone);
 
@@ -116,11 +122,6 @@
 //          return MusicScale.getTwelveNotesName(num % 12) + Math.floor(num / 12);
 //        }.bind(this));
 //        return names.join("|");
-//      }
-//
-//      parseBase(base) {
-//        this.baseNote = MusicScale.getNotePositionNormal(base.slice(0, -1));
-//        this.baseOctave = Number(base.slice(-1));
 //      }
 
       //the 88 key piano starts with A, A#, B at the far right, hence -9

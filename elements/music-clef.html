@@ -1,6 +1,6 @@
 <link rel="import" href="music-scale.html">
 
-<dom-module id="music-chord">
+<dom-module id="music-clef">
   <template>
     <style>
       :host {
@@ -13,9 +13,9 @@
   </template>
   <script>
 
-    class MusicChord extends Polymer.Element {
+    class MusicClef extends Polymer.Element {
       static get is() {
-        return "music-chord";
+        return "music-clef";
       }
 
       static get config() {
@@ -23,37 +23,27 @@
           properties: {
             mode: {
               type: String,
-              reflectToAttribute: true
+              reflectToAttribute: true,
+              notify: true
             },
             key: {
               type: String,
-              reflectToAttribute: true
+              reflectToAttribute: true,
+              notify: true
             }
           }
         }
       }
 
-      updateKeyAndMode() {
-        this.key = MusicScale.getTwelveNotesName(this.$.baseNote + this.$.scale.getRoot());
-        this.mode = this.$.scale.getMode();
-      }
-
-//  unnecessary, easier and more orderly to calculate this based on the distance.
-//  this.staticModeOrderForChords = ["major", "dorian", "phrygian", "lydian", "mixolydian", "minor", "locrian"];
-//  this.staticChords = ["maj", "maj", "min", "min", "maj", "min", "dim"];
-
-      getTone(tone) {
-        return this.$.scale.getSevenNoteTone(Number(tone) - 1);
+      getTone(oneToSeven) {
+        return this.baseNote + this.$.scale.getSevenNoteTone(oneToSeven - 1);
       }
 
       //todo need to integrate the major II chord and major III chord from the hooktheory article
       //todo II: [this.tones.II, this.tones.IV + 1, this.tones.VI],
       //todo III: [this.tones.III, this.tones.V + 1, this.tones.VII],
-      getChord(numberAsText) {
-        return this._getChord(Number(numberAsText) - 1);
-      }
-
-      _getChord(root) {
+      getChord(oneToSeven) {
+        let root = oneToSeven - 1;
         return [
           this.$.scale.getSevenNoteTone(root),
           this.$.scale.getSevenNoteTone((root + 2) % 7),
@@ -61,13 +51,11 @@
         ];
       }
 
+      //  unnecessary, easier and more orderly to calculate this based on the distance.
+      //  this.staticModeOrderForChords = ["major", "dorian", "phrygian", "lydian", "mixolydian", "minor", "locrian"];
+      //  this.staticChords = ["maj", "maj", "min", "min", "maj", "min", "dim"];
       getChordType(chordNumber) {
-        console.log(chordNumber);
-        let chord = this.getChord(chordNumber);
-        console.log(chord);
-        let type = this.calculateChordType(chord);
-        console.log(type);
-        return type;
+        return this.calculateChordType(this.getChord(chordNumber));
       }
 
       calculateChordType(chordAsArrayOfThreeNumbers) {
@@ -87,21 +75,30 @@
       }
 
       turnModusRight() {
-        this.$.scale.turnModusRight();
+        this.mode = this.$.scale.turnModusRight();
+        this.normalize();
       }
 
       turnModusLeft() {
-        this.$.scale.turnModusLeft();
+        this.mode = this.$.scale.turnModusLeft();
+        this.normalize();
       }
 
       turnKeyRight() {
         this.$.scale.turnKeyRight();
+        this.normalize();
       }
 
       turnKeyLeft() {
         this.$.scale.turnKeyLeft();
+        this.normalize();
+      }
+
+      normalize() {
+        this.baseNote += this.$.scale.normalize();
+        this.key = MusicScale.getTwelveNotesName((this.baseNote + 2400) % 12);
       }
     }
-    customElements.define(MusicChord.is, MusicChord);
+    customElements.define(MusicClef.is, MusicClef);
   </script>
 </dom-module>
