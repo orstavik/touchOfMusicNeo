@@ -14,12 +14,12 @@
 
     <slot></slot>
 
-    <music-chord id="chords">
-      <music-clef mode="[[mode]]" key="[[key]]">
+    <music-clef mode="[[mode]]" key="[[key]]">
+      <music-chord id="chords">
         <music-scale id="scale"></music-scale>
-      </music-clef>
-    </music-chord>
-    <audio-data id="loader" path="../audio/tones/piano/" amount=88 type="mp3"></audio-data>
+      </music-chord>
+    </music-clef>
+    <audio-data id="piano88" path="../audio/tones/piano/" amount=88 type="mp3"></audio-data>
     <audio-player id="player"></audio-player>
 
   </template>
@@ -100,7 +100,7 @@
       }
 
       playFailure() {
-        this.$.player.playTone(this.$.loader.getOther('failure'));
+        this.$.player.playTone(this.$.piano88.getOther('failure'));
       }
 
       _keysPress(key, sharpen) {
@@ -113,12 +113,14 @@
 
         let codes = this.chordMode && div.dataset.chord ?
           this.getChord(div.dataset.chord) :
-          this.getTone(div.dataset.tone, div.dataset.octave, sharpen);
+          this.getTone(div.dataset.tone, sharpen);
         this.tone = this.getNotesAsText(codes);
         console.log(this.tone);
 
+        let oct = this.baseOctave + Number(div.dataset.octave);
+
         codes.forEach(function (code) {
-          this.$.player.playTone(this.$.loader.getSound(this.getBase() + code));
+          this.$.player.playTone(this.$.piano88.getTone(this.getBase() + code, oct));
         }.bind(this));
       }
 
@@ -131,17 +133,18 @@
 //        return this.$.scale.numbersToNoteNames(notes);
       }
 
-      getTone(tone, octave, sharpen) {
+      getTone(tone, sharpen) {
         return [
           this.$.scale.getSevenNoteTone(Number(tone) - 1) +
-          sharpen +
-          Number(octave) * 12
+          sharpen
+//          +
+//          Number(octave) * 12
         ];
       }
 
       //the 88 key piano starts with A, A#, B at the far right, hence -9
       getBase() {
-        return this.baseNote - 9 + this.baseOctave * 12;
+        return this.baseNote;
       }
 
       parseBase(base) {

@@ -13,6 +13,17 @@
         return "music-chord";
       }
 
+      setBase(base) {
+        this.base = base;
+      }
+
+      parseBase(base) {
+        this.baseNote = MusicScale.getNotePositionNormal(base.slice(0, -1));
+        this.baseOctave = Number(base.slice(-1));
+        this.updateKeyAndMode();
+      }
+
+
 //  unnecessary, easier and more orderly to calculate this based on the distance.
 //  this.staticModeOrderForChords = ["major", "dorian", "phrygian", "lydian", "mixolydian", "minor", "locrian"];
 //  this.staticChords = ["maj", "maj", "min", "min", "maj", "min", "dim"];

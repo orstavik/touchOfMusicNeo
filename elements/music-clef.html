@@ -73,10 +73,10 @@
 //        this.keyName = this.key; ??
       }
 
-      _getNotePositionInWheelOf5ByName(noteName) {
-        let scale = this.querySelector("music-scale");
-        return MusicScale.getNotePositionInWheelOf5ByName(noteName);
-      }
+//      _getNotePositionInWheelOf5ByName(noteName) {
+//        let scale = this.querySelector("music-scale");
+//        return MusicScale.getNotePositionInWheelOf5ByName(noteName);
+//      }
 
       _getStyleOut(noteName, index) {
         let scale = this.querySelector("music-scale");
@@ -99,7 +99,7 @@
 
       _getStyleIn(noteName, index) {
         let scale = this.querySelector("music-scale");
-        let position5 = MusicScale.getNotePositionInWheelOf5ByName(noteName); //= this._getNotePositionInWheelOf5ByName(noteName);
+        let position5 = MusicScale.getWheelOf5Number(noteName); //= this._getNotePositionInWheelOf5ByName(noteName);
         return "background-color: hsl(" + position5 * 30 + ", 100%, 50%);";
       }
 
