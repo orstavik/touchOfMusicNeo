@@ -106,23 +106,21 @@
         let codes = this.chordMode && div.dataset.chord ?
           this.$.chords.getChord(Number(div.dataset.chord)) :
           [this.$.chords.getTone(Number(div.dataset.tone)) + sharpen];
-//        this.tone = this.getNotesAsText(codes);
-//        console.log(this.tone);
 
         let oct = this.baseOctave + Number(div.dataset.octave);
 
         codes.forEach(function (code) {
+          this.logNote(code, oct);
           this.$.player.playTone(this.getPianoSound(code, oct));
         }.bind(this));
       }
 
-//      getNotesAsText(notes) {
-//        let names = notes.map(function (noteNumber) {
-//          let num = this.baseNote + noteNumber;
-//          return MusicScale.getTwelveNotesName(num % 12) + Math.floor(num / 12);
-//        }.bind(this));
-//        return names.join("|");
-//      }
+      logNote(code, oct) {
+        console.log(
+          MusicScale.getTwelveNotesName(code % 12) + ": " +
+          (oct + Math.floor(code / 12))
+        );
+      }
 
       //the 88 key piano starts with A, A#, B at the far right, hence -9
       getPianoSound(toneNumber, oct) {
