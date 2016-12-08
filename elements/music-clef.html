@@ -1,43 +1,15 @@
+<link rel="import" href="music-scale.html">
+
 <dom-module id="music-clef">
   <template>
     <style>
       :host {
-        display: block;
-      }
-
-      .triangle {
-        border: 2px solid white;
-        font-size: 10px;
-        width: 50px;
-        transform-origin: 50% -100%;
-        position: absolute;
-        top: 100px;
-        left: 100px;
-      }
-
-      .inner {
-        border: 2px solid white;
-        font-size: 10px;
-        width: 50px;
-        transform: rotate(90deg);
-      }
-
-      #clef {
-        transform: rotate(180deg);
-        position: relative;
-        width: 200px;
-        height: 200px;
+        display: none;
       }
     </style>
-    <div id="clef">
-      <template is="dom-repeat" items="[[twelveNotes]]">
-        <div class="triangle" style$="[[_getStyleOut(item, index)]]">
-          <div class="inner" style$="[[_getStyleIn(item, index)]]">
-            [[item]]: [[_getNotePositionInWheelOf5ByName(item)]]
-          </div>
-        </div>
-      </template>
-    </div>
+
+    <music-scale id="scale"></music-scale>
+
   </template>
   <script>
 
@@ -51,58 +23,81 @@
           properties: {
             mode: {
               type: String,
-              notify: true,
-              observer: "setup"
+              reflectToAttribute: true,
+              notify: true
             },
             key: {
               type: String,
-              notify: true,
-              observer: "setup"
+              reflectToAttribute: true,
+              notify: true
             }
           }
         }
       }
 
-      setup() {
-        console.log("key: " + this.key);
-        console.log("mode: " + this.mode);
-        let scale = this.querySelector("music-scale");
-        this.twelveNotes = MusicScale.twelveNotes;//["C", "G", "D", "A", "E", "B", "F#","C#", "G#", "D#", "A#", "F"];
-        this.inScaleNumbers = scale.getAllSevenNotesInScale();//["C", "G", "D", "A", "E", "B", "F#","C#", "G#", "D#", "A#", "F"];
-//        this.modeName = this.mode; ??
-//        this.keyName = this.key; ??
+      getTone(oneToSeven) {
+        return this.baseNote + this.$.scale.getSevenNoteTone(oneToSeven - 1);
       }
 
-//      _getNotePositionInWheelOf5ByName(noteName) {
-//        let scale = this.querySelector("music-scale");
-//        return MusicScale.getNotePositionInWheelOf5ByName(noteName);
-//      }
-
-      _getStyleOut(noteName, index) {
-        let scale = this.querySelector("music-scale");
-        let chord = this.querySelector("music-chord");
-        let position12 = MusicScale.getNotePositionNormal(noteName);
-        let position7 = scale.getSevenNoteNumber(noteName);
-        let deg12 = position12 * 30;
-        let modularScale = scale._modularScale;
-        let size = 0; //by default all keys are invisibly small
-        if (modularScale.indexOf(index) >= 0) {
-          size = 1;
-          let chordType = chord.getChordType(position7);
-          if (chordType == "maj")
-            size = 2;
-          else if (chordType == "dim")
-            size = 0.5;
-        }
-        return " transform: rotate(" + deg12 + "deg) scale(" + size + ");";
+      //todo need to integrate the major II chord and major III chord from the hooktheory article
+      //todo II: [this.tones.II, this.tones.IV + 1, this.tones.VI],
+      //todo III: [this.tones.III, this.tones.V + 1, this.tones.VII],
+      getChord(oneToSeven) {
+        let root = oneToSeven - 1;
+        return [
+          this.$.scale.getSevenNoteTone(root),
+          this.$.scale.getSevenNoteTone((root + 2) % 7),
+          this.$.scale.getSevenNoteTone((root + 4) % 7)
+        ];
       }
 
-      _getStyleIn(noteName, index) {
-        let scale = this.querySelector("music-scale");
-        let position5 = MusicScale.getWheelOf5Number(noteName); //= this._getNotePositionInWheelOf5ByName(noteName);
-        return "background-color: hsl(" + position5 * 30 + ", 100%, 50%);";
+      //  unnecessary, easier and more orderly to calculate this based on the distance.
+      //  this.staticModeOrderForChords = ["major", "dorian", "phrygian", "lydian", "mixolydian", "minor", "locrian"];
+      //  this.staticChords = ["maj", "maj", "min", "min", "maj", "min", "dim"];
+      getChordType(chordNumber) {
+        return this.calculateChordType(this.getChord(chordNumber));
       }
 
+      calculateChordType(chordAsArrayOfThreeNumbers) {
+        let distanceA = chordAsArrayOfThreeNumbers[1] - chordAsArrayOfThreeNumbers[0];
+        let distanceB = chordAsArrayOfThreeNumbers[2] - chordAsArrayOfThreeNumbers[1];
+        if (distanceB < 0)
+          distanceB += 12;
+        if (distanceA < 0)
+          distanceA += 12;
+        if (distanceA == 4 && distanceB == 3)
+          return "maj";
+        if (distanceA == 3 && distanceB == 4)
+          return "min";
+        if (distanceA == 3 && distanceB == 3)
+          return "dim";
+        return "unknown";
+      }
+
+      turnModusRight() {
+        this.mode = this.$.scale.turnModusRight();
+        this.normalize();
+      }
+
+      turnModusLeft() {
+        this.mode = this.$.scale.turnModusLeft();
+        this.normalize();
+      }
+
+      turnKeyRight() {
+        this.$.scale.turnKeyRight();
+        this.normalize();
+      }
+
+      turnKeyLeft() {
+        this.$.scale.turnKeyLeft();
+        this.normalize();
+      }
+
+      normalize() {
+        this.baseNote += this.$.scale.normalize();
+        this.key = MusicScale.getTwelveNotesName((this.baseNote + 2400) % 12);
+      }
     }
     customElements.define(MusicClef.is, MusicClef);
   </script>

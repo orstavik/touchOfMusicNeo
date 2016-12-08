@@ -54,9 +54,9 @@
         return this._modularScale[zeroToSix];
       }
 
-      getKey() {
-        return this._modularScale[0];
-      }
+//      getKey() {
+//        return this._modularScale[0];
+//      }
 
       getMode() {
         //todo is this the right mode position??
@@ -68,25 +68,34 @@
       turnModusRight() {
         this.modePosition = (this.modePosition + 4) % 7;
         this._modularScale[this.modePosition] += 1;
+        return this.getMode();
       }
 
       turnModusLeft() {
         this._modularScale[this.modePosition] -= 1;
         this.modePosition = (this.modePosition + 3) % 7;
+        return this.getMode();
       }
 
       turnKeyRight() {
         for (let i = 0; i < this._modularScale.length; i++)
           this._modularScale[i] += 7;
-        if (this._modularScale[0] > 11)
-          this.octaveDown();
       }
 
       turnKeyLeft() {
         for (let i = 0; i < this._modularScale.length; i++)
           this._modularScale[i] -= 7;
-        if (this._modularScale[0] < 0)
-          this.octaveUp();
+      }
+
+      //make the modularScale[0] start with 0 Zero
+      normalize() {
+        let dist = this._modularScale[0];
+        if (dist == 0)
+          return dist;
+
+        for (let i = 0; i < this._modularScale.length; i++)
+          this._modularScale[i] -= dist;
+        return dist;
       }
 
       octaveUp() {

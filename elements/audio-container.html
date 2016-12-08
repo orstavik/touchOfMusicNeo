@@ -1,8 +1,7 @@
 <link rel="import" href="audio-data.html">
 <link rel="import" href="audio-player.html">
-<link rel="import" href="music-scale.html">
+<link rel="import" href="music-clef-visual.html">
 <link rel="import" href="music-clef.html">
-<link rel="import" href="music-chord.html">
 
 <dom-module id="audio-container">
   <template>
@@ -14,11 +13,9 @@
 
     <slot></slot>
 
-    <music-clef mode="[[mode]]" key="[[key]]">
-      <music-chord id="chords">
-        <music-scale id="scale"></music-scale>
-      </music-chord>
-    </music-clef>
+    <!--<music-clef mode="[[mode]]" key="[[key]]">-->
+      <music-clef id="chords" base-note="{{baseNote}}" base-octave="{{baseOctave}}" mode="{{mode}}" key="{{key}}"></music-clef>
+    <!--</music-clef>-->
     <audio-data id="piano88" path="../audio/tones/piano/" amount=88 type="mp3"></audio-data>
     <audio-player id="player"></audio-player>
 
@@ -38,17 +35,17 @@
               type: String,
               reflectToAttribute: true
             },
-            base: {
-              type: String,
-              observer: "parseBase"
-            },
+            baseOctave: Number,
+            baseNote: Number,
             mode: {
               type: String,
-              reflectToAttribute: true
+              reflectToAttribute: true,
+              observer: "debug"
             },
             key: {
               type: String,
-              reflectToAttribute: true
+              reflectToAttribute: true,
+              observer: "debug"
             },
             chordMode: {
               type: Boolean,
@@ -58,6 +55,10 @@
         }
       }
 
+      debug(deb){
+        console.log("deb: " + deb);
+      }
+
       checkForCommands(key) {
         let div = this.querySelector("[data-key=" + key + "]");
         if (!div)
@@ -65,29 +66,20 @@
 
         switch (div.dataset.command) {
           case "turnKeyLeft":
-            this.$.scale.turnKeyLeft();
-            this.updateKeyAndMode();
+            this.$.chords.turnKeyLeft();
             return 0;
           case "turnKeyRight":
-            this.$.scale.turnKeyRight();
-            this.updateKeyAndMode();
+            this.$.chords.turnKeyRight();
             return 0;
           case "turnModusLeft":
-            this.$.scale.turnModusLeft();
-            this.updateKeyAndMode();
+            this.$.chords.turnModusLeft();
             return 0;
           case "turnModusRight":
-            this.$.scale.turnModusRight();
-            this.updateKeyAndMode();
+            this.$.chords.turnModusRight();
             return 0;
           case "sharpen":
             return 1;
         }
-      }
-
-      updateKeyAndMode() {
-        this.key = MusicScale.getTwelveNotesName(this.baseNote + this.$.scale.getKey());
-        this.mode = this.$.scale.getMode();
       }
 
       playKeys(press, arrayOfKeys) {
@@ -112,52 +104,27 @@
           return;
 
         let codes = this.chordMode && div.dataset.chord ?
-          this.getChord(div.dataset.chord) :
-          this.getTone(div.dataset.tone, sharpen);
-        this.tone = this.getNotesAsText(codes);
-        console.log(this.tone);
+          this.$.chords.getChord(Number(div.dataset.chord)) :
+          [this.$.chords.getTone(Number(div.dataset.tone)) + sharpen];
 
         let oct = this.baseOctave + Number(div.dataset.octave);
 
         codes.forEach(function (code) {
-          this.$.player.playTone(this.$.piano88.getTone(this.getBase() + code, oct));
+          this.logNote(code, oct);
+          this.$.player.playTone(this.getPianoSound(code, oct));
         }.bind(this));
       }
 
-      getNotesAsText(notes) {
-        let names = notes.map(function (noteNumber) {
-          let num = this.getBase() + noteNumber;
-          return MusicScale.getTwelveNotesName(num % 12) + Math.floor(num / 12);
-        }.bind(this));
-        return names.join("|");
-//        return this.$.scale.numbersToNoteNames(notes);
-      }
-
-      getTone(tone, sharpen) {
-        return [
-          this.$.scale.getSevenNoteTone(Number(tone) - 1) +
-          sharpen
-//          +
-//          Number(octave) * 12
-        ];
+      logNote(code, oct) {
+        console.log(
+          MusicScale.getTwelveNotesName(code % 12) + ": " +
+          (oct + Math.floor(code / 12))
+        );
       }
 
       //the 88 key piano starts with A, A#, B at the far right, hence -9
-      getBase() {
-        return this.baseNote;
-      }
-
-      parseBase(base) {
-        this.baseNote = MusicScale.getNotePositionNormal(base.slice(0, -1));
-        this.baseOctave = Number(base.slice(-1));
-        this.updateKeyAndMode();
-      }
-
-      //todo need to integrate the major II chord and major III chord from the hooktheory article
-      //todo II: [this.tones.II, this.tones.IV + 1, this.tones.VI],
-      //todo III: [this.tones.III, this.tones.V + 1, this.tones.VII],
-      getChord(numberAsText) {
-        return this.$.chords.getChord(Number(numberAsText) - 1);
+      getPianoSound(toneNumber, oct) {
+        return this.$.piano88.getSound((this.baseNote + toneNumber - 9) + oct * 12);
       }
     }
     customElements.define(AudioContainer.is, AudioContainer);

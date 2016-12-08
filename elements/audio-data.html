@@ -37,18 +37,14 @@
             other: {
               type: Object,
               value: function() {
-                return {}
+                return {};
               }
             }
           }
         }
       }
 
-      getTone(tone, octave) {
-        return this.files[tone-9+octave*12];
-      }
-
-      _getSound(i) {
+      getSound(i) {
         return this.files[i];
       }
 
