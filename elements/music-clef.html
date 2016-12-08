@@ -13,6 +13,8 @@
   </template>
   <script>
 
+    //todo need to update so that if key or mode is changed from the outside, the change is transfered to the inside.
+    //todo is this a good task for Tom?
     class MusicClef extends Polymer.Element {
       static get is() {
         return "music-clef";
@@ -34,7 +36,13 @@
             baseNote: {
               type: Number,
               computed: "keyToneToNumber(key)"
-            }
+            },
+            scale: {
+              type: Number,
+              notify: true
+//              computed: "generateScale(baseNote, mode)"
+            },
+            baseOctave:Number
           }
         }
       }
@@ -105,6 +113,10 @@
       normalize() {
         let basis = this.baseNote + this.$.scale.normalize() + 2400;
         this.key = MusicScale.getTwelveNotesName(basis % 12);
+        let sevenNotesInScale = this.$.scale.getAllSevenNotesInScale();
+        this.scale = sevenNotesInScale.map(function(note){
+          return MusicScale.getTwelveNotesName((note + basis) % 12);
+        });
       }
     }
     customElements.define(MusicClef.is, MusicClef);

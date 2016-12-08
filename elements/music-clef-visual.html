@@ -6,20 +6,27 @@
       }
 
       .triangle {
-        border: 2px solid white;
         font-size: 10px;
         width: 50px;
-        transform-origin: 50% -100%;
+        transform-origin: center left;
         position: absolute;
         top: 100px;
         left: 100px;
       }
-
-      .inner {
-        border: 2px solid white;
-        font-size: 10px;
-        width: 50px;
-        transform: rotate(90deg);
+      .offScale{
+        display: none;
+      }
+      .oneFourFive{
+        width: 100px;
+        height: 40px;
+      }
+      .twoThreeSix{
+        width: 60px;
+        height: 30px;
+      }
+      .seven{
+        width: 40px;
+        height: 25px;
       }
 
       #clef {
@@ -30,11 +37,9 @@
       }
     </style>
     <div id="clef">
-      <template is="dom-repeat" items="[[twelveNotes]]">
-        <div class="triangle" style$="[[_getStyleOut(item, index)]]">
-          <div class="inner" style$="[[_getStyleIn(item, index)]]">
-            [[item]]: [[_getNotePositionInWheelOf5ByName(item)]]
-          </div>
+      <template is="dom-repeat" id="flower" items="[[notes]]">
+        <div class$="triangle [[_getClassOut(item, scale)]]" style$="[[_getStyleOut(index, item)]]">
+          [[item]]: [[_getNotePositionInWheelOf5ByName(item)]]
         </div>
       </template>
     </div>
@@ -52,57 +57,51 @@
             mode: {
               type: String,
               notify: true,
-              observer: "setup"
+              observer: "changeNotes"
             },
             key: {
               type: String,
               notify: true,
-              observer: "setup"
+              observer: "changeNotes"
+            },
+            scale:  {
+              type: Array,
+              observer: "changeNotes"
+            },
+            notes: {
+              type: Array,
+              value: function(){
+                return [];
+              }
             }
-          }
+          },
         }
       }
 
-      setup() {
-        console.log("key: " + this.key);
-        console.log("mode: " + this.mode);
-        let scale = this.querySelector("music-scale");
-        this.twelveNotes = MusicScale.twelveNotes;//["C", "G", "D", "A", "E", "B", "F#","C#", "G#", "D#", "A#", "F"];
-        this.inScaleNumbers = scale.getAllSevenNotesInScale();//["C", "G", "D", "A", "E", "B", "F#","C#", "G#", "D#", "A#", "F"];
-//        this.modeName = this.mode; ??
-//        this.keyName = this.key; ??
+      changeNotes(){
+        if (this.scale && this.key ){
+          this.notes = MusicScale.getTwelveNotesFromKey(this.key);
+        } else
+          this.notes = [];
       }
 
-//      _getNotePositionInWheelOf5ByName(noteName) {
-//        let scale = this.querySelector("music-scale");
-//        return MusicScale.getNotePositionInWheelOf5ByName(noteName);
-//      }
-
-      _getStyleOut(noteName, index) {
-        let scale = this.querySelector("music-scale");
-        let chord = this.querySelector("music-chord");
-        let position12 = MusicScale.getNotePositionNormal(noteName);
-        let position7 = scale.getSevenNoteNumber(noteName);
-        let deg12 = position12 * 30;
-        let modularScale = scale._modularScale;
-        let size = 0; //by default all keys are invisibly small
-        if (modularScale.indexOf(index) >= 0) {
-          size = 1;
-          let chordType = chord.getChordType(position7);
-          if (chordType == "maj")
-            size = 2;
-          else if (chordType == "dim")
-            size = 0.5;
-        }
-        return " transform: rotate(" + deg12 + "deg) scale(" + size + ");";
+      _getStyleOut(index, noteName) {
+        let position5 = MusicScale.getWheelOf5Number(noteName);
+        return " background-color: hsl(" + position5 * 30 + ", 100%, 50%); "+
+               " transform:  rotate(" + ((index*30)-90) + "deg); " ;
       }
 
-      _getStyleIn(noteName, index) {
-        let scale = this.querySelector("music-scale");
-        let position5 = MusicScale.getWheelOf5Number(noteName); //= this._getNotePositionInWheelOf5ByName(noteName);
-        return "background-color: hsl(" + position5 * 30 + ", 100%, 50%);";
+      _getClassOut(noteName, scale) {
+        let position7 = this.scale.indexOf(noteName);
+        if (position7 == -1)
+          return "offScale";
+        if (position7 == 0 || position7 == 3 || position7 == 4)
+          return "oneFourFive";
+        if (position7 == 1 || position7 == 2 || position7 == 5)
+          return "twoThreeSix";
+        if (position7 == 6)
+          return "seven";
       }
-
     }
     customElements.define(MusicClefVisual.is, MusicClefVisual);
   </script>

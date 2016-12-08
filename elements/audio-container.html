@@ -13,9 +13,9 @@
 
     <slot></slot>
 
-    <!--<music-clef mode="[[mode]]" key="[[key]]">-->
-      <music-clef id="chords" base-octave="{{baseOctave}}" mode="{{mode}}" key="{{key}}"></music-clef>
-    <!--</music-clef>-->
+    <music-clef-visual mode="[[mode]]" key="[[key]]" scale="[[activeScale]]">
+      <music-clef id="chords" base-octave="{{baseOctave}}" scale="{{activeScale}}" mode="{{mode}}" key="{{key}}"></music-clef>
+    </music-clef-visual>
     <audio-data id="piano88" path="../audio/tones/piano/" amount=88 type="mp3"></audio-data>
     <audio-player id="player"></audio-player>
 
@@ -102,6 +102,7 @@
         if (!div)
           return;
 
+        //todo push the chords as separate set of files
         let oct =  Number(div.dataset.octave);
         let codes = this.chordMode && div.dataset.chord ?
           this.$.chords.getChord(Number(div.dataset.chord), oct) :

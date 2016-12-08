@@ -130,6 +130,11 @@
         return MusicScale.twelveNotes.indexOf(noteName);
       }
 
+      static getTwelveNotesFromKey(noteName) {
+        let index = MusicScale.getNotePositionNormal(noteName);
+        return MusicScale.twelveNotes.slice(index).concat(MusicScale.twelveNotes.slice(0, index));
+      }
+
       static get twelveNotes() {
         return ["C", "Db/C#", "D", "Eb/D#", "E", "F", "Gb/F#", "G", "Ab/G#", "A", "Bb/A#", "B"];
       }
