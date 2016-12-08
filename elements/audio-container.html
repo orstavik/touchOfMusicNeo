@@ -14,11 +14,11 @@
 
     <slot></slot>
 
-    <music-clef mode="[[mode]]" key="[[key]]">
-      <music-chord id="chords">
+    <music-chord id="chords">
+      <music-clef mode="[[mode]]" key="[[key]]">
         <music-scale id="scale"></music-scale>
-      </music-chord>
-    </music-clef>
+      </music-clef>
+    </music-chord>
     <audio-data id="loader" path="../audio/tones/piano/" amount=88 type="mp3"></audio-data>
     <audio-player id="player"></audio-player>
 
@@ -85,8 +85,8 @@
         }
       }
 
-      updateKeyAndMode(){
-        this.key = this.$.scale.getTwelveNotesName(this.baseNote + this.$.scale.getKey());
+      updateKeyAndMode() {
+        this.key = MusicScale.getTwelveNotesName(this.baseNote + this.$.scale.getKey());
         this.mode = this.$.scale.getMode();
       }
 
@@ -125,7 +125,7 @@
       getNotesAsText(notes) {
         let names = notes.map(function (noteNumber) {
           let num = this.getBase() + noteNumber;
-          return this.$.scale.getTwelveNotesName(num % 12) + Math.floor(num / 12);
+          return MusicScale.getTwelveNotesName(num % 12) + Math.floor(num / 12);
         }.bind(this));
         return names.join("|");
 //        return this.$.scale.numbersToNoteNames(notes);
@@ -145,7 +145,7 @@
       }
 
       parseBase(base) {
-        this.baseNote = this.$.scale.getNotePositionNormal(base.slice(0, -1));
+        this.baseNote = MusicScale.getNotePositionNormal(base.slice(0, -1));
         this.baseOctave = Number(base.slice(-1));
         this.updateKeyAndMode();
       }

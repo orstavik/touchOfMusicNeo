@@ -30,7 +30,7 @@
       }
     </style>
     <div id="clef">
-      <template is="dom-repeat" items="[[notes]]">
+      <template is="dom-repeat" items="[[twelveNotes]]">
         <div class="triangle" style$="[[_getStyleOut(item, index)]]">
           <div class="inner" style$="[[_getStyleIn(item, index)]]">
             [[item]]: [[_getNotePositionInWheelOf5ByName(item)]]
@@ -67,21 +67,24 @@
         console.log("key: " + this.key);
         console.log("mode: " + this.mode);
         let scale = this.querySelector("music-scale");
-        this.notes = scale.staticNotes;//["C", "G", "D", "A", "E", "B", "F#","C#", "G#", "D#", "A#", "F"];
+        this.twelveNotes = MusicScale.twelveNotes;//["C", "G", "D", "A", "E", "B", "F#","C#", "G#", "D#", "A#", "F"];
+        this.inScaleNumbers = scale.getAllSevenNotesInScale();//["C", "G", "D", "A", "E", "B", "F#","C#", "G#", "D#", "A#", "F"];
+//        this.modeName = this.mode; ??
+//        this.keyName = this.key; ??
       }
 
       _getNotePositionInWheelOf5ByName(noteName) {
         let scale = this.querySelector("music-scale");
-        return scale.getNotePositionInWheelOf5ByName(noteName);
+        return MusicScale.getNotePositionInWheelOf5ByName(noteName);
       }
 
       _getStyleOut(noteName, index) {
         let scale = this.querySelector("music-scale");
         let chord = this.querySelector("music-chord");
-        let position12 = scale.getNotePositionNormal(noteName);
+        let position12 = MusicScale.getNotePositionNormal(noteName);
         let position7 = scale.getSevenNoteNumber(noteName);
         let deg12 = position12 * 30;
-        let modularScale = scale.modularScale;
+        let modularScale = scale._modularScale;
         let size = 0; //by default all keys are invisibly small
         if (modularScale.indexOf(index) >= 0) {
           size = 1;
@@ -96,7 +99,7 @@
 
       _getStyleIn(noteName, index) {
         let scale = this.querySelector("music-scale");
-        let position5 = scale.getNotePositionInWheelOf5ByName(noteName); //= this._getNotePositionInWheelOf5ByName(noteName);
+        let position5 = MusicScale.getNotePositionInWheelOf5ByName(noteName); //= this._getNotePositionInWheelOf5ByName(noteName);
         return "background-color: hsl(" + position5 * 30 + ", 100%, 50%);";
       }
 
