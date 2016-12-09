@@ -111,7 +111,7 @@
 
         codes.forEach(function (code) {
           this.logNote(code, oct);
-          // this.$.player.playTone(this.getPianoSound(code, oct));
+          this.$.player.playTone(this.getPianoSound(code, oct));
         }.bind(this));
       }
 

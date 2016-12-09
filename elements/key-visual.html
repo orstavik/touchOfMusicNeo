@@ -2,53 +2,18 @@
   <template>
     <style>
       :host {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        display: inline-block;
         box-sizing: border-box;
-        height: 6.6vh;
-        width: 6.6vh;
+        position: absolute;
+        left: 50vw;
+        top: 134vh;
+        height: 7.2vh;
+        width: 7.2vh;
         transition-duration: 0.05s;
-      }
-      .wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 80%;
-        height: 80%;
-        background: #561252;
-        border: 1px solid #EC5479;
-        border-radius: 10%;
-        color: #EC5479;
-        font-size: 4vh;
-        cursor: default;
-        pointer-events: none;
-      }
-      :host([pressed]) .wrapper {
-        background: #EC5479;
-        border-radius: 10%;
-        color: #561252;
-      }
-      :host([code='KeyA']) {
-        margin-left: 2.5vh;
-      }
-      :host([code='KeyZ']) {
-        margin-left: 5vh;
-      }
-      :host([code='KeyY']) {
-        margin-left: 3.5vh;
-      }
-      :host([code='KeyH']) {
-        margin-left: 3.5vh;
-      }
-      :host([code='KeyN']) {
-        margin-left: 3.5vh;
       }
     </style>
 
-    <div class="wrapper">
-      [[char]]
-    </div>
+    <slot></slot>
 
   </template>
 
@@ -62,13 +27,6 @@
         return {
           properties: {
             code: String,
-						char: String,
-            finger: String,
-            pressed: {
-              type: Boolean,
-              value: false,
-              reflectToAttribute: true,
-            }
           }
         }
       }
@@ -80,11 +38,17 @@
 
       connectedCallback() {
         var keyboard = this.parentNode;
-        // this.style.transform = keyboard.giveMeMyPostion(this.getAttribute("code"));
-        // this.children[0].classList.add(keyboard.getShape(this.getAttribute("code")));
+        this.style.transform = keyboard.giveMeMyPostion(this.getAttribute("code"));
+        this.children[0].classList.add(keyboard.getShape(this.getAttribute("code")));
 
-        this.char = keyboard.keyValues[this.code].key.toUpperCase();
-        this.finger = keyboard.fingerInfo[this.code].fingerName();
+        var char = keyboard.keyValues[this.code].key.toUpperCase();
+        var finger = keyboard.fingerInfo[this.code].fingerName();
+        this.children[0].setAttribute("char", char);
+        this.children[0].setAttribute("finger", finger);
+
+        //if (noLuckChuck) {
+        //so i guess then i go with querty.. ??
+        //}
       }
     }
     customElements.define(KeyVisual.is, KeyVisual);
