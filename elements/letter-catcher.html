@@ -9,20 +9,19 @@
       #letterWrapper {
         display: block;
         position: absolute;
-        top: 10vh;
+        top: 15.5vh;
         left: 50vw;
-        transform: translate(-50%, -50%);
-        width: 280px;
-        height: 80px;
-        background: white;
+        transform: translate(-51%, -50%);
+        width: 80vh;
+        height: 12.5vh;
         overflow: hidden;
-        border: 10px solid white;
       }
       #letter {
         display: flex;
         flex-wrap: wrap;
         width: 100%;
         position: absolute;
+        transition-duration: 0.3s;
       }
     </style>
 
@@ -63,14 +62,17 @@
         if (e.timeStamp - this.timeStamp < 50)
           return;
         let letter = this.$.letter.querySelector("[letter^="+e.detail.letter+"][waiting]");
-        if (letter.offsetTop > 60-24) {
-          letter.parentNode.style.top = (60-24)-letter.offsetTop+"px";
+        let wRect = this.$.letterWrapper.getBoundingClientRect();
+        let lRect = letter.getBoundingClientRect();
+        let diff = wRect.height/2-letter.offsetTop;
+        if (diff < 0) {
+          letter.parentNode.style.transform = "translateY("+(diff-lRect.height/2)+"px)";
         }
         letter.removeAttribute("waiting");
         let current = this.$.letter.querySelector("[current]");
         if (current)
-          current.removeAttribute("current");
-        letter.setAttribute("current", "");
+          current.current = false;
+        letter.current = true;
         this.timeStamp = e.timeStamp;
       }
     }

@@ -193,13 +193,16 @@
 
 			highlightKeys(pressed) {
         var keyElem = this.querySelector("[code="+pressed+"]");
-        if (keyElem)
+        if (keyElem) {
           keyElem.pressed = true;
+        }
 			}
 
       unhighlightKeys(unpressed) {
         var keyElem = this.querySelector("[code="+unpressed+"]");
-				keyElem.pressed = false;
+        if (keyElem) {
+          keyElem.pressed = false;
+        }
       }
     }
     customElements.define(KeyboardVisual.is, KeyboardVisual);
