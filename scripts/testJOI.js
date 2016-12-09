@@ -7,6 +7,7 @@ var testJOI = function() {
     tmplArr.push("tmpl"+i+"!");
     str1Arr[i] = "tmpl"+i+"@";
     str1Arr[i] += "numProp:"+i+",";
+    str1Arr[i] += "str0Prop:Template#"+i+",";
     str1Arr[i] += "strProp:'I`m a template #"+i+"'";
     console.log(str1Arr[i]);
   }
@@ -20,11 +21,19 @@ var testJOI = function() {
   
   // str2Arr.push(tmplArr.join("")); // doesn't work
 
-  for (let i = 0; i < operArr.length; i++) {
-    str2Arr.push(tmplArr[0]+"numProp:"+operArr[i]+"2"); // with or without 'numProp' doesn't work
-  }
+  // for (let i = 0; i < operArr.length; i++) {
+  //   str2Arr.push(tmplArr[0]+operArr[i]+"2"); // with or without 'numProp' doesn't work
+  // }
 
-  str2Arr.push(tmplArr[1]+",,");
+  // for (let i = 0; i < operArr.length; i++) {
+  //   str2Arr.push(tmplArr[0]+"numProp:"+operArr[i]+"2"); // with or without 'numProp' doesn't work
+  // }
+
+  str2Arr.push(tmplArr[1]+",,,");
+
+  // for (let i = 0; i < operArr.length; i++) {
+  //   str2Arr.push(tmplArr[0]+operArr[i]+tmplArr[1]);
+  // }
  
   str = str1Arr.join(" ") + " " + str2Arr.join(" ");
   console.log(str2Arr.join(" "));
