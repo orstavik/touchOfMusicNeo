@@ -1,0 +1,116 @@
+<dom-module id="music-tone-visual">
+  <template>
+    <style>
+      :host {
+        display: block;
+        position: absolute;
+        top: 100px;
+        left: 100px;
+      }
+
+      #tone {
+        transform-origin: left top;
+        height: 100px; width: 60px;
+      }
+
+      /*.colorClock0 { background-image: url(../images/flower/1126.png); background-size: cover; }*/
+      /*.colorClock0 { background-color: hsl(0, 100%, 50%); }*/
+      /*.colorClock1 { background-color: hsl(30, 100%, 50%); }*/
+      /*.colorClock2 { background-color: hsl(60, 100%, 50%); }*/
+      /*.colorClock3 { background-color: hsl(90, 100%, 50%); }*/
+      /*.colorClock4 { background-color: hsl(120, 100%, 50%); }*/
+      /*.colorClock5 { background-color: hsl(150, 100%, 50%); }*/
+      /*.colorClock6 { background-color: hsl(180, 100%, 50%); }*/
+      /*.colorClock7 { background-color: hsl(210, 100%, 50%); }*/
+      /*.colorClock8 { background-color: hsl(240, 100%, 50%); }*/
+      /*.colorClock9 { background-color: hsl(270, 100%, 50%); }*/
+      /*.colorClock10 { background-color: hsl(300, 100%, 50%); }*/
+      /*.colorClock11 { background-color: hsl(330, 100%, 50%); }*/
+
+      .oClock0 { transform: rotate(0deg);}
+      .oClock1 { transform: rotate(30deg);}
+      .oClock2 { transform: rotate(60deg);}
+      .oClock3 { transform: rotate(90deg);}
+      .oClock4 { transform: rotate(120deg);}
+      .oClock5 { transform: rotate(150deg);}
+      .oClock6 { transform: rotate(180deg);}
+      .oClock7 { transform: rotate(210deg);}
+      .oClock8 { transform: rotate(240deg);}
+      .oClock9 { transform: rotate(270deg);}
+      .oClock10 { transform: rotate(300deg);}
+      .oClock11 { transform: rotate(330deg);}
+
+      .seven0, .seven3, .seven4 {transform: scale(1)}
+      .seven1, .seven2, .seven5 {transform: scale(0.6)}
+      .seven6 {transform: scale(0.4)}
+      .seven-1 {transform: scale(0.05)}
+
+      img{
+        height: 100%;
+        width: 100%;
+        display: inline-block;
+        transform: rotate(0deg);
+        transition: transform 0.5s cubic-bezier(0.39, 0.08, 0.53, 1.02);
+        transform-origin: left top;
+      }
+      #toneText {
+        margin-top: -2.4em;
+        margin-left: 0.8em;
+        color: white;
+      }
+
+    </style>
+    <div id="tone" class$="[[_getRotationClass(tone, key)]] [[_getColorClass(tone)]]">
+      <img class$="seven[[toneSeven]]" src="[[_getImage(tone)]]" alt="[[tone]]" />
+      <div id="toneText" class$="seven[[toneSeven]]">[[tone]]</div>
+    </div>
+  </template>
+  <script>
+
+    class MusicToneVisual extends Polymer.Element {
+      static get is() {
+        return "music-tone-visual";
+      }
+
+      static get config() {
+        return {
+          properties: {
+            tone: String,
+            toneSeven: Number,
+            key: String,
+          }
+        }
+      }
+
+      _getImage(tone){
+        let col = MusicToneVisual.makeColorDegree(tone)+1;
+        return "../images/flower2/"+col+".png";
+      }
+
+      _getColorClass(tone){
+        return "colorClock" + MusicToneVisual.makeColorDegree(tone);
+      }
+
+      _getRotationClass(tone, key){
+        return "oClock" + MusicToneVisual.makeToneRotation(tone);
+      }
+
+      static makeColorDegree(tone){
+        return MusicScale.getWheelOf5Number(tone);
+      }
+
+      static makeToneRotation(tone){
+        return MusicScale.twelveNotes.indexOf(tone);
+      }
+
+      static makeKeyRotation(key){
+        return MusicScale.twelveNotes.indexOf(key);
+      }
+
+      static makeRelativeRotation(tone, key){
+        return (MusicToneVisual.makeToneRotation(tone) + MusicToneVisual.makeKeyRotation(key)) %12;
+      }
+    }
+    customElements.define(MusicToneVisual.is, MusicToneVisual);
+  </script>
+</dom-module>

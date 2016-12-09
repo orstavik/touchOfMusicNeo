@@ -1,48 +1,33 @@
+<link rel="import" href="music-tone-visual.html">
+
 <dom-module id="music-clef-visual">
   <template>
     <style>
       :host {
-        display: none;
-      }
-
-      .triangle {
-        font-size: 10px;
-        width: 50px;
-        transform-origin: center left;
-        position: absolute;
-        top: 100px;
-        left: 100px;
-      }
-      .offScale{
-        display: none;
-      }
-      .oneFourFive{
-        width: 100px;
-        height: 40px;
-      }
-      .twoThreeSix{
-        width: 60px;
-        height: 30px;
-      }
-      .seven{
-        width: 40px;
-        height: 25px;
-      }
-
-      #clef {
-        transform: rotate(180deg);
+        display: block;
+        transform: rotate(-180deg);
         position: relative;
         width: 200px;
         height: 200px;
       }
+
+      #name {
+        display: block;
+        transform: rotate(180deg);
+        text-shadow: 2px 2px grey;
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
     </style>
-    <div id="clef">
-      <template is="dom-repeat" id="flower" items="[[notes]]">
-        <div class$="triangle [[_getClassOut(item, scale)]]" style$="[[_getStyleOut(index, item)]]">
-          [[item]]: [[_getNotePositionInWheelOf5ByName(item)]]
-        </div>
-      </template>
-    </div>
+    <template is="dom-repeat" id="flower" items="[[twelveNotesWithScale]]">
+      <music-tone-visual key="[[key]]" tone="[[item.name]]" tone-seven="[[item.seven]]"></music-tone-visual>
+    </template>
+    <div id="name">[[key]]<br />[[mode]]</div>
   </template>
   <script>
 
@@ -54,50 +39,24 @@
       static get config() {
         return {
           properties: {
-            mode: {
-              type: String,
-              notify: true,
-              observer: "changeNotes"
-            },
-            key: {
-              type: String,
-              notify: true,
-              observer: "changeNotes"
-            },
-            scale:  {
+            mode: String,
+            key: String,
+            scale: Array,
+            twelveNotesWithScale: {
               type: Array,
-              observer: "changeNotes"
-            },
-            notes: {
-              type: Array,
-              value: function(){
-                return [];
-              }
+              computed: "makeMapForScale(scale)",
             }
-          },
+          }
         }
       }
 
-      changeNotes(){
-        this.notes = this.scale && this.key ? MusicScale.getTwelveNotesFromKey(this.key) : [];
-      }
-
-      _getStyleOut(index, noteName) {
-        let position5 = MusicScale.getWheelOf5Number(noteName);
-        return " background-color: hsl(" + position5 * 30 + ", 100%, 50%); "+
-               " transform:  rotate(" + ((index*30)-90) + "deg); " ;
-      }
-
-      _getClassOut(noteName, scale) {
-        let position7 = this.scale.indexOf(noteName);
-        if (position7 == -1)
-          return "offScale";
-        if (position7 == 0 || position7 == 3 || position7 == 4)
-          return "oneFourFive";
-        if (position7 == 1 || position7 == 2 || position7 == 5)
-          return "twoThreeSix";
-        if (position7 == 6)
-          return "seven";
+      makeMapForScale(scale) {
+        return MusicScale.twelveNotes.map(function (note) {
+          return {
+            name: note,
+            seven: scale ? scale.indexOf(note) : -1
+          };
+        });
       }
     }
     customElements.define(MusicClefVisual.is, MusicClefVisual);
