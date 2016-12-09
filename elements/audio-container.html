@@ -14,7 +14,8 @@
     <slot></slot>
 
     <music-clef-visual mode="[[mode]]" key="[[key]]" scale="[[activeScale]]">
-      <music-clef id="chords" base-octave="{{baseOctave}}" scale="{{activeScale}}" mode="{{mode}}" key="{{key}}"></music-clef>
+      <music-clef id="chords" octave="{{octave}}" scale="{{activeScale}}" mode="{{mode}}"
+                  key="{{key}}"></music-clef>
     </music-clef-visual>
     <audio-data id="piano88" path="../audio/tones/piano/" amount=88 type="mp3"></audio-data>
     <audio-player id="player"></audio-player>
@@ -35,16 +36,14 @@
               type: String,
               reflectToAttribute: true
             },
-            baseOctave: Number,
+            octave: Number,
             mode: {
               type: String,
               reflectToAttribute: true,
-              observer: "debug"
             },
             key: {
               type: String,
               reflectToAttribute: true,
-              observer: "debug"
             },
             chordMode: {
               type: Boolean,
@@ -54,15 +53,10 @@
         }
       }
 
-      debug(deb){
-        console.log("deb: " + deb);
-      }
-
       checkForCommands(key) {
-        let div = this.querySelector("[data-key=" + key + "]");
+        let div = this.querySelector("[data-command][data-key=" + key + "]");
         if (!div)
           return 0;
-
         switch (div.dataset.command) {
           case "turnKeyLeft":
             this.$.chords.turnKeyLeft();
@@ -98,33 +92,37 @@
         if (!key)
           return;
 
-        let div = this.querySelector("[data-key=" + key + "]:not([data-command])");
-        if (!div)
+        if (this.chordMode && this.playChord(key))
           return;
 
-        //todo push the chords as separate set of files
-        let oct =  Number(div.dataset.octave);
-        let codes = this.chordMode && div.dataset.chord ?
-          this.$.chords.getChord(Number(div.dataset.chord), oct) :
-          [this.$.chords.getTone(Number(div.dataset.tone), oct) + sharpen];
-
-
-        codes.forEach(function (code) {
-          this.logNote(code, oct);
-          this.$.player.playTone(this.getPianoSound(code, oct));
-        }.bind(this));
+        let div = this.querySelector("[data-tone][data-key=" + key + "]");
+        if (!div)
+          return;
+        let tone = this.$.chords.getTone(Number(div.dataset.tone), Number(div.dataset.octave)) + sharpen;
+        this.playTone(tone, 0);
       }
 
-      logNote(code) {
-        console.log(
-          MusicScale.getTwelveNotesName(code % 12) + ": " +
-          (Math.floor(code / 12))
+      playChord(key) {
+        let div = this.querySelector("[data-chord][data-key=" + key + "]");
+        if (!div)
+          return false;
+
+        let codes = this.$.chords.getChord(Number(div.dataset.chord), Number(div.dataset.octave));
+        codes.forEach(function (code) {
+          this.playTone(code);
+        }.bind(this));
+        return true;
+      }
+
+      playTone(code) {
+        this.$.player.playTone(this.getPianoSound(code));
+        console.log(  MusicScale.getTwelveNotesName(code % 12) + ": " + (Math.floor(code / 12))
         );
       }
 
       //the 88 key piano starts with A, A#, B at the far right, hence -9
-      getPianoSound(toneNumber, oct) {
-        return this.$.piano88.getSound((toneNumber - 9) + oct * 12);
+      getPianoSound(toneNumber) {
+        return this.$.piano88.getSound((toneNumber - 9));
       }
     }
     customElements.define(AudioContainer.is, AudioContainer);

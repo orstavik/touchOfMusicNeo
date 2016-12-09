@@ -24,7 +24,8 @@
             mode: {
               type: String,
               reflectToAttribute: true,
-              notify: true
+              notify: true,
+              observer: "updateMode"
             },
             key: {
               type: String,
@@ -39,14 +40,17 @@
             scale: {
               type: Number,
               notify: true
-//              computed: "generateScale(baseNote, mode)"
             },
-            baseOctave:Number
+            octave:Number
           }
         }
       }
 
-      //todo need to update so that if key or mode is changed from the outside, the change is transfered to the inside.
+      updateMode(mode){
+        //todo when mode is changed from the outside,
+        //todo the scale should must be normalized, and then one could change the mode in the music-scale object.
+      }
+
       updateScale(key){
         this.normalize();
       }
@@ -63,7 +67,7 @@
       //todo II: [this.tones.II, this.tones.IV + 1, this.tones.VI],
       //todo III: [this.tones.III, this.tones.V + 1, this.tones.VII],
       getChord(oneToSeven, oct) {
-        let root = oneToSeven - 1;
+        let root = oneToSeven;
         return [
           this.getTone(root, oct),
           this.getTone((root + 2) % 7, oct),
