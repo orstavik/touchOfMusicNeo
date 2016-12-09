@@ -10,7 +10,7 @@
 
       #tone {
         transform-origin: left top;
-        height: 100px; width: 30px;
+        height: 100px; width: 60px;
       }
 
       /*.colorClock0 { background-image: url(../images/flower/1126.png); background-size: cover; }*/
@@ -47,9 +47,10 @@
 
       img{
         height: 100%;
+        width: 100%;
         display: inline-block;
         transform: rotate(0deg);
-        transition-duration: 1s;
+        transition: transform 0.5s cubic-bezier(0.39, 0.08, 0.53, 1.02);
         transform-origin: left top;
       }
       #toneText {
@@ -82,8 +83,8 @@
       }
 
       _getImage(tone){
-        let col = MusicToneVisual.makeColorDegree(tone);
-        return "../images/flower/"+col+".png";
+        let col = MusicToneVisual.makeColorDegree(tone)+1;
+        return "../images/flower2/"+col+".png";
       }
 
       _getColorClass(tone){

@@ -14,18 +14,20 @@
       #name {
         display: block;
         transform: rotate(180deg);
-        background-color: black;
+        text-shadow: 2px 2px grey;
         color: white;
-        font-size: 12px;
+        font-size: 14px;
         font-weight: bold;
-        width: 90px;
+        position: absolute;
+        top: 0;
+        left: 0;
       }
 
     </style>
     <template is="dom-repeat" id="flower" items="[[twelveNotesWithScale]]">
       <music-tone-visual key="[[key]]" tone="[[item.name]]" tone-seven="[[item.seven]]"></music-tone-visual>
     </template>
-    <div id="name">[[key]] [[mode]]</div>
+    <div id="name">[[key]]<br />[[mode]]</div>
   </template>
   <script>
 
