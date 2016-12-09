@@ -10,7 +10,7 @@
 
       #tone {
         transform-origin: left top;
-        transition-duration: 1s;
+        height: 100px; width: 30px;
       }
 
       /*.colorClock0 { background-image: url(../images/flower/1126.png); background-size: cover; }*/
@@ -40,20 +40,22 @@
       .oClock10 { transform: rotate(300deg);}
       .oClock11 { transform: rotate(330deg);}
 
-      .seven0, .seven3, .seven4 {height: 100px; width: 30px;}
-      .seven1, .seven2, .seven5 {height: 75px; width: 22px;}
-      .seven6 {height: 65px; width: 18px;}
-      .seven-1 {height: 0.1px; width: 0.1px;}
+      .seven0, .seven3, .seven4 {transform: scale(1)}
+      .seven1, .seven2, .seven5 {transform: scale(0.7)}
+      .seven6 {transform: scale(0.5)}
+      .seven-1 {transform: scale(0.1)}
 
       img{
         height: 100%;
         display: inline-block;
         transform: rotate(0deg);
+        transition-duration: 1s;
+        transform-origin: left top;
       }
 
     </style>
-    <div id="tone" class$="seven[[toneSeven]] [[_getRotationClass(tone, key)]] [[_getColorClass(tone)]]">
-      <img src="[[_getImage(tone)]]" alt="[[tone]]" />
+    <div id="tone" class$="[[_getRotationClass(tone, key)]] [[_getColorClass(tone)]]">
+      <img class$="seven[[toneSeven]]" src="[[_getImage(tone)]]" alt="[[tone]]" />
       <div id="toneText">[[item]]</div>
     </div>
   </template>
