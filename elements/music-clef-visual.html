@@ -11,10 +11,21 @@
         height: 200px;
       }
 
+      #name {
+        display: block;
+        transform: rotate(180deg);
+        background-color: black;
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+        width: 90px;
+      }
+
     </style>
     <template is="dom-repeat" id="flower" items="[[twelveNotesWithScale]]">
       <music-tone-visual key="[[key]]" tone="[[item.name]]" tone-seven="[[item.seven]]"></music-tone-visual>
     </template>
+    <div id="name">[[key]] [[mode]]</div>
   </template>
   <script>
 

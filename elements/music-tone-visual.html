@@ -41,9 +41,9 @@
       .oClock11 { transform: rotate(330deg);}
 
       .seven0, .seven3, .seven4 {transform: scale(1)}
-      .seven1, .seven2, .seven5 {transform: scale(0.7)}
-      .seven6 {transform: scale(0.5)}
-      .seven-1 {transform: scale(0.1)}
+      .seven1, .seven2, .seven5 {transform: scale(0.6)}
+      .seven6 {transform: scale(0.4)}
+      .seven-1 {transform: scale(0.05)}
 
       img{
         height: 100%;
@@ -52,11 +52,16 @@
         transition-duration: 1s;
         transform-origin: left top;
       }
+      #toneText {
+        margin-top: -2.4em;
+        margin-left: 0.8em;
+        color: white;
+      }
 
     </style>
     <div id="tone" class$="[[_getRotationClass(tone, key)]] [[_getColorClass(tone)]]">
       <img class$="seven[[toneSeven]]" src="[[_getImage(tone)]]" alt="[[tone]]" />
-      <div id="toneText">[[item]]</div>
+      <div id="toneText" class$="seven[[toneSeven]]">[[tone]]</div>
     </div>
   </template>
   <script>
