@@ -6,7 +6,7 @@
       }
     </style>
 
-    <slot on-tick="_countTick" on-pressed-keys="_registerKeys" on-joievent="_holdEvents"></slot>
+    <slot on-tick="_countTick" on-pressed-keys="_registerKeys" on-unpressed-keys="_unregisterKeys" on-joievent="_holdEvents"></slot>
 
   </template>
 
@@ -82,6 +82,7 @@
       }
 
       _registerKeys(e) {
+        this.querySelector("#keyboard").pressed = e.detail.heldKeys;
         this._recordPlayedKeys(e);
         //the audio
         //all events coming in are played as music. key down and up starts and stops the sound
@@ -97,6 +98,10 @@
         //and the beam are passed whenever a correct sound is played.
         if (this._checkIfHeldKeysMatchesWhatYouAreHopingFor(e.detail.heldKeys))
           this.querySelector("#beams").prepareBeam(e.detail.heldKeys);
+      }
+
+      _unregisterKeys(e) {
+        this.querySelector("#keyboard").pressed = e.detail.heldKeys;
       }
 
 

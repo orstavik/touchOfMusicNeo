@@ -8,7 +8,6 @@
 <link rel="import" href="audio-container.html">
 <link rel="import" href="key-visual.html">
 <link rel="import" href="key-pyramid.html">
-
 <link rel="import" href="keyboard-visual.html">
 <link rel="import" href="beam-constructor.html">
 <link rel="import" href="monster-container.html">
@@ -20,7 +19,7 @@
       :host {
         display: block;
         height: 100vh;
-        background-image: url("../images/background/2016-11-01.png");
+        background-image: url("../images/background/2016-12-09 - copy.png");
         background-size: auto 100%;
         background-repeat: no-repeat;
         background-position: bottom;
@@ -48,9 +47,7 @@
         <beam-constructor id="beams">
           <keyboard-visual id="keyboard">
             <template is="dom-repeat" items="[[keyArray]]">
-              <key-visual code$="[[item]]">
-                <key-pyramid></key-pyramid>
-              </key-visual>
+              <key-visual code$="[[item]]"></key-visual>
             </template>
             <joievent-canon></joievent-canon>
           </keyboard-visual>
