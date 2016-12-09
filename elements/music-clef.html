@@ -67,7 +67,7 @@
       //todo II: [this.tones.II, this.tones.IV + 1, this.tones.VI],
       //todo III: [this.tones.III, this.tones.V + 1, this.tones.VII],
       getChord(oneToSeven, oct) {
-        let root = oneToSeven - 1;
+        let root = oneToSeven;
         return [
           this.getTone(root, oct),
           this.getTone((root + 2) % 7, oct),
