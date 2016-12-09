@@ -192,17 +192,16 @@
         }
       }
 
-			_highlightKeys() {
-				var pressedKeys = this.querySelectorAll("[pressed]");
-				for(let i = 0; i < pressedKeys.length; i++)
-					pressedKeys[i].pressed = false;
-
-				for(let i = 0; i < this.pressed.length; i++) {
-					var keyElem = this.querySelector("[code="+this.pressed[i].code+"]");
-					if (keyElem)
-						keyElem.pressed = true;
-				}
+			highlightKeys(pressed) {
+        var keyElem = this.querySelector("[code="+pressed+"]");
+        if (keyElem)
+          keyElem.pressed = true;
 			}
+
+      unhighlightKeys(unpressed) {
+        var keyElem = this.querySelector("[code="+unpressed+"]");
+				keyElem.pressed = false;
+      }
     }
     customElements.define(KeyboardVisual.is, KeyboardVisual);
   </script>

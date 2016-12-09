@@ -82,7 +82,7 @@
       }
 
       _registerKeys(e) {
-        this.querySelector("#keyboard").pressed = e.detail.heldKeys;
+        this.querySelector("#keyboard").highlightKeys(e.detail.pressedKey);
         this._recordPlayedKeys(e);
         //the audio
         //all events coming in are played as music. key down and up starts and stops the sound
@@ -101,7 +101,7 @@
       }
 
       _unregisterKeys(e) {
-        this.querySelector("#keyboard").pressed = e.detail.heldKeys;
+        this.querySelector("#keyboard").unhighlightKeys(e.detail.unpressedKey);
       }
 
 
