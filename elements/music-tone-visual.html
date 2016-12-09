@@ -8,6 +8,11 @@
         left: 100px;
       }
 
+      #tone {
+        transform-origin: left center;
+        transition-duration: 1s;
+      }
+
       .colorClock0 { background-color: hsl(0, 100%, 50%); }
       .colorClock1 { background-color: hsl(30, 100%, 50%); }
       .colorClock2 { background-color: hsl(60, 100%, 50%); }
@@ -34,20 +39,13 @@
       .oClock10 { transform:  rotate(300deg);}
       .oClock11 { transform:  rotate(330deg);}
 
-      .tone0, .tone3, .tone4 {width: 100px; height: 30px;}
-      .tone1, .tone2, .tone5 {width: 75px; height: 22px;}
-      .tone6 {width: 65px; height: 18px;}
-      .tone-1 {width: 0px; height: 0px;}
+      .seven0, .seven3, .seven4 {width: 100px; height: 30px;}
+      .seven1, .seven2, .seven5 {width: 75px; height: 22px;}
+      .seven6 {width: 65px; height: 18px;}
+      .seven-1 {width: 0px; height: 0px;}
 
-      #tone {
-        transform-origin: left center;
-      }
-
-      .offScale {
-        display: none;
-      }
     </style>
-    <div id="tone" class$="tone[[toneSeven]] [[_getRotationClass(tone, key)]] [[_getColorClass(tone)]]">
+    <div id="tone" class$="seven[[toneSeven]] [[_getRotationClass(tone, key)]] [[_getColorClass(tone)]]">
       <div id="toneText">[[item]]</div>
     </div>
   </template>
