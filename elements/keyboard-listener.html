@@ -14,36 +14,105 @@
 
   <script>
 
-    class FingerMovement {
-      constructor(pressed, unpressed, keys) {
-        this.heldKeys = keys;
-        this.pressedKey = pressed;
-        this.unpressedKey = unpressed;
+    class KeyEventsLog {
+      constructor() {
+        this.log = [];
       }
 
-      add(key) {
-        let clone = new FingerMovement(key.code, undefined, this.heldKeys.slice());
-        if (clone.heldKeys.indexOf(key.code) == -1)
-          clone.heldKeys.push(key);
-        return clone;
+      addEvent(e) {
+        if (this.log.length > 0) {
+          let last = this.log[this.log.length-1];
+          if (last.code === e.code && last.type === e.type && last.state === "pressed")
+            return;
+        }       
+        let key = new KeyEvent(e.code, e.type, e.timeStamp);
+        this.log.push(key);
+        this.last = key;
+        if (e.type === "key-up") {
+          this._releaseKey(e);
+        } else {
+          this._setIntervals(e.timeStamp);
+        }
+        return true;
       }
 
-      remove(key) {
-        let clone = new FingerMovement(undefined, key.code, this.heldKeys.slice());
-        let index = clone.heldKeys.indexOf(key.code);
-        if (index !== -1)
-          clone.heldKeys.splice(index, 1);
-        return clone;
+      _releaseKey(e) {
+        this.log.find(function(key) {
+          if (key.code === e.code && key.state === "pressed") {
+            key.state = "released";
+            key.duration = e.timeStamp - key.timeStamp;
+          }
+        });
       }
 
-      getPauseBefore(){
-
+      getPressed() {
+        return this.log.filter(function(key) {
+          if (key.state === "pressed") {
+            return key;
+          }
+        })
       }
 
-      getDuration(){
-
+      _setIntervals(timeStamp) {
+        if (this.log.length === 0) return;
+        let lastDown, lastUp;
+        for (let i = this.log.length-2; i >= 0; i--) {
+          if (this.log[i].type === "key-down" && !lastDown) {
+            lastDown = this.log[i];
+            this.last.timeAfterLastKeyDown = timeStamp - lastDown.timeStamp;
+          } else if (this.log[i].type === "key-up" && !lastUp) {
+            lastUp = this.log[i];
+            this.last.timeAfterLastKeyUp = timeStamp - lastUp.timeStamp;
+          }
+          if (lastDown && lastUp)
+            break;
+        }
       }
     }
+
+    class KeyEvent {
+      constructor(code, type, timeStamp) {
+        this.code = code;
+        this.type = type;
+        this.timeStamp = timeStamp;
+        if (type === "key-down") this.state = "pressed";
+      }
+
+      getChar() {
+        return this.code.replace("Key", "");
+      }
+    }
+
+    // class FingerMovement {
+    //   constructor(pressed, unpressed, keys) {
+    //     this.heldKeys = keys;
+    //     this.pressedKey = pressed;
+    //     this.unpressedKey = unpressed;
+    //   }
+
+    //   add(key) {
+    //     let clone = new FingerMovement(key.code, undefined, this.heldKeys.slice());
+    //     if (clone.heldKeys.indexOf(key.code) == -1)
+    //       clone.heldKeys.push(key);
+    //     return clone;
+    //   }
+
+    //   remove(key) {
+    //     let clone = new FingerMovement(undefined, key.code, this.heldKeys.slice());
+    //     let index = clone.heldKeys.indexOf(key.code);
+    //     if (index !== -1)
+    //       clone.heldKeys.splice(index, 1);
+    //     return clone;
+    //   }
+
+    //   getPauseBefore(){
+
+    //   }
+
+    //   getDuration(){
+
+    //   }
+    // }
 
     class KeyboardListener extends Polymer.Element {
       static get is() {
@@ -53,10 +122,10 @@
       static get config() {
         return {
           properties: {
-            fingerMove: {
-              type: FingerMovement,
+            history: {
+              type: KeyEventsLog,
               value: function() {
-                return new FingerMovement(undefined, undefined, []);
+                return new KeyEventsLog();
               }
             },
           }
@@ -64,19 +133,23 @@
       }
 
       _keyWasDown(e) {
-        this.dispatchEvent(new CustomEvent("pressed-keys", {
-          "detail": this.fingerMove.add(e),
-          "bubbles": true,
-          "composed": true
-        }));
+        if (this.history.addEvent(e)) {
+          this.dispatchEvent(new CustomEvent("pressed-keys", {
+            "detail": this,
+            "bubbles": true,
+            "composed": true
+          }));
+        }
       }
 
       _keyWasUp(e) {
-        this.dispatchEvent(new CustomEvent("unpressed-keys", {
-          "detail": this.fingerMove.remove(e),
-          "bubbles": true,
-          "composed": true
-        }));
+        if (this.history.addEvent(e)) {
+          this.dispatchEvent(new CustomEvent("unpressed-keys", {
+            "detail": this,
+            "bubbles": true,
+            "composed": true
+          }));
+        }
       }
     }
     customElements.define(KeyboardListener.is, KeyboardListener);
