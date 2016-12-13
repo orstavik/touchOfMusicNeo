@@ -8,7 +8,7 @@
       }
     </style>
 
-    <keyevents-listener on-key-down="_keyWasDown" on-key-up="_keyWasUp"></keyevents-listener>
+    <keyevents-listener id="listener" on-key-down="_keyWasDown" on-key-up="_keyWasUp"></keyevents-listener>
 
   </template>
 
@@ -24,7 +24,7 @@
           let last = this.log[this.log.length-1];
           if (last.code === e.code && last.type === e.type && last.state === "pressed")
             return;
-        }       
+        }
         let key = new KeyEvent(e.code, e.type, e.timeStamp);
         this.log.push(key);
         this.last = key;
@@ -33,6 +33,7 @@
         } else {
           this._setIntervals(e.timeStamp);
         }
+        console.log(this.last);
         return true;
       }
 
@@ -70,47 +71,12 @@
       }
     }
 
-    class KeyEvent {
-      constructor(code, type, timeStamp) {
-        this.code = code;
-        this.type = type;
-        this.timeStamp = timeStamp;
-        if (type === "key-down") this.state = "pressed";
-      }
-
-      getChar() {
-        return this.code.replace("Key", "");
-      }
-    }
-
-    // class FingerMovement {
-    //   constructor(pressed, unpressed, keys) {
-    //     this.heldKeys = keys;
-    //     this.pressedKey = pressed;
-    //     this.unpressedKey = unpressed;
-    //   }
-
-    //   add(key) {
-    //     let clone = new FingerMovement(key.code, undefined, this.heldKeys.slice());
-    //     if (clone.heldKeys.indexOf(key.code) == -1)
-    //       clone.heldKeys.push(key);
-    //     return clone;
-    //   }
-
-    //   remove(key) {
-    //     let clone = new FingerMovement(undefined, key.code, this.heldKeys.slice());
-    //     let index = clone.heldKeys.indexOf(key.code);
-    //     if (index !== -1)
-    //       clone.heldKeys.splice(index, 1);
-    //     return clone;
-    //   }
-
-    //   getPauseBefore(){
-
-    //   }
-
-    //   getDuration(){
-
+    // class KeyEvent {
+    //   constructor(code, start, end) {
+    //     this.code = code;
+    //     this.duration = end - start;
+    //     this.start = start;
+    //     this.stop = end;
     //   }
     // }
 
@@ -132,24 +98,63 @@
         }
       }
 
+      connectedCallback() {
+        const keyDowns = Rx.Observable.fromEvent(this.$.listener, 'key-down');
+        const keyUps = Rx.Observable.fromEvent(this.$.listener, 'key-up');
+        this.keyEvents = this._getDebounced(keyDowns.merge(keyUps));
+        this.keyEvents2 = this._mergeUpDown(this.keyEvents);
+        
+        this.keyEvents.subscribe((event) => console.log(event));
+        this.keyEvents2.subscribe((e) => console.log(e));
+      }
+
+      _getDebounced(collection) {
+        var lastKey = {};
+        return collection.filter(function(key) {
+          if (key.code !== lastKey.code || key.type !== lastKey.type) {
+            lastKey = key;
+            return true;
+          }
+          return false;
+        })
+      }
+
+      _mergeUpDown(collection) {
+        var lastKeyDowns = {};
+        return collection.map(function(key) {
+          if (key.type === "key-down") {
+            lastKeyDowns[key.code] = key;
+            return false;
+          } else {
+            if (!lastKeyDowns[key.code])
+              return false;
+            return new KeyEvent(key.code, lastKeyDowns[key.code].timeStamp, key.timeStamp);
+          }
+        }).filter(function(key) {
+          return !!key;
+        });
+      }
+
       _keyWasDown(e) {
-        if (this.history.addEvent(e)) {
-          this.dispatchEvent(new CustomEvent("pressed-keys", {
-            "detail": this,
-            "bubbles": true,
-            "composed": true
-          }));
-        }
+        // if (this.history.addEvent(e)) {
+          // this.dispatchEvent(new CustomEvent("pressed-keys", {
+          //   "bubbles": true,
+          //   "composed": true
+          // }));
+        // }
       }
 
       _keyWasUp(e) {
-        if (this.history.addEvent(e)) {
-          this.dispatchEvent(new CustomEvent("unpressed-keys", {
-            "detail": this,
-            "bubbles": true,
-            "composed": true
-          }));
-        }
+        // if (this.history.addEvent(e)) {
+          // this.dispatchEvent(new CustomEvent("unpressed-keys", {
+          //   "bubbles": true,
+          //   "composed": true
+          // }));
+        // }
+      }
+
+      getHistory() {
+        return this.keyEvents;
       }
     }
     customElements.define(KeyboardListener.is, KeyboardListener);

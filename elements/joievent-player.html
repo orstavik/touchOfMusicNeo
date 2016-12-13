@@ -11,6 +11,15 @@
   </template>
 
   <script>
+    class KeyEvent {
+      constructor(code, start, end) {
+        this.code = code;
+        this.duration = end - start;
+        this.start = start;
+        this.stop = end;
+      }
+    }
+    
     class JoieventPlayer extends Polymer.Element {
       static get is() {
         return "joievent-player";
@@ -41,9 +50,31 @@
       }
 
       _inputChange() {
-        // this._joi = JOI.parse(this.input);
         this._joi = {};
         this._joi["id0"] = JOI.parse(this.input);
+        debugger;
+        const joiArray = Rx.Observable.from(this._joi["id0"]);
+        const joiArray2 = joiArray.map(function(joi) {
+          var simultaniousEvents = joi;
+          var startTime = 0;
+          var res = [];
+          for (let i = 0; i<simultaniousEvents.length; i++) {
+            let event = simultaniousEvents[i];
+            let x = new KeyEvent(event.code, startTime, startTime+event.duration*1000);
+            res.push(x);
+            if (i === 0) {
+              startTime = x.stop;
+            }
+          }
+          return res;
+        });
+
+        joiArray2.subscribe((val) => console.log(val));
+
+
+
+
+        // this._joi = JOI.parse(this.input);
         this.querySelector("#scenario").scenario = this._joi["id0"];
         this.eventIDS = 0;
         setTimeout(function () {
