@@ -14,20 +14,23 @@
       #name {
         display: block;
         transform: rotate(180deg);
-        text-shadow: 2px 2px grey;
+        /*text-shadow: 2px 2px grey;*/
         color: white;
-        font-size: 14px;
+        font-size: 10px;
         font-weight: bold;
         position: absolute;
-        top: 0;
-        left: 0;
+        top: 43%;
+        left: 40%;
+        width:20%;
+        text-align: center;
       }
 
     </style>
     <template is="dom-repeat" id="flower" items="[[twelveNotesWithScale]]">
       <music-tone-visual key="[[key]]" tone="[[item.name]]" tone-seven="[[item.seven]]"></music-tone-visual>
     </template>
-    <div id="name">[[key]]<br />[[mode]]</div>
+    <img src="../images/flower3/centr.png" style="position: absolute; top: 40%; left: 40%; width:20%" alt="">
+    <div id="name"  style="" >[[key]]<br />[[_substr3(mode)]]</div>
   </template>
   <script>
 
@@ -48,6 +51,10 @@
             }
           }
         }
+      }
+
+      _substr3(mode) {
+        return mode.substr(0,3);
       }
 
       makeMapForScale(scale) {

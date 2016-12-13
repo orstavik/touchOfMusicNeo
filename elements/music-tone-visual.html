@@ -51,7 +51,9 @@
         display: inline-block;
         transform: rotate(0deg);
         transition: transform 0.5s cubic-bezier(0.39, 0.08, 0.53, 1.02);
-        transform-origin: left top;
+        transform-origin: 0% 0;
+        margin-left: -7%;
+        margin-top: 18%;
       }
       #toneText {
         margin-top: -2.4em;
@@ -84,7 +86,7 @@
 
       _getImage(tone){
         let col = MusicToneVisual.makeColorDegree(tone)+1;
-        return "../images/flower2/"+col+".png";
+        return "../images/flower3/"+col+"p.png";
       }
 
       _getColorClass(tone){
