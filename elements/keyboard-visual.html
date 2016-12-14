@@ -4,11 +4,18 @@
   <template>
     <style>
       :host {
-        display: block;
+        display: flex;
+        flex-wrap: wrap;
+        width: 88vh;
+        position: absolute;
+        top: 29.5vh;
+        left: 50vw;
+        transform: translateX(-47.5%);
       }
     </style>
 
     <slot></slot>
+
   </template>
 
   <script>
@@ -24,7 +31,6 @@
               type: Array,
               observer: "_highlightKeys"
             },
-
             keyValues: {
               type: Object,
               value: function () {
@@ -185,43 +191,19 @@
         }
       }
 
-			_highlightKeys() {
-				var pressedKeys = this.querySelectorAll("[pressed]");
-				for(let i = 0; i < pressedKeys.length; i++)
-					pressedKeys[i].removeAttribute("pressed");
-
-				for(let i = 0; i < this.pressed.length; i++) {
-					var keyElem = this.querySelector("[code="+this.pressed[i]+"] > key-pyramid");
-					if (keyElem)
-						keyElem.setAttribute("pressed", "");
-				}
+			highlightKeys(pressed) {
+        var keyElem = this.querySelector("[code="+pressed+"]");
+        if (keyElem) {
+          keyElem.pressed = true;
+        }
 			}
 
-      getFingerPositionPerHand(finger){
-        let fingerNum = finger.finger%5;
-        let fingerPos = fingerNum + 1;
-        let alt = finger.alt || 0;
-        return fingerPos + (fingerNum == 1 ? -alt : alt);
+      unhighlightKeys(unpressed) {
+        var keyElem = this.querySelector("[code="+unpressed+"]");
+        if (keyElem) {
+          keyElem.pressed = false;
+        }
       }
-
-      getStyleForKey(key) {
-          var finger = this.fingerInfo[key];
-          var distance = (finger.row) * 7 + 105;
-          var fingerPos = this.getFingerPositionPerHand(finger);
-          if (finger.finger > 4)
-            fingerPos *= -1;
-          var angle = (fingerPos) * 4.2;
-          return "translateX(-50%) rotate(" + angle + "deg) translateY(-" + distance + "vh)";
-      }
-
-      giveMeMyPostion(key) {
-        return this.getStyleForKey(key);
-      }
-      getShape(key) {
-        let shapeMap = ["circle", "rounded", "circle", "rounded"];
-        return shapeMap[this.fingerInfo[key].row+1];
-      }
-
     }
     customElements.define(KeyboardVisual.is, KeyboardVisual);
   </script>

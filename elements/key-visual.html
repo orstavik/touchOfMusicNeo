@@ -2,18 +2,56 @@
   <template>
     <style>
       :host {
-        display: inline-block;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         box-sizing: border-box;
-        position: absolute;
-        left: 50vw;
-        top: 134vh;
-        height: 7.2vh;
-        width: 7.2vh;
+        height: 6.6vh;
+        width: 6.6vh;
+        margin: 0 0.2vh;
         transition-duration: 0.05s;
+      }
+      .wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 80%;
+        height: 80%;
+        background: #561252;
+        box-shadow: 0 0 6px 2px #982E66;
+        border-radius: 10%;
+        color: #982E66;
+        font-size: 4vh;
+        font-family: 'Lato';
+        cursor: default;
+        pointer-events: none;
+      }
+      :host([pressed]) .wrapper {
+        background: #EC5479;
+        border-radius: 10%;
+        color: #561252;
+        font-weight: bold;
+      }
+      :host([code='KeyA']) {
+        margin-left: 2.5vh;
+      }
+      :host([code='KeyZ']) {
+        margin-left: 5vh;
+      }
+      :host([code='KeyY']) {
+        margin-left: 3.5vh;
+      }
+      :host([code='KeyH']) {
+        margin-left: 3.5vh;
+      }
+      :host([code='KeyN']) {
+        margin-left: 3.5vh;
       }
     </style>
 
-    <slot></slot>
+    <div class="wrapper">
+      [[char]]
+    </div>
 
   </template>
 
@@ -27,6 +65,13 @@
         return {
           properties: {
             code: String,
+						char: String,
+            finger: String,
+            pressed: {
+              type: Boolean,
+              value: false,
+              reflectToAttribute: true,
+            }
           }
         }
       }
@@ -38,17 +83,11 @@
 
       connectedCallback() {
         var keyboard = this.parentNode;
-        this.style.transform = keyboard.giveMeMyPostion(this.getAttribute("code"));
-        this.children[0].classList.add(keyboard.getShape(this.getAttribute("code")));
+        // this.style.transform = keyboard.giveMeMyPostion(this.getAttribute("code"));
+        // this.children[0].classList.add(keyboard.getShape(this.getAttribute("code")));
 
-        var char = keyboard.keyValues[this.code].key.toUpperCase();
-        var finger = keyboard.fingerInfo[this.code].fingerName();
-        this.children[0].setAttribute("char", char);
-        this.children[0].setAttribute("finger", finger);
-
-        //if (noLuckChuck) {
-        //so i guess then i go with querty.. ??
-        //}
+        this.char = keyboard.keyValues[this.code].key.toUpperCase();
+        this.finger = keyboard.fingerInfo[this.code].fingerName();
       }
     }
     customElements.define(KeyVisual.is, KeyVisual);

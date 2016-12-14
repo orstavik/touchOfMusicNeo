@@ -6,11 +6,7 @@
         position: relative;
         align-items: center;
         box-sizing: border-box;
-        background: white;
         line-height: 1;
-      }
-      :host([current]) #container {
-        border: 1px solid red;
       }
       #container {
         display: block;
@@ -23,13 +19,21 @@
         display: block;
         position: relative;
         text-align: center;
+        color: #290935;
+        font-size: 2vh;
+        font-family: 'Syncopate';
+        font-weight: bold;
+        text-shadow: 0 0 1px transparent;
+        transition-duration: 0.4s;
+        transition-timing-function: linear;
         z-index: 1;
       }
-      :host([current]) span {
-        font-weight: bold;
+      :host([current]) #container span {
+        color: #ffd700;
+        text-shadow: 0 0 1px #ffd700;
       }
-      :host([waiting]) #filler {
-        transform: scaleX(0);
+      :host([waiting]) #container span {
+        color: #EC5479;
       }
       #filler {
         display: block;
@@ -39,9 +43,15 @@
         width: 100%;
         height: 100%;
         transform-origin: left;
-        transform: scaleX(1);
-        transition-timing-function: linear;
-        background: lime;
+        transform: scaleX(0);
+        background: #290935;
+      }
+      :host(:not([current])) #filler {
+        transition-duration: 20s !important;
+      }
+      :host([waiting]) #filler,
+      :host([current]) #filler {
+        background: #EC5479;
       }
     </style>
 
@@ -71,6 +81,11 @@
               value: "",
               reflectToAttribute: true
             },
+            current: {
+              type: String,
+              observer: "_fillIt",
+              reflectToAttribute: true
+            },
             tempo: String
           }
         }
@@ -81,8 +96,19 @@
           this.letter += each.letter;
         }.bind(this));
 
-        this.style.width = this.info[0].duration * 16 + "px";
-        this.$.filler.style.transitionDuration = this.info[0].duration * this.tempo/100 +"s";
+        this.style.width = this.info[0].duration * 2.5 + "vh";
+      }
+
+      _fillIt() {
+        if (this.current) {
+          this.$.filler.animate({
+            transform: ['scaleX(0)', 'scaleX(1)']
+          }, {
+            duration: this.info[0].duration * this.tempo*10,
+            easing: 'linear',
+            fill: 'forwards'
+          });
+        }
       }
 
       _makeLetters(info) {
