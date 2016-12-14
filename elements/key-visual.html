@@ -89,6 +89,12 @@
         this.char = keyboard.keyValues[this.code].key.toUpperCase();
         this.finger = keyboard.fingerInfo[this.code].fingerName();
       }
+
+      getRect() {
+        var shape = this.shadowRoot.querySelector(".wrapper");
+        if (!shape) return null;
+        return shape.getBoundingClientRect();
+      }
     }
     customElements.define(KeyVisual.is, KeyVisual);
   </script>

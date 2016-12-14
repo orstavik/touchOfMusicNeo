@@ -96,7 +96,7 @@
         console.log(e.detail.code + ", " + Math.round(e.detail.duration*100)/100);
         //if the key stroke is correct, then create a beam
         if (this._checkIfHeldKeysMatchesWhatYouAreHopingFor(e))
-          this.querySelector("#beams").prepareBeam(e.detail.heldKeys);
+          this.querySelector("#beams").prepareBeam(e.detail.code);
 
         //if it is wrong, make baaaaad beam
         //if wrong, make ugly sound
@@ -138,7 +138,7 @@
 
       _checkIfHeldKeysMatchesWhatYouAreHopingFor(heldKeys) {
         for (let i in this.heldEvents)
-          if (this.heldEvents[i].event.detail.letter == heldKeys)
+          if (this.heldEvents[i].event.detail.letter == heldKeys.detail.code.replace("Key", ""))
             return true;
 
         return false;
