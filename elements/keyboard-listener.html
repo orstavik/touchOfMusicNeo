@@ -99,8 +99,8 @@
       }
 
       connectedCallback() {
-        const keyDowns = Rx.Observable.fromEvent(this.$.listener, 'key-down');
-        const keyUps = Rx.Observable.fromEvent(this.$.listener, 'key-up');
+        const keyDowns = Observable.fromEvent(this.$.listener, 'key-down');
+        const keyUps = Observable.fromEvent(this.$.listener, 'key-up');
         this.keyEvents = this._getDebounced(keyDowns.merge(keyUps));
         this.keyEvents2 = this._mergeUpDown(this.keyEvents);
         

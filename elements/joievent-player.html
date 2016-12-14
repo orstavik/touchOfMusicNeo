@@ -52,24 +52,25 @@
       _inputChange() {
         this._joi = {};
         this._joi["id0"] = JOI.parse(this.input);
-        debugger;
-        const joiArray = Rx.Observable.from(this._joi["id0"]);
-        const joiArray2 = joiArray.map(function(joi) {
-          var simultaniousEvents = joi;
-          var startTime = 0;
-          var res = [];
-          for (let i = 0; i<simultaniousEvents.length; i++) {
-            let event = simultaniousEvents[i];
-            let x = new KeyEvent(event.code, startTime, startTime+event.duration*1000);
-            res.push(x);
-            if (i === 0) {
-              startTime = x.stop;
-            }
-          }
-          return res;
-        });
+        var startTime = 0;
+        const joiArray = Observable.from(this._joi["id0"])
+          .map(function(joi) {
+            let simultaniousEvents = joi;
+            let res = [];
 
-        joiArray2.subscribe((val) => console.log(val));
+            for (let i = 0; i<simultaniousEvents.length; i++) {
+              let event = simultaniousEvents[i];
+              let x = new KeyEvent(event.code, startTime, startTime+event.duration*1000);
+              res.push(x);
+            }
+            startTime = res[0].stop;
+            return res;
+          })
+          .concatAll();
+        const timer = Observable.interval(1000);
+
+        
+        joiTiming.subscribe((val) => console.log(val));
 
 
 

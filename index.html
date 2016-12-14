@@ -37,6 +37,7 @@
     <meta name="msapplication-tap-highlight" content="no">
 
     <!--<script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>-->
+    <script src="https://unpkg.com/@reactivex/rxjs/dist/global/Rx.js"></script>
 
     <script>
       // Setup Polymer options
@@ -82,13 +83,15 @@
           navigator.serviceWorker.register('/service-worker.js');
         });
       }
+
+      // Polyfilling Observable class
+      const Observable = Rx.Observable;
     </script>
     <script src="/scripts/keyCode.js"></script>
     <script src="/scripts/JOI.js"></script>
     <!--<script src="/scripts/JOItester.js"></script>-->
     <script src="scripts/MusicTester.js"></script>
     <script src="bower_components/web-animations-js/web-animations.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/4.1.0/rx.all.js"></script>
 
     <link rel="import" href="/elements/my-app.html">
 
