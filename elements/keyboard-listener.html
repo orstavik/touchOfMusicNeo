@@ -1,6 +1,14 @@
 <dom-module id="keyboard-listener">
   <script>
 
+    class KeyEvent{
+      constructor(code, start, stop){
+        this.code = code;
+        this.start = start;
+        this.duration = stop-start;
+      }
+    }
+
     class KeyboardListener extends Polymer.Element {
       static get is() {
         return "keyboard-listener";
