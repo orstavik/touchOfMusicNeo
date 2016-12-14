@@ -7,7 +7,7 @@
     </style>
 
     <slot on-tick="_countTick" on-key-down="_onKeyDown" on-key-up="_onKeyUp" on-key-stroke="_onKeyStroke"
-          on-key-pause-end="_debug" on-joievent="_holdEvents"></slot>
+          on-key-pause-end="_onKeyPause" on-joievent="_holdEvents"></slot>
   </template>
 
   <script>
@@ -77,6 +77,11 @@
         }
       }
 
+      _onKeyPause(e){
+//        this.querySelector("#audioPlayer").playKeys(e.detail.code, e.detail.heldKeys);
+//        this.querySelector("#keyboard").highlightKeys(e.detail.code);
+      }
+
       _onKeyDown(e){
         this.querySelector("#audioPlayer").playKeys(e.detail.code, e.detail.heldKeys);
         this.querySelector("#keyboard").highlightKeys(e.detail.code);
@@ -90,7 +95,7 @@
       _onKeyStroke(e){
         console.log(e.detail.code + ", " + Math.round(e.detail.duration*100)/100);
         //if the key stroke is correct, then create a beam
-        if (this._checkIfHeldKeysMatchesWhatYouAreHopingFor(e.detail.heldKeys))
+        if (this._checkIfHeldKeysMatchesWhatYouAreHopingFor(e))
           this.querySelector("#beams").prepareBeam(e.detail.heldKeys);
 
         //if it is wrong, make baaaaad beam
@@ -132,12 +137,19 @@
       }
 
       _checkIfHeldKeysMatchesWhatYouAreHopingFor(heldKeys) {
-        let heldArray = [];
         for (let i in this.heldEvents)
-          heldArray.push("Key" + this.heldEvents[i].event.detail.letter);
+          if (this.heldEvents[i].event.detail.letter == heldKeys)
+            return true;
 
-        return heldKeys.sort().toString() == heldArray.sort().toString();
+        return false;
       }
+//      _checkIfHeldKeysMatchesWhatYouAreHopingFor(heldKeys) {
+//        let heldArray = [];
+//        for (let i in this.heldEvents)
+//          heldArray.push("Key" + this.heldEvents[i].event.detail.letter);
+//
+//        return heldKeys.sort().toString() == heldArray.sort().toString();
+//      }
     }
     customElements.define(GameJudge.is, GameJudge);
   </script>

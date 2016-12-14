@@ -42,8 +42,9 @@
       }
 
 			prepareBeam(pressed) {
-        for (var i = 0; i < pressed.length; i++) {
-          let key = pressed[i];
+//        for (var i = 0; i < pressed.length; i++) {
+//          let key = pressed[i];
+          let key = pressed;
           let keyNode = this.querySelector("[code="+ key+"] key-pyramid");
 					if (keyNode) {
             let origin = keyNode.getRect();
@@ -58,7 +59,7 @@
               this.shadowRoot.appendChild(lightBeam);
             }
 					}
-				}
+//				}
 			}
 
       _finishBeam(e) {
