@@ -1,84 +1,5 @@
-<link rel="import" href="keyevents-listener.html">
-
 <dom-module id="keyboard-listener">
-  <template>
-    <style>
-      :host {
-        display: none;
-      }
-    </style>
-
-    <keyevents-listener id="listener" on-key-down="_keyWasDown" on-key-up="_keyWasUp"></keyevents-listener>
-
-  </template>
-
   <script>
-
-    class KeyEventsLog {
-      constructor() {
-        this.log = [];
-      }
-
-      addEvent(e) {
-        if (this.log.length > 0) {
-          let last = this.log[this.log.length-1];
-          if (last.code === e.code && last.type === e.type && last.state === "pressed")
-            return;
-        }
-        let key = new KeyEvent(e.code, e.type, e.timeStamp);
-        this.log.push(key);
-        this.last = key;
-        if (e.type === "key-up") {
-          this._releaseKey(e);
-        } else {
-          this._setIntervals(e.timeStamp);
-        }
-        console.log(this.last);
-        return true;
-      }
-
-      _releaseKey(e) {
-        this.log.find(function(key) {
-          if (key.code === e.code && key.state === "pressed") {
-            key.state = "released";
-            key.duration = e.timeStamp - key.timeStamp;
-          }
-        });
-      }
-
-      getPressed() {
-        return this.log.filter(function(key) {
-          if (key.state === "pressed") {
-            return key;
-          }
-        })
-      }
-
-      _setIntervals(timeStamp) {
-        if (this.log.length === 0) return;
-        let lastDown, lastUp;
-        for (let i = this.log.length-2; i >= 0; i--) {
-          if (this.log[i].type === "key-down" && !lastDown) {
-            lastDown = this.log[i];
-            this.last.timeAfterLastKeyDown = timeStamp - lastDown.timeStamp;
-          } else if (this.log[i].type === "key-up" && !lastUp) {
-            lastUp = this.log[i];
-            this.last.timeAfterLastKeyUp = timeStamp - lastUp.timeStamp;
-          }
-          if (lastDown && lastUp)
-            break;
-        }
-      }
-    }
-
-    // class KeyEvent {
-    //   constructor(code, start, end) {
-    //     this.code = code;
-    //     this.duration = end - start;
-    //     this.start = start;
-    //     this.stop = end;
-    //   }
-    // }
 
     class KeyboardListener extends Polymer.Element {
       static get is() {
@@ -88,73 +9,79 @@
       static get config() {
         return {
           properties: {
-            history: {
-              type: KeyEventsLog,
-              value: function() {
-                return new KeyEventsLog();
+            lastKeyAction: {
+              type: Object,
+              value: function () {
+                return {};
+              }
+            },
+            heldKeys: {
+              type: Object,
+              value: function () {
+                return {};
               }
             },
           }
         }
       }
 
-      connectedCallback() {
-        const keyDowns = Observable.fromEvent(this.$.listener, 'key-down');
-        const keyUps = Observable.fromEvent(this.$.listener, 'key-up');
-        this.keyEvents = this._getDebounced(keyDowns.merge(keyUps));
-        this.keyEvents2 = this._mergeUpDown(this.keyEvents);
-        
-        this.keyEvents.subscribe((event) => console.log(event));
-        this.keyEvents2.subscribe((e) => console.log(e));
+      constructor() {
+        super();
+        window.addEventListener("keydown", this._catchNativeKeyBoardEvents.bind(this));
+        window.addEventListener("keyup", this._catchNativeKeyBoardEvents.bind(this));
       }
 
-      _getDebounced(collection) {
-        var lastKey = {};
-        return collection.filter(function(key) {
-          if (key.code !== lastKey.code || key.type !== lastKey.type) {
-            lastKey = key;
-            return true;
-          }
-          return false;
-        })
-      }
-
-      _mergeUpDown(collection) {
-        var lastKeyDowns = {};
-        return collection.map(function(key) {
-          if (key.type === "key-down") {
-            lastKeyDowns[key.code] = key;
-            return false;
-          } else {
-            if (!lastKeyDowns[key.code])
-              return false;
-            return new KeyEvent(key.code, lastKeyDowns[key.code].timeStamp, key.timeStamp);
-          }
-        }).filter(function(key) {
-          return !!key;
-        });
+      _catchNativeKeyBoardEvents(e) {
+        KeyboardListener.preventCertainDefaultAction(e);
+        let name = e.type.substr(0, 3) + "-" + e.type.slice(3);
+        this.dispatchEvent(new CustomEvent(name, {
+          "composed": true,
+          "bubbles": true,
+          "detail": {keyboardEvent: e, heldKeys: this.getHeldKeysRightNow(), code: e.code}
+        }));
+        if (e.type == "keydown")
+          this._keyWasDown(e);
+        if (e.type == "keyup")
+          this._keyWasUp(e);
       }
 
       _keyWasDown(e) {
-        // if (this.history.addEvent(e)) {
-          // this.dispatchEvent(new CustomEvent("pressed-keys", {
-          //   "bubbles": true,
-          //   "composed": true
-          // }));
-        // }
+        if (this.isRepeatKeyEvent(e))
+          return;
+        if ((Object.keys(this.heldKeys).length === 0) && this.prevKeyEvent.timeStamp) {
+          this.dispatchEvent(new CustomEvent("key-pause-end", {
+            "composed": true,
+            "bubbles": true,
+            "detail": {duration: e.timeStamp - this.prevKeyEvent.timeStamp}
+          }));
+        }
+        this.prevKeyEvent = e;
+        this.heldKeys[e.code] = e;
+      }
+
+      isRepeatKeyEvent(e) {
+        return this.prevKeyEvent.type === e.type && this.prevKeyEvent.code === e.code;
       }
 
       _keyWasUp(e) {
-        // if (this.history.addEvent(e)) {
-          // this.dispatchEvent(new CustomEvent("unpressed-keys", {
-          //   "bubbles": true,
-          //   "composed": true
-          // }));
-        // }
+        this.prevKeyEvent = e;
+        let correspondingDown = this.heldKeys[e.code];
+        if (!correspondingDown)
+          return;
+        let keyE = new KeyEvent(e.code, correspondingDown.timeStamp, e.timeStamp);
+        delete this.heldKeys[e.code];
+        this.dispatchEvent(new CustomEvent("key-stroke", {"composed": true, "bubbles": true, detail: keyE}));
       }
 
-      getHistory() {
-        return this.keyEvents;
+      getHeldKeysRightNow(){
+        return Object.keys(this.heldKeys);
+      }
+
+      static preventCertainDefaultAction(e) {
+        let c = e.code;
+        if (c == "Tab" || c == "Enter" || c == "ShiftLeft" || c == "Backquote" || c == "Backspace")
+          e.preventDefault();
+        e.stopPropagation();
       }
     }
     customElements.define(KeyboardListener.is, KeyboardListener);

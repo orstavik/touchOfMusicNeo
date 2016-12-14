@@ -52,7 +52,7 @@
       _inputChange() {
         this._joi = {};
         this._joi["id0"] = JOI.parse(this.input);
-        var startTime = 0;
+/*        var startTime = 0;
         const joiArray = Observable.from(this._joi["id0"])
           .map(function(joi) {
             let simultaniousEvents = joi;
@@ -67,12 +67,23 @@
             return res;
           })
           .concatAll();
+
+//        let runningTime = 0;
         const timer = Observable.interval(1000);
+        let joiTiming2 = timer.map(function(tick){
+          let runningTime = tick*1000;
+//          return joiArray.take(10);
+          return joiArray.takeWhile(function(key){
+            let start = key.start;
+            return start <= runningTime && start > (runningTime -3000);
+          });
+        }).concatAll();
 
-        
-        joiTiming.subscribe((val) => console.log(val));
+        let joiTiming = Observable.zip(joiArray, timer);
+//        joiTiming.subscribe((val) => console.log(val));
+        joiTiming2.subscribe((val) => console.log(val));
 
-
+*/
 
 
         // this._joi = JOI.parse(this.input);

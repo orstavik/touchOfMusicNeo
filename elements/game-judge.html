@@ -6,7 +6,8 @@
       }
     </style>
 
-    <slot on-tick="_countTick" on-pressed-keys="_registerKeys" on-unpressed-keys="_unregisterKeys" on-joievent="_holdEvents"></slot>
+    <!--on-pressed-keys="_registerKeys" on-unpressed-keys="_unregisterKeys"-->
+    <slot on-tick="_countTick" on-key-down="_onKeyDown" on-key-up="_onKeyUp" on-key-stroke="_onKeyStroke" on-key-pause-end="_debug" on-joievent="_holdEvents"></slot>
 
   </template>
 
@@ -51,6 +52,10 @@
         }
       }
 
+      _debug(e){
+        console.log(e);
+      }
+
       _holdEvents(e) {
         e.stopPropagation();
         e.preventDefault();
@@ -77,32 +82,55 @@
         }
       }
 
-      _recordPlayedKeys (e) {
-        console.log(e.detail.pressedKey + ", " + new Date().getTime());
+      _onKeyDown(e){
+        this.querySelector("#audioPlayer").playKeys(e.detail.code, e.detail.heldKeys);
+        this.querySelector("#keyboard").highlightKeys(e.detail.code);
       }
 
-      _registerKeys(e) {
-        this.querySelector("#keyboard").highlightKeys(e.detail.pressedKey);
-        this._recordPlayedKeys(e);
-        //the audio
-        //all events coming in are played as music. key down and up starts and stops the sound
-        if (e.detail.pressedKey)
-          this.querySelector("#audioPlayer").playKeys(e.detail.pressedKey, e.detail.heldKeys);
+      _onKeyUp(e){
+        //stopSoundBeingPlayed
+        this.querySelector("#keyboard").unhighlightKeys(e.detail.code);
+      }
 
-        //the error
-        //the outside scope error sound is played in addition to the key which is struck.
-//        if(this._checkIfOutsideScope(e.detail.pressedKey))
-//          this.querySelector("#audioPlayer").playFailure();
-
-        //the success
-        //and the beam are passed whenever a correct sound is played.
+      _onKeyStroke(e){
+        console.log(e.detail.code + ", " + Math.round(e.detail.duration*100)/100);
+        //if the key stroke is correct, then create a beam
         if (this._checkIfHeldKeysMatchesWhatYouAreHopingFor(e.detail.heldKeys))
           this.querySelector("#beams").prepareBeam(e.detail.heldKeys);
+
+        //if it is wrong, make baaaaad beam
+        //if wrong, make ugly sound
+        if(this._checkIfOutsideScope(e.detail.pressedKey))
+          this;//.querySelector("#audioPlayer").playFailure();
       }
 
-      _unregisterKeys(e) {
-        this.querySelector("#keyboard").unhighlightKeys(e.detail.unpressedKey);
-      }
+
+//      _recordPlayedKeys (e) {
+//        console.log(e.detail.pressedKey + ", " + new Date().getTime());
+//      }
+
+//      _registerKeys(e) {
+//        this.querySelector("#keyboard").highlightKeys(e.detail.pressedKey);
+//        this._recordPlayedKeys(e);
+//        //the audio
+//        //all events coming in are played as music. key down and up starts and stops the sound
+//        if (e.detail.pressedKey)
+//          this.querySelector("#audioPlayer").playKeys(e.detail.pressedKey, e.detail.heldKeys);
+//
+//        //the error
+//        //the outside scope error sound is played in addition to the key which is struck.
+////        if(this._checkIfOutsideScope(e.detail.pressedKey))
+////          this.querySelector("#audioPlayer").playFailure();
+//
+//        //the success
+//        //and the beam are passed whenever a correct sound is played.
+//        if (this._checkIfHeldKeysMatchesWhatYouAreHopingFor(e.detail.heldKeys))
+//          this.querySelector("#beams").prepareBeam(e.detail.heldKeys);
+//      }
+//
+//      _unregisterKeys(e) {
+//        this.querySelector("#keyboard").unhighlightKeys(e.detail.unpressedKey);
+//      }
 
 
       _checkIfOutsideScope(keyPressed) {

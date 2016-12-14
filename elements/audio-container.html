@@ -78,7 +78,7 @@
       playKeys(press, arrayOfKeys) {
         let sharpen = 0;
         for (let key of arrayOfKeys) {
-          if (this.checkForCommands(key.code) == 1)
+          if (this.checkForCommands(key) == 1)
             sharpen = 1;
         }
         this._keysPress(press, sharpen);
