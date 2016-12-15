@@ -97,34 +97,25 @@
       }
 
       playKeys(press, arrayOfKeys) {
-//        for (let key of arrayOfKeys) {
-//          if (this.checkForCommands(key.code) == 1)
-//            sharpen = 1;
-//        }
-        this._keysPress(press, arrayOfKeys);
+        if (!press)
+          return;
+
+        if (this.checkForCommands(press))
+          return;
+
+        if (this.chordMode && this.playChord(press))
+          return;
+
+        let div = this.querySelector("[data-tone][data-key=" + press + "]");
+        if (!div)
+          return;
+        let tone = this.$.chords.getTone(Number(div.dataset.tone), Number(div.dataset.octave))
+                  + this.addSharpen(arrayOfKeys);
+        this.playTone(tone, 0);
       }
 
       playFailure() {
         this.$.player.playTone(this.$.piano88.getOther('failure'));
-      }
-
-      _keysPress(key, arrayOfKeys) {
-        if (!key)
-          return;
-
-        if (this.checkForCommands(key))
-          return;
-
-        if (this.chordMode && this.playChord(key))
-          return;
-
-        let div = this.querySelector("[data-tone][data-key=" + key + "]");
-        if (!div)
-          return;
-        let tone = this.$.chords.getTone(Number(div.dataset.tone), Number(div.dataset.octave));
-        tone += this.addSharpen(arrayOfKeys);
-        console.log(tone);
-        this.playTone(tone, 0);
       }
 
       playChord(key) {
