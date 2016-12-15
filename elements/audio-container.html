@@ -49,47 +49,70 @@
               type: Boolean,
               value: false
             },
+            commands: Object
           }
         }
       }
 
-      checkForCommands(key) {
-        let div = this.querySelector("[data-command][data-key=" + key + "]");
-        if (!div)
-          return 0;
-        switch (div.dataset.command) {
-          case "turnKeyLeft":
-            this.$.chords.turnKeyLeft();
-            return 0;
-          case "turnKeyRight":
-            this.$.chords.turnKeyRight();
-            return 0;
-          case "turnModusLeft":
-            this.$.chords.turnModusLeft();
-            return 0;
-          case "turnModusRight":
-            this.$.chords.turnModusRight();
-            return 0;
-          case "sharpen":
+      getCommands() {
+        //todo this check does not run when new dom elements are added or removed from the dom
+        if (this.commands == undefined) {
+          let divs = this.querySelectorAll("[data-command][data-key]");
+          this.commands = {};
+          for (let div of divs)
+            this.commands[div.dataset.key] = div;
+        }
+        return this.commands;
+      }
+
+      addSharpen(arrayOfKeys) {
+        let commands = this.getCommands();
+        for (let key of arrayOfKeys) {
+          if (commands[key] && commands[key].dataset.command == "sharpen")
             return 1;
         }
+        return 0;
+      }
+
+      checkForCommands(key) {
+        let commands = this.getCommands();
+        let command = commands[key];
+        if (!command)
+          return false;
+        switch (command.dataset.command) {
+          case "turnKeyLeft":
+            this.$.chords.turnKeyLeft();
+            return true;
+          case "turnKeyRight":
+            this.$.chords.turnKeyRight();
+            return true;
+          case "turnModusLeft":
+            this.$.chords.turnModusLeft();
+            return true;
+          case "turnModusRight":
+            this.$.chords.turnModusRight();
+            return true;
+        }
+        return false;
       }
 
       playKeys(press, arrayOfKeys) {
-        let sharpen = 0;
-        for (let key of arrayOfKeys) {
-          if (this.checkForCommands(key.code) == 1)
-            sharpen = 1;
-        }
-        this._keysPress(press, sharpen);
+//        for (let key of arrayOfKeys) {
+//          if (this.checkForCommands(key.code) == 1)
+//            sharpen = 1;
+//        }
+        this._keysPress(press, arrayOfKeys);
       }
 
       playFailure() {
         this.$.player.playTone(this.$.piano88.getOther('failure'));
       }
 
-      _keysPress(key, sharpen) {
+      _keysPress(key, arrayOfKeys) {
         if (!key)
+          return;
+
+        if (this.checkForCommands(key))
           return;
 
         if (this.chordMode && this.playChord(key))
@@ -98,7 +121,9 @@
         let div = this.querySelector("[data-tone][data-key=" + key + "]");
         if (!div)
           return;
-        let tone = this.$.chords.getTone(Number(div.dataset.tone), Number(div.dataset.octave)) + sharpen;
+        let tone = this.$.chords.getTone(Number(div.dataset.tone), Number(div.dataset.octave));
+        tone += this.addSharpen(arrayOfKeys);
+        console.log(tone);
         this.playTone(tone, 0);
       }
 
@@ -116,7 +141,7 @@
 
       playTone(code) {
         this.$.player.playTone(this.getPianoSound(code));
-        console.log(  MusicScale.getTwelveNotesName(code % 12) + ": " + (Math.floor(code / 12))
+        console.log(MusicScale.getTwelveNotesName(code % 12) + ": " + (Math.floor(code / 12))
         );
       }
 
