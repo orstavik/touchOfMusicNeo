@@ -4,25 +4,19 @@
   <template>
     <style>
       :host {
-				display: flex;
-        width: 100vw;
-        justify-content: center;
-        position: absolute;
-        bottom: 12vh;
-      }
-      #stage {
         display: inline-block;
-        position: relative;
-        width: 30vh;
-        height: 30vh;
+        position: absolute;
+        bottom: 7vh;
+        left: 50%;
       }
     </style>
 
-    <div id="stage">
-      <template is="dom-repeat" items="[[description]]">
-        <monster-part letter$="[[item.letter]]" info="[[item]]"></monster-part>
-      </template>
-    </div>
+    <iron-ajax url="../maps/pinkRobot/sketch.json"
+               handle-as="json"
+               on-response="_robotLoaded" auto></iron-ajax>
+    <template is="dom-repeat" items="[[json.parts]]">
+      <monster-part letter$="[[item.letter]]" info="[[item]]" id$="[[item.id]]"></monster-part>
+    </template>
 
   </template>
 	
@@ -36,14 +30,47 @@
           properties: {
             json: {
               type: String,
-              value: '[{"letter":"k (1)","position":{"x":0,"y":-108},"scale":1},{"letter":"ey","position":{"x":0,"y":-108},"scale":0.6699999999999997},{"letter":"l","position":{"x":-35,"y":50},"scale":0.18999999999999936},{"letter":"l","position":{"x":35,"y":50},"scale":0.18999999999999936},{"letter":"j (1)","position":{"x":-32,"y":34},"scale":0.12999999999999937},{"letter":"j (1)","position":{"x":32,"y":34},"scale":0.09999999999999937},{"letter":"f (1)","position":{"x":-29,"y":23},"scale":0.12999999999999937},{"letter":"f (1)","position":{"x":29,"y":23},"scale":0.12999999999999937},{"letter":"d (1)","position":{"x":-18,"y":16},"scale":0.12999999999999937},{"letter":"d (1)","position":{"x":18,"y":16},"scale":0.12999999999999937,"rotation":1},{"letter":"j (1)","position":{"x":1,"y":-13},"scale":0.6399999999999997},{"letter":"spring","position":{"x":-52,"y":-123},"scale":0.21999999999999936},{"letter":"d (1)","position":{"x":-42,"y":-32},"scale":0.21999999999999936},{"letter":"d (1)","position":{"x":42,"y":-32},"scale":0.21999999999999936},{"letter":"f (1)","position":{"x":0,"y":0},"scale":0.36999999999999944},{"letter":"k (1)","position":{"x":-57,"y":-17},"scale":0.12999999999999937},{"letter":"k (1)","position":{"x":57,"y":-17},"scale":0.12999999999999937}]'
+              value: function() {
+                return {}
+              }
             },
-            description: {
-              type: Array,
-              computed: "_parseJSON(json)"
-            }
           }
         }
+      }
+
+      _robotLoaded(e) {
+        let json = e.detail.response;
+        let base;
+        this.json = {
+          metadata: {
+            title: json.metadata.title,
+            width: json.metadata.width,
+            height: json.metadata.height
+          },
+          parts: json.actions.filter(function(item) {
+              if (item.type == "ellipse") {
+                base = {
+                  x: item.bbox.x,
+                  y: item.bbox.y,
+                  width: item.bbox.width * item.bbox.scale.x,
+                  height: item.bbox.height * item.bbox.scale.y,
+                }
+              } else if (item.type == "image") return true;
+            }).map(function(item, index) {
+              return {
+                id: "part"+index,
+                src: item.src.replace("#", ""),
+                x: item.bbox.x - (base.x + base.width/2),
+                y: item.bbox.y - (base.y + base.height/2),
+                width: item.bbox.width,
+                height: item.bbox.height,
+                scale: item.bbox.scale,
+                rotate: item.bbox.rotate,
+                zIndex: item.zIndex
+              }
+            })
+        }
+        console.log(this.json, base);
       }
 
       getPart() {
@@ -52,10 +79,6 @@
           node.empty = false;
           return node;
         }
-      }
-
-      _parseJSON(json) {
-        return JSON.parse(json);
       }
     }
     customElements.define(MonsterContainer.is, MonsterContainer);

@@ -1,0 +1,2172 @@
+{
+    "metadata": {
+        "uuid": "cfc8a5ba-7e50-4d0e-98a6-6083461f9aa5",
+        "title": "pinkRobot",
+        "description": "made with Sketchpad - https://sketch.io/sketchpad",
+        "units": "px",
+        "width": 640,
+        "height": 640,
+        "originX": 0,
+        "originY": 0,
+        "scale": 1,
+        "pages": {
+            "length": 1,
+            "data": [
+                {
+                    "width": 640,
+                    "height": 640
+                }
+            ]
+        },
+        "clip": {
+            "style": {
+                "strokeStyle": "black",
+                "shadowColor": "rgba(255,255,255,0.15)",
+                "shadowBlur": 1,
+                "lineWidth": 2
+            }
+        },
+        "exportDPI": 72,
+        "exportFormat": "png",
+        "exportQuality": 0.95
+    },
+    "version": "4.0.0.543",
+    "actions": [
+        {
+            "bbox": {
+                "x": 181,
+                "y": 501,
+                "width": 253,
+                "height": 253,
+                "scale": {
+                    "x": 1.1135587485305458,
+                    "y": 0.3257418909592825
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "trx2D": "1,0,0,1,181,501",
+                "eventDelta": {
+                    "x": 0,
+                    "y": 0
+                }
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "gradient": {
+                    "type": "linearGradient",
+                    "spreadMethod": "pad",
+                    "noise": 0,
+                    "stops": [
+                        0.169429711,
+                        4294516106,
+                        0.583,
+                        4286320317,
+                        1,
+                        4278190320
+                    ],
+                    "x0": 0.4999999999999999,
+                    "y0": -1.4988010832439613e-15,
+                    "x1": 0.49999999999999967,
+                    "y1": 1.000000000000001
+                },
+                "color": "black"
+            },
+            "stroke": {
+                "type": "gradient",
+                "method": "stroke",
+                "enabled": false,
+                "opacity": 1,
+                "composite": "normal",
+                "lineDash": "none",
+                "lineDashOffset": 0,
+                "lineCap": "butt",
+                "lineJoin": "miter",
+                "lineWidth": 2,
+                "miterLimit": 4,
+                "gradient": {
+                    "type": "linearGradient",
+                    "spreadMethod": "pad",
+                    "noise": 0,
+                    "stops": [
+                        0,
+                        4294601740,
+                        0.04,
+                        4294324234,
+                        0.08,
+                        4294324234,
+                        0.145,
+                        4291894142,
+                        0.21,
+                        4291894142,
+                        0.28,
+                        4285801905,
+                        0.35,
+                        4285801905,
+                        0.42,
+                        4278870746,
+                        0.49,
+                        4278870746,
+                        0.56,
+                        4278239232,
+                        0.63,
+                        4278239232,
+                        0.715,
+                        4294373162,
+                        0.8,
+                        4294373162,
+                        0.9,
+                        4294601740,
+                        1,
+                        4294601740
+                    ],
+                    "x0": 0,
+                    "y0": 0.5,
+                    "x1": 1,
+                    "y1": 0.5
+                }
+            },
+            "composite": "normal",
+            "id": "U:1",
+            "pointerId": "U:1",
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "timestamp": 1481809591531,
+            "zIndex": 0
+        },
+        {
+            "bbox": {
+                "x": 208,
+                "y": 252,
+                "width": 193,
+                "height": 194,
+                "scale": {
+                    "x": 0.14363843524496772,
+                    "y": 0.14363843524496772
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "trx2D": "1,0,0,1,208,252",
+                "assetWidth": 193,
+                "assetHeight": 194,
+                "eventDelta": {
+                    "x": 4.000000000000014,
+                    "y": -4.261634801639957
+                }
+            },
+            "src": "#asset-90efc9ae7ef48d09e319bffcfdc420de",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "opacity": 100,
+            "toolkitId": "media",
+            "type": "image",
+            "id": "U:2",
+            "timestamp": 1481809751314,
+            "zIndex": 1
+        },
+        {
+            "bbox": {
+                "x": 222,
+                "y": 240.40271967287276,
+                "width": 193,
+                "height": 194,
+                "scale": {
+                    "x": 0.2582433952590183,
+                    "y": 0.2582433952590183
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "trx2D": "1,0,0,1,222,240.40271967287276",
+                "assetWidth": 193,
+                "assetHeight": 194,
+                "eventDelta": {
+                    "x": -0.7944787813612493,
+                    "y": 1.3464824684763812
+                }
+            },
+            "src": "#asset-c4f7f6936610c7ce5b3a77b8c09f4a5c",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "opacity": 100,
+            "toolkitId": "media",
+            "type": "image",
+            "id": "U:3",
+            "timestamp": 1481809776287,
+            "zIndex": 2
+        },
+        {
+            "bbox": {
+                "x": 251,
+                "y": 365,
+                "width": 193,
+                "height": 194,
+                "scale": {
+                    "x": 0.1325959975839593,
+                    "y": 0.1325959975839593
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "trx2D": "1,0,0,1,251,365",
+                "assetWidth": 193,
+                "assetHeight": 194,
+                "eventDelta": {
+                    "x": 0.5673768007724789,
+                    "y": 2.939893415758604
+                }
+            },
+            "src": "#asset-bd009be59dcb366e1234418888da3b27",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "opacity": 100,
+            "toolkitId": "media",
+            "type": "image",
+            "id": "U:4",
+            "timestamp": 1481809796904,
+            "zIndex": 3
+        },
+        {
+            "bbox": {
+                "x": 380,
+                "y": 190,
+                "width": 222,
+                "height": 221,
+                "scale": {
+                    "x": 0.11209102884614416,
+                    "y": 0.11209102884614416
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "trx2D": "1,0,0,1,380,190",
+                "assetWidth": 222,
+                "assetHeight": 221,
+                "eventDelta": {
+                    "x": 0.5411813511672108,
+                    "y": -1.7765717179822715
+                }
+            },
+            "src": "#asset-1170382c44693092700cf55fb62ff105",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "opacity": 100,
+            "toolkitId": "media",
+            "type": "image",
+            "id": "U:5",
+            "timestamp": 1481809828947,
+            "zIndex": 4
+        },
+        {
+            "bbox": {
+                "x": 277,
+                "y": 363.83663221530196,
+                "width": 193,
+                "height": 194,
+                "scale": {
+                    "x": 0.4649992985016204,
+                    "y": 0.4649992985016204
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "trx2D": "1,0,0,1,277,363.83663221530196",
+                "assetWidth": 193,
+                "assetHeight": 194,
+                "eventDelta": {
+                    "x": 0,
+                    "y": 1
+                }
+            },
+            "src": "#asset-5f12739e712bcdcdd95586ec0fed4ba1",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "opacity": 100,
+            "toolkitId": "media",
+            "type": "image",
+            "id": "U:9",
+            "timestamp": 1481810150950,
+            "zIndex": 5
+        },
+        {
+            "bbox": {
+                "x": 282.2699920496851,
+                "y": 454.3048290682283,
+                "width": 193,
+                "height": 194,
+                "scale": {
+                    "x": 0.10950764952387505,
+                    "y": 0.10950764952387505
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "assetWidth": 193,
+                "assetHeight": 194,
+                "eventDelta": {
+                    "x": 2,
+                    "y": 1.2094080672699192
+                },
+                "trx2D": "1,0,0,1,282.2699920496851,454.3048290682283"
+            },
+            "src": "#asset-bd009be59dcb366e1234418888da3b27",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "id": "U:10",
+            "opacity": 100,
+            "timestamp": 1481809796904,
+            "toolkitId": "media",
+            "type": "image",
+            "zIndex": 6
+        },
+        {
+            "bbox": {
+                "x": 339.36157258793946,
+                "y": 454.3048290682283,
+                "width": 193,
+                "height": 194,
+                "scale": {
+                    "x": 0.10950764952387505,
+                    "y": 0.10950764952387505
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "assetWidth": 193,
+                "assetHeight": 194,
+                "eventDelta": {
+                    "x": 3,
+                    "y": -3.7905919327300808
+                },
+                "trx2D": "1,0,0,1,339.36157258793946,454.3048290682283"
+            },
+            "src": "#asset-bd009be59dcb366e1234418888da3b27",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "id": "U:11",
+            "opacity": 100,
+            "timestamp": 1481809796904,
+            "toolkitId": "media",
+            "type": "image",
+            "zIndex": 7
+        },
+        {
+            "bbox": {
+                "x": 301.08436709147793,
+                "y": 387.90747926028183,
+                "width": 222,
+                "height": 221,
+                "scale": {
+                    "x": 0.1869007842468617,
+                    "y": 0.1869007842468617
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "assetWidth": 222,
+                "assetHeight": 221,
+                "eventDelta": {
+                    "x": 0.3763919821825539,
+                    "y": 1
+                },
+                "trx2D": "1,0,0,1,301.08436709147793,387.90747926028183"
+            },
+            "src": "#asset-1170382c44693092700cf55fb62ff105",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "id": "U:12",
+            "opacity": 100,
+            "timestamp": 1481809828947,
+            "toolkitId": "media",
+            "type": "image",
+            "zIndex": 8
+        },
+        {
+            "bbox": {
+                "x": 310,
+                "y": 342,
+                "width": 193,
+                "height": 194,
+                "scale": {
+                    "x": 0.11680077166154441,
+                    "y": 0.11680077166154441
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "assetWidth": 193,
+                "assetHeight": 194,
+                "eventDelta": {
+                    "x": -1.6233836853280081,
+                    "y": 0
+                },
+                "trx2D": "1,0,0,1,310,342"
+            },
+            "src": "#asset-5f12739e712bcdcdd95586ec0fed4ba1",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "id": "U:13",
+            "opacity": 100,
+            "timestamp": 1481810150950,
+            "toolkitId": "media",
+            "type": "image",
+            "zIndex": 9
+        },
+        {
+            "bbox": {
+                "x": 367,
+                "y": 365,
+                "width": 193,
+                "height": 194,
+                "scale": {
+                    "x": 0.1325959975839593,
+                    "y": 0.1325959975839593
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "assetWidth": 193,
+                "assetHeight": 194,
+                "eventDelta": {
+                    "x": -0.4326231992275211,
+                    "y": -0.06010658424139592
+                },
+                "trx2D": "1,0,0,1,367,365"
+            },
+            "src": "#asset-bd009be59dcb366e1234418888da3b27",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "id": "U:15",
+            "opacity": 100,
+            "timestamp": 1481809796904,
+            "toolkitId": "media",
+            "type": "image",
+            "zIndex": 10
+        },
+        {
+            "bbox": {
+                "x": 233,
+                "y": 369,
+                "width": 193,
+                "height": 194,
+                "scale": {
+                    "x": 0.09252627102565184,
+                    "y": 0.09252627102565184
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "assetWidth": 193,
+                "assetHeight": 194,
+                "eventDelta": {
+                    "x": 0.19479276634150722,
+                    "y": 1.1420252633569135
+                },
+                "trx2D": "1,0,0,1,233,369"
+            },
+            "src": "#asset-c4f7f6936610c7ce5b3a77b8c09f4a5c",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "id": "U:16",
+            "opacity": 100,
+            "timestamp": 1481809776287,
+            "toolkitId": "media",
+            "type": "image",
+            "zIndex": 11
+        },
+        {
+            "bbox": {
+                "x": 233.31403150598706,
+                "y": 404.1800320896088,
+                "width": 193,
+                "height": 194,
+                "scale": {
+                    "x": 0.08759111261639739,
+                    "y": -0.08759111261639739
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 1,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "assetWidth": 193,
+                "assetHeight": 194,
+                "eventDelta": {
+                    "x": 0.3935254826063783,
+                    "y": -0.6030733834036823
+                },
+                "trx2D": "0.9998476951563913,0.01745240643728351,-0.01745240643728351,0.9998476951563913,233.31403150598706,404.1800320896088"
+            },
+            "src": "#asset-90efc9ae7ef48d09e319bffcfdc420de",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "id": "U:17",
+            "opacity": 100,
+            "timestamp": 1481809751314,
+            "toolkitId": "media",
+            "type": "image",
+            "zIndex": 12
+        },
+        {
+            "bbox": {
+                "x": 236,
+                "y": 228,
+                "width": 193,
+                "height": 194,
+                "scale": {
+                    "x": 0.38835395409486717,
+                    "y": 0.38835395409486717
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "assetWidth": 193,
+                "assetHeight": 194,
+                "eventDelta": {
+                    "x": 0.4065259098226477,
+                    "y": -2.828794966685251
+                },
+                "trx2D": "1,0,0,1,236,228"
+            },
+            "src": "#asset-90efc9ae7ef48d09e319bffcfdc420de",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "id": "U:26",
+            "opacity": 100,
+            "timestamp": 1481809751314,
+            "toolkitId": "media",
+            "type": "image",
+            "zIndex": 13
+        },
+        {
+            "bbox": {
+                "x": 234.04000930589896,
+                "y": 404.05699860977796,
+                "width": 193,
+                "height": 194,
+                "scale": {
+                    "x": 0.0870983390766621,
+                    "y": 0.0870983390766621
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "assetWidth": 193,
+                "assetHeight": 194,
+                "eventDelta": {
+                    "x": 0.20552121863875072,
+                    "y": 1.5239865751158561
+                },
+                "trx2D": "1,0,0,1,234.04000930589896,404.05699860977796"
+            },
+            "src": "#asset-c4f7f6936610c7ce5b3a77b8c09f4a5c",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "id": "U:27",
+            "opacity": 100,
+            "timestamp": 1481809776287,
+            "toolkitId": "media",
+            "type": "image",
+            "zIndex": 14
+        },
+        {
+            "bbox": {
+                "x": 436.9523131403091,
+                "y": 279.34066709440435,
+                "width": 193,
+                "height": 194,
+                "scale": {
+                    "x": 0.14363843524496772,
+                    "y": 0.14363843524496772
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 180,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "assetWidth": 193,
+                "assetHeight": 194,
+                "eventDelta": {
+                    "x": 4.000000000000014,
+                    "y": -4.261634801639957
+                },
+                "trx2D": "-1,1.2246467991473532e-16,-1.2246467991473532e-16,-1,436.9523131403091,279.34066709440435"
+            },
+            "src": "#asset-90efc9ae7ef48d09e319bffcfdc420de",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "id": "U:28",
+            "opacity": 100,
+            "timestamp": 1481809751314,
+            "toolkitId": "media",
+            "type": "image",
+            "zIndex": 15
+        },
+        {
+            "bbox": {
+                "x": 422.9523131403091,
+                "y": 290.9379474215315,
+                "width": 193,
+                "height": 194,
+                "scale": {
+                    "x": 0.2582433952590183,
+                    "y": 0.2582433952590183
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 180,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "assetWidth": 193,
+                "assetHeight": 194,
+                "eventDelta": {
+                    "x": -0.7944787813612493,
+                    "y": 1.3464824684763812
+                },
+                "trx2D": "-1,1.2246467991473532e-16,-1.2246467991473532e-16,-1,422.9523131403091,290.9379474215315"
+            },
+            "src": "#asset-c4f7f6936610c7ce5b3a77b8c09f4a5c",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "id": "U:29",
+            "opacity": 100,
+            "timestamp": 1481809776287,
+            "toolkitId": "media",
+            "type": "image",
+            "zIndex": 16
+        },
+        {
+            "bbox": {
+                "x": 408.95231314030934,
+                "y": 303.34066709440424,
+                "width": 193,
+                "height": 194,
+                "scale": {
+                    "x": 0.38835395409486717,
+                    "y": 0.38835395409486717
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 180,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "assetWidth": 193,
+                "assetHeight": 194,
+                "eventDelta": {
+                    "x": 0.4065259098226477,
+                    "y": -2.828794966685251
+                },
+                "trx2D": "-1,1.2246467991473532e-16,-1.2246467991473532e-16,-1,408.95231314030934,303.34066709440424"
+            },
+            "src": "#asset-90efc9ae7ef48d09e319bffcfdc420de",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "id": "U:30",
+            "opacity": 100,
+            "timestamp": 1481809751314,
+            "toolkitId": "media",
+            "type": "image",
+            "zIndex": 17
+        },
+        {
+            "bbox": {
+                "x": 253,
+                "y": 206,
+                "width": 193,
+                "height": 194,
+                "scale": {
+                    "x": 0.7144728462122973,
+                    "y": 0.7144728462122973
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "assetWidth": 193,
+                "assetHeight": 194,
+                "eventDelta": {
+                    "x": 0,
+                    "y": 3.652008094554617
+                },
+                "trx2D": "1,0,0,1,253,206"
+            },
+            "src": "#asset-bd009be59dcb366e1234418888da3b27",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "id": "U:31",
+            "opacity": 100,
+            "timestamp": 1481809796904,
+            "toolkitId": "media",
+            "type": "image",
+            "zIndex": 18
+        },
+        {
+            "bbox": {
+                "x": 277.12476878359223,
+                "y": 224.85722556242158,
+                "width": 193,
+                "height": 194,
+                "scale": {
+                    "x": 0.4637925401702732,
+                    "y": 0.4637925401702732
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "assetWidth": 193,
+                "assetHeight": 194,
+                "eventDelta": {
+                    "x": 0.18426895491415962,
+                    "y": -0.31811858770609547
+                },
+                "trx2D": "1,0,0,1,277.12476878359223,224.85722556242158"
+            },
+            "src": "#asset-5f12739e712bcdcdd95586ec0fed4ba1",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "id": "U:32",
+            "opacity": 100,
+            "timestamp": 1481810150950,
+            "toolkitId": "media",
+            "type": "image",
+            "zIndex": 19
+        },
+        {
+            "bbox": {
+                "x": 310.79716153716265,
+                "y": 317,
+                "width": 222,
+                "height": 221,
+                "scale": {
+                    "x": 0.05082643520643224,
+                    "y": 0.05082643520643224
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "assetWidth": 222,
+                "assetHeight": 221,
+                "eventDelta": {
+                    "x": 3.0007649617461425,
+                    "y": -1.2007503761720386
+                },
+                "trx2D": "1,0,0,1,310.79716153716265,317"
+            },
+            "src": "#asset-be7d532879e924f6f1d812cc4067a83a",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "id": "U:33",
+            "opacity": 100,
+            "timestamp": 1481809865993,
+            "toolkitId": "media",
+            "type": "image",
+            "zIndex": 20
+        },
+        {
+            "bbox": {
+                "x": 322.1957423057439,
+                "y": 317,
+                "width": 222,
+                "height": 221,
+                "scale": {
+                    "x": 0.05082643520643224,
+                    "y": 0.05082643520643224
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "assetWidth": 222,
+                "assetHeight": 221,
+                "eventDelta": {
+                    "x": 0.0007649617461424896,
+                    "y": -1.2007503761720386
+                },
+                "trx2D": "1,0,0,1,322.1957423057439,317"
+            },
+            "src": "#asset-be7d532879e924f6f1d812cc4067a83a",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "id": "U:34",
+            "opacity": 100,
+            "timestamp": 1481809865993,
+            "toolkitId": "media",
+            "type": "image",
+            "zIndex": 21
+        },
+        {
+            "bbox": {
+                "x": 333.5943230743253,
+                "y": 317,
+                "width": 222,
+                "height": 221,
+                "scale": {
+                    "x": 0.05082643520643224,
+                    "y": 0.05082643520643224
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "assetWidth": 222,
+                "assetHeight": 221,
+                "eventDelta": {
+                    "x": 3.0007649617461425,
+                    "y": -1.2007503761720386
+                },
+                "trx2D": "1,0,0,1,333.5943230743253,317"
+            },
+            "src": "#asset-be7d532879e924f6f1d812cc4067a83a",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "id": "U:35",
+            "opacity": 100,
+            "timestamp": 1481809865993,
+            "toolkitId": "media",
+            "type": "image",
+            "zIndex": 22
+        },
+        {
+            "bbox": {
+                "x": 344.99290384290657,
+                "y": 317,
+                "width": 222,
+                "height": 221,
+                "scale": {
+                    "x": 0.05082643520643224,
+                    "y": 0.05082643520643224
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "assetWidth": 222,
+                "assetHeight": 221,
+                "eventDelta": {
+                    "x": 0.0007649617461424896,
+                    "y": -1.2007503761720386
+                },
+                "trx2D": "1,0,0,1,344.99290384290657,317"
+            },
+            "src": "#asset-be7d532879e924f6f1d812cc4067a83a",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "id": "U:36",
+            "opacity": 100,
+            "timestamp": 1481809865993,
+            "toolkitId": "media",
+            "type": "image",
+            "zIndex": 23
+        },
+        {
+            "bbox": {
+                "x": 288,
+                "y": 317,
+                "width": 222,
+                "height": 221,
+                "scale": {
+                    "x": 0.05082643520643224,
+                    "y": 0.05082643520643224
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "assetWidth": 222,
+                "assetHeight": 221,
+                "eventDelta": {
+                    "x": 3.0007649617461425,
+                    "y": -1.2007503761720386
+                },
+                "trx2D": "1,0,0,1,288,317"
+            },
+            "src": "#asset-be7d532879e924f6f1d812cc4067a83a",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "id": "U:37",
+            "opacity": 100,
+            "timestamp": 1481809865993,
+            "toolkitId": "media",
+            "type": "image",
+            "zIndex": 24
+        },
+        {
+            "bbox": {
+                "x": 299.3985807685814,
+                "y": 317,
+                "width": 222,
+                "height": 221,
+                "scale": {
+                    "x": 0.05082643520643224,
+                    "y": 0.05082643520643224
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "assetWidth": 222,
+                "assetHeight": 221,
+                "eventDelta": {
+                    "x": 0.0007649617461424896,
+                    "y": -1.2007503761720386
+                },
+                "trx2D": "1,0,0,1,299.3985807685814,317"
+            },
+            "src": "#asset-be7d532879e924f6f1d812cc4067a83a",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "id": "U:38",
+            "opacity": 100,
+            "timestamp": 1481809865993,
+            "toolkitId": "media",
+            "type": "image",
+            "zIndex": 25
+        },
+        {
+            "bbox": {
+                "x": 278,
+                "y": 226,
+                "width": 188,
+                "height": 188,
+                "scale": {
+                    "x": 0.4645669291338583,
+                    "y": 0.4645669291338583
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "assetWidth": 188,
+                "assetHeight": 188,
+                "eventDelta": {
+                    "x": 0,
+                    "y": 1.4210854715202004e-14
+                },
+                "trx2D": "1,0,0,1,278,226"
+            },
+            "src": "#asset-ff1b8020b9fed076369640ed46d521bb",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "id": "U:39",
+            "opacity": 100,
+            "timestamp": 1481809884887,
+            "toolkitId": "media",
+            "type": "image",
+            "zIndex": 26
+        },
+        {
+            "bbox": {
+                "x": 393.0282171018977,
+                "y": 369,
+                "width": 193,
+                "height": 194,
+                "scale": {
+                    "x": 0.08450071783072184,
+                    "y": 0.08450071783072184
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "assetWidth": 193,
+                "assetHeight": 194,
+                "eventDelta": {
+                    "x": 0.30969395162904334,
+                    "y": -0.062087763887802794
+                },
+                "trx2D": "1,0,0,1,393.0282171018977,369"
+            },
+            "src": "#asset-5f12739e712bcdcdd95586ec0fed4ba1",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "id": "U:40",
+            "opacity": 100,
+            "timestamp": 1481810150950,
+            "toolkitId": "media",
+            "type": "image",
+            "zIndex": 27
+        },
+        {
+            "bbox": {
+                "x": 393.1515541738972,
+                "y": 385.7007949127832,
+                "width": 193,
+                "height": 194,
+                "scale": {
+                    "x": 0.08427682928499418,
+                    "y": 0.08427682928499418
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "assetWidth": 193,
+                "assetHeight": 194,
+                "eventDelta": {
+                    "x": 0,
+                    "y": -0.34799190544526937
+                },
+                "trx2D": "1,0,0,1,393.1515541738972,385.7007949127832"
+            },
+            "src": "#asset-bd009be59dcb366e1234418888da3b27",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "id": "U:41",
+            "opacity": 100,
+            "timestamp": 1481809796904,
+            "toolkitId": "media",
+            "type": "image",
+            "zIndex": 28
+        },
+        {
+            "bbox": {
+                "x": 393.9432530728619,
+                "y": 402,
+                "width": 193,
+                "height": 194,
+                "scale": {
+                    "x": 0.08064080674726261,
+                    "y": 0.08064080674726261
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "assetWidth": 193,
+                "assetHeight": 194,
+                "eventDelta": {
+                    "x": 0.26907889765716675,
+                    "y": -0.9024746875485903
+                },
+                "trx2D": "1,0,0,1,393.9432530728619,402"
+            },
+            "src": "#asset-c4f7f6936610c7ce5b3a77b8c09f4a5c",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "id": "U:42",
+            "opacity": 100,
+            "timestamp": 1481809776287,
+            "toolkitId": "media",
+            "type": "image",
+            "zIndex": 29
+        },
+        {
+            "bbox": {
+                "x": 376.9708169101747,
+                "y": 432.14554808391244,
+                "width": 193,
+                "height": 194,
+                "scale": {
+                    "x": 0.08699976857663415,
+                    "y": -0.08699976857663415
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 1,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "assetWidth": 193,
+                "assetHeight": 194,
+                "eventDelta": {
+                    "x": 1.9963938165032573,
+                    "y": -0.43100993110374475
+                },
+                "trx2D": "0.9998476951563913,0.01745240643728351,-0.01745240643728351,0.9998476951563913,376.9708169101747,432.14554808391244"
+            },
+            "src": "#asset-90efc9ae7ef48d09e319bffcfdc420de",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "id": "U:43",
+            "opacity": 100,
+            "timestamp": 1481809751314,
+            "toolkitId": "media",
+            "type": "image",
+            "zIndex": 30
+        },
+        {
+            "bbox": {
+                "x": 234.4072281888659,
+                "y": 421,
+                "width": 193,
+                "height": 194,
+                "scale": {
+                    "x": 0.08385388261574236,
+                    "y": 0.08385388261574236
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "assetWidth": 193,
+                "assetHeight": 194,
+                "eventDelta": {
+                    "x": 0.5673768007724789,
+                    "y": 0.9398934157586041
+                },
+                "trx2D": "1,0,0,1,234.4072281888659,421"
+            },
+            "src": "#asset-bd009be59dcb366e1234418888da3b27",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "id": "U:44",
+            "opacity": 100,
+            "timestamp": 1481809796904,
+            "toolkitId": "media",
+            "type": "image",
+            "zIndex": 31
+        },
+        {
+            "bbox": {
+                "x": 399.70466251788207,
+                "y": 176.04958388352145,
+                "width": 222,
+                "height": 221,
+                "scale": {
+                    "x": 0.08871075002516815,
+                    "y": 0.08871075002516815
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "trx2D": "1,0,0,1,399.70466251788207,176.04958388352145",
+                "assetWidth": 222,
+                "assetHeight": 221,
+                "eventDelta": {
+                    "x": 1.1529652970504856,
+                    "y": -4.194855642786749
+                }
+            },
+            "src": "#asset-8d1e06dec5e04e6fe2913a1bbf8922ca",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "opacity": 100,
+            "toolkitId": "media",
+            "type": "image",
+            "id": "U:45",
+            "timestamp": 1481811307156,
+            "zIndex": 32
+        },
+        {
+            "bbox": {
+                "x": 361.86203103421764,
+                "y": 210.45095660222705,
+                "width": 222,
+                "height": 221,
+                "scale": {
+                    "x": 0.10824734054762873,
+                    "y": 0.10824734054762873
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "assetWidth": 222,
+                "assetHeight": 221,
+                "eventDelta": {
+                    "x": -2.842170943040401e-14,
+                    "y": -0.18672182974886198
+                },
+                "trx2D": "1,0,0,1,361.86203103421764,210.45095660222705"
+            },
+            "src": "#asset-8d1e06dec5e04e6fe2913a1bbf8922ca",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "id": "U:46",
+            "opacity": 100,
+            "timestamp": 1481811307156,
+            "toolkitId": "media",
+            "type": "image",
+            "zIndex": 33
+        },
+        {
+            "bbox": {
+                "x": 282.6156637933418,
+                "y": 476,
+                "width": 222,
+                "height": 221,
+                "scale": {
+                    "x": 0.08698056336632672,
+                    "y": 0.08698056336632672
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "assetWidth": 222,
+                "assetHeight": 221,
+                "eventDelta": {
+                    "x": 0.7074535960622654,
+                    "y": -2.5888109847615652
+                },
+                "trx2D": "1,0,0,1,282.6156637933418,476"
+            },
+            "src": "#asset-8d1e06dec5e04e6fe2913a1bbf8922ca",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "id": "U:47",
+            "opacity": 100,
+            "timestamp": 1481811307156,
+            "toolkitId": "media",
+            "type": "image",
+            "zIndex": 34
+        },
+        {
+            "bbox": {
+                "x": 282.8083532862576,
+                "y": 495,
+                "width": 222,
+                "height": 221,
+                "scale": {
+                    "x": 0.08290560266097113,
+                    "y": 0.08290560266097113
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "trx2D": "1,0,0,1,282.8083532862576,495",
+                "assetWidth": 222,
+                "assetHeight": 221,
+                "eventDelta": {
+                    "x": -0.012803413467622704,
+                    "y": -2.9096731820178547
+                }
+            },
+            "src": "#asset-057bf2ec241bb9f1775d0f3b2853f792",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "opacity": 100,
+            "toolkitId": "media",
+            "type": "image",
+            "id": "U:48",
+            "timestamp": 1481811470106,
+            "zIndex": 35
+        },
+        {
+            "bbox": {
+                "x": 340.49003121607103,
+                "y": 426.5293063883849,
+                "width": 222,
+                "height": 221,
+                "scale": {
+                    "x": 0.08626625410112951,
+                    "y": 0.08626625410112951
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "assetWidth": 222,
+                "assetHeight": 221,
+                "eventDelta": {
+                    "x": 0.7200342638993789,
+                    "y": -1.3825031885606336
+                },
+                "trx2D": "1,0,0,1,340.49003121607103,426.5293063883849"
+            },
+            "src": "#asset-057bf2ec241bb9f1775d0f3b2853f792",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "id": "U:49",
+            "opacity": 100,
+            "timestamp": 1481811470106,
+            "toolkitId": "media",
+            "type": "image",
+            "zIndex": 36
+        },
+        {
+            "bbox": {
+                "x": 339.1064915760609,
+                "y": 463.8256801506015,
+                "width": 118,
+                "height": 225,
+                "scale": {
+                    "x": 0.28588654422535925,
+                    "y": 0.28588654422535925
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 4,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "trx2D": "0.9975640502598242,0.0697564737441253,-0.0697564737441253,0.9975640502598242,339.1064915760609,463.8256801506015",
+                "assetWidth": 118,
+                "assetHeight": 225,
+                "eventDelta": {
+                    "x": 0,
+                    "y": 0.26884696721288037
+                }
+            },
+            "src": "#asset-4ee309b84d27d85a3fa881ebe26c83de",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "opacity": 100,
+            "toolkitId": "media",
+            "type": "image",
+            "id": "U:50",
+            "timestamp": 1481811561489,
+            "zIndex": 37
+        },
+        {
+            "bbox": {
+                "x": 282.0626880721151,
+                "y": 513,
+                "width": 222,
+                "height": 221,
+                "scale": {
+                    "x": 0.08775724727634537,
+                    "y": 0.08775724727634537
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "assetWidth": 222,
+                "assetHeight": 221,
+                "eventDelta": {
+                    "x": -1.142372185067444,
+                    "y": 0.8547282407348717
+                },
+                "trx2D": "1,0,0,1,282.0626880721151,513"
+            },
+            "src": "#asset-8d1e06dec5e04e6fe2913a1bbf8922ca",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "id": "U:51",
+            "opacity": 100,
+            "timestamp": 1481811307156,
+            "toolkitId": "media",
+            "type": "image",
+            "zIndex": 38
+        },
+        {
+            "bbox": {
+                "x": 266.8873309078225,
+                "y": 453.28802998252667,
+                "width": 193,
+                "height": 194,
+                "scale": {
+                    "x": -0.0891177841595626,
+                    "y": -0.0891177841595626
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 1,
+                "left": 0,
+                "top": 0,
+                "padding": 0,
+                "assetWidth": 193,
+                "assetHeight": 194,
+                "eventDelta": {
+                    "x": -0.12491015803394134,
+                    "y": -0.7057657800582433
+                },
+                "trx2D": "0.9998476951563913,0.01745240643728351,-0.01745240643728351,0.9998476951563913,266.8873309078225,453.28802998252667"
+            },
+            "src": "#asset-90efc9ae7ef48d09e319bffcfdc420de",
+            "filter": [
+                {
+                    "cmd": "shader",
+                    "id": "colorMatrix",
+                    "enabled": true,
+                    "data": {
+                        "invert": 0,
+                        "hue": 0,
+                        "saturation": 1,
+                        "tint": 0,
+                        "temperature": 0,
+                        "contrast": 0,
+                        "brightness": 0,
+                        "exposure": 1,
+                        "colorize": -1,
+                        "monotone": -1,
+                        "sepia": 0
+                    }
+                }
+            ],
+            "composite": "normal",
+            "id": "U:52",
+            "opacity": 100,
+            "timestamp": 1481809751314,
+            "toolkitId": "media",
+            "type": "image",
+            "zIndex": 39
+        }
+    ]
+}
