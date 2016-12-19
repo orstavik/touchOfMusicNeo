@@ -71,7 +71,7 @@
           let evt = this.heldEvents[hostage];
           evt.ticksLeft--;
           if (evt.ticksLeft <= 0) {
-            this.dispatchEvent(new CustomEvent(evt.event.type, evt.event));
+            this.querySelector("joievent-player").releaseNextEvent(evt.event);
             delete this.heldEvents[hostage];
           }
         }
@@ -93,7 +93,7 @@
       }
 
       _onKeyStroke(e){
-        console.log(e.detail.code + ", " + Math.round(e.detail.duration*100)/100);
+        // console.log(e.detail.code + ", " + Math.round(e.detail.duration*100)/100);
         //if the key stroke is correct, then create a beam
         if (this._checkIfHeldKeysMatchesWhatYouAreHopingFor(e))
           this.querySelector("#beams").prepareBeam(e.detail.code);

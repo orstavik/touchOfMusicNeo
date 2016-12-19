@@ -5,6 +5,7 @@
       constructor(code, start, stop){
         this.code = code;
         this.start = start;
+        this.stop = stop;
         this.duration = stop-start;
       }
     }
@@ -54,6 +55,7 @@
       }
 
       _keyWasDown(e) {
+        e.absTime = new Date().getTime();
         if (this.isRepeatKeyEvent(e))
           return;
         if ((Object.keys(this.heldKeys).length === 0) && this.prevKeyEvent.timeStamp) {
@@ -72,11 +74,12 @@
       }
 
       _keyWasUp(e) {
+        e.absTime = new Date().getTime();
         this.prevKeyEvent = e;
         let correspondingDown = this.heldKeys[e.code];
         if (!correspondingDown)
           return;
-        let keyE = new KeyEvent(e.code, correspondingDown.timeStamp, e.timeStamp);
+        let keyE = new KeyEvent(e.code, correspondingDown.absTime, e.absTime);
         delete this.heldKeys[e.code];
         this.dispatchEvent(new CustomEvent("key-stroke", {"composed": true, "bubbles": true, detail: keyE}));
       }
