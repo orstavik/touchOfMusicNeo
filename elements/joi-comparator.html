@@ -1,0 +1,82 @@
+<dom-module id="joi-comparator">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      table {
+        background: white;
+        line-height: 0.75;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+      }
+    </style>
+
+    <table>
+      <template is="dom-repeat" items="[[table]]" as="x" index-as="xi">
+        <tr>
+          <template is="dom-repeat" items="[[x]]" as="xy" index-as="xyi">
+            <td>[[xy]]</td>
+          </template>
+        </tr>
+      </template>
+    </table>
+
+  </template>
+
+  <script>
+    class JoiComparator extends Polymer.Element {
+      static get is() {
+        return "joi-comparator";
+      }
+
+      static get config() {
+        return {
+          properties: {
+            arrayOne: Array,
+            arrayTwo: {
+              type: Array,
+              observer: "_computeLatest"
+            },
+            start: {
+              type: Array,
+              value: function() {
+                return [0, 0];
+              }
+            },
+            table: {
+              type: Array,
+              value: function() {
+                return [[]];
+              }
+            }
+          }
+        }
+      }
+
+      _compare(x,y) {
+        let s = "Key"+this.arrayOne[x][0].letter;
+        let t = this.arrayTwo[y].code;
+        return Number(s == t);
+      }
+
+      _compareUpTo(x,y) {
+        for (let i = this.start[0]; i < x; i++) {
+          if (!this.table[i]) this.table[i] = [];
+          for (let j = this.start[1]; j < y; j++) {
+            this.table[i][j] = this._compare(i,j);
+          }
+        };
+        this.notifyPath("table");
+      }
+
+      _computeLatest() {
+        let y = this.arrayTwo.length - this.start[1];
+        let x = y*2+3+this.start[0];
+        this._compareUpTo(x,y);
+      }
+    }
+    customElements.define(JoiComparator.is, JoiComparator);
+  </script>
+</dom-module>
