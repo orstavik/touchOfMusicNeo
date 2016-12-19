@@ -3,45 +3,36 @@
     <style>
       :host {
         display: flex;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        pointer-events: none;
-      }
-      .innerOne {
-        display: flex;
         position: absolute;
         align-items: center;
         justify-content: center;
         box-sizing: border-box;
-        background-color: transparent;
-        border-radius: 25%;
-        /*border: 2px solid transparent;*/
+        border-radius: 10%;
+        transform-origin: top left;
+        /*background-color: rgba(255,255,255,1);*/
+        /*border: 1px solid;*/
         transition: border 0.2s cubic-bezier(1,0,1,0);
-        pointer-events: auto;
-        overflow: hidden;
       }
       .ripple {
         display: flex;
         position: absolute;
         align-items: center;
         justify-content: center;
-        width: 121%;
-        height: 121%;
+        width: 144%;
+        height: 144%;
         color: rgba(0,0,0,0.75);
         font-weight: bold;
         border-radius: 50%;
         transition-duration: 0.2s;
+        background-size: 70%;
+        background-position: center;
+        background-repeat: no-repeat;
         transform: scale(0);
         pointer-events: none;
       }
     </style>
-
-    <div class="innerOne">
-      <div class="ripple"></div>
-    </div>
+  
+    <div class="ripple"></div>
 
   </template>
 
@@ -56,7 +47,7 @@
           properties: {
             size: {
               type: Number,
-              value: 16
+              value: 0.1
             },
             info: {
               type: Object,
@@ -77,24 +68,36 @@
       }
 
       _applyStyle() {
-        this.style.cssText = 
-          "margin-left: -"+this.size/2+"vh;"+
-          "width: "+this.size+"vh;"+
-          "height: "+this.size+"vh;"+
-          "transform: translate("+this.size*(this.info.position.x/100)+"vh, "+this.size*(this.info.position.y/100)+"vh);";
+        var width = Math.abs(this.info.width*this.info.scale.x*this.size);
+        var height = Math.abs(this.info.height*this.info.scale.y*this.size);
+        var x = this.info.x*this.size;
+        var y = this.info.y*this.size;
 
-        this.shadowRoot.querySelector(".innerOne").style.cssText = 
-          "width: "+this.info.scale*100+"%;"+
-          "height: "+this.info.scale*100+"%;";
+        this.style.width = width + "vh";
+        this.style.height = height + "vh";
+        this.style.zIndex = this.info.zIndex + ";";
+        this.shadowRoot.querySelector(".ripple").style.backgroundImage = "url(maps/pinkRobot/"+this.info.src+".png)";
+
+        if (this.info.scale.x < 0 && this.info.scale.y < 0) {
+          this.style.transform = "translate(" + (x-width) + "vh, " + (y-height) + "vh) rotate(" + this.info.rotate + "deg)";
+        } else if (this.info.scale.x < 0 || this.info.scale.y < 0) {
+          if (this.info.scale.x < 0) {
+            this.style.transform = "translate(" + (x-width) + "vh, " + y + "vh) rotate(" + this.info.rotate + "deg)";
+          } else if (this.info.scale.y < 0) {
+            this.style.transform = "translate(" + x + "vh, " + (y-height) + "vh) rotate(" + this.info.rotate + "deg)";
+          }
+        } else {
+          this.style.transform = "translate(" + x + "vh, " + y + "vh) rotate(" + this.info.rotate + "deg)";
+        }
       }
 
       fillIt(color, char) {
-        // this.shadowRoot.querySelector(".innerOne").style.borderColor = "rgba(0,0,0,0.5)";
+        // innerOne.style.borderColor = "rgba(0,0,0,0.5)";
         var ripple = this.shadowRoot.querySelector(".ripple");
-        ripple.style.backgroundColor = "rgb("+color+")";
+        // ripple.style.backgroundColor = "rgb(" + color + ")";
         ripple.style.transform = "scale(1)";
-        ripple.style.fontSize = 8*this.info.scale+"vh";
-        ripple.innerText = char;
+        // ripple.style.fontSize = 8 * this.info.scale.y + "vh";
+        // ripple.innerText = char;
       }
     }
     customElements.define(MonsterPart.is, MonsterPart);
