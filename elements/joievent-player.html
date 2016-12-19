@@ -19,10 +19,6 @@
       static get config() {
         return {
           properties: {
-            input: {
-              type: String,
-              observer: "_inputChange"
-            },
             _joi: {
               type: Object,
               value: function () {
@@ -37,11 +33,8 @@
         }
       }
 
-      _inputChange() {
-        this._joi = {};
-        this._joi["id0"] = JOI.parse(this.input);
-
-        this.querySelector("#scenario").scenario = this._joi["id0"];
+      setScenario(joiArray) {
+        this._joi["id0"] = joiArray;
         this.eventIDS = 0;
         setTimeout(function () {
           this._fireEventNumber("id0");

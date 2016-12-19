@@ -19,6 +19,10 @@
       static get config() {
         return {
           properties: {
+            input: {
+              type: String,
+              observer: "_inputChange"
+            },
             ticksPerTurn: {
               type: Number,
               value: 10
@@ -49,6 +53,13 @@
             }
           }
         }
+      }
+
+      _inputChange() {
+        const joi = {};
+        joi["id0"] = JOI.parse(this.input);
+        this.querySelector("joievent-player").setScenario(joi["id0"]);
+        this.querySelector("#scenario").scenario = joi["id0"];
       }
 
       _holdEvents(e) {
