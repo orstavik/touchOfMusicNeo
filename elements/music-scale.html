@@ -29,14 +29,6 @@
         this._modularScale = MusicScale.staticScales[this.modePosition][0].slice();
       }
 
-      getModePosition(modeName) {
-        for (let i = 0; i < this.staticScales.length; i++) {
-          if (this.staticScales[i][1] == modeName)
-            return i;
-        }
-        throw new Error("Illegal mode name: " + modeName);
-      }
-
       getAllSevenNotesInScale() {
         return this._modularScale.slice();
       }
@@ -138,6 +130,14 @@
         return ["C", "Db/C#", "D", "Eb/D#", "E", "F", "Gb/F#", "G", "Ab/G#", "A", "Bb/A#", "B"];
       }
 
+      static getModePosition(modeName) {
+        for (let i = 0; i < MusicScale.staticScales.length; i++) {
+          if (MusicScale.staticScales[i][1] == modeName)
+            return i;
+        }
+        throw new Error("Illegal mode name: " + modeName);
+      }
+
       static get staticScales() {
         return [
           [[0, 1, 3, 5, 6, 8, 10], "locrian"],
@@ -149,6 +149,21 @@
           [[0, 2, 4, 5, 7, 9, 11], "major"] //ionian I
         ];
       }
+
+      static getTheNameOfSevenTone(zeroToSix, mode, key) {
+        return MusicScale.twelveNotes[MusicScale.getTwelveToneNumberFromSevenToneNumber(mode, key, zeroToSix)];
+      }
+
+      static getTwelveToneNumberFromSevenToneNumber(mode, key, zeroToSix) {
+        let modeNumber = MusicScale.getModePosition(mode);
+        let scale = MusicScale.staticScales[modeNumber];
+        let modeValue = scale[0][zeroToSix];
+        let keyNumber = MusicScale.twelveNotes.indexOf(key);
+        return modeValue + keyNumber % 12;
+      }
+
+      //direction = 360/7*toneNumberZeroToSix;
+      //
 
       static completeScaleAndModeMap() {
         let res = {};
