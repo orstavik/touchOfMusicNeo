@@ -14,7 +14,7 @@
     <slot></slot>
 
     <music-clef-visual mode="[[mode]]" key="[[key]]" scale="[[activeScale]]">
-      <music-clef id="chords" octave="{{octave}}" scale="{{activeScale}}" mode="{{mode}}"
+      <music-clef id="clef" octave="{{octave}}" scale="{{activeScale}}" mode="{{mode}}"
                   key="{{key}}"></music-clef>
     </music-clef-visual>
     <audio-data id="piano88" path="../audio/tones/piano/" amount=88 type="mp3"></audio-data>
@@ -81,16 +81,16 @@
           return false;
         switch (command.dataset.command) {
           case "turnKeyLeft":
-            this.$.chords.turnKeyLeft();
+            this.$.clef.turnKeyLeft();
             return true;
           case "turnKeyRight":
-            this.$.chords.turnKeyRight();
+            this.$.clef.turnKeyRight();
             return true;
           case "turnModusLeft":
-            this.$.chords.turnModusLeft();
+            this.$.clef.turnModusLeft();
             return true;
           case "turnModusRight":
-            this.$.chords.turnModusRight();
+            this.$.clef.turnModusRight();
             return true;
         }
         return false;
@@ -109,7 +109,7 @@
         let div = this.querySelector("[data-tone][data-key=" + press + "]");
         if (!div)
           return;
-        let tone = this.$.chords.getTone(Number(div.dataset.tone), Number(div.dataset.octave))
+        let tone = this.$.clef.getTone(Number(div.dataset.tone), Number(div.dataset.octave))
                   + this.addSharpen(arrayOfKeys);
         this.playTone(tone, 0);
       }
@@ -123,7 +123,7 @@
         if (!div)
           return false;
 
-        let codes = this.$.chords.getChord(Number(div.dataset.chord), Number(div.dataset.octave));
+        let codes = this.$.clef.getChord(Number(div.dataset.chord), Number(div.dataset.octave));
         codes.forEach(function (code) {
           this.playTone(code);
         }.bind(this));
