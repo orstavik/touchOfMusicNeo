@@ -1,0 +1,74 @@
+<dom-module id="key-leaf">
+  <template>
+    <style>
+      :host {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+      }
+      #lowerLeaf, #upperLeaf {
+        display: inline-block;
+        box-sizing: border-box;
+        position: absolute;
+        border: 1px solid;
+        border-bottom-left-radius: 50%;
+        border-bottom-right-radius: 50%;
+        border-top-right-radius: 50%;
+        transform: rotate(45deg);
+        transition-duration: 0.5s;
+      }
+      #lowerLeaf {
+        width: 90%;
+        height: 90%;
+      }
+      #upperLeaf {
+        width: 75%;
+        height: 75%;
+      }
+    </style>
+
+    <div id="lowerLeaf"></div>
+    <div id="upperLeaf"></div>
+
+  </template>
+
+  <script>
+    class KeyLeaf extends Polymer.Element {
+      static get is() {
+        return "key-leaf";
+      }
+
+      static get config() {
+        return {
+          properties: {
+            toneNumber: Number,
+            keyTone: {
+              type: String,
+              // observer: "_keyToneChange"
+            },
+            musicMode: String,
+            upperNumber: Number,
+            lowerNumber: {
+              type: Number,
+              reflectToAttribute: true,
+              // observer: "_applyLowerStyle"
+            },
+          }
+        }
+      }
+
+      _keyToneChange() {
+        this.lowerNumber = this.notes12.indexOf(this.keyTone)+Number(this.toneNumber);
+      }
+
+      _applyLowerStyle() {
+        this.$.lowerLeaf.style.cssText = 
+          "transform: rotate("+(45+360/12*this.lowerNumber)+"deg);"+
+          "background: hsl("+this.lowerNumber+", 100, 50)";
+      }
+    }
+    customElements.define(KeyLeaf.is, KeyLeaf);
+  </script>
+</dom-module>

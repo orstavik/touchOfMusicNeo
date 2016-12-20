@@ -8,7 +8,7 @@
 <link rel="import" href="keyboard-listener.html">
 <link rel="import" href="audio-container.html">
 <link rel="import" href="key-visual.html">
-<link rel="import" href="key-pyramid.html">
+<link rel="import" href="key-leaf.html">
 <link rel="import" href="keyboard-visual.html">
 <link rel="import" href="beam-constructor.html">
 <link rel="import" href="monster-container.html">
@@ -37,6 +37,10 @@
     <div id="mapChoice">
       Play chords:<input type="checkbox" checked="{{chordMode::change}}"><br />
     </div>
+    
+    <iron-ajax url="../maps/keyboard/key-map.json"
+               handle-as="json"
+               on-response="_genKeyArray" auto></iron-ajax>
 
     <game-judge id="judge" input="[[scenario]]">
 
@@ -48,7 +52,9 @@
         <beam-constructor id="beams">
           <keyboard-visual id="keyboard">
             <template is="dom-repeat" items="[[keyArray]]">
-              <key-visual code$="[[item]]"></key-visual>
+              <key-visual code$="[[item.code]]">
+                <key-leaf tone-number="[[item.tone]]" key-tone="[[key]]" music-mode="[[mode]]"></key-leaf>
+              </key-visual>
             </template>
             <joievent-canon></joievent-canon>
           </keyboard-visual>
@@ -61,7 +67,7 @@
 
       <keyboard-listener></keyboard-listener>
 
-      <audio-container id="audioPlayer" chord-mode="[[chordMode]]" key="C" octave="4" mode="major">
+      <audio-container id="audioPlayer" key="{{key}}" octave="4" mode="{{mode}}">
         <html-loader href="../maps/audio-set1.html"></html-loader>
       </audio-container>
 
@@ -90,16 +96,25 @@
             keyArray: {
               type: Array,
               value: function () {
-                return [
-                  "KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "BracketLeft", "BracketRight",
-                  "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "Semicolon", "Quote",
-                  "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Comma", "Period", "Slash"
-                ]
+                return []
               }
+            },
+            key: {
+              type: String,
+              value: "C"
+            },
+            mode: {
+              type: String,
+              value: "major"
             },
             chordMode: Boolean
           }
         }
+      }
+
+      _genKeyArray(e) {
+        this.keyArray = e.detail.response;
+        this.notifyPath("keyArray");
       }
     }
     customElements.define(MyApp.is, MyApp);

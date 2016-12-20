@@ -1,0 +1,167 @@
+[ 
+  {
+    "code": "KeyQ",
+    "tone": "2",
+    "octave": "-1"
+  },
+  {
+    "code": "KeyW",
+    "tone": "4",
+    "octave": "-1"
+  },
+  {
+    "code": "KeyE",
+    "tone": "6",
+    "octave": "-1"
+  },
+  {
+    "code": "KeyR",
+    "tone": "1",
+    "octave": "0"
+  },
+  {
+    "code": "KeyT",
+    "tone": "3",
+    "octave": "0"
+  },
+  {
+    "code": "KeyY",
+    "tone": "4",
+    "octave": "0"
+  },
+  {
+    "code": "KeyU",
+    "tone": "6",
+    "octave": "0"
+  },
+  {
+    "code": "KeyI",
+    "tone": "1",
+    "octave": "1"
+  },
+  {
+    "code": "KeyO",
+    "tone": "3",
+    "octave": "1"
+  },
+  {
+    "code": "KeyP",
+    "tone": "5",
+    "octave": "1"
+  },
+  {
+    "code": "BracketLeft",
+    "tone": "0",
+    "octave": "2"
+  },
+  {
+    "code": "BracketRight",
+    "tone": "2",
+    "octave": "2"
+  },
+  {
+    "code": "KeyA",
+    "tone": "3",
+    "octave": "-1"
+  },
+  {
+    "code": "KeyS",
+    "tone": "5",
+    "octave": "-1"
+  },
+  {
+    "code": "KeyD",
+    "tone": "0",
+    "octave": "0"
+  },
+  {
+    "code": "KeyF",
+    "tone": "2",
+    "octave": "0"
+  },
+  {
+    "code": "KeyG",
+    "tone": "4",
+    "octave": "0"
+  },
+  {
+    "code": "KeyH",
+    "tone": "5",
+    "octave": "0"
+  },
+  {
+    "code": "KeyJ",
+    "tone": "0",
+    "octave": "1"
+  },
+  {
+    "code": "KeyK",
+    "tone": "2",
+    "octave": "1"
+  },
+  {
+    "code": "KeyL",
+    "tone": "4",
+    "octave": "1"
+  },
+  {
+    "code": "Semicolon",
+    "tone": "6",
+    "octave": "1"
+  },
+  {
+    "code": "Quote",
+    "tone": "1",
+    "octave": "2"
+  },
+  {
+    "code": "KeyZ",
+    "tone": "4",
+    "octave": "-1"
+  },
+  {
+    "code": "KeyX",
+    "tone": "6",
+    "octave": "-1"
+  },
+  {
+    "code": "KeyC",
+    "tone": "1",
+    "octave": "0"
+  },
+  {
+    "code": "KeyV",
+    "tone": "3",
+    "octave": "0"
+  },
+  {
+    "code": "KeyB",
+    "tone": "5",
+    "octave": "0"
+  },
+  {
+    "code": "KeyN",
+    "tone": "0",
+    "octave": "1"
+  },
+  {
+    "code": "KeyM",
+    "tone": "2",
+    "octave": "1"
+  },
+  {
+    "code": "Comma",
+    "tone": "4",
+    "octave": "1"
+  },
+  {
+    "code": "Period",
+    "tone": "6",
+    "octave": "1"
+  },
+  {
+    "code": "Slash",
+    "tone": "1",
+    "octave": "1"
+  }
+]
