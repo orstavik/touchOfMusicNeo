@@ -1,3 +1,5 @@
+<link rel="import" href="joi-comparator.html">
+
 <dom-module id="game-judge">
   <template>
     <style>
@@ -8,6 +10,9 @@
 
     <slot on-tick="_countTick" on-key-down="_onKeyDown" on-key-up="_onKeyUp" on-key-stroke="_onKeyStroke"
           on-key-pause-end="_onKeyPause" on-joievent="_holdEvents"></slot>
+
+    <joi-comparator array-one="[[joiOne]]" array-two="[[keyLog]]"></joi-comparator>
+      
   </template>
 
   <script>
@@ -19,6 +24,16 @@
       static get config() {
         return {
           properties: {
+            input: {
+              type: String,
+              observer: "_inputChange"
+            },
+            joiOne: {
+              type: Array,
+              value: function() {
+                return []
+              }
+            },
             ticksPerTurn: {
               type: Number,
               value: 10
@@ -41,14 +56,22 @@
                 return [];
               }
             },
-            keysBuffer: {
+            keyLog: {
               type: Array,
-              value: function () {
-                return [];
+              value: function() {
+                return []
               }
             }
           }
         }
+      }
+
+      _inputChange() {
+        const joi = {};
+        joi["id0"] = JOI.parse(this.input);
+        this.joiOne = joi["id0"];
+        this.querySelector("joievent-player").setScenario(joi["id0"]);
+        this.querySelector("#scenario").scenario = joi["id0"];
       }
 
       _holdEvents(e) {
@@ -71,7 +94,7 @@
           let evt = this.heldEvents[hostage];
           evt.ticksLeft--;
           if (evt.ticksLeft <= 0) {
-            this.dispatchEvent(new CustomEvent(evt.event.type, evt.event));
+            this.querySelector("joievent-player").releaseNextEvent(evt.event);
             delete this.heldEvents[hostage];
           }
         }
@@ -93,7 +116,9 @@
       }
 
       _onKeyStroke(e){
-        console.log(e.detail.code + ", " + Math.round(e.detail.duration*100)/100);
+        this.keyLog.push(e.detail);
+        this.notifyPath("keyLog");
+        // console.log(e.detail.code + ", " + Math.round(e.detail.duration*100)/100);
         //if the key stroke is correct, then create a beam
         if (this._checkIfHeldKeysMatchesWhatYouAreHopingFor(e))
           this.querySelector("#beams").prepareBeam(e.detail.code);

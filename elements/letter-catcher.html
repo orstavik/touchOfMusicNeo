@@ -48,13 +48,13 @@
           properties: {
             scenario: {
               type: Array
-            }
-          },
-          timeStamp: {
-            type: Number,
-            value: 0
-          },
-          tempo: Number
+            },
+            timeStamp: {
+              type: Number,
+              value: 0
+            },
+            tempo: Number
+          }
         }
       }
 
@@ -74,6 +74,15 @@
           current.current = false;
         letter.current = true;
         this.timeStamp = e.timeStamp;
+      }
+
+      _slideUp(letter) {
+        let wRect = this.$.letterWrapper.getBoundingClientRect();
+        let lRect = letter.getBoundingClientRect();
+        let diff = wRect.height/2-letter.offsetTop;
+        if (diff < 0) {
+          letter.parentNode.style.transform = "translateY("+(diff-lRect.height/2)+"px)";
+        }
       }
     }
     customElements.define(LetterCatcher.is, LetterCatcher);

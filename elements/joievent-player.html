@@ -6,7 +6,7 @@
       }
     </style>
 
-    <slot on-joievent="_fireNextEvent"></slot>
+    <slot></slot>
 
   </template>
 
@@ -19,13 +19,6 @@
       static get config() {
         return {
           properties: {
-            input: {
-              type: String,
-              observer: "_inputChange"
-            },
-            // eventName: {
-            //   type: String
-            // },
             _joi: {
               type: Object,
               value: function () {
@@ -40,18 +33,15 @@
         }
       }
 
-      _inputChange() {
-        // this._joi = JOI.parse(this.input);
-        this._joi = {};
-        this._joi["id0"] = JOI.parse(this.input);
-        this.querySelector("#scenario").scenario = this._joi["id0"];
+      setScenario(joiArray) {
+        this._joi["id0"] = joiArray;
         this.eventIDS = 0;
         setTimeout(function () {
           this._fireEventNumber("id0");
         }.bind(this), 0);
       }
 
-      _fireNextEvent(e) {
+      releaseNextEvent(e) {
         this._fireEventNumber(e.detail.id);
       }
 

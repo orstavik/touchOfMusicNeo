@@ -38,9 +38,9 @@
       Play chords:<input type="checkbox" checked="{{chordMode::change}}"><br />
     </div>
 
-    <joievent-player input="[[scenario]]" id="joiplayer">
+    <game-judge id="judge" input="[[scenario]]">
 
-      <game-judge id="judge">
+      <joievent-player id="joiplayer">
         <letter-catcher id="scenario" tempo="[[tempo]]">
           <joievent-canon></joievent-canon>
         </letter-catcher>
@@ -55,18 +55,17 @@
 
           <monster-container id="monster"></monster-container>
         </beam-constructor>
+      </joievent-player>
 
-        <tempo-timer tempo="[[tempo]]" id="timer"></tempo-timer>
+      <tempo-timer tempo="[[tempo]]" id="timer"></tempo-timer>
 
-        <keyboard-listener></keyboard-listener>
-
+      <keyboard-listener></keyboard-listener>
 
       <audio-container id="audioPlayer" chord-mode="[[chordMode]]" key="C" octave="4" mode="major">
         <html-loader href="../maps/audio-set1.html"></html-loader>
       </audio-container>
-      </game-judge>
 
-    </joievent-player>
+    </game-judge>
 
   </template>
 
