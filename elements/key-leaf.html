@@ -12,12 +12,12 @@
         display: inline-block;
         box-sizing: border-box;
         position: absolute;
-        border: 1px solid;
         border-bottom-left-radius: 50%;
         border-bottom-right-radius: 50%;
         border-top-right-radius: 50%;
         transform: rotate(45deg);
         transition-duration: 0.5s;
+        box-shadow: 0 0 3px 0px black;
       }
       #lowerLeaf {
         width: 90%;
@@ -43,30 +43,36 @@
       static get config() {
         return {
           properties: {
-            toneNumber: Number,
-            keyTone: {
-              type: String,
-              // observer: "_keyToneChange"
+            toneNumber: {
+              type: Number,
+              observer: "_applyUpperStyle"
             },
+            keyTone: String,
             musicMode: String,
-            upperNumber: Number,
             lowerNumber: {
               type: Number,
               reflectToAttribute: true,
-              // observer: "_applyLowerStyle"
+              computed: "_getLowerNumber(musicMode, keyTone, toneNumber)",
+              observer: "_applyLowerStyle"
             },
           }
         }
       }
 
-      _keyToneChange() {
-        this.lowerNumber = this.notes12.indexOf(this.keyTone)+Number(this.toneNumber);
+      _getLowerNumber(mode, key, tone) {
+        return MusicScale.getTwelveToneNumberFromSevenToneNumber(mode, key, tone);
       }
 
       _applyLowerStyle() {
         this.$.lowerLeaf.style.cssText = 
           "transform: rotate("+(45+360/12*this.lowerNumber)+"deg);"+
-          "background: hsl("+this.lowerNumber+", 100, 50)";
+          "background: hsl("+(360/12*this.lowerNumber)+", 100%, 50%);";
+      }
+
+      _applyUpperStyle() {
+        this.$.upperLeaf.style.cssText = 
+          "transform: rotate("+(45+360/7*this.toneNumber)+"deg);"+
+          "background: hsl("+(360/7*this.toneNumber)+", 100%, 50%);";
       }
     }
     customElements.define(KeyLeaf.is, KeyLeaf);

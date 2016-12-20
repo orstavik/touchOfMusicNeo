@@ -159,7 +159,7 @@
         let scale = MusicScale.staticScales[modeNumber];
         let modeValue = scale[0][zeroToSix];
         let keyNumber = MusicScale.twelveNotes.indexOf(key);
-        return modeValue + keyNumber % 12;
+        return (modeValue + keyNumber) % 12;
       }
 
       //direction = 360/7*toneNumberZeroToSix;
