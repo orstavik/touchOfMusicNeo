@@ -14,7 +14,7 @@
     <slot></slot>
 
     <music-clef-visual mode="[[mode]]" key="[[key]]" scale="[[activeScale]]">
-      <music-clef id="chords" octave="{{octave}}" scale="{{activeScale}}" mode="{{mode}}"
+      <music-clef id="clef" octave="{{octave}}" scale="{{activeScale}}" mode="{{mode}}"
                   key="{{key}}"></music-clef>
     </music-clef-visual>
     <audio-data id="piano88" path="../audio/tones/piano/" amount=88 type="mp3"></audio-data>
@@ -83,50 +83,41 @@
           return false;
         switch (command.dataset.command) {
           case "turnKeyLeft":
-            this.$.chords.turnKeyLeft();
+            this.$.clef.turnKeyLeft();
             return true;
           case "turnKeyRight":
-            this.$.chords.turnKeyRight();
+            this.$.clef.turnKeyRight();
             return true;
           case "turnModusLeft":
-            this.$.chords.turnModusLeft();
+            this.$.clef.turnModusLeft();
             return true;
           case "turnModusRight":
-            this.$.chords.turnModusRight();
+            this.$.clef.turnModusRight();
             return true;
         }
         return false;
       }
 
       playKeys(press, arrayOfKeys) {
-//        for (let key of arrayOfKeys) {
-//          if (this.checkForCommands(key.code) == 1)
-//            sharpen = 1;
-//        }
-        this._keysPress(press, arrayOfKeys);
+        if (!press)
+          return;
+
+        if (this.checkForCommands(press))
+          return;
+
+        if (this.chordMode && this.playChord(press))
+          return;
+
+        let div = this.querySelector("[data-tone][data-key=" + press + "]");
+        if (!div)
+          return;
+        let tone = this.$.clef.getTone(Number(div.dataset.tone), Number(div.dataset.octave))
+                  + this.addSharpen(arrayOfKeys);
+        this.playTone(tone, 0);
       }
 
       playFailure() {
         this.$.player.playTone(this.$.piano88.getOther('failure'));
-      }
-
-      _keysPress(key, arrayOfKeys) {
-        if (!key)
-          return;
-
-        if (this.checkForCommands(key))
-          return;
-
-        if (this.chordMode && this.playChord(key))
-          return;
-
-        let div = this.querySelector("[data-tone][data-key=" + key + "]");
-        if (!div)
-          return;
-        let tone = this.$.chords.getTone(Number(div.dataset.tone), Number(div.dataset.octave));
-        tone += this.addSharpen(arrayOfKeys);
-        console.log(tone);
-        this.playTone(tone, 0);
       }
 
       playChord(key) {
@@ -134,7 +125,7 @@
         if (!div)
           return false;
 
-        let codes = this.$.chords.getChord(Number(div.dataset.chord), Number(div.dataset.octave));
+        let codes = this.$.clef.getChord(Number(div.dataset.chord), Number(div.dataset.octave));
         codes.forEach(function (code) {
           this.playTone(code);
         }.bind(this));
