@@ -191,6 +191,11 @@
         }
       }
 
+      getToneNumber(code) {
+        let node = this.querySelector("[data-key='"+code+"']");
+        return node.dataset.tone;
+      }
+
 			highlightKeys(pressed) {
         var keyElem = this.querySelector("[code="+pressed+"]");
         if (keyElem) {
