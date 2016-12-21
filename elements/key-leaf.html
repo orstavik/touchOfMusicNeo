@@ -63,23 +63,29 @@
       }
 
       _applyLowerStyle() {
-        this.$.lowerLeaf.style.cssText = 
-          "transform: rotate("+(45+360/12*this.lowerNumber)+"deg);"+
+        let keyNumber = MusicScale.getNotePositionNormal(this.keyTone);
+        let rotation = (this.lowerNumber+keyNumber)%12;
+        console.log(rotation);
+        this.$.upperLeaf.style.cssText =
+          "transform: rotate("+(45+360/12*rotation)+"deg);"+
           "background: hsl("+(KeyLeaf.toneColor(this.lowerNumber))+", 100%, 50%);";
       }
 
       _applyUpperStyle() {
-        this.$.upperLeaf.style.cssText = 
+        this.$.lowerLeaf.style.cssText =
           "transform: rotate("+(45+360/7*this.toneNumber)+"deg);"+
-          "background: hsl("+(KeyLeaf.toneColor(this.toneNumber*12/7))+", 100%, 50%);";
+          "background: hsl("+(KeyLeaf.toneColor(this.lowerNumber))+", 50%, 50%);";
+//          "background: hsl("+(KeyLeaf.toneColor(this.toneNumber*12/7))+", 50%, 50%);";
       }
 
       static toneColor(num) {
-        //let nearest = Math.round(num);
-        //let diff = nearest - num;
+//        return 360 / 12 * num;
+        let nearest = Math.round(num);
+        let color = MusicScale.getWheelOf5Number(MusicScale.twelveNotes[nearest]);
+        let diff = nearest - num;
+        return color *30 + diff*30;
         //use nearest to get color.
         //use diff to get distortion
-        return 360 / 12 * num;
       }
     }
     customElements.define(KeyLeaf.is, KeyLeaf);
