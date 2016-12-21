@@ -2,48 +2,33 @@
   <template>
     <style>
       :host {
-        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         position: absolute;
-        top: 100px;
-        left: 100px;
-      }
-
-      #tone {
+        width: 16vh;
+        height: 16vh;
+        border-bottom-left-radius: 50%;
+        border-bottom-right-radius: 50%;
+        border-top-right-radius: 50%;
         transform-origin: left top;
-        height: 100px; width: 60px;
+        transition-duration: 0.5s;
+        box-shadow: 0 0 5px 0 black;
       }
 
       /*.colorClock0 { background-image: url(../images/flower/1126.png); background-size: cover; }*/
-      .colorClock0 { background-color: hsl(0, 100%, 50%); }
-      .colorClock1 { background-color: hsl(30, 100%, 50%); }
-      .colorClock2 { background-color: hsl(60, 100%, 50%); }
-      .colorClock3 { background-color: hsl(90, 100%, 50%); }
-      .colorClock4 { background-color: hsl(120, 100%, 50%); }
-      .colorClock5 { background-color: hsl(150, 100%, 50%); }
-      .colorClock6 { background-color: hsl(180, 100%, 50%); }
-      .colorClock7 { background-color: hsl(210, 100%, 50%); }
-      .colorClock8 { background-color: hsl(240, 100%, 50%); }
-      .colorClock9 { background-color: hsl(270, 100%, 50%); }
-      .colorClock10 { background-color: hsl(300, 100%, 50%); }
-      .colorClock11 { background-color: hsl(330, 100%, 50%); }
-
-      .oClock0 { transform: rotate(0deg);}
-      .oClock1 { transform: rotate(30deg);}
-      .oClock2 { transform: rotate(60deg);}
-      .oClock3 { transform: rotate(90deg);}
-      .oClock4 { transform: rotate(120deg);}
-      .oClock5 { transform: rotate(150deg);}
-      .oClock6 { transform: rotate(180deg);}
-      .oClock7 { transform: rotate(210deg);}
-      .oClock8 { transform: rotate(240deg);}
-      .oClock9 { transform: rotate(270deg);}
-      .oClock10 { transform: rotate(300deg);}
-      .oClock11 { transform: rotate(330deg);}
-
-      .seven0, .seven3, .seven4 {transform: scale(1)}
-      .seven1, .seven2, .seven5 {transform: scale(0.6)}
-      .seven6 {transform: scale(0.4)}
-      .seven-1 {transform: scale(0.05)}
+      :host(.colorClock0) { background-color: hsla(0, 100%, 50%, 0.75); }
+      :host(.colorClock1) { background-color: hsla(30, 100%, 50%, 0.75); }
+      :host(.colorClock2) { background-color: hsla(60, 100%, 50%, 0.75); }
+      :host(.colorClock3) { background-color: hsla(90, 100%, 50%, 0.75); }
+      :host(.colorClock4) { background-color: hsla(120, 100%, 50%, 0.75); }
+      :host(.colorClock5) { background-color: hsla(150, 100%, 50%, 0.75); }
+      :host(.colorClock6) { background-color: hsla(180, 100%, 50%, 0.75); }
+      :host(.colorClock7) { background-color: hsla(210, 100%, 50%, 0.75); }
+      :host(.colorClock8) { background-color: hsla(240, 100%, 50%, 0.75); }
+      :host(.colorClock9) { background-color: hsla(270, 100%, 50%, 0.75); }
+      :host(.colorClock10) { background-color: hsla(300, 100%, 50%, 0.75); }
+      :host(.colorClock11) { background-color: hsla(330, 100%, 50%, 0.75); }
 
       img{
         height: 100%;
@@ -56,16 +41,16 @@
         margin-top: 18%;
       }
       #toneText {
-        margin-top: -2.4em;
-        margin-left: 0.8em;
-        color: white;
+        color: black;
+        font-size: 4vh;
+        transform: rotate(-45deg);
       }
 
     </style>
-    <div id="tone" class$="[[_getRotationClass(tone, key)]]">
-      <img class$="seven[[toneSeven]] [[_getColorClass(tone)]]" alt="[[tone]]" /> <!-- src="[[_getImage(tone)]]"-->
-      <div id="toneText" class$="seven[[toneSeven]]">[[tone]]</div>
-    </div>
+
+    <!--<img class$="seven[[toneSeven]] [[_getColorClass(tone)]]" alt="[[tone]]" /> src="[[_getImage(tone)]]"-->
+    <div id="toneText" class$="seven[[toneSeven]]">[[tone]]</div>
+
   </template>
   <script>
 
@@ -80,21 +65,44 @@
             tone: String,
             toneSeven: Number,
             key: String,
-          }
+          },
+          observers: ["_setStyle(tone,toneSeven,key)"]
         }
       }
 
-      _getImage(tone){
-        let col = MusicToneVisual.makeColorDegree(tone)+1;
-        return "../images/flower3/"+col+"p.png";
+      constructor() {
+        super();
+        super.ready();
       }
+
+      connectedCallback() {
+        this._setStyle(this.tone, this.toneSeven, this.key);
+      }
+
+      _setStyle(tone, toneSeven, key) {
+        this.classList.add(this._getColorClass(tone));
+        this.style.transform = "rotate("+(45+this._getRotation())+"deg) translate(1.6vh, 1.6vh) scale("+this._getScale()+")";
+      }
+
+      _getRotation() {
+        let n = (MusicToneVisual.makeToneRotation(this.tone)+6)%12;
+        return n*30;
+      }
+
+      _getScale() {
+        if (this.toneSeven == 0 || this.toneSeven == 3 || this.toneSeven == 4) return 1;
+        else if (this.toneSeven == 1 || this.toneSeven == 2 || this.toneSeven == 5) return 0.6;
+        else if (this.toneSeven == 6) return 0.4;
+        else if (this.toneSeven == -1) return 0;
+      }
+
+      // _getImage(tone){
+      //   let col = MusicToneVisual.makeColorDegree(tone)+1;
+      //   return "../images/flower3/"+col+"p.png";
+      // }
 
       _getColorClass(tone){
         return "colorClock" + MusicToneVisual.makeColorDegree(tone);
-      }
-
-      _getRotationClass(tone, key){
-        return "oClock" + MusicToneVisual.makeToneRotation(tone);
       }
 
       static makeColorDegree(tone){
