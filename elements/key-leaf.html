@@ -75,7 +75,8 @@
       _applyUpperStyle() {
         this.$.lowerLeaf.style.cssText =
           "transform: rotate("+(45+360/7*this.toneNumber)+"deg);"+
-          "background: hsl("+(KeyLeaf.toneColor(this.toneNumber*12/7))+", 100%, 50%);";
+          "background: hsl("+(KeyLeaf.toneColor(this.lowerNumber))+", 50%, 50%);";
+//          "background: hsl("+(KeyLeaf.toneColor(this.toneNumber*12/7))+", 50%, 50%);";
       }
 
       static toneColor(num) {
