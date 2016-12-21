@@ -20,8 +20,8 @@
         box-shadow: 0 0 3px 0px black;
       }
       #lowerLeaf {
-        width: 90%;
-        height: 90%;
+        width: 82%;
+        height: 82%;
       }
       #upperLeaf {
         width: 75%;
@@ -61,16 +61,13 @@
       }
 
       _applyStyles() {
-        let rotation = (this.toneObject.tonePosition+12-this.toneObject.keyPosition)%12;
-//        console.log(rotation);
-        let shade = 50 + Math.round(this.toneObject.harmonyDistance * 50);
-        console.log(shade);
+        let shade = 50;
         this.$.upperLeaf.style.cssText =
-          "transform: rotate("+(45+360/12*rotation)+"deg);"+
-          "background: hsl("+((this.toneObject.color ))+", 50%, 50%);";
+          "transform: rotate("+(45+360/12*this.toneObject.tonePositionRelativeToKey)+"deg);"+
+          "background: hsl("+ this.toneObject.color +", 50%, 50%);";
         this.$.lowerLeaf.style.cssText =
-          "transform: rotate("+(45+360/7*this.toneNumber)+"deg);"+
-          "background: hsl("+((this.toneObject.color)+this.toneObject.harmonyDistance*30)+", "+shade+"%, 50%);";
+          "transform: rotate(45deg);"+
+          "background: hsl("+this.toneObject.keyColor+", "+shade+"%, 50%);";
       }
 
     }

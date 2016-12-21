@@ -19,14 +19,17 @@
         this.toneName = MusicScale.twelveNotes[this.tonePosition];
         this.keyName = key;
         this.keyPosition = MusicScale.getNotePositionNormal(key);
+        this.tonePositionRelativeToKey = (this.tonePosition+12-this.keyPosition)%12;
         this.modeName = mode;
         this.zeroToSix = Number(zeroToSix);
-        this.tonePositionWheelOf5th = MusicScale.getWheelOf5Number(this.toneName);
 
+        this.tonePositionWheelOf5th = MusicScale.getWheelOf5Number(this.toneName);
+        this.keyPositionWheelOf5th = MusicScale.getWheelOf5Number(this.keyName);
         this.color = this.tonePositionWheelOf5th *30;
-        let number = this.zeroToSix * 12/7;
-        let number2 = ((this.tonePosition+12-this.keyPosition)%12);
-        this.harmonyDistance = number - number2;
+        this.keyColor = this.keyPositionWheelOf5th *30;
+        let plusMinus86 = (this.zeroToSix * 12/7 - this.tonePositionRelativeToKey)*100;
+        this.sevenHarmonyPercent = (Math.round(plusMinus86+86+28)/2);
+        console.log(this.sevenHarmonyPercent);
       }
     }
 
