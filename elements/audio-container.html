@@ -47,98 +47,25 @@
               reflectToAttribute: true,
               notify: true
             },
-            chordMode: {
-              type: Boolean,
-              value: false
-            },
             commands: Object
           }
         }
-      }
-
-      getCommands() {
-        //todo this check does not run when new dom elements are added or removed from the dom
-        if (this.commands == undefined) {
-          let divs = this.querySelectorAll("[data-command][data-key]");
-          this.commands = {};
-          for (let div of divs)
-            this.commands[div.dataset.key] = div;
-        }
-        return this.commands;
-      }
-
-      addSharpen(arrayOfKeys) {
-        let commands = this.getCommands();
-        for (let key of arrayOfKeys) {
-          if (commands[key] && commands[key].dataset.command == "sharpen")
-            return 1;
-        }
-        return 0;
-      }
-
-      checkForCommands(code) {
-        // let commands = this.getCommands();
-        // let command = commands[key];
-        // if (!command)
-        //   return false;
-        switch (code) {
-          case "Tab":
-            this.$.clef.turnKeyLeft();
-            return true;
-          case "Enter":
-            this.$.clef.turnKeyRight();
-            return true;
-          case "Backquote":
-            this.$.clef.turnModusLeft();
-            return true;
-          case "Backspace":
-            this.$.clef.turnModusRight();
-            return true;
-        }
-        return false;
-      }
-
-      playKeys(code, tone, octave, arrayOfKeys) {
-        if (!code)
-          return;
-
-        if (this.checkForCommands(code))
-          return;
-
-        if (this.chordMode && this.playChord(code))
-          return;
-
-        // let div = this.querySelector("[data-tone][data-key=" + code + "]");
-        // if (!div)
-        //   return;
-        // let tone = this.$.clef.getTone(Number(div.dataset.tone), Number(div.dataset.octave))
-        //           + this.addSharpen(arrayOfKeys);
-        if (!tone)
-          return;
-        var trueTone = this.$.clef.getTone(Number(tone), Number(octave))+ this.addSharpen(arrayOfKeys);
-        this.playTone(trueTone, 0);
       }
 
       playFailure() {
         this.$.player.playTone(this.$.piano88.getOther('failure'));
       }
 
-      playChord(key) {
-        let div = this.querySelector("[data-chord][data-key=" + key + "]");
-        if (!div)
-          return false;
+      playTone(code) {
+        this.$.player.playTone(this.getPianoSound(code));
+        console.log(MusicScale.getTwelveNotesName(code % 12) + ": " + (Math.floor(code / 12)));
+      }
 
-        let codes = this.$.clef.getChord(Number(div.dataset.chord), Number(div.dataset.octave));
-        codes.forEach(function (code) {
+      playTones(codes) {
+        codes.forEach(function(code) {
           this.playTone(code);
         }.bind(this));
         return true;
-      }
-
-      playTone(code) {
-        this.$.player.playTone(this.getPianoSound(code));
-        console.log(MusicScale.getTwelveNotesName(code % 12) + ": " + (Math.floor(code / 12))
-        );
       }
 
       //the 88 key piano starts with A, A#, B at the far right, hence -9

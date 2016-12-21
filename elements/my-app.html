@@ -42,7 +42,7 @@
                handle-as="json"
                on-response="_genKeyArray" auto></iron-ajax>
 
-    <game-judge id="judge" input="[[scenario]]">
+    <game-judge id="judge" input="[[scenario]]" chord-mode="[[chordMode]]">
 
       <joievent-player id="joiplayer">
         <letter-catcher id="scenario" tempo="[[tempo]]">
@@ -68,7 +68,7 @@
       <keyboard-listener></keyboard-listener>
 
       <audio-container id="audioPlayer" key="{{key}}" octave="4" mode="{{mode}}">
-        <!--<html-loader href="../maps/audio-set1.html"></html-loader>-->
+        <html-loader href="../maps/audio-set1.html"></html-loader>
       </audio-container>
 
     </game-judge>
