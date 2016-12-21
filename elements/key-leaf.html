@@ -63,8 +63,8 @@
 
       _applyStyles() {
         let rotation = (this.toneObject.tonePosition+12-this.toneObject.keyPosition)%12;
-        console.log(rotation);
-        console.log(+ this.toneObject.harmonyDistance *30);
+//        console.log(rotation);
+        console.log(this.toneObject.harmonyDistance);
         this.$.upperLeaf.style.cssText =
           "transform: rotate("+(45+360/12*rotation)+"deg);"+
           "background: hsl("+((this.toneObject.color ))+", 100%, 50%);";

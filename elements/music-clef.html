@@ -20,11 +20,13 @@
         this.keyName = key;
         this.keyPosition = MusicScale.getNotePositionNormal(key);
         this.modeName = mode;
-        this.zeroToSix = zeroToSix;
+        this.zeroToSix = Number(zeroToSix);
         this.tonePositionWheelOf5th = MusicScale.getWheelOf5Number(this.toneName);
 
         this.color = this.tonePositionWheelOf5th *30;
-        this.harmonyDistance = zeroToSix * 12/7 - this.tonePosition;
+        let number = this.zeroToSix * 12/7;
+        let number2 = ((this.tonePosition+12-this.keyPosition)%12);
+        this.harmonyDistance = number - number2;
       }
     }
 
