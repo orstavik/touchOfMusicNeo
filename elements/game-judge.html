@@ -124,12 +124,12 @@
           octave = Number(node.octave);
         };
         
-        if (!tone) return;
+        if (!tone && tone != 0) return;
 
         if (this.chordMode && this._playChord(tone, octave))
           return;
 
-        var trueTone = this.querySelector("#audioPlayer").$.clef.getTone(tone, octave) + sharp;
+        var trueTone = this.querySelector("#clef").getTone(tone, octave) + sharp;
         this.querySelector("#audioPlayer").playTone(trueTone);
         keyboard.highlightKeys(e.detail.code);
       }
@@ -156,16 +156,16 @@
       _checkForCommands(code) {
         switch (code) {
           case "Tab":
-            this.querySelector("#audioPlayer").$.clef.turnKeyLeft();
+            this.querySelector("#clef").turnKeyLeft();
             return true;
           case "Enter":
-            this.querySelector("#audioPlayer").$.clef.turnKeyRight();
+            this.querySelector("#clef").turnKeyRight();
             return true;
           case "Backquote":
-            this.querySelector("#audioPlayer").$.clef.turnModusLeft();
+            this.querySelector("#clef").turnModusLeft();
             return true;
           case "Backspace":
-            this.querySelector("#audioPlayer").$.clef.turnModusRight();
+            this.querySelector("#clef").turnModusRight();
             return true;
         }
         return false;
@@ -180,7 +180,7 @@
       }
 
       _playChord(tone, octave) {
-        let codes = this.querySelector("#audioPlayer").$.clef.getChord(tone, octave);
+        let codes = this.querySelector("#clef").getChord(tone, octave);
         this.querySelector("#audioPlayer").playTones(codes);
       }
 

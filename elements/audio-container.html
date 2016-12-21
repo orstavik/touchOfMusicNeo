@@ -1,7 +1,5 @@
 <link rel="import" href="audio-data.html">
 <link rel="import" href="audio-player.html">
-<link rel="import" href="music-clef-visual.html">
-<link rel="import" href="music-clef.html">
 
 <dom-module id="audio-container">
   <template>
@@ -13,10 +11,6 @@
 
     <slot></slot>
 
-    <music-clef-visual mode="[[mode]]" key="[[key]]" scale="[[activeScale]]">
-      <music-clef id="clef" octave="{{octave}}" scale="{{activeScale}}" mode="{{mode}}"
-                  key="{{key}}"></music-clef>
-    </music-clef-visual>
     <audio-data id="piano88" path="../audio/tones/piano/" amount=88 type="mp3"></audio-data>
     <audio-player id="player"></audio-player>
 
@@ -31,24 +25,7 @@
 
       static get config() {
         return {
-          properties: {
-            tone: {
-              type: String,
-              reflectToAttribute: true
-            },
-            octave: Number,
-            mode: {
-              type: String,
-              reflectToAttribute: true,
-              notify: true
-            },
-            key: {
-              type: String,
-              reflectToAttribute: true,
-              notify: true
-            },
-            commands: Object
-          }
+          properties: {}
         }
       }
 
