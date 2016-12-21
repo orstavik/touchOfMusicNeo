@@ -76,11 +76,13 @@
       }
 
       static toneColor(num) {
-        //let nearest = Math.round(num);
+//        return 360 / 12 * num;
+        let nearest = Math.round(num);
+        let color = MusicScale.getWheelOf5Number(MusicScale.twelveNotes[nearest]);
+        return color *30;
         //let diff = nearest - num;
         //use nearest to get color.
         //use diff to get distortion
-        return 360 / 12 * num;
       }
     }
     customElements.define(KeyLeaf.is, KeyLeaf);
