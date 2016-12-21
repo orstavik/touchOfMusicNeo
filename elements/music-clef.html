@@ -59,8 +59,8 @@
         return MusicScale.getNotePositionNormal(key);
       }
 
-      getTone(oneToSeven, oct) {
-        return (Number(this.octave) + oct) * 12 + this.baseNote + this.$.scale.getSevenNoteTone(oneToSeven - 1);
+      getTone(zeroToSix, oct) {
+        return (Number(this.octave) + oct) * 12 + this.baseNote + this.$.scale.getSevenNoteTone(zeroToSix);
       }
 
       //todo need to integrate the major II chord and major III chord from the hooktheory article

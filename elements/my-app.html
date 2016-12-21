@@ -52,7 +52,7 @@
         <beam-constructor id="beams">
           <keyboard-visual id="keyboard">
             <template is="dom-repeat" items="[[keyArray]]">
-              <key-visual code$="[[item.code]]">
+              <key-visual code$="[[item.code]]" tone="[[item.tone]]" octave="[[item.octave]]">
                 <key-leaf tone-number="[[item.tone]]" key-tone="[[key]]" music-mode="[[mode]]"></key-leaf>
               </key-visual>
             </template>
@@ -68,7 +68,7 @@
       <keyboard-listener></keyboard-listener>
 
       <audio-container id="audioPlayer" key="{{key}}" octave="4" mode="{{mode}}">
-        <html-loader href="../maps/audio-set1.html"></html-loader>
+        <!--<html-loader href="../maps/audio-set1.html"></html-loader>-->
       </audio-container>
 
     </game-judge>

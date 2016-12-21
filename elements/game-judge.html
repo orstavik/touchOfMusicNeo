@@ -106,8 +106,16 @@
       }
 
       _onKeyDown(e){
-        this.querySelector("#audioPlayer").playKeys(e.detail.code, e.detail.heldKeys);
-        this.querySelector("#keyboard").highlightKeys(e.detail.code);
+        var keyboard = this.querySelector("#keyboard");
+        var node = keyboard.querySelector("key-visual[code='"+e.detail.code+"']");
+        var tone, octave;
+        if (node) {
+          tone = node.tone;
+          octave = node.octave;
+        };
+        this.querySelector("#audioPlayer").playKeys(e.detail.code, tone, octave, e.detail.heldKeys);
+        // this.querySelector("#audioPlayer").playKeys(e.detail.code, e.detail.heldKeys);
+        keyboard.highlightKeys(e.detail.code);
       }
 
       _onKeyUp(e){

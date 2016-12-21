@@ -76,44 +76,47 @@
         return 0;
       }
 
-      checkForCommands(key) {
-        let commands = this.getCommands();
-        let command = commands[key];
-        if (!command)
-          return false;
-        switch (command.dataset.command) {
-          case "turnKeyLeft":
+      checkForCommands(code) {
+        // let commands = this.getCommands();
+        // let command = commands[key];
+        // if (!command)
+        //   return false;
+        switch (code) {
+          case "Tab":
             this.$.clef.turnKeyLeft();
             return true;
-          case "turnKeyRight":
+          case "Enter":
             this.$.clef.turnKeyRight();
             return true;
-          case "turnModusLeft":
+          case "Backquote":
             this.$.clef.turnModusLeft();
             return true;
-          case "turnModusRight":
+          case "Backspace":
             this.$.clef.turnModusRight();
             return true;
         }
         return false;
       }
 
-      playKeys(press, arrayOfKeys) {
-        if (!press)
+      playKeys(code, tone, octave, arrayOfKeys) {
+        if (!code)
           return;
 
-        if (this.checkForCommands(press))
+        if (this.checkForCommands(code))
           return;
 
-        if (this.chordMode && this.playChord(press))
+        if (this.chordMode && this.playChord(code))
           return;
 
-        let div = this.querySelector("[data-tone][data-key=" + press + "]");
-        if (!div)
+        // let div = this.querySelector("[data-tone][data-key=" + code + "]");
+        // if (!div)
+        //   return;
+        // let tone = this.$.clef.getTone(Number(div.dataset.tone), Number(div.dataset.octave))
+        //           + this.addSharpen(arrayOfKeys);
+        if (!tone)
           return;
-        let tone = this.$.clef.getTone(Number(div.dataset.tone), Number(div.dataset.octave))
-                  + this.addSharpen(arrayOfKeys);
-        this.playTone(tone, 0);
+        var trueTone = this.$.clef.getTone(Number(tone), Number(octave))+ this.addSharpen(arrayOfKeys);
+        this.playTone(trueTone, 0);
       }
 
       playFailure() {

@@ -16,16 +16,10 @@
         position: absolute;
         z-index: 1;
         color: black;
-        font-size: 4vh;
+        font-size: 3vh;
         font-family: 'Lato';
         cursor: default;
         pointer-events: none;
-      }
-      :host([pressed]) .wrapper {
-        background: #EC5479;
-        border-radius: 10%;
-        color: #561252;
-        font-weight: bold;
       }
       :host([code='KeyA']) {
         margin-left: 2.5vh;
@@ -65,6 +59,7 @@
 						char: String,
             finger: String,
             tone: Number,
+            octave: Number,
             pressed: {
               type: Boolean,
               value: false,
@@ -81,13 +76,9 @@
 
       connectedCallback() {
         var keyboard = this.parentNode;
-        // this.style.transform = keyboard.giveMeMyPostion(this.getAttribute("code"));
-        // this.children[0].classList.add(keyboard.getShape(this.getAttribute("code")));
 
         this.char = keyboard.keyValues[this.code].key.toUpperCase();
         this.finger = keyboard.fingerInfo[this.code].fingerName();
-        // debugger;
-        // this.tone = keyboard.getToneNumber(this.code);
       }
 
       getRect() {
