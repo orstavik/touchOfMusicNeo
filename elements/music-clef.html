@@ -13,6 +13,23 @@
   </template>
   <script>
 
+    class MusicTone {
+      constructor(key, mode, zeroToSix){
+        this.tonePosition = MusicScale.getTwelveToneNumberFromSevenToneNumber(mode, key, zeroToSix);
+        this.toneName = MusicScale.twelveNotes[this.tonePosition];
+        this.keyName = key;
+        this.keyPosition = MusicScale.getNotePositionNormal(key);
+        this.modeName = mode;
+        this.zeroToSix = Number(zeroToSix);
+        this.tonePositionWheelOf5th = MusicScale.getWheelOf5Number(this.toneName);
+
+        this.color = this.tonePositionWheelOf5th *30;
+        let number = this.zeroToSix * 12/7;
+        let number2 = ((this.tonePosition+12-this.keyPosition)%12);
+        this.harmonyDistance = number - number2;
+      }
+    }
+
     class MusicClef extends Polymer.Element {
       static get is() {
         return "music-clef";
@@ -125,6 +142,10 @@
         this.scale = sevenNotesInScale.map(function(note){
           return MusicScale.getTwelveNotesName((note + basis) % 12);
         });
+      }
+
+      getMusicTone(zeroToSix, key, mode){
+        return new MusicTone(key, mode,  zeroToSix);
       }
     }
     customElements.define(MusicClef.is, MusicClef);
