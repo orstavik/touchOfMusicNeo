@@ -57,20 +57,20 @@
 
       _getToneObj(mode, key, tone) {
         let musicTone = new MusicTone(key, mode, tone);
-        console.log(musicTone);
         return musicTone;
       }
 
       _applyStyles() {
         let rotation = (this.toneObject.tonePosition+12-this.toneObject.keyPosition)%12;
 //        console.log(rotation);
-        console.log(this.toneObject.harmonyDistance);
+        let shade = 50 + Math.round(this.toneObject.harmonyDistance * 50);
+        console.log(shade);
         this.$.upperLeaf.style.cssText =
           "transform: rotate("+(45+360/12*rotation)+"deg);"+
-          "background: hsl("+((this.toneObject.color ))+", 100%, 50%);";
+          "background: hsl("+((this.toneObject.color ))+", 50%, 50%);";
         this.$.lowerLeaf.style.cssText =
           "transform: rotate("+(45+360/7*this.toneNumber)+"deg);"+
-          "background: hsl("+((this.toneObject.color))+", 50%, 50%);";
+          "background: hsl("+((this.toneObject.color)+this.toneObject.harmonyDistance*30)+", "+shade+"%, 50%);";
       }
 
     }
