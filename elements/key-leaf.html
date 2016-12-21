@@ -18,6 +18,8 @@
         transform: rotate(45deg);
         transition-duration: 0.5s;
         box-shadow: 0 0 3px 0px black;
+        font-size: 12px;
+        color: black;
       }
       #lowerLeaf {
         width: 82%;
@@ -27,11 +29,20 @@
         width: 75%;
         height: 75%;
       }
+      .maj {
+        transform: scale(1);
+      }
+      .min {
+        transform: scale(0.75);
+      }
+      .min {
+        transform: scale(0.5);
+      }
     </style>
 
-    <div id="lowerLeaf">[[toneObject.toneName]][[toneObject.chordType]][[toneObject.sevenHarmonyPercent]]</div>
-    <div id="upperLeaf"></div>
-
+    <div id="lowerLeaf"></div>
+    <div id="upperLeaf" class$="[[toneObject.chordType]]">&nbsp;[[toneObject.toneName]]</div>
+    <!--[[toneObject.sevenHarmonyPercent]]-->
   </template>
 
   <script>
@@ -60,12 +71,23 @@
         return musicTone;
       }
 
+      _getScale(chordType){
+        if (chordType =="maj")
+          return 1;
+        if (chordType =="min")
+          return 0.75;
+        if (chordType =="dim")
+          return 0.6;
+      }
+
       _applyStyles() {
+
         this.$.upperLeaf.style.cssText =
-          "transform: rotate("+(45+360/12*this.toneObject.tonePositionRelativeToKey)+"deg) scale("+this.toneObject.sevenHarmonyPercent/100+");"+
+          "transform: rotate("+(45+360/12*this.toneObject.tonePositionRelativeToKey)+"deg)" +
+                    " scale("+this._getScale(this.toneObject.chordType)+");"+
           "background: hsl("+ this.toneObject.color +", 50%, 50%);";
         this.$.lowerLeaf.style.cssText =
-          "transform: rotate(45deg);"+
+//          "transform: rotate(45deg);"+
           "background: hsl("+this.toneObject.keyColor+", 50%, 50%);";
       }
 

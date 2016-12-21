@@ -27,8 +27,8 @@
         this.keyPositionWheelOf5th = MusicScale.getWheelOf5Number(this.keyName);
         this.color = this.tonePositionWheelOf5th *30;
         this.keyColor = this.keyPositionWheelOf5th *30;
-        let plusMinus86 = (this.zeroToSix * 12/7 - this.tonePositionRelativeToKey)*100;
-        this.sevenHarmonyPercent = (Math.round(plusMinus86+86+14)/2);
+        let plusMinus86 = this.zeroToSix * 12/7 - this.tonePositionRelativeToKey;
+        this.sevenHarmonyPercent = (plusMinus86+1)/2;
         this.chord = MusicScale.getChord(this.zeroToSix, this.modeName);
         this.chordType = MusicClef.calculateChordType(this.chord);
       }
