@@ -55,12 +55,22 @@
               computed: "_getLowerNumber(musicMode, keyTone, toneNumber)",
               observer: "_applyLowerStyle"
             },
+            toneObject : {
+              type: Object,
+              computed: "_getToneObj(musicMode, keyTone, toneNumber)",
+            }
           }
         }
       }
 
       _getLowerNumber(mode, key, tone) {
         return MusicScale.getTwelveToneNumberFromSevenToneNumber(mode, key, tone);
+      }
+
+      _getToneObj(mode, key, tone) {
+        debugger;
+        return new MusicTone(key, mode, tone);
+//        return this.querySelector("#audioPlayer").$.clef.getMusicTone(tone, key, mode);
       }
 
       _applyLowerStyle() {
