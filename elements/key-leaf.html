@@ -29,7 +29,7 @@
       }
     </style>
 
-    <div id="lowerLeaf"></div>
+    <div id="lowerLeaf">[[toneObject.toneName]][[toneObject.chordType]][[toneObject.sevenHarmonyPercent]]</div>
     <div id="upperLeaf"></div>
 
   </template>
@@ -61,13 +61,12 @@
       }
 
       _applyStyles() {
-        let shade = 50;
         this.$.upperLeaf.style.cssText =
-          "transform: rotate("+(45+360/12*this.toneObject.tonePositionRelativeToKey)+"deg);"+
+          "transform: rotate("+(45+360/12*this.toneObject.tonePositionRelativeToKey)+"deg) scale("+this.toneObject.sevenHarmonyPercent/100+");"+
           "background: hsl("+ this.toneObject.color +", 50%, 50%);";
         this.$.lowerLeaf.style.cssText =
           "transform: rotate(45deg);"+
-          "background: hsl("+this.toneObject.keyColor+", "+shade+"%, 50%);";
+          "background: hsl("+this.toneObject.keyColor+", 50%, 50%);";
       }
 
     }

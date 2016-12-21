@@ -28,8 +28,9 @@
         this.color = this.tonePositionWheelOf5th *30;
         this.keyColor = this.keyPositionWheelOf5th *30;
         let plusMinus86 = (this.zeroToSix * 12/7 - this.tonePositionRelativeToKey)*100;
-        this.sevenHarmonyPercent = (Math.round(plusMinus86+86+28)/2);
-        console.log(this.sevenHarmonyPercent);
+        this.sevenHarmonyPercent = (Math.round(plusMinus86+86+14)/2);
+        this.chord = MusicScale.getChord(this.zeroToSix, this.modeName);
+        this.chordType = MusicClef.calculateChordType(this.chord);
       }
     }
 
@@ -99,10 +100,10 @@
       //  this.staticModeOrderForChords = ["major", "dorian", "phrygian", "lydian", "mixolydian", "minor", "locrian"];
       //  this.staticChords = ["maj", "maj", "min", "min", "maj", "min", "dim"];
       getChordType(chordNumber) {
-        return this.calculateChordType(this.getChord(chordNumber));
+        return MusicClef.calculateChordType(this.getChord(chordNumber));
       }
 
-      calculateChordType(chordAsArrayOfThreeNumbers) {
+      static calculateChordType(chordAsArrayOfThreeNumbers) {
         let distanceA = chordAsArrayOfThreeNumbers[1] - chordAsArrayOfThreeNumbers[0];
         let distanceB = chordAsArrayOfThreeNumbers[2] - chordAsArrayOfThreeNumbers[1];
         if (distanceB < 0)
