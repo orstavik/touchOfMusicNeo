@@ -15,15 +15,16 @@
 
     class MusicTone {
       constructor(key, mode, zeroToSix){
-        debugger;
-        this.key = key;
-        this.mode = mode;
+        this.tonePosition = MusicScale.getTwelveToneNumberFromSevenToneNumber(mode, key, zeroToSix);
+        this.toneName = MusicScale.twelveNotes[this.tonePosition];
+        this.keyName = key;
+        this.keyPosition = MusicScale.getNotePositionNormal(key);
+        this.modeName = mode;
         this.zeroToSix = zeroToSix;
-        this.twelvePositionRelativeToKey = MusicScale.getTwelveToneNumberFromSevenToneNumber(mode, key, zeroToSix);
-        this.absoluteTwelvePosition = MusicScale.twelveNotes[this.twelvePositionRelativeToKey];
-        this.wheel5Number = MusicScale.getWheelOf5Number(this.twelvePositionRelativeToKey);
-        this.colorNumber = this.wheel5Number;
-        this.harmonyDistance = zeroToSix * 12/7 - this.twelvePositionRelativeToKey;
+        this.tonePositionWheelOf5th = MusicScale.getWheelOf5Number(this.toneName);
+
+        this.color = this.tonePositionWheelOf5th *30;
+        this.harmonyDistance = zeroToSix * 12/7 - this.tonePosition;
       }
     }
 

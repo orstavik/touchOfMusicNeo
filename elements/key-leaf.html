@@ -43,60 +43,36 @@
       static get config() {
         return {
           properties: {
-            toneNumber: {
-              type: Number,
-              observer: "_applyUpperStyle"
-            },
+            toneNumber: Number,
             keyTone: String,
             musicMode: String,
-            lowerNumber: {
-              type: Number,
-              computed: "_getLowerNumber(musicMode, keyTone, toneNumber)",
-              observer: "_applyLowerStyle"
-            },
             toneObject : {
               type: Object,
               computed: "_getToneObj(musicMode, keyTone, toneNumber)",
+              observer: "_applyStyles"
             }
           }
         }
       }
 
-      _getLowerNumber(mode, key, tone) {
-        return MusicScale.getTwelveToneNumberFromSevenToneNumber(mode, key, tone);
-      }
-
       _getToneObj(mode, key, tone) {
-        debugger;
-        return new MusicTone(key, mode, tone);
-//        return this.querySelector("#audioPlayer").$.clef.getMusicTone(tone, key, mode);
+        let musicTone = new MusicTone(key, mode, tone);
+        console.log(musicTone);
+        return musicTone;
       }
 
-      _applyLowerStyle() {
-        let keyNumber = MusicScale.getNotePositionNormal(this.keyTone);
-        let rotation = (this.lowerNumber+keyNumber)%12;
+      _applyStyles() {
+        let rotation = (this.toneObject.tonePosition+12-this.toneObject.keyPosition)%12;
         console.log(rotation);
+        console.log(+ this.toneObject.harmonyDistance *30);
         this.$.upperLeaf.style.cssText =
           "transform: rotate("+(45+360/12*rotation)+"deg);"+
-          "background: hsl("+(KeyLeaf.toneColor(this.lowerNumber))+", 100%, 50%);";
-      }
-
-      _applyUpperStyle() {
+          "background: hsl("+((this.toneObject.color ))+", 100%, 50%);";
         this.$.lowerLeaf.style.cssText =
           "transform: rotate("+(45+360/7*this.toneNumber)+"deg);"+
-          "background: hsl("+(KeyLeaf.toneColor(this.lowerNumber))+", 50%, 50%);";
-//          "background: hsl("+(KeyLeaf.toneColor(this.toneNumber*12/7))+", 50%, 50%);";
+          "background: hsl("+((this.toneObject.color))+", 50%, 50%);";
       }
 
-      static toneColor(num) {
-//        return 360 / 12 * num;
-        let nearest = Math.round(num);
-        let color = MusicScale.getWheelOf5Number(MusicScale.twelveNotes[nearest]);
-        let diff = nearest - num;
-        return color *30 + diff*30;
-        //use nearest to get color.
-        //use diff to get distortion
-      }
     }
     customElements.define(KeyLeaf.is, KeyLeaf);
   </script>
