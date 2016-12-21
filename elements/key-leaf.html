@@ -66,13 +66,21 @@
       _applyLowerStyle() {
         this.$.lowerLeaf.style.cssText = 
           "transform: rotate("+(45+360/12*this.lowerNumber)+"deg);"+
-          "background: hsl("+(360/12*this.lowerNumber)+", 100%, 50%);";
+          "background: hsl("+(KeyLeaf.toneColor(this.lowerNumber))+", 100%, 50%);";
       }
 
       _applyUpperStyle() {
         this.$.upperLeaf.style.cssText = 
           "transform: rotate("+(45+360/7*this.toneNumber)+"deg);"+
-          "background: hsl("+(360/7*this.toneNumber)+", 100%, 50%);";
+          "background: hsl("+(KeyLeaf.toneColor(this.toneNumber*12/7))+", 100%, 50%);";
+      }
+
+      static toneColor(num) {
+        //let nearest = Math.round(num);
+        //let diff = nearest - num;
+        //use nearest to get color.
+        //use diff to get distortion
+        return 360 / 12 * num;
       }
     }
     customElements.define(KeyLeaf.is, KeyLeaf);
