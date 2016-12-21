@@ -14,18 +14,18 @@
       }
 
       /*.colorClock0 { background-image: url(../images/flower/1126.png); background-size: cover; }*/
-      /*.colorClock0 { background-color: hsl(0, 100%, 50%); }*/
-      /*.colorClock1 { background-color: hsl(30, 100%, 50%); }*/
-      /*.colorClock2 { background-color: hsl(60, 100%, 50%); }*/
-      /*.colorClock3 { background-color: hsl(90, 100%, 50%); }*/
-      /*.colorClock4 { background-color: hsl(120, 100%, 50%); }*/
-      /*.colorClock5 { background-color: hsl(150, 100%, 50%); }*/
-      /*.colorClock6 { background-color: hsl(180, 100%, 50%); }*/
-      /*.colorClock7 { background-color: hsl(210, 100%, 50%); }*/
-      /*.colorClock8 { background-color: hsl(240, 100%, 50%); }*/
-      /*.colorClock9 { background-color: hsl(270, 100%, 50%); }*/
-      /*.colorClock10 { background-color: hsl(300, 100%, 50%); }*/
-      /*.colorClock11 { background-color: hsl(330, 100%, 50%); }*/
+      .colorClock0 { background-color: hsl(0, 100%, 50%); }
+      .colorClock1 { background-color: hsl(30, 100%, 50%); }
+      .colorClock2 { background-color: hsl(60, 100%, 50%); }
+      .colorClock3 { background-color: hsl(90, 100%, 50%); }
+      .colorClock4 { background-color: hsl(120, 100%, 50%); }
+      .colorClock5 { background-color: hsl(150, 100%, 50%); }
+      .colorClock6 { background-color: hsl(180, 100%, 50%); }
+      .colorClock7 { background-color: hsl(210, 100%, 50%); }
+      .colorClock8 { background-color: hsl(240, 100%, 50%); }
+      .colorClock9 { background-color: hsl(270, 100%, 50%); }
+      .colorClock10 { background-color: hsl(300, 100%, 50%); }
+      .colorClock11 { background-color: hsl(330, 100%, 50%); }
 
       .oClock0 { transform: rotate(0deg);}
       .oClock1 { transform: rotate(30deg);}
@@ -62,8 +62,8 @@
       }
 
     </style>
-    <div id="tone" class$="[[_getRotationClass(tone, key)]] [[_getColorClass(tone)]]">
-      <img class$="seven[[toneSeven]]" src="[[_getImage(tone)]]" alt="[[tone]]" />
+    <div id="tone" class$="[[_getRotationClass(tone, key)]]">
+      <img class$="seven[[toneSeven]] [[_getColorClass(tone)]]" alt="[[tone]]" /> <!-- src="[[_getImage(tone)]]"-->
       <div id="toneText" class$="seven[[toneSeven]]">[[tone]]</div>
     </div>
   </template>
