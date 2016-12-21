@@ -51,7 +51,6 @@
             musicMode: String,
             lowerNumber: {
               type: Number,
-              reflectToAttribute: true,
               computed: "_getLowerNumber(musicMode, keyTone, toneNumber)",
               observer: "_applyLowerStyle"
             },

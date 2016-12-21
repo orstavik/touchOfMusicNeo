@@ -61,6 +61,10 @@
               value: function() {
                 return []
               }
+            },
+            chordMode: {
+              type: Boolean,
+              value: false
             }
           }
         }
@@ -106,8 +110,28 @@
       }
 
       _onKeyDown(e){
-        this.querySelector("#audioPlayer").playKeys(e.detail.code, e.detail.heldKeys);
-        this.querySelector("#keyboard").highlightKeys(e.detail.code);
+        var keyboard = this.querySelector("#keyboard");
+        var node = keyboard.querySelector("key-visual[code='"+e.detail.code+"']");
+
+        if (this._checkForCommands(e.detail.code))
+          return;
+
+        let sharp = this._addSharpen(e.detail.heldKeys);
+
+        var tone, octave;
+        if (node) {
+          tone = Number(node.tone);
+          octave = Number(node.octave);
+        };
+        
+        if (!tone && tone != 0) return;
+
+        if (this.chordMode && this._playChord(tone, octave))
+          return;
+
+        var trueTone = this.querySelector("#clef").getTone(tone, octave) + sharp;
+        this.querySelector("#audioPlayer").playTone(trueTone);
+        keyboard.highlightKeys(e.detail.code);
       }
 
       _onKeyUp(e){
@@ -127,6 +151,37 @@
         //if wrong, make ugly sound
         if(this._checkIfOutsideScope(e.detail.pressedKey))
           this;//.querySelector("#audioPlayer").playFailure();
+      }
+
+      _checkForCommands(code) {
+        switch (code) {
+          case "Tab":
+            this.querySelector("#clef").turnKeyLeft();
+            return true;
+          case "Enter":
+            this.querySelector("#clef").turnKeyRight();
+            return true;
+          case "Backquote":
+            this.querySelector("#clef").turnModusLeft();
+            return true;
+          case "Backspace":
+            this.querySelector("#clef").turnModusRight();
+            return true;
+        }
+        return false;
+      }
+
+      _addSharpen(arrayOfKeys) {
+        for (let code of arrayOfKeys) {
+          if (code && code == "ShiftLeft")
+            return 1;
+        }
+        return 0;
+      }
+
+      _playChord(tone, octave) {
+        let codes = this.querySelector("#clef").getChord(tone, octave);
+        this.querySelector("#audioPlayer").playTones(codes);
       }
 
 //      _recordPlayedKeys (e) {

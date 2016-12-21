@@ -1,7 +1,5 @@
 <link rel="import" href="audio-data.html">
 <link rel="import" href="audio-player.html">
-<link rel="import" href="music-clef-visual.html">
-<link rel="import" href="music-clef.html">
 
 <dom-module id="audio-container">
   <template>
@@ -13,10 +11,6 @@
 
     <slot></slot>
 
-    <music-clef-visual mode="[[mode]]" key="[[key]]" scale="[[activeScale]]">
-      <music-clef id="clef" octave="{{octave}}" scale="{{activeScale}}" mode="{{mode}}"
-                  key="{{key}}"></music-clef>
-    </music-clef-visual>
     <audio-data id="piano88" path="../audio/tones/piano/" amount=88 type="mp3"></audio-data>
     <audio-player id="player"></audio-player>
 
@@ -31,111 +25,24 @@
 
       static get config() {
         return {
-          properties: {
-            tone: {
-              type: String,
-              reflectToAttribute: true
-            },
-            octave: Number,
-            mode: {
-              type: String,
-              reflectToAttribute: true,
-              notify: true
-            },
-            key: {
-              type: String,
-              reflectToAttribute: true,
-              notify: true
-            },
-            chordMode: {
-              type: Boolean,
-              value: false
-            },
-            commands: Object
-          }
+          properties: {}
         }
-      }
-
-      getCommands() {
-        //todo this check does not run when new dom elements are added or removed from the dom
-        if (this.commands == undefined) {
-          let divs = this.querySelectorAll("[data-command][data-key]");
-          this.commands = {};
-          for (let div of divs)
-            this.commands[div.dataset.key] = div;
-        }
-        return this.commands;
-      }
-
-      addSharpen(arrayOfKeys) {
-        let commands = this.getCommands();
-        for (let key of arrayOfKeys) {
-          if (commands[key] && commands[key].dataset.command == "sharpen")
-            return 1;
-        }
-        return 0;
-      }
-
-      checkForCommands(key) {
-        let commands = this.getCommands();
-        let command = commands[key];
-        if (!command)
-          return false;
-        switch (command.dataset.command) {
-          case "turnKeyLeft":
-            this.$.clef.turnKeyLeft();
-            return true;
-          case "turnKeyRight":
-            this.$.clef.turnKeyRight();
-            return true;
-          case "turnModusLeft":
-            this.$.clef.turnModusLeft();
-            return true;
-          case "turnModusRight":
-            this.$.clef.turnModusRight();
-            return true;
-        }
-        return false;
-      }
-
-      playKeys(press, arrayOfKeys) {
-        if (!press)
-          return;
-
-        if (this.checkForCommands(press))
-          return;
-
-        if (this.chordMode && this.playChord(press))
-          return;
-
-        let div = this.querySelector("[data-tone][data-key=" + press + "]");
-        if (!div)
-          return;
-        let tone = this.$.clef.getTone(Number(div.dataset.tone), Number(div.dataset.octave))
-                  + this.addSharpen(arrayOfKeys);
-        this.playTone(tone, 0);
       }
 
       playFailure() {
         this.$.player.playTone(this.$.piano88.getOther('failure'));
       }
 
-      playChord(key) {
-        let div = this.querySelector("[data-chord][data-key=" + key + "]");
-        if (!div)
-          return false;
+      playTone(code) {
+        this.$.player.playTone(this.getPianoSound(code));
+        console.log(MusicScale.getTwelveNotesName(code % 12) + ": " + (Math.floor(code / 12)));
+      }
 
-        let codes = this.$.clef.getChord(Number(div.dataset.chord), Number(div.dataset.octave));
-        codes.forEach(function (code) {
+      playTones(codes) {
+        codes.forEach(function(code) {
           this.playTone(code);
         }.bind(this));
         return true;
-      }
-
-      playTone(code) {
-        this.$.player.playTone(this.getPianoSound(code));
-        console.log(MusicScale.getTwelveNotesName(code % 12) + ": " + (Math.floor(code / 12))
-        );
       }
 
       //the 88 key piano starts with A, A#, B at the far right, hence -9

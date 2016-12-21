@@ -13,6 +13,8 @@
 <link rel="import" href="beam-constructor.html">
 <link rel="import" href="monster-container.html">
 <link rel="import" href="html-loader.html">
+<link rel="import" href="music-clef-visual.html">
+<link rel="import" href="music-clef.html">
 
 <dom-module id="my-app">
   <template>
@@ -42,7 +44,7 @@
                handle-as="json"
                on-response="_genKeyArray" auto></iron-ajax>
 
-    <game-judge id="judge" input="[[scenario]]">
+    <game-judge id="judge" input="[[scenario]]" chord-mode="[[chordMode]]">
 
       <joievent-player id="joiplayer">
         <letter-catcher id="scenario" tempo="[[tempo]]">
@@ -52,7 +54,7 @@
         <beam-constructor id="beams">
           <keyboard-visual id="keyboard">
             <template is="dom-repeat" items="[[keyArray]]">
-              <key-visual code$="[[item.code]]">
+              <key-visual code$="[[item.code]]" tone="[[item.tone]]" octave="[[item.octave]]">
                 <key-leaf tone-number="[[item.tone]]" key-tone="[[key]]" music-mode="[[mode]]"></key-leaf>
               </key-visual>
             </template>
@@ -67,8 +69,11 @@
 
       <keyboard-listener></keyboard-listener>
 
-      <audio-container id="audioPlayer" key="{{key}}" octave="4" mode="{{mode}}">
-        <html-loader href="../maps/audio-set1.html"></html-loader>
+      <audio-container id="audioPlayer">
+        <music-clef-visual mode="[[mode]]" key="[[key]]" scale="[[activeScale]]">
+          <music-clef id="clef" octave="4" mode="{{mode}}" key="{{key}}" scale="{{activeScale}}"></music-clef>
+        </music-clef-visual>
+        <!--<html-loader href="../maps/audio-set1.html"></html-loader>-->
       </audio-container>
 
     </game-judge>
