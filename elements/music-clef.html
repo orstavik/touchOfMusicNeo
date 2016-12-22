@@ -31,8 +31,8 @@
       }
 
       getToneNumber(zeroToSix, oct) {
-        oct += Math.floor(zeroToSix/7);
-        return (this.octave + oct) * 12 + this.keyNumber + this.scale[zeroToSix%7];
+        oct = oct + this.octave + Math.floor(zeroToSix/7);
+        return oct * 12 + this.keyNumber + this.scale[zeroToSix%7];
       }
       getChordType(zeroToSix){
         return MusicScaleObject.calculateChordType(this.getChord(zeroToSix));
@@ -79,18 +79,8 @@
       static get config() {
         return {
           properties: {
-            mode: {
-              type: String,
-              observer: "updateMode"
-            },
-            key: {
-              type: String,
-              observer: "updateScale"
-            },
-            baseNote: {
-              type: Number,
-              computed: "keyToneToNumber(key)"
-            },
+            mode: String,
+            key: String,
             octave:Number,
             scale: {
               type: MusicScaleObject,
@@ -103,19 +93,6 @@
 
       makeMusicScaleObject(key, mode, octave) {
         return new MusicScaleObject(key, mode, Number(octave));
-      }
-
-      updateMode(mode){
-        //todo when mode is changed from the outside,
-        //todo the scale should must be normalized, and then one could change the mode in the music-scale object.
-      }
-
-      updateScale(key){
-        this.normalize();
-      }
-
-      keyToneToNumber(key) {
-        return MusicScale.getNotePositionNormal(key);
       }
 
       turnModusRight() {
@@ -139,12 +116,8 @@
       }
 
       normalize() {
-        let basis = this.baseNote + this.$.scale.normalize() + 2400;
+        let basis = this.scale.keyNumber + this.$.scale.normalize() + 2400;
         this.key = MusicScale.getTwelveNotesName(basis % 12);
-        let sevenNotesInScale = this.$.scale.getAllSevenNotesInScale();
-        this.scale = sevenNotesInScale.map(function(note){
-          return MusicScale.getTwelveNotesName((note + basis) % 12);
-        });
       }
     }
     customElements.define(MusicClef.is, MusicClef);
