@@ -13,27 +13,6 @@
   </template>
   <script>
 
-    class MusicTone {
-      constructor(key, mode, zeroToSix){
-        this.tonePosition = MusicScale.getTwelveToneNumberFromSevenToneNumber(mode, key, zeroToSix);
-        this.toneName = MusicScale.twelveNotes[this.tonePosition];
-        this.keyName = key;
-        this.keyPosition = MusicScale.getNotePositionNormal(key);
-        this.tonePositionRelativeToKey = (this.tonePosition+12-this.keyPosition)%12;
-        this.modeName = mode;
-        this.zeroToSix = Number(zeroToSix);
-
-        this.tonePositionWheelOf5th = MusicScale.getWheelOf5Number(this.toneName);
-        this.keyPositionWheelOf5th = MusicScale.getWheelOf5Number(this.keyName);
-        this.color = this.tonePositionWheelOf5th *30;
-        this.keyColor = this.keyPositionWheelOf5th *30;
-        let plusMinus86 = this.zeroToSix * 12/7 - this.tonePositionRelativeToKey;
-        this.sevenHarmonyPercent = (plusMinus86+1)/2;
-        this.chord = MusicScale.getChord(this.zeroToSix, this.modeName);
-        this.chordType = MusicClef.calculateChordType(this.chord);
-      }
-    }
-
     class MusicScaleObject {
       constructor(key, mode){
         this.key = key;
@@ -51,7 +30,7 @@
       }
 
       getChordType(zeroToSix){
-        return MusicClef.calculateChordType(this.getChord(zeroToSix));
+        return MusicScaleObject.calculateChordType(this.getChord(zeroToSix));
       }
 
       getTonePosition(zeroToSix){
@@ -64,18 +43,26 @@
         return this.scale[zeroToSix];
       }
       getToneColor(zeroToSix){
-        return MusicScaleObject._getColor(this.getToneName(zeroToSix));
-      }
-      //todo remove
-      getKeyColor(){
-        return MusicScaleObject._getColor(this.key);
+        return MusicScale.getWheelOf5Number(this.getToneName(zeroToSix));
       }
       getToneHarmonicSeventh(zeroToSix){
         let plusMinus86 = this.zeroToSix * 12/7 - this.getTonePositionRelativeToKey(zeroToSix);
         return (plusMinus86+1)/2;
       }
-      static _getColor(name){
-        return MusicScale.getWheelOf5Number(name);//*30;
+      static calculateChordType(chordAsArrayOfThreeNumbers) {
+        let distanceA = chordAsArrayOfThreeNumbers[1] - chordAsArrayOfThreeNumbers[0];
+        let distanceB = chordAsArrayOfThreeNumbers[2] - chordAsArrayOfThreeNumbers[1];
+        if (distanceB < 0)
+          distanceB += 12;
+        if (distanceA < 0)
+          distanceA += 12;
+        if (distanceA == 4 && distanceB == 3)
+          return "maj";
+        if (distanceA == 3 && distanceB == 4)
+          return "min";
+        if (distanceA == 3 && distanceB == 3)
+          return "dim";
+        return "unknown";
       }
     }
 
@@ -89,26 +76,18 @@
           properties: {
             mode: {
               type: String,
-              reflectToAttribute: true,
-              notify: true,
               observer: "updateMode"
             },
             key: {
               type: String,
-              reflectToAttribute: true,
-              notify: true,
               observer: "updateScale"
             },
             baseNote: {
               type: Number,
               computed: "keyToneToNumber(key)"
             },
-            scale: {
-              type: Number,
-              notify: true
-            },
             octave:Number,
-            scale2: {
+            scale: {
               type: MusicScaleObject,
               notify: true,
               computed: "makeMusicScaleObject(key, mode)"
@@ -150,29 +129,6 @@
         ];
       }
 
-      //  unnecessary, easier and more orderly to calculate this based on the distance.
-      //  this.staticModeOrderForChords = ["major", "dorian", "phrygian", "lydian", "mixolydian", "minor", "locrian"];
-      //  this.staticChords = ["maj", "maj", "min", "min", "maj", "min", "dim"];
-      getChordType(chordNumber) {
-        return MusicClef.calculateChordType(this.getChord(chordNumber));
-      }
-
-      static calculateChordType(chordAsArrayOfThreeNumbers) {
-        let distanceA = chordAsArrayOfThreeNumbers[1] - chordAsArrayOfThreeNumbers[0];
-        let distanceB = chordAsArrayOfThreeNumbers[2] - chordAsArrayOfThreeNumbers[1];
-        if (distanceB < 0)
-          distanceB += 12;
-        if (distanceA < 0)
-          distanceA += 12;
-        if (distanceA == 4 && distanceB == 3)
-          return "maj";
-        if (distanceA == 3 && distanceB == 4)
-          return "min";
-        if (distanceA == 3 && distanceB == 3)
-          return "dim";
-        return "unknown";
-      }
-
       turnModusRight() {
         this.mode = this.$.scale.turnModusRight();
         this.normalize();
@@ -200,10 +156,6 @@
         this.scale = sevenNotesInScale.map(function(note){
           return MusicScale.getTwelveNotesName((note + basis) % 12);
         });
-      }
-
-      getMusicTone(zeroToSix, key, mode){
-        return new MusicTone(key, mode,  zeroToSix);
       }
     }
     customElements.define(MusicClef.is, MusicClef);

@@ -90,15 +90,15 @@
       .label {
         z-index: 5;
         position: fixed;
-        bottom: 0;left 0;
+        bottom: 0;left: 0;
       }
 
     </style>
     <div class="label"><slot></slot></div>
 
     <template is="dom-repeat" items="[[toneNumbers]]">
-      <div class$="leaf [[_getChordType(item)]] tone[[item]] [[viewType]] [[_getColor(item, scale)]] [[_getRotation(item, scale)]]">
-        [[_getToneName(item)]]
+      <div class$="leaf [[_getChordType(item, scale)]] tone[[item]] [[viewType]] [[_getColor(item, scale)]] [[_getRotation(item, scale)]]">
+        [[_getToneName(item, scale)]]
       </div>
     </template>
   </template>
@@ -122,11 +122,11 @@
         }
       }
 
-      _getToneName(zeroToSix) {
-        return this.scale.getToneName(zeroToSix);
+      _getToneName(zeroToSix, scale) {
+        return scale.getToneName(zeroToSix);
       }
-      _getChordType(zeroToSix) {
-        return this.scale.getChordType(zeroToSix);
+      _getChordType(zeroToSix, scale) {
+        return scale.getChordType(zeroToSix);
       }
 
       _getColor(zeroToSix, scale){

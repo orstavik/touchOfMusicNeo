@@ -8,13 +8,11 @@
 <link rel="import" href="keyboard-listener.html">
 <link rel="import" href="audio-container.html">
 <link rel="import" href="key-visual.html">
-<link rel="import" href="key-leaf.html">
 <link rel="import" href="key-flower.html">
 <link rel="import" href="keyboard-visual.html">
 <link rel="import" href="beam-constructor.html">
 <link rel="import" href="monster-container.html">
 <link rel="import" href="html-loader.html">
-<link rel="import" href="music-clef-visual.html">
 <link rel="import" href="music-clef.html">
 
 <dom-module id="my-app">
@@ -38,14 +36,12 @@
     </style>
 
     <div id="mapChoice" style="width: 200px; height: 200px;">
-      <key-flower tone-numbers="[[_getArrayForMe()]]" view-type="flower" scale="[[scale2]]"
-                  style$="display: block; position: absolute; top: 25vh; left: 25vh;">[[scale2.key]] [[scale2.mode]]</key-flower>
+      <key-flower tone-numbers="[[_getArrayForMe()]]" view-type="flower" scale="[[scale]]"
+                  style$="display: block; position: absolute; top: 25vh; left: 25vh;">[[scale.key]] [[scale.mode]]</key-flower>
       Play chords:<input type="checkbox" checked="{{chordMode::change}}"><br />
     </div>
 
-    <iron-ajax url="../maps/keyboard/key-map.json"
-               handle-as="json"
-               on-response="_genKeyArray" auto></iron-ajax>
+    <iron-ajax url="../maps/keyboard/key-map.json" handle-as="json" on-response="_genKeyArray" auto></iron-ajax>
 
     <game-judge id="judge" input="[[scenario]]" chord-mode="[[chordMode]]">
 
@@ -58,8 +54,7 @@
           <keyboard-visual id="keyboard">
             <template is="dom-repeat" items="[[keyArray]]">
               <key-visual code$="[[item.code]]" tone="[[item.tone]]" octave="[[item.octave]]">
-                <key-flower tone-numbers="[[_getArrayForMe4(item.tone)]]" scale="[[scale2]]"></key-flower>
-                <!--<key-leaf tone-number="[[item.tone]]" scale="[[scale2]]"></key-leaf>-->
+                <key-flower tone-numbers="[[_getArrayForMe4(item.tone)]]" scale="[[scale]]"></key-flower>
               </key-visual>
             </template>
             <joievent-canon></joievent-canon>
@@ -73,7 +68,7 @@
       <keyboard-listener></keyboard-listener>
 
       <audio-container id="audioPlayer">
-        <music-clef id="clef" octave="4" mode="{{mode}}" key="{{key}}" scale2="{{scale2}}"></music-clef>
+        <music-clef id="clef" octave="4" mode="{{mode}}" key="{{key}}" scale="{{scale}}"></music-clef>
       </audio-container>
 
     </game-judge>
@@ -123,12 +118,6 @@
       }
       _getArrayForMe() {
         return [0,1,2,3,4,5,6];
-      }
-      _getArrayForMe2() {
-        return [0,1];
-      }
-      _getArrayForMe3() {
-        return [0,2,4,6];
       }
       _getArrayForMe4(tone) {
         return [0, Number(tone)];
