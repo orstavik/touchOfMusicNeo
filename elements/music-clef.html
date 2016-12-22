@@ -17,7 +17,7 @@
       constructor(key, mode, octave){
         this.key = key;
         this.mode = mode;
-        this.keyNumber = MusicScale.getNotePositionNormal(key);
+        this.keyNumber = MusicScale.twelveNotes.indexOf(key);
         this.scale = MusicScale.getModeScale(mode);
         this.octave = octave;
       }

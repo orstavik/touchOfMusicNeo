@@ -29,26 +29,6 @@
         this._modularScale = MusicScale.staticScales[this.modePosition][0].slice();
       }
 
-      getAllSevenNotesInScale() {
-        return this._modularScale.slice();
-      }
-
-      getSevenNoteNumber(noteName) {
-        return this._modularScale.indexOf(MusicScale.getNotePositionNormal(noteName));
-      }
-
-      getRoot() {
-        return this._modularScale ? this._modularScale[0] : 0;
-      }
-
-      getSevenNoteTone(zeroToSix) {
-        return this._modularScale[zeroToSix];
-      }
-
-//      getKey() {
-//        return this._modularScale[0];
-//      }
-
       getMode() {
         //todo is this the right mode position??
         //safer approach would be to match the current setup in this._modularScale and
@@ -103,27 +83,11 @@
         return MusicScale.twelveNotes[number];
       }
 
-      //used to calculate note color: hsl(notePosition/12*360, 100, 67);
       static getWheelOf5Number(noteName) {
-        let normalPos = MusicScale.getNotePositionNormal(noteName);
+        let normalPos = MusicScale.twelveNotes.indexOf(noteName);
         if (normalPos % 2 == 0)
           return normalPos;
         return (normalPos + 6) % 12;
-      }
-
-      static getNameFromWheelOf5(number) {
-        if (number % 2 == 0)
-          return MusicScale.twelveNotes[number];
-        return MusicScale.twelveNotes[(number + 6) % 12];
-      }
-
-      static getNotePositionNormal(noteName) {
-        return MusicScale.twelveNotes.indexOf(noteName);
-      }
-
-      static getTwelveNotesFromKey(noteName) {
-        let index = MusicScale.getNotePositionNormal(noteName);
-        return MusicScale.twelveNotes.slice(index).concat(MusicScale.twelveNotes.slice(0, index));
       }
 
       static get twelveNotes() {
@@ -142,15 +106,6 @@
         return MusicScale.staticScales[MusicScale.getModePosition(modeName)][0];
       }
 
-//      static getChord(zeroToSix, modeName){
-//        let scale = MusicScale.getModeScale(modeName);
-//        return [
-//          scale[zeroToSix],
-//          scale[(zeroToSix+2)%7],
-//          scale[(zeroToSix+4)%7]
-//        ];
-//      }
-//
       static get staticScales() {
         return [
           [[0, 1, 3, 5, 6, 8, 10], "locrian"],
@@ -161,18 +116,6 @@
           [[0, 2, 3, 5, 7, 9, 10], "dorian"],
           [[0, 2, 4, 5, 7, 9, 11], "major"] //ionian I
         ];
-      }
-
-      static getTheNameOfSevenTone(zeroToSix, mode, key) {
-        return MusicScale.twelveNotes[MusicScale.getTwelveToneNumberFromSevenToneNumber(mode, key, zeroToSix)];
-      }
-
-      static getTwelveToneNumberFromSevenToneNumber(mode, key, zeroToSix) {
-        let modeNumber = MusicScale.getModePosition(mode);
-        let scale = MusicScale.staticScales[modeNumber];
-        let modeValue = scale[0][zeroToSix];
-        let keyNumber = MusicScale.twelveNotes.indexOf(key);
-        return (modeValue + keyNumber) % 12;
       }
 
       static completeScaleAndModeMap() {

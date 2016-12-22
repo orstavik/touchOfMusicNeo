@@ -2,11 +2,17 @@
  * Created by orstavik on 08.12.16.
  */
 
+const getNameFromWheelOf5 = function(number) {
+  if (number % 2 == 0)
+    return MusicScale.twelveNotes[number];
+  return MusicScale.twelveNotes[(number + 6) % 12];
+};
+
 const testCircleOf5A = function () {
   let circleOf5 = ["C", "G", "D", "A", "E", "B", "Gb/F#", "Db/C#", "Ab/G#", "Eb/D#", "Bb/A#", "F"];
   for (let i = 0; i < 11; i++) {
 
-    let nameFromWheelOf5 = MusicScale.getNameFromWheelOf5(i);
+    let nameFromWheelOf5 = getNameFromWheelOf5(i);
     let expected = circleOf5[i];
     if (nameFromWheelOf5 != expected)
       return "circle of 5: " + i + " : " + nameFromWheelOf5 + " != " + expected;
