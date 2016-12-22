@@ -9,6 +9,7 @@
 <link rel="import" href="audio-container.html">
 <link rel="import" href="key-visual.html">
 <link rel="import" href="key-leaf.html">
+<link rel="import" href="key-flower.html">
 <link rel="import" href="keyboard-visual.html">
 <link rel="import" href="beam-constructor.html">
 <link rel="import" href="monster-container.html">
@@ -61,6 +62,9 @@
             <joievent-canon></joievent-canon>
           </keyboard-visual>
 
+          <key-flower tone-numbers="[[_getArrayForMe()]]" style="transform-origin: top left; top:220px; right: 200px;" scale="[[scale2]]"></key-flower>
+          <key-flower tone-numbers="[[_getArrayForMe2()]]" style="top: 500px;" scale="[[scale2]]"></key-flower>
+          <key-flower tone-numbers="[[_getArrayForMe3()]]" style="right: 600px;" scale="[[scale2]]"></key-flower>
           <monster-container id="monster"></monster-container>
         </beam-constructor>
       </joievent-player>
@@ -120,6 +124,15 @@
       _genKeyArray(e) {
         this.keyArray = e.detail.response;
         this.notifyPath("keyArray");
+      }
+      _getArrayForMe() {
+        return [0,1,2,3,4,5,6];
+      }
+      _getArrayForMe2() {
+        return [0,1];
+      }
+      _getArrayForMe3() {
+        return [2,4,6];
       }
     }
     customElements.define(MyApp.is, MyApp);
