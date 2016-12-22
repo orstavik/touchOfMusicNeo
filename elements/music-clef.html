@@ -31,7 +31,8 @@
       }
 
       getToneNumber(zeroToSix, oct) {
-        return (this.octave + oct) * 12 + this.keyNumber + this.scale[zeroToSix];
+        oct += Math.floor(zeroToSix/7);
+        return (this.octave + oct) * 12 + this.keyNumber + this.scale[zeroToSix%7];
       }
       getChordType(zeroToSix){
         return MusicScaleObject.calculateChordType(this.getChord(zeroToSix));
