@@ -37,10 +37,12 @@
       }
     </style>
 
-    <div id="mapChoice">
+    <div id="mapChoice" style="width: 200px; height: 200px;">
+      <key-flower tone-numbers="[[_getArrayForMe()]]" view-type="flower" scale="[[scale2]]"
+                  style$="display: block; position: absolute; top: 25vh; left: 25vh;">[[scale2.key]] [[scale2.mode]]</key-flower>
       Play chords:<input type="checkbox" checked="{{chordMode::change}}"><br />
     </div>
-    
+
     <iron-ajax url="../maps/keyboard/key-map.json"
                handle-as="json"
                on-response="_genKeyArray" auto></iron-ajax>
@@ -62,12 +64,6 @@
             </template>
             <joievent-canon></joievent-canon>
           </keyboard-visual>
-
-          <!--<key-flower tone-numbers="[[_getArrayForMe()]]" view-type="flower" style="top:220px; right: 200px;" scale="[[scale2]]"></key-flower>-->
-          <!--<key-flower tone-numbers="[[_getArrayForMe2()]]" style="top: 500px;" scale="[[scale2]]"></key-flower>-->
-          <key-flower tone-numbers="[[_getArrayForMe3()]]" view-type="compass"
-                      style="position: fixed; right: 600px; width: 200px; height: 200px; top: 200px;"
-                      scale="[[scale2]]"></key-flower>
           <monster-container id="monster"></monster-container>
         </beam-constructor>
       </joievent-player>
@@ -77,10 +73,7 @@
       <keyboard-listener></keyboard-listener>
 
       <audio-container id="audioPlayer">
-        <music-clef-visual mode="[[mode]]" key="[[key]]" scale="[[activeScale]]">
-          <music-clef id="clef" octave="4" mode="{{mode}}" key="{{key}}" scale="{{activeScale}}" scale2="{{scale2}}"></music-clef>
-        </music-clef-visual>
-        <!--<html-loader href="../maps/audio-set1.html"></html-loader>-->
+        <music-clef id="clef" octave="4" mode="{{mode}}" key="{{key}}" scale2="{{scale2}}"></music-clef>
       </audio-container>
 
     </game-judge>
