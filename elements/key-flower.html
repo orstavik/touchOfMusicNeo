@@ -2,10 +2,20 @@
   <template>
     <style>
       :host {
-        display: block;
-        position: fixed;
-        top: 200px;
-        right: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+      }
+      .flower{
+        transform-origin: top left;
+      }
+      .compass{
+        /*hide text*/
+        text-indent: 100%;
+        white-space: nowrap;
+        overflow: hidden;
       }
       .leaf{
         display: inline-block;
@@ -19,24 +29,36 @@
         box-shadow: 0 0 3px 0px black;
         font-size: 12px;
         color: black;
-        width: 200px;
-        height: 200px;
-        transform-origin: inherit;
+      }
+      .label{
+        justify-content: flex-end;
       }
 
       .maj {
+        width: 80%;
+        height: 80%;
         z-index: 0;
       }
       .min {
+        width: 60%;
+        height: 60%;
         z-index: 1;
       }
       .dim {
+        width: 45%;
+        height: 45%;
         z-index: 2;
+      }
+      .tone0 {
+        width: 90%;
+        height: 90%;
       }
     </style>
 
     <template is="dom-repeat" items="[[toneNumbers]]">
-      <div class$="leaf [[_getChordType(item)]] tone[[item]]" style$="[[_getToneStyle(item)]] [[transformOrigin]]">[[_getToneName(item)]]</div>
+      <div class$="leaf [[_getChordType(item)]] tone[[item]] [[viewType]]" style$="[[_getToneStyle(item, scale)]]">
+        <div class="label">[[_getToneName(item)]]</div>
+      </div>
     </template>
 
   </template>
@@ -50,33 +72,14 @@
       static get config() {
         return {
           properties: {
-            toneNumbers: {
-              type: Array,
-              observer: "debug"
-            }, //of numbers
-            scale: {
-              type: Object,
-              observer: "_applyStyles"
-            },
-            rotationOrigin: {
-              type: String,
-              value: ""
+            toneNumbers: Array,
+            scale: Object,
+            viewType: {
+              type:String,
+              value: "compass"
             }
           }
         }
-      }
-
-      debug(a){
-        console.log(a);
-      }
-
-      _getScale(chordType) {
-        if (chordType == "maj")
-          return 1;
-        if (chordType == "min")
-          return 0.75;
-        if (chordType == "dim")
-          return 0.6;
       }
 
       _getToneName(zeroToSix) {
@@ -86,10 +89,9 @@
         return this.scale.getChordType(zeroToSix);
       }
 
-      _getToneStyle(zeroToSix) {
-        return "transform: rotate(" + (45 + 360 / 12 * this.scale.getTonePositionRelativeToKey(zeroToSix)) + "deg)" +
-                  " scale(" + this._getScale(this.scale.getChordType(zeroToSix)) + ");" +
-        "background: hsl(" + this.scale.getToneColor(zeroToSix) + ", 50%, 50%);";
+      _getToneStyle(zeroToSix, scale) {
+        return "transform: rotate(" + (45 + 360 / 12 * scale.getTonePositionRelativeToKey(zeroToSix)) + "deg);" +
+        "background: hsl(" + scale.getToneColor(zeroToSix) + ", 50%, 50%);";
       }
     }
     customElements.define(KeyFlower.is, KeyFlower);

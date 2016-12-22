@@ -56,15 +56,18 @@
           <keyboard-visual id="keyboard">
             <template is="dom-repeat" items="[[keyArray]]">
               <key-visual code$="[[item.code]]" tone="[[item.tone]]" octave="[[item.octave]]">
-                <key-leaf tone-number="[[item.tone]]" scale="[[scale2]]"></key-leaf>
+                <key-flower tone-numbers="[[_getArrayForMe4(item.tone)]]" scale="[[scale2]]"></key-flower>
+                <!--<key-leaf tone-number="[[item.tone]]" scale="[[scale2]]"></key-leaf>-->
               </key-visual>
             </template>
             <joievent-canon></joievent-canon>
           </keyboard-visual>
 
-          <key-flower tone-numbers="[[_getArrayForMe()]]" style="transform-origin: top left; top:220px; right: 200px;" scale="[[scale2]]"></key-flower>
-          <key-flower tone-numbers="[[_getArrayForMe2()]]" style="top: 500px;" scale="[[scale2]]"></key-flower>
-          <key-flower tone-numbers="[[_getArrayForMe3()]]" style="right: 600px;" scale="[[scale2]]"></key-flower>
+          <!--<key-flower tone-numbers="[[_getArrayForMe()]]" view-type="flower" style="top:220px; right: 200px;" scale="[[scale2]]"></key-flower>-->
+          <!--<key-flower tone-numbers="[[_getArrayForMe2()]]" style="top: 500px;" scale="[[scale2]]"></key-flower>-->
+          <key-flower tone-numbers="[[_getArrayForMe3()]]" view-type="compass"
+                      style="position: fixed; right: 600px; width: 200px; height: 200px; top: 200px;"
+                      scale="[[scale2]]"></key-flower>
           <monster-container id="monster"></monster-container>
         </beam-constructor>
       </joievent-player>
@@ -132,7 +135,10 @@
         return [0,1];
       }
       _getArrayForMe3() {
-        return [2,4,6];
+        return [0,2,4,6];
+      }
+      _getArrayForMe4(tone) {
+        return [0, Number(tone)];
       }
     }
     customElements.define(MyApp.is, MyApp);
