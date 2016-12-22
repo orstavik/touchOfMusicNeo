@@ -59,44 +59,36 @@
               type: Number,
               computed: "_fixThatBug(toneNumber)"
             },
-            keyTone: String,
-            musicMode: String,
-            scaleObject : {
+            scale: {
               type: Object,
-              computed: "_getScaleObj(keyTone, musicMode)",
               observer: "_applyStyles"
             }
           }
         }
       }
 
-      _fixThatBug(toneNumber){
+      _fixThatBug(toneNumber) {
         return Number(toneNumber);
       }
 
-      _getScaleObj(key, mode) {
-        let musicScale = new MusicScaleObject(key, mode);
-        return musicScale;
-      }
-
-      _getScale(chordType){
-        if (chordType =="maj")
+      _getScale(chordType) {
+        if (chordType == "maj")
           return 1;
-        if (chordType =="min")
+        if (chordType == "min")
           return 0.75;
-        if (chordType =="dim")
+        if (chordType == "dim")
           return 0.6;
       }
 
       _applyStyles() {
 
         this.$.upperLeaf.style.cssText =
-          "transform: rotate("+(45+360/12*this.scaleObject.getTonePositionRelativeToKey(this.numberToneNumber))+"deg)" +
-                    " scale("+ this._getScale(this.scaleObject.getChordType(this.numberToneNumber))+");"+
-          "background: hsl("+ this.scaleObject.getToneColor(this.numberToneNumber) +", 50%, 50%);";
+          "transform: rotate(" + (45 + 360 / 12 * this.scale.getTonePositionRelativeToKey(this.numberToneNumber)) + "deg)" +
+          " scale(" + this._getScale(this.scale.getChordType(this.numberToneNumber)) + ");" +
+          "background: hsl(" + this.scale.getToneColor(this.numberToneNumber) + ", 50%, 50%);";
         this.$.lowerLeaf.style.cssText =
 //          "transform: rotate(45deg);"+
-          "background: hsl("+this.scaleObject.getKeyColor()+", 50%, 50%);";
+          "background: hsl(" + this.scale.getKeyColor() + ", 50%, 50%);";
       }
 
     }

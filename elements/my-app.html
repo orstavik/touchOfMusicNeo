@@ -55,7 +55,7 @@
           <keyboard-visual id="keyboard">
             <template is="dom-repeat" items="[[keyArray]]">
               <key-visual code$="[[item.code]]" tone="[[item.tone]]" octave="[[item.octave]]">
-                <key-leaf tone-number="[[item.tone]]" key-tone="[[key]]" music-mode="[[mode]]"></key-leaf>
+                <key-leaf tone-number="[[item.tone]]" scale="[[scale2]]" key-tone="[[key]]" music-mode="[[mode]]"></key-leaf>
               </key-visual>
             </template>
             <joievent-canon></joievent-canon>
@@ -71,7 +71,7 @@
 
       <audio-container id="audioPlayer">
         <music-clef-visual mode="[[mode]]" key="[[key]]" scale="[[activeScale]]">
-          <music-clef id="clef" octave="4" mode="{{mode}}" key="{{key}}" scale="{{activeScale}}"></music-clef>
+          <music-clef id="clef" octave="4" mode="{{mode}}" key="{{key}}" scale="{{activeScale}}" scale2="{{scale2}}"></music-clef>
         </music-clef-visual>
         <!--<html-loader href="../maps/audio-set1.html"></html-loader>-->
       </audio-container>

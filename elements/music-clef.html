@@ -109,9 +109,18 @@
               type: Number,
               notify: true
             },
-            octave:Number
+            octave:Number,
+            scale2: {
+              type: MusicScaleObject,
+              notify: true,
+              computed: "makeMusicScaleObject(key, mode)"
+            }
           }
         }
+      }
+
+      makeMusicScaleObject(key, mode) {
+        return new MusicScaleObject(key, mode);
       }
 
       updateMode(mode){
