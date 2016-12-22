@@ -43,7 +43,7 @@
 
     <iron-ajax url="../maps/keyboard/key-map.json" handle-as="json" on-response="_genKeyArray" auto></iron-ajax>
 
-    <game-judge id="judge" input="[[scenario]]" chord-mode="[[chordMode]]">
+    <game-judge id="judge" input="[[scenario]]" chord-mode="[[chordMode]]" scale="[[scale]]">
 
       <joievent-player id="joiplayer">
         <letter-catcher id="scenario" tempo="[[tempo]]">
@@ -68,7 +68,7 @@
       <keyboard-listener></keyboard-listener>
 
       <audio-container id="audioPlayer">
-        <music-clef id="clef" octave="4" mode="{{mode}}" key="{{key}}" scale="{{scale}}"></music-clef>
+        <music-clef id="clef" octave="4" mode="major" key="C" scale="{{scale}}"></music-clef>
       </audio-container>
 
     </game-judge>
@@ -98,14 +98,6 @@
               value: function () {
                 return []
               }
-            },
-            key: {
-              type: String,
-              value: "C"
-            },
-            mode: {
-              type: String,
-              value: "major"
             },
             chordMode: Boolean
           }

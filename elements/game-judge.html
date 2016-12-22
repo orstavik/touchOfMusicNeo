@@ -65,7 +65,8 @@
             chordMode: {
               type: Boolean,
               value: false
-            }
+            },
+            scale: Object
           }
         }
       }
@@ -122,14 +123,22 @@
         if (node) {
           tone = Number(node.tone);
           octave = Number(node.octave);
-        };
+        }
         
         if (!tone && tone != 0) return;
 
-        if (this.chordMode && this._playChord(tone, octave))
+        if (this.chordMode){
+          let codes = this.scale.getChord(tone);//querySelector("#clef").getChord(tone, octave);
+          for (let tone of codes) {
+            var code = this.scale.getToneNumber(tone, octave);
+//            var code = this.querySelector("#clef").getTone(tone, octave);
+            this.querySelector("#audioPlayer").playTones(code);
+          }
           return;
+        }
 
-        var trueTone = this.querySelector("#clef").getTone(tone, octave) + sharp;
+        let trueTone = this.scale.getToneNumber(tone, octave) + sharp;
+//        let trueTone = this.querySelector("#clef").getTone(tone, octave) + sharp;
         this.querySelector("#audioPlayer").playTone(trueTone);
         keyboard.highlightKeys(e.detail.code);
       }
@@ -150,7 +159,7 @@
         //if it is wrong, make baaaaad beam
         //if wrong, make ugly sound
         if(this._checkIfOutsideScope(e.detail.pressedKey))
-          this;//.querySelector("#audioPlayer").playFailure();
+          0+0;//.querySelector("#audioPlayer").playFailure();
       }
 
       _checkForCommands(code) {
@@ -177,11 +186,6 @@
             return 1;
         }
         return 0;
-      }
-
-      _playChord(tone, octave) {
-        let codes = this.querySelector("#clef").getChord(tone, octave);
-        this.querySelector("#audioPlayer").playTones(codes);
       }
 
 //      _recordPlayedKeys (e) {

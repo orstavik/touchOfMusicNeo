@@ -14,11 +14,12 @@
   <script>
 
     class MusicScaleObject {
-      constructor(key, mode){
+      constructor(key, mode, octave){
         this.key = key;
         this.mode = mode;
         this.keyNumber = MusicScale.getNotePositionNormal(key);
         this.scale = MusicScale.getModeScale(mode);
+        this.octave = octave;
       }
 
       getChord(zeroToSix){
@@ -29,6 +30,9 @@
         ];
       }
 
+      getToneNumber(zeroToSix, oct) {
+        return (this.octave + oct) * 12 + this.keyNumber + this.scale[zeroToSix];
+      }
       getChordType(zeroToSix){
         return MusicScaleObject.calculateChordType(this.getChord(zeroToSix));
       }
@@ -90,14 +94,14 @@
             scale: {
               type: MusicScaleObject,
               notify: true,
-              computed: "makeMusicScaleObject(key, mode)"
+              computed: "makeMusicScaleObject(key, mode, octave)"
             }
           }
         }
       }
 
-      makeMusicScaleObject(key, mode) {
-        return new MusicScaleObject(key, mode);
+      makeMusicScaleObject(key, mode, octave) {
+        return new MusicScaleObject(key, mode, Number(octave));
       }
 
       updateMode(mode){
@@ -111,22 +115,6 @@
 
       keyToneToNumber(key) {
         return MusicScale.getNotePositionNormal(key);
-      }
-
-      getTone(zeroToSix, oct) {
-        return (Number(this.octave) + oct) * 12 + this.baseNote + this.$.scale.getSevenNoteTone(zeroToSix);
-      }
-
-      //todo need to integrate the major II chord and major III chord from the hooktheory article
-      //todo II: [this.tones.II, this.tones.IV + 1, this.tones.VI],
-      //todo III: [this.tones.III, this.tones.V + 1, this.tones.VII],
-      getChord(oneToSeven, oct) {
-        let root = oneToSeven;
-        return [
-          this.getTone(root, oct),
-          this.getTone((root + 2) % 7, oct),
-          this.getTone((root + 4) % 7, oct)
-        ];
       }
 
       turnModusRight() {
