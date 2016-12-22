@@ -24,7 +24,7 @@ const testCircleOf5B = function () {
   let circleOf5 = ["C", "G", "D", "A", "E", "B", "Gb/F#", "Db/C#", "Ab/G#", "Eb/D#", "Bb/A#", "F"];
   for (let i = 0; i < 11; i++) {
     let toneInScale = MusicScale.twelveNotes[i];
-    let circle5Pos = MusicScale.getWheelOf5Number(toneInScale);
+    let circle5Pos = MusicScale.getWheelOf5Number(i);
     if (toneInScale != circleOf5[circle5Pos])
       return "circle of 5: " + i + " : " + circleOf5[circle5Pos] + " != " + toneInScale;
   }

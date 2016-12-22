@@ -106,7 +106,7 @@
       }
 
       static makeColorDegree(tone){
-        return MusicScale.getWheelOf5Number(tone);
+        return MusicScale.getWheelOf5Number(MusicScale.twelveNotes.indexOf(tone));
       }
 
       static makeToneRotation(tone){

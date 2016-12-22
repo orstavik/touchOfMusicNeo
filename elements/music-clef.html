@@ -48,7 +48,7 @@
         return this.scale[zeroToSix];
       }
       getToneColor(zeroToSix){
-        return MusicScale.getWheelOf5Number(this.getToneName(zeroToSix));
+        return MusicScale.getWheelOf5Number(this.getTonePosition(zeroToSix));
       }
       getToneHarmonicSeventh(zeroToSix){
         let plusMinus86 = this.zeroToSix * 12/7 - this.getTonePositionRelativeToKey(zeroToSix);
@@ -117,7 +117,7 @@
 
       normalize() {
         let basis = this.scale.keyNumber + this.$.scale.normalize() + 2400;
-        this.key = MusicScale.getTwelveNotesName(basis % 12);
+        this.key = MusicScale.twelveNotes[basis % 12];
       }
     }
     customElements.define(MusicClef.is, MusicClef);

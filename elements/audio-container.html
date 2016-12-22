@@ -35,7 +35,7 @@
 
       playTone(code) {
         this.$.player.playTone(this.getPianoSound(code));
-        console.log(MusicScale.getTwelveNotesName(code % 12) + ": " + (Math.floor(code / 12)));
+        console.log(MusicScale.twelveNotes[code % 12] + ": " + Math.floor(code / 12));
       }
 
       playTones(codes) {

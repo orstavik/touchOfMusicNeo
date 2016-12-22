@@ -29,10 +29,8 @@
         this._modularScale = MusicScale.staticScales[this.modePosition][0].slice();
       }
 
+      //todo should have a unit test
       getMode() {
-        //todo is this the right mode position??
-        //safer approach would be to match the current setup in this._modularScale and
-        //find the one in the this.staticScales that matches
         return MusicScale.staticScales[this.modePosition][1];
       }
 
@@ -79,15 +77,10 @@
           this._modularScale[i] -= 12;
       }
 
-      static getTwelveNotesName(number) {
-        return MusicScale.twelveNotes[number];
-      }
-
-      static getWheelOf5Number(noteName) {
-        let normalPos = MusicScale.twelveNotes.indexOf(noteName);
-        if (normalPos % 2 == 0)
-          return normalPos;
-        return (normalPos + 6) % 12;
+      static getWheelOf5Number(noteNumber) {
+        if (noteNumber % 2 == 0)
+          return noteNumber;
+        return (noteNumber + 6) % 12;
       }
 
       static get twelveNotes() {
@@ -130,7 +123,7 @@
             let toneName = MusicScale.twelveNotes[root];
             res[modeName][toneName] = modeTones.map(function (sevenTone) {
               return [
-                MusicScale.getTwelveNotesName((sevenTone + root) % 12),
+                MusicScale.twelveNotes[(sevenTone + root) % 12],
                 Math.floor((sevenTone + root) / 12)
               ];
             });
