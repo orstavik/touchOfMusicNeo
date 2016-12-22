@@ -34,6 +34,53 @@
       }
     }
 
+    class MusicScaleObject {
+      constructor(key, mode){
+        this.key = key;
+        this.mode = mode;
+        this.keyNumber = MusicScale.getNotePositionNormal(key);
+        this.scale = MusicScale.getModeScale(mode);
+      }
+
+      getChord(zeroToSix){
+        let one = this.scale[zeroToSix];
+        let two = this.scale[(zeroToSix+2)%7];
+        let three = this.scale[(zeroToSix+4)%7];
+        return [
+          one,
+          two,
+          three
+        ];
+      }
+
+      getChordType(zeroToSix){
+        return MusicClef.calculateChordType(this.getChord(zeroToSix));
+      }
+
+      getTonePosition(zeroToSix){
+        return (this.keyNumber + this.scale[zeroToSix]) % 12;
+      }
+      getToneName(zeroToSix){
+        return MusicScale.twelveNotes[this.getTonePosition(zeroToSix)];
+      }
+      getTonePositionRelativeToKey(zeroToSix){
+        return this.scale[zeroToSix];
+      }
+      getToneColor(zeroToSix){
+        return MusicScaleObject._getColor(this.getToneName(zeroToSix));
+      }
+      getKeyColor(){
+        return MusicScaleObject._getColor(this.key);
+      }
+      getToneHarmonicSeventh(zeroToSix){
+        let plusMinus86 = this.zeroToSix * 12/7 - this.getTonePositionRelativeToKey(zeroToSix);
+        return (plusMinus86+1)/2;
+      }
+      static _getColor(name){
+        return MusicScale.getWheelOf5Number(name)*30;
+      }
+    }
+
     class MusicClef extends Polymer.Element {
       static get is() {
         return "music-clef";
