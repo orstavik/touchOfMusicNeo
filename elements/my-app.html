@@ -9,6 +9,7 @@
 <link rel="import" href="audio-container.html">
 <link rel="import" href="key-visual.html">
 <link rel="import" href="key-flower.html">
+<link rel="import" href="key-leaf.html">
 <link rel="import" href="keyboard-visual.html">
 <link rel="import" href="beam-constructor.html">
 <link rel="import" href="monster-container.html">
@@ -33,12 +34,46 @@
         color: #ddd;
         font-weight: bold;
       }
+      #flowerWrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20vh;
+        height: 20vh;
+        margin: 0 -10vh -10vh 0;
+        position: absolute;
+        bottom: 20vh;
+        right: 20vh;
+      }
+      #flowerCenter {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50%;
+        height: 50%;
+        border-radius: 50%;
+        background: black;
+        box-shadow: 0 0 3px 0 black;
+        color: wheat;
+        line-height: normal;
+        text-align: center;
+        font-size: 2vh;
+        z-index: 1;
+      }
     </style>
 
-    <div id="mapChoice" style="width: 200px; height: 200px;">
-      <key-flower tone-numbers="[[_getArrayForMe()]]" view-type="flower" scale="[[scale]]"
-                  style$="display: block; position: absolute; top: 25vh; left: 25vh;">[[scale.key]] [[scale.mode]]</key-flower>
+    <div id="mapChoice">
       Play chords:<input type="checkbox" checked="{{chordMode::change}}"><br />
+    </div>
+
+    <div id="flowerWrapper">
+      <div id="flowerCenter">
+        [[scale.key]]
+        [[scale.mode]]
+      </div>
+      <template is="dom-repeat" items="[[_getArrayForMe()]]" as="number">
+        <key-leaf zero-to-six="[[number]]" view-type="flower" scale="[[scale]]"></key-leaf>
+      </template>
     </div>
 
     <iron-ajax url="../maps/keyboard/key-map.json" handle-as="json" on-response="_genKeyArray" auto></iron-ajax>
@@ -54,7 +89,9 @@
           <keyboard-visual id="keyboard">
             <template is="dom-repeat" items="[[keyArray]]">
               <key-visual code$="[[item.code]]" tone="[[item.tone]]" octave="[[item.octave]]">
-                <key-flower tone-numbers="[[_getArrayForMe4(item.tone)]]" scale="[[scale]]"></key-flower>
+                <template is="dom-repeat" items="[[_getArrayForMe4(item.tone)]]" as="number">
+                  <key-leaf zero-to-six="[[number]]" view-type="compass" scale="[[scale]]"></key-leaf>
+                </template>
               </key-visual>
             </template>
             <joievent-canon></joievent-canon>

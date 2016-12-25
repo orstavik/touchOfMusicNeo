@@ -13,6 +13,11 @@
         transition-duration: 0.05s;
       }
       .char {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        width: 100%;
         position: absolute;
         z-index: 1;
         color: black;
@@ -38,11 +43,10 @@
       }
     </style>
 
-    <slot></slot>
     <div class="char">
       [[char]]
     </div>
-
+    <slot></slot>
 
   </template>
 

@@ -17,6 +17,8 @@
       .leaf{
         display: inline-block;
         box-sizing: border-box;
+        width: 90%;
+        height: 90%;
         position: absolute;
         border-bottom-left-radius: 50%;
         border-bottom-right-radius: 50%;
@@ -27,80 +29,16 @@
         font-size: 12px;
         color: black;
       }
-      .color0 { background: hsl(0, 50%, 50%); }
-      .color1 { background: hsl(30, 50%, 50%); }
-      .color2 { background: hsl(60, 50%, 50%); }
-      .color3 { background: hsl(90, 50%, 50%); }
-      .color4 { background: hsl(120, 50%, 50%); }
-      .color5 { background: hsl(150, 50%, 50%); }
-      .color6 { background: hsl(180, 50%, 50%); }
-      .color7 { background: hsl(210, 50%, 50%); }
-      .color8 { background: hsl(240, 50%, 50%); }
-      .color9 { background: hsl(270, 50%, 50%); }
-      .color10 { background: hsl(300, 50%, 50%); }
-      .color11 { background: hsl(330, 50%, 50%); }
-
-      .rotate0 {transform: rotate(45deg);}
-      .rotate1 {transform: rotate(75deg);}
-      .rotate2 {transform: rotate(105deg);}
-      .rotate3 {transform: rotate(135deg);}
-      .rotate4 {transform: rotate(165deg);}
-      .rotate5 {transform: rotate(195deg);}
-      .rotate6 {transform: rotate(225deg);}
-      .rotate7 {transform: rotate(255deg);}
-      .rotate8 {transform: rotate(285deg);}
-      .rotate9 {transform: rotate(315deg);}
-      .rotate10 {transform: rotate(345deg);}
-      .rotate11 {transform: rotate(15deg);}
-
-      .flower.rotate0 {transform: rotate(45deg) skewX(10deg);}
-      .flower.rotate1 {transform: rotate(75deg) skewX(10deg);}
-      .flower.rotate2 {transform: rotate(105deg) skewX(10deg);}
-      .flower.rotate3 {transform: rotate(135deg) skewX(10deg);}
-      .flower.rotate4 {transform: rotate(165deg) skewX(10deg);}
-      .flower.rotate5 {transform: rotate(195deg) skewX(10deg);}
-      .flower.rotate6 {transform: rotate(225deg) skewX(10deg);}
-      .flower.rotate7 {transform: rotate(255deg) skewX(10deg);}
-      .flower.rotate8 {transform: rotate(285deg) skewX(10deg);}
-      .flower.rotate9 {transform: rotate(315deg) skewX(10deg);}
-      .flower.rotate10 {transform: rotate(345deg) skewX(10deg);}
-      .flower.rotate11 {transform: rotate(15deg) skewX(10deg);}
-
-      .maj {
-        width: 80%;
-        height: 80%;
-        z-index: 0;
-      }
-      .min {
-        width: 60%;
-        height: 60%;
-        z-index: 1;
-      }
-      .dim {
-        width: 45%;
-        height: 45%;
-        z-index: 2;
-      }
-      .tone0 {
-        width: 90%;
-        height: 90%;
-      }
-      .flower{
-      }
-      .label {
-        z-index: 5;
-        position: fixed;
-        bottom: 0;left: 0;
-      }
 
     </style>
-    <div class="label"><slot></slot></div>
 
     <template is="dom-repeat" items="[[toneNumbers]]">
-      <div class$="leaf [[_getChordType(item, scale)]] tone[[item]] [[viewType]] [[_getColor(item, scale)]] [[_getRotation(item, scale)]]">
-        [[_getToneName(item, scale)]]
+      <div class$="leaf [[viewType]]"
+           style$="transform: rotate([[_setRotate(item, scale)]]deg) scale([[_setScale(item, scale)]]); background: hsl([[_setColor(item, scale)]], 50%, 50%);">
+        <!--[[_getToneName(item, scale)]]-->
       </div>
     </template>
+
   </template>
 
   <script>
@@ -114,10 +52,7 @@
           properties: {
             toneNumbers: Array,
             scale: Object,
-            viewType: {
-              type:String,
-              value: "compass"
-            }
+            viewType: String
           }
         }
       }
@@ -125,15 +60,25 @@
       _getToneName(zeroToSix, scale) {
         return scale.getToneName(zeroToSix);
       }
-      _getChordType(zeroToSix, scale) {
-        return scale.getChordType(zeroToSix);
+      _setScale(zeroToSix, scale) {
+        if (zeroToSix !== 0) {
+          let chord = scale.getChordType(zeroToSix);
+          switch (chord) {
+            case "maj":
+              return 0.9;
+            case "min":
+              return 0.7;
+            case "dim":
+              return 0.5;
+          }
+        }
       }
 
-      _getColor(zeroToSix, scale){
-        return "color" + scale.getToneColor(zeroToSix);
+      _setColor(zeroToSix, scale){
+        return 30*scale.getToneColor(zeroToSix);
       }
-      _getRotation(zeroToSix, scale){
-        return "rotate" + scale.getTonePositionRelativeToKey(zeroToSix);
+      _setRotate(zeroToSix, scale){
+        return 45 + 30*scale.getTonePositionRelativeToKey(zeroToSix);
       }
     }
     customElements.define(KeyFlower.is, KeyFlower);

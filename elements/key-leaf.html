@@ -1,0 +1,129 @@
+<dom-module id="key-leaf">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+        width: 90%;
+        height: 90%;
+        position: absolute;
+        transition-duration: 0.5s;
+      }
+      .flower {
+        transform: scaleX(0.75);
+      }
+      .leaf {
+        display: inline-block;
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        transition-duration: 0.5s;
+      }
+      .innerLeaf{
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        border-bottom-left-radius: 50%;
+        border-bottom-right-radius: 50%;
+        border-top-right-radius: 50%;
+        transform: rotate(45deg);
+        transition-duration: 0.5s;
+        box-shadow: 0 0 3px 0px black;
+        font-size: 12px;
+        color: black;
+      }
+      .note {
+        position: absolute;
+        left: 50%;
+        bottom: 0%;
+        margin-bottom: 1vh;
+        font-size: 3vh;
+        font-weight: bold;
+        transform: translateX(-50%);
+      }
+
+    </style>
+
+    <div class$="leaf [[viewType]]">
+      <div class="innerLeaf" style$="background: hsl([[_setColor(zeroToSix, scale)]], 50%, 50%);"></div>
+    </div>
+    <span class="note">
+      [[_getToneName(zeroToSix, scale, viewType)]]
+    </span>
+
+  </template>
+
+  <script>
+    class KeyLeaf extends Polymer.Element {
+      static get is() {
+        return "key-leaf";
+      }
+
+      static get config() {
+        return {
+          properties: {
+            toneNumbers: Array,
+            zeroToSix: Number,
+            scale: Object,
+            viewType: String
+          },
+          observers: [
+            "_setStyle(zeroToSix, scale, viewType)"
+          ]
+        }
+      }
+
+      _setStyle(zeroToSix, scale, viewType) {
+        this.style.transform = "rotate("+this._setRotate(zeroToSix, scale)+"deg) "+this._setScale(zeroToSix, scale)+" "+this._setTranslate(zeroToSix, scale, viewType);
+      }
+
+      _getToneName(zeroToSix, scale, viewType) {
+        if (viewType == "flower")
+          return scale.getToneName(zeroToSix);
+      }
+      _setScale(zeroToSix, scale) {
+        if (zeroToSix !== 0) {
+          let chord = scale.getChordType(zeroToSix);
+          switch (chord) {
+            case "maj":
+              return "scale(-0.9)";
+            case "min":
+              return "scale(-0.7)";
+            case "dim":
+              return "scale(-0.5)";
+          }
+        } else {
+          return "scale(-1)";
+        }
+      }
+
+      _setTranslate(zeroToSix, scale, viewType){
+        if (viewType == "flower") {
+          if (zeroToSix !== 0) {
+            let chord = scale.getChordType(zeroToSix);
+            switch (chord) {
+              case "maj":
+                return "translate(0, 82%)";
+              case "min":
+                return "translate(0, 90%)";
+              case "dim":
+                return "translate(0, 102%)";
+            }
+          } else {
+            return "translate(0, 80%)";
+          }
+        } else {
+          return "";
+        }
+      }
+
+      _setColor(zeroToSix, scale){
+        return 30*scale.getToneColor(zeroToSix);
+      }
+      _setRotate(zeroToSix, scale){
+        return 30*scale.getTonePositionRelativeToKey(zeroToSix);
+      }
+    }
+    customElements.define(KeyLeaf.is, KeyLeaf);
+  </script>
+</dom-module>
