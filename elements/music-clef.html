@@ -37,7 +37,9 @@
       getChordType(zeroToSix){
         return MusicScaleObject.calculateChordType(this.getChord(zeroToSix));
       }
-
+      getOctave(base){
+        return Number(base)+this.octave;
+      }
       getTonePosition(zeroToSix){
         return (this.keyNumber + this.scale[zeroToSix]) % 12;
       }

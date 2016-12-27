@@ -34,47 +34,13 @@
         color: #ddd;
         font-weight: bold;
       }
-      #flowerWrapper {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 20vh;
-        height: 20vh;
-        margin: 0 -10vh -10vh 0;
-        position: absolute;
-        bottom: 20vh;
-        right: 20vh;
-      }
-      #flowerCenter {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 50%;
-        height: 50%;
-        border-radius: 50%;
-        background: black;
-        box-shadow: 0 0 3px 0 black;
-        color: wheat;
-        line-height: normal;
-        text-align: center;
-        font-size: 2vh;
-        z-index: 1;
-      }
     </style>
 
     <div id="mapChoice">
       Play chords:<input type="checkbox" checked="{{chordMode::change}}"><br />
     </div>
 
-    <div id="flowerWrapper">
-      <div id="flowerCenter">
-        [[scale.key]]
-        [[scale.mode]]
-      </div>
-      <template is="dom-repeat" items="[[_getArrayForMe()]]" as="number">
-        <key-leaf zero-to-six="[[number]]" view-type="flower" scale="[[scale]]"></key-leaf>
-      </template>
-    </div>
+    <key-flower scale="[[scale]]"></key-flower>
 
     <iron-ajax url="../maps/keyboard/key-map.json" handle-as="json" on-response="_genKeyArray" auto></iron-ajax>
 
@@ -90,7 +56,7 @@
             <template is="dom-repeat" items="[[keyArray]]">
               <key-visual code$="[[item.code]]" tone="[[item.tone]]" octave="[[item.octave]]">
                 <template is="dom-repeat" items="[[_getArrayForMe4(item.tone)]]" as="number">
-                  <key-leaf zero-to-six="[[number]]" view-type="compass" scale="[[scale]]"></key-leaf>
+                  <key-leaf zero-to-six="[[number]]" scale="[[scale]]" octave="[[item.octave]]"></key-leaf>
                 </template>
               </key-visual>
             </template>
@@ -144,9 +110,6 @@
       _genKeyArray(e) {
         this.keyArray = e.detail.response;
         this.notifyPath("keyArray");
-      }
-      _getArrayForMe() {
-        return [0,1,2,3,4,5,6];
       }
       _getArrayForMe4(tone) {
         return [0, Number(tone)];

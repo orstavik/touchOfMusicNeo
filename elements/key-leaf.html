@@ -8,9 +8,6 @@
         position: absolute;
         transition-duration: 0.5s;
       }
-      .flower {
-        transform: scaleX(0.75);
-      }
       .leaf {
         display: inline-block;
         box-sizing: border-box;
@@ -32,24 +29,12 @@
         font-size: 12px;
         color: black;
       }
-      .note {
-        position: absolute;
-        left: 50%;
-        bottom: 0%;
-        margin-bottom: 1vh;
-        font-size: 3vh;
-        font-weight: bold;
-        transform: translateX(-50%);
-      }
 
     </style>
 
-    <div class$="leaf [[viewType]]">
-      <div class="innerLeaf" style$="background: hsl([[_setColor(zeroToSix, scale)]], 50%, 50%);"></div>
+    <div class="leaf">
+      <div class="innerLeaf" style$="background: hsl([[_setColor(zeroToSix, scale, octave)]]);"></div>
     </div>
-    <span class="note">
-      [[_getToneName(zeroToSix, scale, viewType)]]
-    </span>
 
   </template>
 
@@ -65,7 +50,7 @@
             toneNumbers: Array,
             zeroToSix: Number,
             scale: Object,
-            viewType: String
+            octave: Number
           },
           observers: [
             "_setStyle(zeroToSix, scale, viewType)"
@@ -73,52 +58,27 @@
         }
       }
 
-      _setStyle(zeroToSix, scale, viewType) {
-        this.style.transform = "rotate("+this._setRotate(zeroToSix, scale)+"deg) "+this._setScale(zeroToSix, scale)+" "+this._setTranslate(zeroToSix, scale, viewType);
-      }
-
-      _getToneName(zeroToSix, scale, viewType) {
-        if (viewType == "flower")
-          return scale.getToneName(zeroToSix);
+      _setStyle(zeroToSix, scale) {
+        this.style.transform = "rotate("+this._setRotate(zeroToSix, scale)+"deg) "+this._setScale(zeroToSix, scale);
       }
       _setScale(zeroToSix, scale) {
         if (zeroToSix !== 0) {
           let chord = scale.getChordType(zeroToSix);
           switch (chord) {
             case "maj":
-              return "scale(-0.9)";
+              return "scale(-0.8)";
             case "min":
               return "scale(-0.7)";
             case "dim":
-              return "scale(-0.5)";
+              return "scale(-0.6)";
           }
         } else {
           return "scale(-1)";
         }
       }
 
-      _setTranslate(zeroToSix, scale, viewType){
-        if (viewType == "flower") {
-          if (zeroToSix !== 0) {
-            let chord = scale.getChordType(zeroToSix);
-            switch (chord) {
-              case "maj":
-                return "translate(0, 82%)";
-              case "min":
-                return "translate(0, 90%)";
-              case "dim":
-                return "translate(0, 102%)";
-            }
-          } else {
-            return "translate(0, 80%)";
-          }
-        } else {
-          return "";
-        }
-      }
-
-      _setColor(zeroToSix, scale){
-        return 30*scale.getToneColor(zeroToSix);
+      _setColor(zeroToSix, scale, octave){
+        return 30*scale.getToneColor(zeroToSix)+", 65%, "+(12.5*scale.getOctave(octave))+"%";
       }
       _setRotate(zeroToSix, scale){
         return 30*scale.getTonePositionRelativeToKey(zeroToSix);

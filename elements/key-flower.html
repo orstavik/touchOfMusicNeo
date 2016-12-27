@@ -5,23 +5,30 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 100%;
-        height: 100%;
+        width: 20vh;
+        height: 20vh;
+        margin: 0 -10vh -10vh 0;
+        position: absolute;
+        bottom: 20vh;
+        right: 20vh;
       }
-      .compass{
-        /*hide text*/
-        text-indent: 100%;
-        white-space: nowrap;
-        overflow: hidden;
-      }
-      .leaf{
+      .leaf {
         display: inline-block;
         box-sizing: border-box;
-        width: 90%;
-        height: 90%;
+        width: 80%;
+        height: 80%;
+        bottom: 50%;
         position: absolute;
+        transform-origin: bottom;
+        transition-duration: 0.5s;
+      }
+      .innerLeaf{
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        border-top-left-radius: 50%;
         border-bottom-left-radius: 50%;
-        border-bottom-right-radius: 50%;
         border-top-right-radius: 50%;
         transform: rotate(45deg);
         transition-duration: 0.5s;
@@ -29,13 +36,42 @@
         font-size: 12px;
         color: black;
       }
-
+      #flowerCenter {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 10vh;
+        height: 10vh;
+        border-radius: 50%;
+        background: black;
+        box-shadow: 0 0 3px 0 black;
+        color: wheat;
+        line-height: normal;
+        text-align: center;
+        font-size: 2vh;
+        z-index: 1;
+      }
+      .note {
+        position: absolute;
+        left: 50%;
+        top: 0%;
+        margin-top: 1vh;
+        font-size: 3.5vh;
+        font-weight: bold;
+        transform: translateX(-50%) scaleY(0.75);
+      }
     </style>
 
-    <template is="dom-repeat" items="[[toneNumbers]]">
-      <div class$="leaf [[viewType]]"
-           style$="transform: rotate([[_setRotate(item, scale)]]deg) scale([[_setScale(item, scale)]]); background: hsl([[_setColor(item, scale)]], 50%, 50%);">
-        <!--[[_getToneName(item, scale)]]-->
+    <div id="flowerCenter">
+      [[scale.key]]
+      [[scale.mode]]
+    </div>
+    <template is="dom-repeat" items="[0,1,2,3,4,5,6]" as="number">
+      <div class="leaf" style$="transform: rotate([[_setRotate(number, scale)]]deg) scale([[_setScale(number, scale)]]) translateY(-7vh);">
+        <div class="innerLeaf" style$="background: hsl([[_setColor(number, scale)]]);"></div>
+        <span class="note">
+          [[_getToneName(number, scale)]]
+        </span>
       </div>
     </template>
 
@@ -50,35 +86,45 @@
       static get config() {
         return {
           properties: {
-            toneNumbers: Array,
-            scale: Object,
-            viewType: String
+            scale: Object
           }
         }
+      }
+      _setScale(zeroToSix, scale) {
+        let chord = scale.getChordType(zeroToSix);
+        switch (chord) {
+          case "maj":
+            return "0.75, 1";
+          case "min":
+            return "0.6375, 0.85";
+          case "dim":
+            return "0.525, 0.7";
+        }
+      }
+
+      _setTranslate(zeroToSix, scale){
+        // let chord = scale.getChordType(zeroToSix);
+        // switch (chord) {
+        //   case "maj":
+        //     return "translate(0, 82%)";
+        //   case "min":
+        //     return "translate(0, 90%)";
+        //   case "dim":
+        //     return "translate(0, 102%)";
+        // }
+        return "translate(0, calc(100%)";
+      }
+
+      _setColor(zeroToSix, scale){
+        return 30*scale.getToneColor(zeroToSix)+", 65%, 50%";
+      }
+
+      _setRotate(zeroToSix, scale){
+        return 30*scale.getTonePosition(zeroToSix);
       }
 
       _getToneName(zeroToSix, scale) {
         return scale.getToneName(zeroToSix);
-      }
-      _setScale(zeroToSix, scale) {
-        if (zeroToSix !== 0) {
-          let chord = scale.getChordType(zeroToSix);
-          switch (chord) {
-            case "maj":
-              return 0.9;
-            case "min":
-              return 0.7;
-            case "dim":
-              return 0.5;
-          }
-        }
-      }
-
-      _setColor(zeroToSix, scale){
-        return 30*scale.getToneColor(zeroToSix);
-      }
-      _setRotate(zeroToSix, scale){
-        return 45 + 30*scale.getTonePositionRelativeToKey(zeroToSix);
       }
     }
     customElements.define(KeyFlower.is, KeyFlower);
