@@ -9,8 +9,8 @@
         height: 20vh;
         margin: 0 -10vh -10vh 0;
         position: absolute;
-        bottom: 20vh;
-        right: 20vh;
+        bottom: 25vh;
+        right: 25vh;
       }
       .leaf {
         display: inline-block;
@@ -66,11 +66,11 @@
       [[scale.key]]
       [[scale.mode]]
     </div>
-    <template is="dom-repeat" items="[0,1,2,3,4,5,6]" as="number">
-      <div class="leaf" style$="transform: rotate([[_setRotate(number, scale)]]deg) scale([[_setScale(number, scale)]]) translateY(-7vh);">
-        <div class="innerLeaf" style$="background: hsl([[_setColor(number, scale)]]);"></div>
+    <template is="dom-repeat" items="[[_makeArray(scale)]]">
+      <div class="leaf" style$="transform: rotate([[_setRotate(item.number)]]deg) scale([[_setScale(item.type)]]) translateY(-7vh);">
+        <div class="innerLeaf" style$="background: [[_setColor(item.number)]]"></div>
         <span class="note">
-          [[_getToneName(number, scale)]]
+          [[item.name]]
         </span>
       </div>
     </template>
@@ -86,13 +86,31 @@
       static get config() {
         return {
           properties: {
+            palette: Object,
             scale: Object
           }
         }
       }
-      _setScale(zeroToSix, scale) {
-        let chord = scale.getChordType(zeroToSix);
-        switch (chord) {
+
+      _makeArray(scale) {
+        if (scale) {
+          var arr = [];
+          for (let i = 0; i < 7; i++) {
+            arr.push({
+              number: scale.getTonePosition(i),
+              name: scale.getToneName(i),
+              type: scale.getChordType(i)
+            })
+            arr.sort(function(a,b){
+              return a.number - b.number;
+            });
+          }
+        }
+        return arr;
+      }
+      
+      _setScale(type) {
+        switch (type) {
           case "maj":
             return "0.75, 1";
           case "min":
@@ -102,29 +120,16 @@
         }
       }
 
-      _setTranslate(zeroToSix, scale){
-        // let chord = scale.getChordType(zeroToSix);
-        // switch (chord) {
-        //   case "maj":
-        //     return "translate(0, 82%)";
-        //   case "min":
-        //     return "translate(0, 90%)";
-        //   case "dim":
-        //     return "translate(0, 102%)";
-        // }
+      _setTranslate(number){
         return "translate(0, calc(100%)";
       }
 
-      _setColor(zeroToSix, scale){
-        return 30*scale.getToneColor(zeroToSix)+", 65%, 50%";
+      _setColor(number){
+        return this.palette.getColor(number);
       }
 
-      _setRotate(zeroToSix, scale){
-        return 30*scale.getTonePosition(zeroToSix);
-      }
-
-      _getToneName(zeroToSix, scale) {
-        return scale.getToneName(zeroToSix);
+      _setRotate(number){
+        return 30*number;
       }
     }
     customElements.define(KeyFlower.is, KeyFlower);

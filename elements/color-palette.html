@@ -1,0 +1,56 @@
+<dom-module id="color-palette">
+  <template>
+    <style>
+      :host {
+        display: none;
+      }
+    </style>
+
+  </template>
+
+  <script>
+    class Palette {
+      constructor(colors) {
+        this.colors = colors;
+      }
+      
+      getColor(number) {
+        return this._computeHSL(this.colors[number]);
+      }
+
+      _computeHSL(opt) {
+        return "hsl("+opt[0]+", "+opt[1]+"%, "+opt[2]+"%)"
+      }
+    }
+
+    class ColorPalette extends Polymer.Element {
+      static get is() {
+        return "color-palette";
+      }
+
+      static get config() {
+        return {
+          properties: {
+            palette: {
+              type: Object,
+              computed: "_makePalette(startColors)",
+              notify: true
+            },
+            startColors: Array
+          }
+        }
+      }
+
+      _makePalette(colors) {
+        return new Palette(colors);
+      }
+
+      desaturate(x) {
+        this.startColors = this.startColors.map(function(color) {
+          return [color[0], color[1]*x, color[2]]; 
+        });
+      }
+    }
+    customElements.define(ColorPalette.is, ColorPalette);
+  </script>
+</dom-module>

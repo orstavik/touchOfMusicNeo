@@ -15,6 +15,7 @@
 <link rel="import" href="monster-container.html">
 <link rel="import" href="html-loader.html">
 <link rel="import" href="music-clef.html">
+<link rel="import" href="color-palette.html">
 
 <dom-module id="my-app">
   <template>
@@ -22,7 +23,7 @@
       :host {
         display: block;
         height: 100vh;
-        background-image: url("../images/background/background.png");
+        background-image: url("../images/background/tree.png");
         background-size: auto 100%;
         background-repeat: no-repeat;
         background-position: bottom;
@@ -34,13 +35,16 @@
         color: #ddd;
         font-weight: bold;
       }
+      #scenario {
+        display: none;
+      }
     </style>
 
     <div id="mapChoice">
       Play chords:<input type="checkbox" checked="{{chordMode::change}}"><br />
     </div>
 
-    <key-flower scale="[[scale]]"></key-flower>
+    <key-flower scale="[[scale]]" palette="[[palette]]"></key-flower>
 
     <iron-ajax url="../maps/keyboard/key-map.json" handle-as="json" on-response="_genKeyArray" auto></iron-ajax>
 
@@ -55,8 +59,8 @@
           <keyboard-visual id="keyboard">
             <template is="dom-repeat" items="[[keyArray]]">
               <key-visual code$="[[item.code]]" tone="[[item.tone]]" octave="[[item.octave]]">
-                <template is="dom-repeat" items="[[_getArrayForMe4(item.tone)]]" as="number">
-                  <key-leaf zero-to-six="[[number]]" scale="[[scale]]" octave="[[item.octave]]"></key-leaf>
+                <template is="dom-repeat" items="[[_getArrayForMe4(item.tone, scale, palette)]]" as="info">
+                  <key-leaf info="[[info]]" octave="[[item.octave]]"></key-leaf>
                 </template>
               </key-visual>
             </template>
@@ -73,6 +77,8 @@
       <audio-container id="audioPlayer">
         <music-clef id="clef" octave="4" mode="major" key="C" scale="{{scale}}"></music-clef>
       </audio-container>
+
+      <color-palette palette="{{palette}}" start-colors="[[startColors]]"></color-palette>
 
     </game-judge>
 
@@ -102,6 +108,26 @@
                 return []
               }
             },
+            startColors: {
+              type: Array,
+              value: function() {
+                return [
+                    [5,100,50],
+                    [35,100,50],
+                    [50,100,50],
+                    [60,100,50],
+                    [90,100,49],
+                    [120,100,45],
+                    [150,100,40],
+                    [180,100,35],
+                    [210,100,50],
+                    [225,100,50],
+                    [310,100,40],
+                    [340,100,45]
+                  ]
+              }
+            },
+            palette: Object,
             chordMode: Boolean
           }
         }
@@ -111,8 +137,17 @@
         this.keyArray = e.detail.response;
         this.notifyPath("keyArray");
       }
-      _getArrayForMe4(tone) {
-        return [0, Number(tone)];
+      _getArrayForMe4(tone, scale, palette) {
+        if (palette) {
+          var res = [0, Number(tone)].map(function(item) {
+            return {
+              number: scale.getTonePositionRelativeToKey(item),
+              type: scale.getChordType(item),
+              color: palette.getColor(scale.getToneColor(item))
+            }
+          })
+          return res;
+        }
       }
     }
     customElements.define(MyApp.is, MyApp);

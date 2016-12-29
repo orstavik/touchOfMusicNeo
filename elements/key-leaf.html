@@ -15,7 +15,7 @@
         height: 100%;
         transition-duration: 0.5s;
       }
-      .innerLeaf{
+      #innerLeaf{
         display: inline-block;
         width: 100%;
         height: 100%;
@@ -33,7 +33,7 @@
     </style>
 
     <div class="leaf">
-      <div class="innerLeaf" style$="background: hsl([[_setColor(zeroToSix, scale, octave)]]);"></div>
+      <div id="innerLeaf" style$="background: [[_setColor(zeroToSix, scale)]]"></div>
     </div>
 
   </template>
@@ -47,24 +47,22 @@
       static get config() {
         return {
           properties: {
-            toneNumbers: Array,
-            zeroToSix: Number,
-            scale: Object,
+            info: {
+              type: Object,
+              observer: "_setStyle"
+            },
             octave: Number
-          },
-          observers: [
-            "_setStyle(zeroToSix, scale, viewType)"
-          ]
+          }
         }
       }
 
-      _setStyle(zeroToSix, scale) {
-        this.style.transform = "rotate("+this._setRotate(zeroToSix, scale)+"deg) "+this._setScale(zeroToSix, scale);
+      _setStyle(info) {
+        this.style.transform = "rotate("+this._setRotate(info.number)+"deg) "+this._setScale(info);
+        this.$.innerLeaf.style.background = info.color;
       }
-      _setScale(zeroToSix, scale) {
-        if (zeroToSix !== 0) {
-          let chord = scale.getChordType(zeroToSix);
-          switch (chord) {
+      _setScale(info) {
+        if (info.number !== 0) {
+          switch (info.type) {
             case "maj":
               return "scale(-0.8)";
             case "min":
@@ -76,12 +74,8 @@
           return "scale(-1)";
         }
       }
-
-      _setColor(zeroToSix, scale, octave){
-        return 30*scale.getToneColor(zeroToSix)+", 65%, "+(12.5*scale.getOctave(octave))+"%";
-      }
-      _setRotate(zeroToSix, scale){
-        return 30*scale.getTonePositionRelativeToKey(zeroToSix);
+      _setRotate(number){
+        return 30*number;
       }
     }
     customElements.define(KeyLeaf.is, KeyLeaf);

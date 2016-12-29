@@ -1,0 +1,2158 @@
+{
+    "metadata": {
+        "uuid": "3a442b95-8cb8-44de-9aeb-959017faa982",
+        "title": "Drawing",
+        "description": "made with Sketchpad - https://sketch.io/sketchpad",
+        "units": "px",
+        "width": 640,
+        "height": 640,
+        "originX": 0,
+        "originY": 0,
+        "scale": 1,
+        "pages": {
+            "length": 1,
+            "data": [
+                {
+                    "width": 640,
+                    "height": 640
+                }
+            ]
+        },
+        "clip": {
+            "style": {
+                "strokeStyle": "black",
+                "shadowColor": "rgba(255,255,255,0.15)",
+                "shadowBlur": 1,
+                "lineWidth": 2
+            }
+        },
+        "exportDPI": 72,
+        "exportFormat": "png",
+        "exportQuality": 0.95
+    },
+    "version": "4.0.0.543",
+    "actions": [
+        {
+            "bbox": {
+                "x": 179.49235621429852,
+                "y": 167.28166942537658,
+                "width": 247,
+                "height": 247,
+                "scale": {
+                    "x": 1.736431876011373,
+                    "y": 1.1901554324707708
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 328,
+                "left": 0,
+                "top": 0,
+                "trx2D": "0.8480480961564258,-0.529919264233205,0.529919264233205,0.8480480961564258,179.49235621429852,167.28166942537658",
+                "eventDelta": {
+                    "x": -0.7706580546418991,
+                    "y": 2.46940051638623
+                }
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#ffbcbc"
+            },
+            "stroke": {
+                "type": "gradient",
+                "method": "stroke",
+                "enabled": false,
+                "opacity": 1,
+                "composite": "normal",
+                "lineDash": "none",
+                "lineDashOffset": 0,
+                "lineCap": "butt",
+                "lineJoin": "miter",
+                "lineWidth": 2,
+                "miterLimit": 4,
+                "gradient": {
+                    "type": "linearGradient",
+                    "spreadMethod": "pad",
+                    "noise": 0,
+                    "stops": [
+                        0,
+                        4292018002,
+                        0.5,
+                        4289852234,
+                        1,
+                        4287752258
+                    ],
+                    "x0": 0,
+                    "y0": 0.5,
+                    "x1": 1,
+                    "y1": 0.5
+                }
+            },
+            "composite": "normal",
+            "id": "U:15",
+            "pointerId": "U:1",
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "timestamp": 1483001636640,
+            "zIndex": 0
+        },
+        {
+            "bbox": {
+                "x": 19.881873778696164,
+                "y": 495.369883320782,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 5.354565868513396,
+                    "y": 1.358451548089833
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "trx2D": "1,0,0,1,19.881873778696164,495.369883320782",
+                "eventDelta": {
+                    "x": -0.16351630871702127,
+                    "y": -0.6421710537182435
+                }
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#ffd1b4"
+            },
+            "stroke": {
+                "type": "gradient",
+                "method": "stroke",
+                "enabled": false,
+                "opacity": 1,
+                "composite": "normal",
+                "lineDash": "none",
+                "lineDashOffset": 0,
+                "lineCap": "butt",
+                "lineJoin": "miter",
+                "lineWidth": 2,
+                "miterLimit": 4,
+                "gradient": {
+                    "type": "linearGradient",
+                    "spreadMethod": "pad",
+                    "noise": 0,
+                    "stops": [
+                        0,
+                        4292018002,
+                        0.5,
+                        4289852234,
+                        1,
+                        4287752258
+                    ],
+                    "x0": 0,
+                    "y0": 0.5,
+                    "x1": 1,
+                    "y1": 0.5
+                }
+            },
+            "composite": "normal",
+            "id": "U:16",
+            "pointerId": "U:1",
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "timestamp": 1483001651618,
+            "zIndex": 1
+        },
+        {
+            "bbox": {
+                "x": 152.89060914169826,
+                "y": 21.858785428494294,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 3.637917050794602,
+                    "y": 2.370088508932397
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 36,
+                "left": 0,
+                "top": 0,
+                "trx2D": "0.8090169943749475,0.5877852522924731,-0.5877852522924731,0.8090169943749475,152.89060914169826,21.858785428494294",
+                "eventDelta": {
+                    "x": -1.4164943902279958,
+                    "y": -0.9840109525758578
+                }
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#ffbcbc"
+            },
+            "stroke": {
+                "type": "gradient",
+                "method": "stroke",
+                "enabled": false,
+                "opacity": 1,
+                "composite": "normal",
+                "lineDash": "none",
+                "lineDashOffset": 0,
+                "lineCap": "butt",
+                "lineJoin": "miter",
+                "lineWidth": 2,
+                "miterLimit": 4,
+                "gradient": {
+                    "type": "linearGradient",
+                    "spreadMethod": "pad",
+                    "noise": 0,
+                    "stops": [
+                        0,
+                        4292018002,
+                        0.5,
+                        4289852234,
+                        1,
+                        4287752258
+                    ],
+                    "x0": 0,
+                    "y0": 0.5,
+                    "x1": 1,
+                    "y1": 0.5
+                }
+            },
+            "composite": "normal",
+            "id": "U:17",
+            "pointerId": "U:1",
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "timestamp": 1483001654471,
+            "zIndex": 2
+        },
+        {
+            "bbox": {
+                "x": 75.4369229463923,
+                "y": 441.3443216557299,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 1.3612073915563323,
+                    "y": 0.7343692294639227
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 90,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": 0,
+                    "y": 0
+                },
+                "trx2D": "6.123233995736766e-17,1,-1,6.123233995736766e-17,75.4369229463923,441.3443216557299"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#4c7949"
+            },
+            "composite": "normal",
+            "id": "U:18",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 3
+        },
+        {
+            "bbox": {
+                "x": 371.0249351370219,
+                "y": 390.73634483522034,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 1.2636936147395372,
+                    "y": 0.2901109368023591
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 82,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": -0.30159299113427096,
+                    "y": 0.48841508520962407
+                },
+                "trx2D": "0.13917310096006547,0.9902680687415704,-0.9902680687415704,0.13917310096006547,371.0249351370219,390.73634483522034"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#f6f1f1"
+            },
+            "composite": "normal",
+            "id": "U:19",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 4
+        },
+        {
+            "bbox": {
+                "x": 86.36713322409483,
+                "y": 533.9950038346731,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.6275883626429729,
+                    "y": 0.4762845212792125
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 90,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": 0.9580814681171717,
+                    "y": 1.588449707832524
+                },
+                "trx2D": "6.123233995736766e-17,1,-1,6.123233995736766e-17,86.36713322409483,533.9950038346731"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#ffce2f"
+            },
+            "composite": "normal",
+            "id": "U:20",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 5
+        },
+        {
+            "bbox": {
+                "x": 139.78568721637902,
+                "y": 531.185459276649,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.818101611777702,
+                    "y": 0.6355192532849784
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 100,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": 0.6945104702115543,
+                    "y": 0.04719518470767525
+                },
+                "trx2D": "-0.1736481776669303,0.984807753012208,-0.984807753012208,-0.1736481776669303,139.78568721637902,531.185459276649"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#aedbff"
+            },
+            "composite": "normal",
+            "id": "U:21",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 6
+        },
+        {
+            "bbox": {
+                "x": 164.7376230557377,
+                "y": 562.5159566196692,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.577893664760621,
+                    "y": 0.669665120398048
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 100,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": 0.6945104702115543,
+                    "y": 0.04719518470767525
+                },
+                "trx2D": "-0.1736481776669303,0.984807753012208,-0.984807753012208,-0.1736481776669303,164.7376230557377,562.5159566196692"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#bebc5a"
+            },
+            "composite": "normal",
+            "id": "U:22",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 7
+        },
+        {
+            "bbox": {
+                "x": 361.69035199340385,
+                "y": 349.55947346446817,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.7419528912914605,
+                    "y": 0.2539614091982201
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 81,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": 0.4053132256610752,
+                    "y": 2.7690852466882347
+                },
+                "trx2D": "0.15643446504023092,0.9876883405951378,-0.9876883405951378,0.15643446504023092,361.69035199340385,349.55947346446817"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#f6f1f1"
+            },
+            "composite": "normal",
+            "id": "U:23",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 8
+        },
+        {
+            "bbox": {
+                "x": 400.58587421758256,
+                "y": 475.79158765348484,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.4094876825949077,
+                    "y": 0.669665120398048
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 86,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": 1.013449731933889,
+                    "y": -1.3298861349086906
+                },
+                "trx2D": "0.06975647374412523,0.9975640502598242,-0.9975640502598242,0.06975647374412523,400.58587421758256,475.79158765348484"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#bebc5a"
+            },
+            "composite": "normal",
+            "id": "U:25",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 9
+        },
+        {
+            "bbox": {
+                "x": 368.5149749575382,
+                "y": 295.89128126883736,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.8363594232915982,
+                    "y": 0.26396538117193075
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 92,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": -1.5085049815111233,
+                    "y": -1.1057419740993168
+                },
+                "trx2D": "-0.034899496702500955,0.9993908270190958,-0.9993908270190958,-0.034899496702500955,368.5149749575382,295.89128126883736"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#e6e6e6"
+            },
+            "composite": "normal",
+            "id": "U:24",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 10
+        },
+        {
+            "bbox": {
+                "x": 501.7928865757668,
+                "y": 416.95056604838976,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.954471115853522,
+                    "y": 0.6250406933871343
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 90,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": 4.217517854614556,
+                    "y": -0.8422125396293154
+                },
+                "trx2D": "6.123233995736766e-17,1,-1,6.123233995736766e-17,501.7928865757668,416.95056604838976"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#877fff"
+            },
+            "composite": "normal",
+            "id": "U:26",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 11
+        },
+        {
+            "bbox": {
+                "x": 25.54604438404276,
+                "y": 548.5184490940985,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.43456266094151796,
+                    "y": -0.11017824744449181
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 73,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": -3.8902500851544914,
+                    "y": -0.04846986793654651
+                },
+                "trx2D": "0.29237170472273677,0.9563047559630354,-0.9563047559630354,0.29237170472273677,25.54604438404276,548.5184490940985"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#aedbff"
+            },
+            "composite": "normal",
+            "id": "U:29",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 12
+        },
+        {
+            "bbox": {
+                "x": 12.774045120946795,
+                "y": 568.24550832306,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.3085285508363843,
+                    "y": -0.07822378237488815
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 45,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": 0.3036213116496924,
+                    "y": -1.0794424794722204
+                },
+                "trx2D": "0.7071067811865476,0.7071067811865475,-0.7071067811865475,0.7071067811865476,12.774045120946795,568.24550832306"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#aedbff"
+            },
+            "composite": "normal",
+            "id": "U:30",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 13
+        },
+        {
+            "bbox": {
+                "x": 160.02301106342995,
+                "y": 483.70330895291397,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.1969618382194753,
+                    "y": 0.1101947098957775
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 65,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": -0.5526931453228769,
+                    "y": -0.6318977705815882
+                },
+                "trx2D": "0.42261826174069944,0.9063077870366499,-0.9063077870366499,0.42261826174069944,160.02301106342995,483.70330895291397"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#ffce2f"
+            },
+            "composite": "normal",
+            "id": "U:31",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 14
+        },
+        {
+            "bbox": {
+                "x": 180.5455265713123,
+                "y": 476.95824929438686,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.26809631552044727,
+                    "y": 0.11828026313641081
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 104,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": 0.9106485343784527,
+                    "y": 0.2690233536487767
+                },
+                "trx2D": "-0.24192189559966779,0.9702957262759965,-0.9702957262759965,-0.24192189559966779,180.5455265713123,476.95824929438686"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#ffce2f"
+            },
+            "composite": "normal",
+            "id": "U:32",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 15
+        },
+        {
+            "bbox": {
+                "x": 532.0113826228013,
+                "y": 488.20652677142135,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.4436266657492642,
+                    "y": 0.8870061711592345
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 105,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": 1.9594571120607327,
+                    "y": -0.22397689977111668
+                },
+                "trx2D": "-0.25881904510252085,0.9659258262890683,-0.9659258262890683,-0.25881904510252085,532.0113826228013,488.20652677142135"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#ffce2f"
+            },
+            "composite": "normal",
+            "id": "U:27",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 16
+        },
+        {
+            "bbox": {
+                "x": 469.870790088646,
+                "y": 440.0054135113102,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.7272420442693536,
+                    "y": 0.8043091560795341
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 90,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": -0.6740222271431264,
+                    "y": -1.0293846285136965
+                },
+                "trx2D": "6.123233995736766e-17,1,-1,6.123233995736766e-17,469.870790088646,440.0054135113102"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#4c7949"
+            },
+            "composite": "normal",
+            "id": "U:28",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 17
+        },
+        {
+            "bbox": {
+                "x": 159.9844083610585,
+                "y": 580.4954739531033,
+                "width": 64.03124237432849,
+                "height": 64.03124237432849,
+                "scale": {
+                    "x": 0.5456618664193692,
+                    "y": 0.6116182866201575
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 91,
+                "left": 0,
+                "top": 0,
+                "trx2D": "-0.017452406437283477,0.9998476951563913,-0.9998476951563913,-0.017452406437283477,159.9844083610585,580.4954739531033",
+                "eventDelta": {
+                    "x": -0.1913901943039491,
+                    "y": -0.7435493240107007
+                }
+            },
+            "cutout": 0,
+            "roundness": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#bebc5a"
+            },
+            "stroke": {
+                "type": "gradient",
+                "method": "stroke",
+                "enabled": false,
+                "opacity": 1,
+                "composite": "normal",
+                "lineDash": "none",
+                "lineDashOffset": 0,
+                "lineCap": "butt",
+                "lineJoin": "miter",
+                "lineWidth": 2,
+                "miterLimit": 4,
+                "gradient": {
+                    "type": "linearGradient",
+                    "spreadMethod": "pad",
+                    "noise": 0,
+                    "stops": [
+                        0,
+                        4292018002,
+                        0.5,
+                        4289852234,
+                        1,
+                        4287752258
+                    ],
+                    "x0": 0,
+                    "y0": 0.5,
+                    "x1": 1,
+                    "y1": 0.5
+                }
+            },
+            "composite": "normal",
+            "id": "U:36",
+            "pointerId": "U:1",
+            "toolkitId": "shape",
+            "type": "square",
+            "timestamp": 1483003369698,
+            "zIndex": 18
+        },
+        {
+            "bbox": {
+                "x": 390.45935100352864,
+                "y": 472.24150387112786,
+                "width": 64.03124237432849,
+                "height": 64.03124237432849,
+                "scale": {
+                    "x": 0.6429128535485517,
+                    "y": 0.6429128535485517
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "trx2D": "1,0,0,1,390.45935100352864,472.24150387112786",
+                "eventDelta": {
+                    "x": 0.7836413375487723,
+                    "y": 0.35588661259544097
+                }
+            },
+            "cutout": 0,
+            "roundness": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#4c7949"
+            },
+            "composite": "normal",
+            "id": "U:37",
+            "pointerId": "U:1",
+            "timestamp": 1483003369698,
+            "toolkitId": "shape",
+            "type": "square",
+            "zIndex": 19
+        },
+        {
+            "bbox": {
+                "x": 424.22842928222263,
+                "y": 275.4621075206184,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.8363594232915982,
+                    "y": 0.12396395850768042
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 133,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": 0.34002621067116934,
+                    "y": 1.5498343640148846
+                },
+                "trx2D": "-0.6819983600624984,0.7313537016191706,-0.7313537016191706,-0.6819983600624984,424.22842928222263,275.4621075206184"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#e6e6e6"
+            },
+            "composite": "normal",
+            "id": "U:39",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 20
+        },
+        {
+            "bbox": {
+                "x": 349.854435946648,
+                "y": 385.98144676365575,
+                "width": 64.03124237432849,
+                "height": 64.03124237432849,
+                "scale": {
+                    "x": -2.2380634908914114,
+                    "y": -2.4167835588808386
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 64,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": 0.19975882421312008,
+                    "y": 1.0671720879417705
+                },
+                "trx2D": "0.43837114678907746,0.898794046299167,-0.898794046299167,0.43837114678907746,349.854435946648,385.98144676365575"
+            },
+            "cutout": 0,
+            "roundness": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#ffbcbc"
+            },
+            "composite": "normal",
+            "id": "U:42",
+            "pointerId": "U:1",
+            "timestamp": 1483003369698,
+            "toolkitId": "shape",
+            "type": "square",
+            "zIndex": 21
+        },
+        {
+            "bbox": {
+                "x": 369.25148533218174,
+                "y": 291.4231557641788,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.8363594232915982,
+                    "y": 0.26396538117193075
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 92,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": -0.9238031042060015,
+                    "y": -0.5862878049064761
+                },
+                "trx2D": "-0.034899496702500955,0.9993908270190958,-0.9993908270190958,-0.034899496702500955,369.25148533218174,291.4231557641788"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#f6f1f1"
+            },
+            "composite": "normal",
+            "id": "U:43",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 22
+        },
+        {
+            "bbox": {
+                "x": 433.09567830642277,
+                "y": 309.1576538125789,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.8363594232915982,
+                    "y": 0.12396395850768042
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 147,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": 0.3817922632724162,
+                    "y": -0.4998626310949703
+                },
+                "trx2D": "-0.8386705679454239,0.5446390350150273,-0.5446390350150273,-0.8386705679454239,433.09567830642277,309.1576538125789"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#f6f1f1"
+            },
+            "composite": "normal",
+            "id": "U:44",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 23
+        },
+        {
+            "bbox": {
+                "x": 342.3723846652506,
+                "y": 394.9634091862277,
+                "width": 64.03124237432849,
+                "height": 64.03124237432849,
+                "scale": {
+                    "x": -0.5370217707789093,
+                    "y": -0.4134544984946698
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 76,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": 0.4131940573570887,
+                    "y": -0.4825214207021986
+                },
+                "trx2D": "0.24192189559966767,0.9702957262759965,-0.9702957262759965,0.24192189559966767,342.3723846652506,394.9634091862277"
+            },
+            "cutout": 0,
+            "roundness": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#f6f1f1"
+            },
+            "composite": "normal",
+            "id": "U:45",
+            "pointerId": "U:1",
+            "timestamp": 1483003369698,
+            "toolkitId": "shape",
+            "type": "square",
+            "zIndex": 24
+        },
+        {
+            "bbox": {
+                "x": 324.4279937824135,
+                "y": 215.38080908246033,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.9815664559195746,
+                    "y": 0.23594011791766048
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 65,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": -1.1050060877832948,
+                    "y": 0.3590057728675333
+                },
+                "trx2D": "0.42261826174069944,0.9063077870366499,-0.9063077870366499,0.42261826174069944,324.4279937824135,215.38080908246033"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#f6f1f1"
+            },
+            "composite": "normal",
+            "id": "U:46",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 25
+        },
+        {
+            "bbox": {
+                "x": 424.22842928222263,
+                "y": 193.88341649797732,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 1.113279059972909,
+                    "y": 0.26760000925173455
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 135,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": 0.43771938797664234,
+                    "y": 0.5254709529481829
+                },
+                "trx2D": "-0.7071067811865475,0.7071067811865476,-0.7071067811865476,-0.7071067811865475,424.22842928222263,193.88341649797732"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#f6f1f1"
+            },
+            "composite": "normal",
+            "id": "U:47",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 26
+        },
+        {
+            "bbox": {
+                "x": 269.93829626114007,
+                "y": 188.56306708345673,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.6877502449491196,
+                    "y": 0.16531521927282605
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 35,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": 1.382306552678756,
+                    "y": 1.0995909098878656
+                },
+                "trx2D": "0.8191520442889918,0.573576436351046,-0.573576436351046,0.8191520442889918,269.93829626114007,188.56306708345673"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#f6f1f1"
+            },
+            "composite": "normal",
+            "id": "U:48",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 27
+        },
+        {
+            "bbox": {
+                "x": 307.1807421627808,
+                "y": 330.4390514706592,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.5330200437324988,
+                    "y": 0.09852807610629512
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 35,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": 0.16593623119615586,
+                    "y": 0.050961152187483094
+                },
+                "trx2D": "0.8191520442889918,0.573576436351046,-0.573576436351046,0.8191520442889918,307.1807421627808,330.4390514706592"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#e6e6e6"
+            },
+            "composite": "normal",
+            "id": "U:49",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 28
+        },
+        {
+            "bbox": {
+                "x": 402.9470316241423,
+                "y": 286.1028063496589,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.29273916608420364,
+                    "y": 0.09104358535518209
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 82,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": 0.4380107623396725,
+                    "y": 0.08155455385349342
+                },
+                "trx2D": "0.13917310096006547,0.9902680687415704,-0.9902680687415704,0.13917310096006547,402.9470316241423,286.1028063496589"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#e6e6e6"
+            },
+            "composite": "normal",
+            "id": "U:50",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 29
+        },
+        {
+            "bbox": {
+                "x": 397.62668220962223,
+                "y": 208.0710149366974,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.39563385517399546,
+                    "y": 0.093594229382073
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 351,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": -0.8548981686201387,
+                    "y": -1.548236916836288
+                },
+                "trx2D": "0.9876883405951377,-0.15643446504023112,0.15643446504023112,0.9876883405951377,397.62668220962223,208.0710149366974"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#e6e6e6"
+            },
+            "composite": "normal",
+            "id": "U:51",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 30
+        },
+        {
+            "bbox": {
+                "x": 360.38423630798184,
+                "y": 224.0320631802577,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.5109411245484725,
+                    "y": 0.12087221603088773
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 264,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": 0.03685668728064684,
+                    "y": -1.9063809263802796
+                },
+                "trx2D": "-0.10452846326765336,-0.9945218953682734,0.9945218953682734,-0.10452846326765336,360.38423630798184,224.0320631802577"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#e6e6e6"
+            },
+            "composite": "normal",
+            "id": "U:52",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 31
+        },
+        {
+            "bbox": {
+                "x": 323.1417904063411,
+                "y": 266.59485849641834,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.4947643619784517,
+                    "y": 0.1170453149534459
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 192,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": 0.30222426697923765,
+                    "y": -0.2605847096825187
+                },
+                "trx2D": "-0.9781476007338056,-0.2079116908177595,0.2079116908177595,-0.9781476007338056,323.1417904063411,266.59485849641834"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#e6e6e6"
+            },
+            "composite": "normal",
+            "id": "U:53",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 32
+        },
+        {
+            "bbox": {
+                "x": 259.2975974321002,
+                "y": 569.8547751240626,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.6832499892029338,
+                    "y": 0.2019757170235482
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 0,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": -0.16514262769652532,
+                    "y": 0.3894339877088555
+                },
+                "trx2D": "1,0,0,1,259.2975974321002,569.8547751240626"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#ffac79"
+            },
+            "composite": "normal",
+            "id": "U:54",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 33
+        },
+        {
+            "bbox": {
+                "x": 482.8824109841024,
+                "y": 550.0458676978585,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.4295929627020276,
+                    "y": 0.10326169325087282
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 70,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": -0.31773577767643246,
+                    "y": 0.07598920132670628
+                },
+                "trx2D": "0.3420201433256688,0.9396926207859083,-0.9396926207859083,0.3420201433256688,482.8824109841024,550.0458676978585"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#ffffff"
+            },
+            "composite": "normal",
+            "id": "U:56",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 34
+        },
+        {
+            "bbox": {
+                "x": 512.3987751844087,
+                "y": 541.4847070355297,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.38824368311832536,
+                    "y": 0.0933225252587788
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 121,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": 0.43771938797664234,
+                    "y": 0.5254709529481829
+                },
+                "trx2D": "-0.5150380749100543,0.8571673007021123,-0.8571673007021123,-0.5150380749100543,512.3987751844087,541.4847070355297"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#bcb8ff"
+            },
+            "composite": "normal",
+            "id": "U:57",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 35
+        },
+        {
+            "bbox": {
+                "x": 451.43321455872365,
+                "y": 539.8812923746591,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.34703894406513486,
+                    "y": 0.08341810061962546
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 35,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": 1.382306552678756,
+                    "y": 1.0995909098878656
+                },
+                "trx2D": "0.8191520442889918,0.573576436351046,-0.573576436351046,0.8191520442889918,451.43321455872365,539.8812923746591"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#ffb4de"
+            },
+            "composite": "normal",
+            "id": "U:58",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 36
+        },
+        {
+            "bbox": {
+                "x": 518.221268938744,
+                "y": 545.0264778563021,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.13797290420857455,
+                    "y": 0.032639945940240465
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 337,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": 0.4611993277783313,
+                    "y": -0.5727927060183902
+                },
+                "trx2D": "0.9205048534524403,-0.3907311284892739,0.3907311284892739,0.9205048534524403,518.221268938744,545.0264778563021"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#ffffff"
+            },
+            "composite": "normal",
+            "id": "U:59",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 37
+        },
+        {
+            "bbox": {
+                "x": 493.33875561895917,
+                "y": 557.0727805240656,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.17818503121413698,
+                    "y": 0.042152840222870726
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 250.00000000000003,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": 0.03685668728064684,
+                    "y": -1.9063809263802796
+                },
+                "trx2D": "-0.34202014332566855,-0.9396926207859084,0.9396926207859084,-0.34202014332566855,493.33875561895917,557.0727805240656"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#ffffff"
+            },
+            "composite": "normal",
+            "id": "U:60",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 38
+        },
+        {
+            "bbox": {
+                "x": 484.9389440915175,
+                "y": 576.2052005072949,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.3210287866507098,
+                    "y": 0.07594507270572451
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 192,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": 0.30222426697923765,
+                    "y": -0.2605847096825187
+                },
+                "trx2D": "-0.9781476007338056,-0.2079116908177595,0.2079116908177595,-0.9781476007338056,484.9389440915175,576.2052005072949"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#ffffff"
+            },
+            "composite": "normal",
+            "id": "U:61",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 39
+        },
+        {
+            "bbox": {
+                "x": 492.17942656150075,
+                "y": 573.8089617147696,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.3120334355318325,
+                    "y": 0.07500379126613652
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 83,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": -0.2443544269309541,
+                    "y": -0.09371369758986248
+                },
+                "trx2D": "0.12186934340514749,0.992546151641322,-0.992546151641322,0.12186934340514749,492.17942656150075,573.8089617147696"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#ffffff"
+            },
+            "composite": "normal",
+            "id": "U:62",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 40
+        },
+        {
+            "bbox": {
+                "x": 498.71332108550365,
+                "y": 598.2299720015039,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.3210287866507098,
+                    "y": 0.07594507270572451
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 299,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": -0.1334857275786021,
+                    "y": 0.22216377449854008
+                },
+                "trx2D": "0.4848096202463373,-0.8746197071393956,0.8746197071393956,0.4848096202463373,498.71332108550365,598.2299720015039"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#e6e6e6"
+            },
+            "composite": "normal",
+            "id": "U:63",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 41
+        },
+        {
+            "bbox": {
+                "x": 467.0619682414089,
+                "y": 610.4629699342954,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.3210287866507098,
+                    "y": 0.07594507270572451
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 285,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": 0.5637812954520314,
+                    "y": -0.36539767805641077
+                },
+                "trx2D": "0.2588190451025203,-0.9659258262890684,0.9659258262890684,0.2588190451025203,467.0619682414089,610.4629699342954"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#ffffff"
+            },
+            "composite": "normal",
+            "id": "U:64",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 42
+        },
+        {
+            "bbox": {
+                "x": 503.3025874033686,
+                "y": 589.4956277857541,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.2301654530480642,
+                    "y": 0.05444973408288154
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 254,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": -0.4362187045479686,
+                    "y": -0.3653976780563539
+                },
+                "trx2D": "-0.2756373558169989,-0.9612616959383189,0.9612616959383189,-0.2756373558169989,503.3025874033686,589.4956277857541"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#ffffff"
+            },
+            "composite": "normal",
+            "id": "U:65",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 43
+        },
+        {
+            "bbox": {
+                "x": 551.5483149662304,
+                "y": 549.4568164844918,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.35334126210174605,
+                    "y": 0.08493299515554316
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 201,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": -0.31773577767643246,
+                    "y": 0.07598920132670628
+                },
+                "trx2D": "-0.9335804264972017,-0.35836794954530043,0.35836794954530043,-0.9335804264972017,551.5483149662304,549.4568164844918"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#ffffff"
+            },
+            "composite": "normal",
+            "id": "U:66",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 44
+        },
+        {
+            "bbox": {
+                "x": 540.9353296429364,
+                "y": 572.3988028126319,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.3193313785524258,
+                    "y": 0.07675800518252607
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 252,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": 0.43771938797664234,
+                    "y": 0.5254709529481829
+                },
+                "trx2D": "-0.30901699437494756,-0.9510565162951535,0.9510565162951535,-0.30901699437494756,540.9353296429364,572.3988028126319"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#bcb8ff"
+            },
+            "composite": "normal",
+            "id": "U:67",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 45
+        },
+        {
+            "bbox": {
+                "x": 574.8282856918751,
+                "y": 535.4196209379443,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.2854403799428278,
+                    "y": 0.06861159170224405
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 166,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": 1.382306552678756,
+                    "y": 1.0995909098878656
+                },
+                "trx2D": "-0.9702957262759965,0.24192189559966773,-0.24192189559966773,-0.9702957262759965,574.8282856918751,535.4196209379443"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#e6e6e6"
+            },
+            "composite": "normal",
+            "id": "U:68",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 46
+        },
+        {
+            "bbox": {
+                "x": 540.7734659687422,
+                "y": 563.7525229370369,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.11348305103106594,
+                    "y": 0.026846435334781805
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 108,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": -0.8548981686201387,
+                    "y": -1.548236916836288
+                },
+                "trx2D": "-0.30901699437494734,0.9510565162951536,-0.9510565162951536,-0.30901699437494734,540.7734659687422,563.7525229370369"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#ffffff"
+            },
+            "composite": "normal",
+            "id": "U:69",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 47
+        },
+        {
+            "bbox": {
+                "x": 541.5440057403031,
+                "y": 552.1558038605535,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.14655762380472767,
+                    "y": 0.034670814139600666
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 21,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": 0.03685668728064684,
+                    "y": -1.9063809263802796
+                },
+                "trx2D": "0.9335804264972017,0.35836794954530027,-0.35836794954530027,0.9335804264972017,541.5440057403031,552.1558038605535"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#ffffff"
+            },
+            "composite": "normal",
+            "id": "U:70",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 48
+        },
+        {
+            "bbox": {
+                "x": 534.2001705531455,
+                "y": 536.6175687478162,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.2640469618791977,
+                    "y": 0.062465007972820084
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 323,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": 0.30222426697923765,
+                    "y": -0.2605847096825187
+                },
+                "trx2D": "0.7986355100472928,-0.6018150231520483,0.6018150231520483,0.7986355100472928,534.2001705531455,536.6175687478162"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#aedbff"
+            },
+            "composite": "normal",
+            "id": "U:71",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 49
+        },
+        {
+            "bbox": {
+                "x": 531.7805990514665,
+                "y": 542.4051364662691,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.25664826359186776,
+                    "y": 0.061690801687491206
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 214,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": -0.2443544269309541,
+                    "y": -0.09371369758986248
+                },
+                "trx2D": "-0.8290375725550418,-0.5591929034707467,0.5591929034707467,-0.8290375725550418,531.7805990514665,542.4051364662691"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#ffb4de"
+            },
+            "composite": "normal",
+            "id": "U:72",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 50
+        },
+        {
+            "bbox": {
+                "x": 513.0954894805101,
+                "y": 533.2832294415116,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.2640469618791977,
+                    "y": 0.062465007972820084
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 70,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": -0.1334857275786021,
+                    "y": 0.22216377449854008
+                },
+                "trx2D": "0.3420201433256688,0.9396926207859083,-0.9396926207859083,0.3420201433256688,513.0954894805101,533.2832294415116"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#ffff9a"
+            },
+            "composite": "normal",
+            "id": "U:73",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 51
+        },
+        {
+            "bbox": {
+                "x": 522.5812416281618,
+                "y": 507.03458721917946,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.2640469618791977,
+                    "y": 0.062465007972820084
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 56,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": 0.5637812954520314,
+                    "y": -0.36539767805641077
+                },
+                "trx2D": "0.5591929034707468,0.8290375725550417,-0.8290375725550417,0.5591929034707468,522.5812416281618,507.03458721917946"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#aedbff"
+            },
+            "composite": "normal",
+            "id": "U:74",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 52
+        },
+        {
+            "bbox": {
+                "x": 511.1274697193836,
+                "y": 559.2140762950237,
+                "width": 100,
+                "height": 100,
+                "scale": {
+                    "x": 0.18931164784613286,
+                    "y": 0.0447850394032048
+                },
+                "units": "userSpaceOnUse",
+                "rotate": 25,
+                "left": 0,
+                "top": 0,
+                "eventDelta": {
+                    "x": 0.33434370822214987,
+                    "y": 0.27687090003814774
+                },
+                "trx2D": "0.9063077870366499,0.42261826174069944,-0.42261826174069944,0.9063077870366499,511.1274697193836,559.2140762950237"
+            },
+            "cutout": 0,
+            "fill": {
+                "type": "color",
+                "method": "fill",
+                "enabled": true,
+                "opacity": 1,
+                "composite": "normal",
+                "color": "#ffffff"
+            },
+            "composite": "normal",
+            "id": "U:75",
+            "pointerId": "U:1",
+            "timestamp": 1483001651618,
+            "toolkitId": "shape",
+            "type": "ellipse",
+            "zIndex": 53
+        }
+    ]
+}
