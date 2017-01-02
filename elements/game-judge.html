@@ -111,6 +111,8 @@
       }
 
       _onKeyDown(e){
+        var bground = this.querySelector("#bground");
+        bground.animate();
         var keyboard = this.querySelector("#keyboard");
         var node = keyboard.querySelector("key-visual[code='"+e.detail.code+"']");
 

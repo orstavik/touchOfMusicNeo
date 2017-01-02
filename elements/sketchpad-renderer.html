@@ -1,0 +1,105 @@
+<dom-module id="sketchpad-renderer">
+  <template>
+    <style>
+      :host {
+        display: block;
+        width: 200px;
+        height: 200px;
+        position: absolute;
+        top: 20vh;
+        left: 20vw;
+      }
+
+      .tear {
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 0 50% 50% 50%;
+        transition-duration: 1s;
+      }
+
+      .special {
+        animation: wiggle 1s;
+      }
+
+      @keyframes wiggle {
+        50% {
+          border: 1px solid red;
+          transform: scale(2,2) rotate(30deg);
+        }
+        100% {
+          border: none;
+          transform: scale(1,1) rotate(0deg);
+        }
+      }
+
+      .transformer {
+        position: absolute;
+        transform-origin: top left;
+      }
+    </style>
+
+    <iron-ajax url="../maps/strange.json" handle-as="json" on-response="_genTearArray" auto></iron-ajax>
+
+    <template is="dom-repeat" items="[[tears]]">
+      <div class="transformer" style$="[[_genRotation(item)]]">
+        <div id="tear[[index]]" class="tear" style$="[[_genStyle(item)]] "></div>
+      </div>
+    </template>
+
+  </template>
+
+  <script>
+    class SketchpadRenderer extends Polymer.Element {
+      static get is() {
+        return "sketchpad-renderer";
+      }
+
+      static get config() {
+        return {
+          properties: {
+            tears: {
+              type: Array,
+              value: function () {
+                return [];
+              }
+            }
+          }
+        }
+      }
+
+      _genRotation(item) {
+        let width = item.bbox.width * item.bbox.scale.x;
+        let height = item.bbox.height * item.bbox.scale.y;
+        return "top: " + item.bbox.y + "px; " +
+          "width: " + width + "px; " +
+          "height: " + height + "px;" +
+          "left: " + item.bbox.x + "px; " +
+          "transform: rotate(" + item.bbox.rotate + "deg);";
+      };
+
+      _genStyle(item) {
+        return "background: " + item.fill.color + "; ";
+      }
+
+      _genTearArray(e) {
+        this.tears = e.detail.response.actions;
+      }
+
+      animate() {
+        let tear10 = this.shadowRoot.querySelector("#tear10");
+        tear10.classList.remove("special");
+        tear10.classList.add("special");
+
+        let tears = this.shadowRoot.querySelectorAll("div.tear");
+        let i = Math.floor(Math.random() * tears.length);
+        let tear = tears[i];
+        tear.classList.remove("special");
+        tear.classList.add("special");
+      }
+
+    }
+    customElements.define(SketchpadRenderer.is, SketchpadRenderer);
+  </script>
+</dom-module>

@@ -16,6 +16,7 @@
 <link rel="import" href="html-loader.html">
 <link rel="import" href="music-clef.html">
 <link rel="import" href="color-palette.html">
+<link rel="import" href="sketchpad-renderer.html">
 
 <dom-module id="my-app">
   <template>
@@ -23,7 +24,8 @@
       :host {
         display: block;
         height: 100vh;
-        background-image: url("../images/background/tree.png");
+        /*background-image: url("../images/background/tree.png");*/
+        background: lightgrey;
         background-size: auto 100%;
         background-repeat: no-repeat;
         background-position: bottom;
@@ -50,6 +52,8 @@
 
     <game-judge id="judge" input="[[scenario]]" chord-mode="[[chordMode]]" scale="[[scale]]">
 
+      <sketchpad-renderer id="bground"></sketchpad-renderer>
+
       <joievent-player id="joiplayer">
         <letter-catcher id="scenario" tempo="[[tempo]]">
           <joievent-canon></joievent-canon>
@@ -58,11 +62,11 @@
         <beam-constructor id="beams">
           <keyboard-visual id="keyboard">
             <template is="dom-repeat" items="[[keyArray]]">
-              <key-visual code$="[[item.code]]" tone="[[item.tone]]" octave="[[item.octave]]">
+              <!--<key-visual code$="[[item.code]]" tone="[[item.tone]]" octave="[[item.octave]]">-->
                 <template is="dom-repeat" items="[[_getArrayForMe4(item.tone, scale, palette)]]" as="info">
-                  <key-leaf info="[[info]]" octave="[[item.octave]]"></key-leaf>
+                  <!--<key-leaf info="[[info]]" octave="[[item.octave]]"></key-leaf>-->
                 </template>
-              </key-visual>
+              <!--</key-visual>-->
             </template>
             <joievent-canon></joievent-canon>
           </keyboard-visual>
@@ -145,7 +149,7 @@
               type: scale.getChordType(item),
               color: palette.getColor(scale.getToneColor(item))
             }
-          })
+          });
           return res;
         }
       }
