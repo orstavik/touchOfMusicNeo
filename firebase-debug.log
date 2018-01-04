@@ -1,0 +1,82 @@
+[debug] [2018-01-04T09:40:26.453Z] ----------------------------------------------------------------------
+[debug] [2018-01-04T09:40:26.455Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\fales\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase serve
+[debug] [2018-01-04T09:40:26.455Z] CLI Version:   3.16.0
+[debug] [2018-01-04T09:40:26.455Z] Platform:      win32
+[debug] [2018-01-04T09:40:26.455Z] Node Version:  v9.2.0
+[debug] [2018-01-04T09:40:26.455Z] Time:          Thu Jan 04 2018 11:40:26 GMT+0200 (FLE Standard Time)
+[debug] [2018-01-04T09:40:26.455Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-01-04T09:40:26.476Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-01-04T09:40:26.476Z] > authorizing via signed-in user
+[debug] [2018-01-04T09:40:26.478Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-01-04T09:40:26.478Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ { refresh_token: '1/fjNPIQqp1nmgKwUCTG-Z3WKcKX-ekpZFckRQb_UxP4oaRF1WQZASTJG1UUHY4xrM',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Thu Jan 04 2018 11:40:26 GMT+0200 (FLE Standard Time)
+[debug] [2018-01-04T09:40:26.691Z] <<< HTTP RESPONSE 200
+[debug] [2018-01-04T09:40:26.697Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/summer-on-firebase  
+  
+ Thu Jan 04 2018 11:40:26 GMT+0200 (FLE Standard Time)
+[debug] [2018-01-04T09:40:27.526Z] <<< HTTP RESPONSE 200
+[debug] [2018-01-04T09:40:27.527Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/summer-on-firebase/tokens  
+  
+ Thu Jan 04 2018 11:40:27 GMT+0200 (FLE Standard Time)
+[debug] [2018-01-04T09:40:28.238Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from 'E:\Programming\Intertext\Projects\touchOfMusicNeo'...
+[info] 
+[debug] [2018-01-04T09:40:28.241Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/summer-on-firebase  
+  
+ Thu Jan 04 2018 11:40:28 GMT+0200 (FLE Standard Time)
+[debug] [2018-01-04T09:40:29.220Z] <<< HTTP RESPONSE 200
+[debug] [2018-01-04T09:40:29.221Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/90680327967/clients/_:getWebAppConfig  
+  
+ Thu Jan 04 2018 11:40:29 GMT+0200 (FLE Standard Time)
+[debug] [2018-01-04T09:40:30.017Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: /
+[info] +  hosting: Local server: http://localhost:5000
+
+[debug] [2018-01-04T13:25:56.430Z] ----------------------------------------------------------------------
+[debug] [2018-01-04T13:25:56.432Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\fales\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase serve
+[debug] [2018-01-04T13:25:56.432Z] CLI Version:   3.16.0
+[debug] [2018-01-04T13:25:56.432Z] Platform:      win32
+[debug] [2018-01-04T13:25:56.432Z] Node Version:  v9.2.0
+[debug] [2018-01-04T13:25:56.433Z] Time:          Thu Jan 04 2018 15:25:56 GMT+0200 (FLE Standard Time)
+[debug] [2018-01-04T13:25:56.433Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-01-04T13:25:56.442Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-01-04T13:25:56.443Z] > authorizing via signed-in user
+[debug] [2018-01-04T13:25:56.444Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-01-04T13:25:56.445Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ { refresh_token: '1/fjNPIQqp1nmgKwUCTG-Z3WKcKX-ekpZFckRQb_UxP4oaRF1WQZASTJG1UUHY4xrM',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Thu Jan 04 2018 15:25:56 GMT+0200 (FLE Standard Time)
+[debug] [2018-01-04T13:25:56.653Z] <<< HTTP RESPONSE 200
+[debug] [2018-01-04T13:25:56.678Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/summer-on-firebase  
+  
+ Thu Jan 04 2018 15:25:56 GMT+0200 (FLE Standard Time)
+[debug] [2018-01-04T13:25:57.540Z] <<< HTTP RESPONSE 200
+[debug] [2018-01-04T13:25:57.540Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/summer-on-firebase/tokens  
+  
+ Thu Jan 04 2018 15:25:57 GMT+0200 (FLE Standard Time)
+[debug] [2018-01-04T13:25:58.253Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from 'E:\Programming\Intertext\Projects\touchOfMusicNeo'...
+[info] 
+[debug] [2018-01-04T13:25:58.255Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/summer-on-firebase  
+  
+ Thu Jan 04 2018 15:25:58 GMT+0200 (FLE Standard Time)
+[debug] [2018-01-04T13:25:59.210Z] <<< HTTP RESPONSE 200
+[debug] [2018-01-04T13:25:59.211Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/90680327967/clients/_:getWebAppConfig  
+  
+ Thu Jan 04 2018 15:25:59 GMT+0200 (FLE Standard Time)
+[debug] [2018-01-04T13:25:59.787Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: /
+[info] +  hosting: Local server: http://localhost:5000
+
