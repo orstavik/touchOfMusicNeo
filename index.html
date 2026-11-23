@@ -1,115 +1,45 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Play the Touch of Music piano with your keyboard or touchscreen.">
+  <title>Touch of Music</title>
+  <link rel="stylesheet" href="player.css">
+  <script type="module" src="player.js"></script>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">A LITTLE INSTRUMENT FOR YOUR BROWSER</p>
+      <h1>Touch of Music</h1>
+      <p>Play with your keyboard, mouse, or touchscreen.</p>
+    </header>
 
-    <title>Touch of Music</title>
-    <meta name="description" content="Touch of Music description">
+    <section class="controls" aria-label="Instrument settings">
+      <label>Key <select id="key"></select></label>
+      <label>Mode <select id="mode"></select></label>
+      <label>Octave <select id="octave">
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4" selected>4</option>
+        <option value="5">5</option>
+      </select></label>
+      <label class="checkbox"><input type="checkbox" id="chords" checked> Play chords on the bottom row</label>
+    </section>
 
-    <link rel="icon" href="/images/favicon.ico">
-
-    <!-- See https://goo.gl/OOhYW5 -->
-    <link rel="manifest" href="/manifest.json">
-
-    <!-- See https://goo.gl/qRE0vM -->
-    <meta name="theme-color" content="#3f51b5">
-
-    <!-- Add to homescreen for Chrome on Android. Fallback for manifest.json -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="My App">
-
-    <!-- Add to homescreen for Safari on iOS -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="My App">
-
-    <!-- Homescreen icons -->
-    <link rel="apple-touch-icon" href="/images/manifest/icon-48x48.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/images/manifest/icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="96x96" href="/images/manifest/icon-96x96.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/images/manifest/icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="192x192" href="/images/manifest/icon-192x192.png">
-
-    <!-- Tile icon for Windows 8 (144x144 + tile color) -->
-    <meta name="msapplication-TileImage" content="/images/manifest/icon-144x144.png">
-    <meta name="msapplication-TileColor" content="#3f51b5">
-    <meta name="msapplication-tap-highlight" content="no">
-
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono" rel="stylesheet">
-
-    <!--<script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>-->
-
-    <script>
-      // Setup Polymer options
-      window.Polymer = {
-        dom: 'shadow',
-        lazyRegister: true
-      };
-
-      // Load webcomponentsjs polyfill if browser does not support native Web Components
-      (function() {
-        'use strict';
-
-        var onload = function() {
-          // For native Imports, manually fire WebComponentsReady so user code
-          // can use the same code path for native and polyfill'd imports.
-          if (!window.HTMLImports) {
-            document.dispatchEvent(
-              new CustomEvent('WebComponentsReady', {bubbles: true})
-            );
-          }
-        };
-
-        var webComponentsSupported = (
-          'registerElement' in document
-          && 'import' in document.createElement('link')
-          && 'content' in document.createElement('template')
-        );
-
-        if (!webComponentsSupported) {
-          var script = document.createElement('script');
-          script.async = true;
-          script.src = '/bower_components/webcomponentsjs/webcomponents-lite.js';
-          script.onload = onload;
-          document.head.appendChild(script);
-        } else {
-          onload();
-        }
-      })();
-
-      // Load pre-caching Service Worker
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-          navigator.serviceWorker.register('/service-worker.js');
-        });
-      }
-    </script>
-    <script src="/scripts/keyCode.js"></script>
-    <script src="/scripts/JOI.js"></script>
-    <!--<script src="/scripts/JOItester.js"></script>-->
-    <script src="scripts/MusicTester.js"></script>
-    <script src="bower_components/web-animations-js/web-animations.min.js"></script>
-
-    <link rel="import" href="/elements/my-app.html">
-
-    <style>
-      body {
-        margin: 0;
-        font-family: 'Roboto', 'Noto', sans-serif;
-        line-height: 1.5;
-        min-height: 100vh;
-        overflow: hidden;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
-    </style>
-  </head>
-  <body>
-    <my-app></my-app>
-    <!-- Built with love using Polymer Starter Kit -->
-    <!--<script src="scripts/testJOI.js"></script>-->
-  </body>
+    <section class="instrument" aria-label="Music keyboard">
+      <div class="instrument-heading">
+        <div>
+          <h2>Make some music</h2>
+          <p>Hold Shift to sharpen a single note. Keys use the original layout.</p>
+        </div>
+        <p id="scale" class="scale"></p>
+      </div>
+      <div id="keyboard" class="keyboard"></div>
+      <p id="status" role="status" aria-live="polite">Ready to play.</p>
+    </section>
+    <p class="footnote">Some notes at the edges of the piano are unavailable in higher or lower keys and octaves.</p>
+  </main>
+</body>
 </html>

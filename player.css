@@ -1,0 +1,41 @@
+:root {
+  color-scheme: dark;
+  font-family: system-ui, sans-serif;
+  background: #101927;
+  color: #eef4fa;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; background: radial-gradient(ellipse at top, #283c53, #101927 65%); }
+main { max-width: 1150px; margin: auto; padding: 3rem 1.5rem; }
+header { margin-bottom: 2rem; }
+h1 { font-size: clamp(2.4rem, 6vw, 4.5rem); letter-spacing: -.05em; margin: .2rem 0; }
+h2 { font-size: 1.2rem; margin: 0; }
+p { color: #b7c8d8; line-height: 1.5; }
+.eyebrow { color: #88e0c3; font-size: .75rem; font-weight: 700; letter-spacing: .16em; }
+.controls { display: flex; flex-wrap: wrap; align-items: end; gap: 1rem; margin-bottom: 1.5rem; }
+label { display: grid; gap: .4rem; color: #d7e3ed; font-size: .85rem; font-weight: 600; }
+select { min-width: 7rem; padding: .65rem; border: 1px solid #536a80; border-radius: .5rem; background: #1c2c3e; color: white; font: inherit; }
+.checkbox { display: flex; align-items: center; min-height: 2.8rem; }
+input { accent-color: #83dcc0; }
+.instrument { padding: clamp(1rem, 3vw, 2rem); background: #1c2a3a; border: 1px solid #34485c; border-radius: 1.25rem; }
+.instrument-heading { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; align-items: baseline; }
+.instrument-heading p { margin: .5rem 0 1.2rem; font-size: .9rem; }
+.scale { color: #88e0c3; }
+.keyboard { display: grid; gap: .55rem; overflow-x: auto; padding: .2rem .2rem 1rem; }
+.row { display: flex; gap: .55rem; min-width: max-content; }
+.row:nth-child(2) { padding-left: 1rem; }
+.row:nth-child(3) { padding-left: 2rem; }
+.key {
+  width: 4.2rem; height: 5.3rem; padding: .7rem;
+  display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start;
+  background: #edf4f1; color: #1b3440; border: 0; border-bottom: .3rem solid #a9beb9;
+  border-radius: .6rem; font: inherit; cursor: pointer; touch-action: manipulation;
+}
+.key span { font-size: .8rem; font-weight: 700; color: #59736f; }
+.key strong { font-size: 1rem; }
+.key.active, .key:active { background: #88e0c3; border-color: #4aab8e; transform: translateY(2px); }
+.key:disabled { opacity: .35; cursor: not-allowed; }
+.key:focus-visible, select:focus-visible, input:focus-visible { outline: 3px solid #88e0c3; outline-offset: 3px; }
+#status { margin: .5rem 0 0; font-size: .85rem; min-height: 1.3em; }
+.footnote { font-size: .8rem; }
