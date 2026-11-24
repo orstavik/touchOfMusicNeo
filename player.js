@@ -8,6 +8,7 @@ const modes = {
   minor: [0, 2, 3, 5, 7, 8, 10],
   locrian: [0, 1, 3, 5, 6, 8, 10]
 };
+const modeOrder = ["locrian", "minor", "mixolydian", "lydian", "phrygian", "dorian", "major"];
 
 // Degrees and octave offsets are from maps/audio-set1.html.
 const rows = [
@@ -22,12 +23,37 @@ const octaveSelect = document.querySelector("#octave");
 const chordCheckbox = document.querySelector("#chords");
 const keyboard = document.querySelector("#keyboard");
 const status = document.querySelector("#status");
+const flower = document.querySelector("#flower");
 const buttons = new Map();
 const buffers = new Map();
+const petals = [];
 let audioContext;
 
 for (const [index, note] of notes.entries()) keySelect.add(new Option(note, index));
 for (const mode of Object.keys(modes)) modeSelect.add(new Option(mode[0].toUpperCase() + mode.slice(1), mode));
+
+const petalContainer = document.createElement("div");
+petalContainer.className = "flower-petals";
+for (let index = 0; index < notes.length; index++) {
+  const petal = document.createElement("div");
+  petal.className = "flower-petal";
+  petal.style.transform = `rotate(${index * 30}deg)`;
+  const image = document.createElement("img");
+  const color = index % 2 === 0 ? index : (index + 6) % 12;
+  image.src = `images/flower3/${color + 1}p.png`;
+  image.alt = "";
+  petal.append(image);
+  petalContainer.append(petal);
+  petals.push(image);
+}
+const flowerCenter = document.createElement("img");
+flowerCenter.className = "flower-center";
+flowerCenter.src = "images/flower3/centr.png";
+flowerCenter.alt = "";
+const flowerName = document.createElement("div");
+flowerName.className = "flower-name";
+flowerName.setAttribute("aria-hidden", "true");
+flower.append(petalContainer, flowerCenter, flowerName);
 
 function tonesFor(key, sharpen = false) {
   const [label, degree, octaveOffset, chordDegree] = key;
@@ -54,6 +80,13 @@ function refresh() {
   const scale = modes[modeSelect.value];
   const root = Number(keySelect.value);
   document.querySelector("#scale").textContent = scale.map(note => notes[(note + root) % 12]).join("  ·  ");
+  flower.setAttribute("aria-label", `${notes[root]} ${modeSelect.value} scale: ${scale.map(note => notes[(note + root) % 12]).join(", ")}`);
+  flowerName.replaceChildren(document.createTextNode(notes[root]), document.createElement("br"), document.createTextNode(modeSelect.value.slice(0, 3)));
+  for (const [index, petal] of petals.entries()) {
+    const degree = scale.findIndex(note => (note + root) % 12 === index);
+    const size = degree === -1 ? 0.05 : [1, 0.6, 0.6, 1, 1, 0.6, 0.4][degree];
+    petal.style.transform = `scale(${size})`;
+  }
   for (const [key, button] of buttons) {
     const tones = tonesFor(key);
     button.disabled = tones.some(tone => sampleNumber(tone) < 1 || sampleNumber(tone) > 88);
@@ -80,6 +113,29 @@ for (const row of rows) {
 }
 
 for (const control of [keySelect, modeSelect, octaveSelect, chordCheckbox]) control.addEventListener("change", refresh);
+
+function turn(action) {
+  let root = Number(keySelect.value);
+  let position = modeOrder.indexOf(modeSelect.value);
+  if (action === "key-left") root -= 7;
+  if (action === "key-right") root += 7;
+  if (action === "mode-left") {
+    if (position === 0) root--;
+    position = (position + 3) % 7;
+  }
+  if (action === "mode-right") {
+    position = (position + 4) % 7;
+    if (position === 0) root++;
+  }
+  keySelect.value = String((root + 12) % 12);
+  modeSelect.value = modeOrder[position];
+  refresh();
+  status.textContent = `${notes[Number(keySelect.value)]} ${modeSelect.value}`;
+}
+
+for (const button of document.querySelectorAll("[data-turn]")) {
+  button.addEventListener("click", () => turn(button.dataset.turn));
+}
 refresh();
 
 async function loadSample(number) {
@@ -122,6 +178,12 @@ async function play(key, sharpen = false) {
 
 document.addEventListener("keydown", event => {
   if (event.repeat || event.ctrlKey || event.metaKey || event.altKey || /^(INPUT|SELECT|TEXTAREA)$/.test(event.target.tagName)) return;
+  const commands = { Tab: "key-left", Enter: "key-right", Backquote: "mode-left", Backspace: "mode-right" };
+  if (event.target === document.body && !event.shiftKey && commands[event.code]) {
+    event.preventDefault();
+    turn(commands[event.code]);
+    return;
+  }
   const entry = [...buttons].find(([key]) => (codes[key[0]] || `Key${key[0]}`) === event.code);
   if (!entry || entry[1].disabled) return;
   event.preventDefault();

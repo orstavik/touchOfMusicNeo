@@ -28,11 +28,26 @@
       <label class="checkbox"><input type="checkbox" id="chords" checked> Play chords on the bottom row</label>
     </section>
 
+    <section class="scale-controls" aria-label="Scale flower and shortcuts">
+      <div id="flower" class="flower" role="img"></div>
+      <div>
+        <h2>Explore the scale</h2>
+        <p>Tab / Enter change key by a fifth. ` / Backspace change mode. Hold Shift to sharpen a single note.</p>
+        <p>Shortcuts work when the page background is focused; use the buttons or selectors when navigating controls.</p>
+        <div class="turn-buttons">
+          <button type="button" data-turn="key-left">Key left</button>
+          <button type="button" data-turn="key-right">Key right</button>
+          <button type="button" data-turn="mode-left">Mode left</button>
+          <button type="button" data-turn="mode-right">Mode right</button>
+        </div>
+      </div>
+    </section>
+
     <section class="instrument" aria-label="Music keyboard">
       <div class="instrument-heading">
         <div>
           <h2>Make some music</h2>
-          <p>Hold Shift to sharpen a single note. Keys use the original layout.</p>
+          <p>Keys use the original layout.</p>
         </div>
         <p id="scale" class="scale"></p>
       </div>
