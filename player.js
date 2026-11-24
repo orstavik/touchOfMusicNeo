@@ -178,10 +178,20 @@ async function play(key, sharpen = false) {
 
 document.addEventListener("keydown", event => {
   if (event.repeat || event.ctrlKey || event.metaKey || event.altKey || /^(INPUT|SELECT|TEXTAREA)$/.test(event.target.tagName)) return;
-  const commands = { Tab: "key-left", Enter: "key-right", Backquote: "mode-left", Backspace: "mode-right" };
-  if (event.target === document.body && !event.shiftKey && commands[event.code]) {
-    event.preventDefault();
-    turn(commands[event.code]);
+  const commands = {
+    Tab: "key-left", Enter: "key-right",
+    ArrowDown: "key-left", ArrowUp: "key-right",
+    ArrowLeft: "mode-left", ArrowRight: "mode-right",
+    CapsLock: "mode-left", Backquote: "mode-left", Backspace: "mode-right"
+  };
+  const letterCommands = { "å": "key-right", "æ": "mode-right" };
+  const letterCommand = letterCommands[event.key.toLowerCase()];
+  const command = letterCommand || commands[event.code];
+  if (command) {
+    if (event.target === document.body && !event.shiftKey) {
+      event.preventDefault();
+      turn(command);
+    }
     return;
   }
   const entry = [...buttons].find(([key]) => (codes[key[0]] || `Key${key[0]}`) === event.code);
